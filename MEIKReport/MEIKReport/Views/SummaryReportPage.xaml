@@ -1,0 +1,310 @@
+﻿<Window x:Class="MEIKReport.Views.SummaryReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:s ="clr-namespace:System;assembly=mscorlib"
+      xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+      Height="1183" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">
+    <Grid Background="#FFB8B8B8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Name="previewBtn" Width="100" Height="28" Margin="0,0,10,0" Click="previewBtn_Click">PrintPreview</Button>
+                <Button Name="printBtn" Width="100" Height="28" Margin="0,0,10,0" Click="printBtn_Click">Print</Button>
+                <Button Name="saveBtn" Width="100" Height="28" Margin="0,0,10,0" Click="save_Click">Save</Button>
+            </WrapPanel>
+            <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
+            </WrapPanel>
+        </Grid>
+        <ScrollViewer Name="reportPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="#FFB8B8B8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="794"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="1123"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1" Grid.Row="1" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="754"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="1083"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid Name="reportDataGrid" Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2.1*"/>
+                            <RowDefinition Height=".3*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height=".2*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.2*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1.3*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="12*"/>
+                            <RowDefinition Height="0.3*"/>
+                            <!--<RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>-->
+
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <!--<ColumnDefinition Width="100"/>-->
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <!--<RowDefinition Height="3*"/>-->
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--<Image Source="/Images/livite.jpg" Grid.Row="0" Grid.Column="0"></Image>
+                            <Image Source="/Images/logo.jpg" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"></Image>-->
+                            <TextBlock Text="PATIENT'S MEIK RESULT" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock Text="MEIK v.5.6 - Digital Mammograph Summary Report" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                        </Grid>
+                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,3"></Border>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Date of Screening: " FontWeight="Bold"/>
+                            <extToolkit:DateTimePicker Name="dataScreenDate" Height="20" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>
+                            <!--<DatePicker x:Name="SellStartDateText" Height="16" Width="120" VerticalContentAlignment="Stretch" VerticalAlignment="Center" BorderThickness="0"/>-->
+                            <!--<TextBlock Text="October 25, 2014" Width="120" TextDecorations="Underline"/>-->
+                            <TextBlock Text="Screening Location: " FontWeight="Bold" Margin="60,0,0,0"/>
+                            <TextBox Name="dataScreenLocation" Text="{Binding DataScreenLocation}" Width="320" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
+                            <!--<ComboBox Name="dataScreenLocation" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="2" FontSize="10">                                
+                                <ComboBoxItem IsSelected="True">DPMMH</ComboBoxItem>                                
+                            </ComboBox>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Medical Record No. (MRN): " FontWeight="Bold"/>
+                            <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="500"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Name: " FontWeight="Bold"/>
+                            <TextBlock Name="dataName" Text="{Binding DataName}" Width="250"/>
+                            <TextBlock Text="Age: " FontWeight="Bold"/>
+                            <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="150"/>
+                        </StackPanel>
+                        <Border Grid.Row="6" BorderBrush="Black" BorderThickness="0,0,0,1">
+                        </Border>
+                        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="" Width="180"/>
+                            <TextBlock Text="Left Breast" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
+                            <TextBlock Text="Right Breast" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="" Width="100"/>
+                            <TextBlock Text="Finding: " FontWeight="Bold"/>
+                            <ComboBox Name="dataLeftFinding" Text="{Binding DataLeftFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
+                                <ComboBoxItem>No pathological changes</ComboBoxItem>
+                                <ComboBoxItem>Benign findings</ComboBoxItem>
+                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
+                                <ComboBoxItem>Suspicious abnormality</ComboBoxItem>                                
+                            </ComboBox>
+                            <TextBlock Width="20"/>
+                            <!--<TextBlock Text="Probably benign findings" Width="200"/>-->
+                            <TextBlock Text="Finding: " FontWeight="Bold"/>
+                            <ComboBox Name="dataRightFinding" Text="{Binding DataRightFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
+                                <ComboBoxItem>No pathological changes</ComboBoxItem>
+                                <ComboBoxItem>Benign findings</ComboBoxItem>
+                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
+                                <ComboBoxItem>Suspicious abnormality</ComboBoxItem>
+                            </ComboBox>
+                            <!--<TextBlock Text="Probably benign findings" Width="200"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Location: " Width="150" FontWeight="Bold"/>
+                            <TextBox Name="dataLeftLocation" Text="{Binding DataLeftLocation}" Width="195" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
+                            <TextBox Name="dataRightLocation" Text="{Binding DataRightLocation}" Width="200" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <!--<TextBlock Text="6	o'clock" Width="200" FontWeight="Bold"/>-->
+                            <!--<TextBlock Text="6	o'clock" Width="200" FontWeight="Bold"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Size: " Width="150" FontWeight="Bold"/>
+                            <TextBox Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="195" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
+                            <TextBox Name="dataRightSize" Text="{Binding DataRightSize}" Width="200" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <!--<TextBlock Text="mm" Width="200" FontWeight="Bold"/>
+                            <TextBlock Text="3x3; 3x3; 7x7 mm" Width="200" FontWeight="Bold"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="BI-RADS category: " Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>Not available</ComboBoxItem>
+                                <ComboBoxItem>0 Category -  Poor Image - Re-Screen</ComboBoxItem>
+                                <ComboBoxItem>1 Category -  No pathological changes detected</ComboBoxItem>
+                                <ComboBoxItem>2 Category -  Benign lesion</ComboBoxItem>
+                                <ComboBoxItem>3 Category -  Probably benign findings</ComboBoxItem>
+                                <ComboBoxItem>4 Category -  Suspicious abnormality</ComboBoxItem>
+                                <ComboBoxItem>5 Category - Highly suggestive malignancy</ComboBoxItem>
+                            </ComboBox>
+                            <!--<TextBlock Text="3  -  Probably benign findings" Width="550" FontWeight="Bold" />-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Recommendation: " Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>MEIK Re-examination in 3 months</ComboBoxItem>
+                                <ComboBoxItem>MEIK Re-examination in 6 months</ComboBoxItem>
+                                <ComboBoxItem>MEIK Yearly Routine</ComboBoxItem>                                
+                            </ComboBox>
+                            <!--<TextBlock Text="MEIK Re-examination in 3 months" Width="550" FontWeight="Bold" />-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Further examination: " Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>Breast Ultrasound</ComboBoxItem>
+                                <ComboBoxItem>Standard Mammogram</ComboBoxItem>
+                                <ComboBoxItem>Biopsy</ComboBoxItem>                                
+                            </ComboBox>
+                            <!--<TextBlock Text="Biopsy" Width="550" FontWeight="Bold" />-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataConclusion" Text="{Binding DataConclusion}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
+                                <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
+                                <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
+                            </ComboBox>
+                            <!--<TextBlock Text="Suspicious lesion detected. Suggest further evaluation and management." Width="500"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="" Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
+                                <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
+                                <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
+                            </ComboBox>
+                            <!--<TextBlock Text="Choose an item." Width="500"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="Comments: " Width="150" FontWeight="Bold"/>
+                            <ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem>For further consultation pls. contact Nuvotek at 0917-984-8105 or Landline 475-8961 to make an appt.</ComboBoxItem>
+                                <ComboBoxItem>For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</ComboBoxItem>                                
+                            </ComboBox>
+                            <!--<TextBlock Text="For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt." Width="500"/>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="17" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="    Refer to surgeon for follow-up biopsy as soon as possible" Width="500"/>
+                        </StackPanel>
+                        <Border Grid.Row="18" BorderBrush="Black" BorderThickness="0,1,0,1">
+                        </Border>
+                        <Grid  Grid.Row="19" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.5*"/>
+                                <RowDefinition Height="4"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <extToolkit:DateTimePicker Name="dataSignDate" VerticalAlignment="Bottom" Height="26" Width="140" FontSize="14" Value="{x:Static s:DateTime.Today}" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerVisibility="Hidden" TextAlignment="Left" TimePickerShowButtonSpinner="False"/>
+                            <!--<DatePicker Grid.Column="0" Width="150" VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="{x:Null}" SelectedDateFormat="Long" SelectedDate="{x:Static s:DateTime.Today}"/>-->
+                            <Grid Name="signPanel" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                <Image Name="dataSignImg" Height="40" Width="204"></Image>                                
+                            </Grid>
+                            <Border Grid.Row="1" Grid.Column="0" Width="200" BorderBrush="Black" BorderThickness="0,1,0,0"/>
+                            <Border Grid.Row="1" Grid.Column="1" Width="250" BorderBrush="Black" BorderThickness="0,1,0,0"/>                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Date" Width="30"/>
+                            <Button Name="btnSignature" Style="{StaticResource NewButtonStyle}" Grid.Row="2" Grid.Column="1" Content="Doctor's Signature" Height="24" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnSignature_Click" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}"></Button>
+                        </Grid>
+                        
+                        
+                        <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="MEIK Technician: " Width="120"/>
+                            <TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <!--<TextBlock Text="Rizza Joanna C. Salas - RN" Width="350" />-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="Doctor:" Width="120"/>
+                            <TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <!--<TextBlock Text="Dr. Maria Cristina B. Almonte" Width="350" />-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="BI – RADS Categories: " Width="120"/>                            
+                            <TextBlock Text="BI – RADS 0 poor image   BI – RADS 1 lesion is not defined	BI – RADS 2 benign tumours – routine mammography   BI – RADS 3 probably benign findings	BI – RADS 4 suspicious abnormality – biopsy" Width="600" TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="The above described results are based on interpretations at the time of the scan and must be correlated with previous mammogram and ultrasound results (if any), clinical history, clinical findings and other ancillary procedures." Width="650" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="25" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="MEIK is a screening procedure and is an adjunct modality for Mammography &amp; Breast Ultrasound." Width="650"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="26" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="*Green marks indicate benign findings and red marks indicate suspicious changes" Width="580"/>
+                            <TextBlock Text="Revised by NUM 11/21/14" Width="200"/>
+                        </StackPanel>
+                        <WrapPanel Grid.Row="27" HorizontalAlignment="Right" >
+                            <Button Name="btnScreenShot" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnScreenShot_Click">Capture Screen</Button>
+                            <Button Name="btnRemoveImg" Margin="10,0,0,0" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnRemoveImg_Click">Remove Image</Button>
+                        </WrapPanel>
+                        <Grid Grid.Row="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Name="dataScreenShotImg" Height="300" Width="780" VerticalAlignment="Center"/>                            
+                        </Grid>
+
+                        <!--<StackPanel Grid.Row="30" Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <TextBlock Text="Nuvotek, Inc.  1155 Quirino Highway, Novaliches, Quezon City, Metro Manila, Philippines 1124"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="31" Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <TextBlock Text="Telefax No: (632) 939-1712"/>
+                        </StackPanel>-->
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

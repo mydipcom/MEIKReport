@@ -1,0 +1,431 @@
+﻿<FixedPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               Height="1123" Width="794">
+    <Grid Grid.Column="1" Grid.Row="1" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="754"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="1083"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <TextBlock Text="Mammary Glands Electrical Impedance Examination Report" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <TextBlock Text="3D-Electro-Mammograph – MEIK v.5.6" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Full name: " FontWeight="Bold"/>
+                <TextBlock Name="dataName" Text="" Width="180" TextDecorations="Underline"/>
+                <TextBlock Text="Screening Date: " FontWeight="Bold"/>
+                <TextBlock Name="dataScreenDate" Text="" Width="150"/>
+                <TextBlock Text="Gender: " FontWeight="Bold"/>
+                <TextBlock Name="dataGender" Text="" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Screening Location: " FontWeight="Bold"/>
+                <TextBlock Name="dataScreenLocation" Text="" Width="580"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Address: " FontWeight="Bold"/>
+                <TextBlock Name="dataAddress" Text="" Width="380" TextDecorations="Underline"/>
+                <TextBlock Text="Health insurance card: " FontWeight="Bold"/>
+                <TextBlock Name="dataHealthCard" Text="" Width="180"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="MRN# (Code):  " FontWeight="Bold"/>
+                <TextBlock Name="dataUserCode" Text="" Width="150" TextDecorations="Underline"/>
+                <TextBlock Name="dataAge" Text="Age: " FontWeight="Bold"/>
+                <TextBlock Text="" Width="60"/>
+                <TextBlock Text="Weight: " FontWeight="Bold"/>
+                <TextBlock Name="dataWeight" Text="" Width="90"/>
+                <TextBlock Text="Menstrual cycle: " FontWeight="Bold"/>
+                <TextBlock Name="dataMenstrualCycle" Text="" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Hormones: " FontWeight="Bold"/>
+                <TextBlock Name="dataHormones" Text="" Width="140" TextDecorations="Underline"/>
+                <TextBlock Text="Skin affections: " FontWeight="Bold"/>
+                <TextBlock Name="dataSkinAffections" Text="" Width="450"/>
+            </StackPanel>
+            <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Pertinent/Family history of breast cancer: " FontWeight="Bold"/>
+                <TextBlock Name="dataPertinentHistory" Text="" Width="100"/>
+                <TextBlock Text="- Mother  Ultrasound/Mammogram findings: " FontWeight="Bold"/>
+                <TextBlock Name="dataMotherUltra" Text="" Width="140"/>
+            </StackPanel>
+            <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Images Chosen: " Width="130" FontWeight="Bold" Margin="250,0,0,0"/>
+                <TextBlock Text="Left Breast: "/>
+                <TextBlock Text="10:05am" Width="80"/>
+                <TextBlock Text="Right Breast: "/>
+                <TextBlock Text="10:05am" Width="80"/>
+            </StackPanel>
+            <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="VISUAL CHARACTERISTIC OF THE IMAGE" Width="400" FontWeight="Bold"/>
+                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Palpable Mass: " Width="380"/>
+                <TextBlock Text="Positive" Width="150" />
+                <TextBlock Text="Positive" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Focal / Diffuse changes of electrical conductivity" Width="380"/>
+                <TextBlock Text="Focal" Width="150" />
+                <TextBlock Text="Focal" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Mammary gland structure" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Lactiferous sinus zone" Width="380"/>
+                <TextBlock Text="Not Dilated" Width="150" />
+                <TextBlock Text="Not Dilated" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Mammary gland contour" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="17" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="DESCRIPTION OF FOCAL CHANGES OF ELECTRICAL CONDUCTIVITY" Width="400" FontWeight="Bold"/>
+                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="18" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Segment" Width="380"/>
+                <TextBlock Text="Positive" Width="150" />
+                <TextBlock Text="Positive" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="19" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Number" Width="380"/>
+                <TextBlock Text="Focal" Width="150" />
+                <TextBlock Text="Focal" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="20" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Size" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Shape" Width="380"/>
+                <TextBlock Text="mm" Width="150" />
+                <TextBlock Text="3x3 / 3x3 / 7x7mm" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Contour around focus" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Internal electrical structure" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Surrounding tissues and peripheral contour" Width="380"/>
+                <TextBlock Text="Preserved" Width="150" />
+                <TextBlock Text="Preserved" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="25" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="QUANTITATIVE CHARACTERISTICS" Width="400" FontWeight="Bold"/>
+                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="26" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Reference values" Margin="280,0,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="27" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Oncomarker Highlight" Width="200"/>
+                <TextBlock Text="Benign Changes" Width="180" />
+                <TextBlock Text="positive" Width="150"/>
+                <TextBlock Text="positive" Width="150" />
+            </StackPanel>
+            <StackPanel Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="200"/>
+                <TextBlock Text="Suspicious Changes" Width="180" />
+                <TextBlock Text="positive" Width="150"/>
+                <TextBlock Text="positive" Width="150" />
+            </StackPanel>
+            <StackPanel Grid.Row="29" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Mean electrical conductivity" Width="220"/>
+                <TextBlock Text="1 phase" Width="160" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="30" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="2 phase" Width="160" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="31" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="Choose an item" Width="160" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="32" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Comparative electrical conductivity" Width="220"/>
+                <TextBlock Text="1 phase" Width="80" />
+                <TextBlock Text="(-0.07-0.07)" Width="80" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="33" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="2 phase" Width="80" />
+                <TextBlock Text="(-0.07-0.07)" Width="80" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="34" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="Choose an item" Width="160" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="35" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Divergence between histograms" Width="220"/>
+                <TextBlock Text="1 phase" Width="80" />
+                <TextBlock Text="(below 40%)" Width="80" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="36" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="2 phase" Width="80" />
+                <TextBlock Text="(below 40%)" Width="80" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="37" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="220"/>
+                <TextBlock Text="Choose an item" Width="160" />
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="65" TextDecorations="Underline"/>
+                <TextBlock Text="Choose an item" Width="85"/>
+                <TextBlock Text=".57/.71" Width="100" TextDecorations="Underline"/>
+            </StackPanel>
+            <StackPanel Grid.Row="38" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Comparison with Norm" Width="380"/>
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="%" Width="65" />
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="%" Width="65" />
+            </StackPanel>
+            <StackPanel Grid.Row="39" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Phase electrical conductivity" Width="300"/>
+                <TextBlock Text="(-0.11-0.11)" Width="80" />
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="28.29%" Width="65" TextDecorations="Underline" />
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="37.82%" Width="65" TextDecorations="Underline" />
+            </StackPanel>
+            <StackPanel Grid.Row="40" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Age-related electrical conductivity" Width="300"/>
+                <TextBlock Text="( .26  / .22 )" Width="80" />
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="%" Width="65" />
+                <TextBlock Text="" Width="85" />
+                <TextBlock Text="%" Width="65" />
+            </StackPanel>
+            <StackPanel Grid.Row="41" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Age Value of EC" Width="220"/>
+                <TextBlock Text="20-29   0.18   0.28   0.44" Width="200" />
+            </StackPanel>
+            <StackPanel Grid.Row="42" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <Rectangle Width="760" Fill="Black" Height="2"></Rectangle>
+            </StackPanel>
+            <StackPanel Grid.Row="43" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Pubertal Period" Width="250" />
+            </StackPanel>
+            <StackPanel Grid.Row="44" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Left mammary gland: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="0.22 - 0.29 Mixed type predominantly ductal" Width="250" />
+                <TextBlock Text="Age-related electrical conductivity: " Width="200"/>
+                <TextBlock Text="&lt; 5 %" Width="150" />
+            </StackPanel>
+            <StackPanel Grid.Row="45" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="  Mean EC of  lesion: " Width="110"/>
+                <TextBlock Text="0.62" Width="50" />
+                <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
+                <TextBlock Text="Focal changes of electroconductivity detected. (Mean Electrical Conductivity; EC lesion):" Width="500" />
+            </StackPanel>
+            <StackPanel Grid.Row="46" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="  Result: " Width="50" FontWeight="Bold"/>
+                <TextBlock Text="Left mammary gland: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Probably Benign Findings" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="47" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="0.22 - 0.29 Mixed type predominantly ductal" Width="250" />
+                <TextBlock Text="Age-related electrical conductivity: " Width="200"/>
+                <TextBlock Text="&lt; 5 %" Width="150" />
+            </StackPanel>
+            <StackPanel Grid.Row="48" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="  Mean EC of  lesion: " Width="110"/>
+                <TextBlock Text="0.62" Width="50" />
+                <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
+                <TextBlock Text="Focal changes of electroconductivity detected. (Mean Electrical Conductivity; EC lesion):" Width="500" />
+            </StackPanel>
+            <StackPanel Grid.Row="49" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="  Result: " Width="50" FontWeight="Bold"/>
+                <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Probably Benign Findings" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="50" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <Rectangle Width="760" Fill="Black" Height="2"></Rectangle>
+            </StackPanel>
+            <StackPanel Grid.Row="51" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="BI-EIM: " Width="50" FontWeight="Bold"/>
+                <TextBlock Text="Total Pts: " Width="60" FontWeight="Bold"/>
+                <TextBlock Text="4" Width="50"/>
+                <TextBlock Text="Point / Category: " Width="100" FontWeight="Bold"/>
+                <TextBlock Text="4 pt - 3 Category" Width="120"/>
+                <TextBlock Text="Technician: " Width="70"/>
+                <TextBlock Text="Belen D. Bernardo - RN, MAN" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="BI-RADS category: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="3 Category - Probably benign findings" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Recommendations: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="MEIK Re-examination in 3 months" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Suggestion: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Biopsy" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Suspicious lesion detected. Suggest further evaluation and management." Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="150" FontWeight="Bold"/>
+                <TextBlock Text="Choose an item." Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="57" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="Comments: " Width="150"/>
+                <TextBlock Text="For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt." Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="58" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="150"/>
+                <TextBlock Text="    Refer to Surgeon – Follow up Biopsy" Width="500"/>
+            </StackPanel>
+            <StackPanel Grid.Row="59" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                <TextBlock Text="Doctor: " Width="150"/>
+                <TextBlock Text="Dr. Maria Cristina B. Almonte" Width="280"/>
+                <TextBlock Text="Doctor's Signature: " Width="110"/>
+                <Border BorderBrush="Black" Width="200" BorderThickness="0,0,0,1">
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="61" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="160"/>
+                <TextBlock Text="1.  Electrical impedance examination (MEIK) is a primary screening tool to detect mammary gland diseases." Width="580" FontStyle="Italic" FontSize="8"/>
+            </StackPanel>
+            <StackPanel Grid.Row="62" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="" Width="160"/>
+                <TextBlock Text="2.  In electrical impedance examination (MEIK), impedance-negative tumours may occur." Width="460" FontStyle="Italic" FontSize="8"/>
+                <TextBlock Text="Revised by NUM 11/03/14" Width="120" FontSize="8"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+
+</FixedPage>
