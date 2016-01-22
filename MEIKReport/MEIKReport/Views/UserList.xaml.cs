@@ -115,6 +115,14 @@ namespace MEIKReport
             }
                      
             customerSource.Source = set;
+            if (set.Count > 0)
+            {
+                reportButtonPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                reportButtonPanel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void exitReport_Click(object sender, RoutedEventArgs e)

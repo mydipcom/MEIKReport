@@ -1,7 +1,5 @@
 ﻿<FixedPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:sys="clr-namespace:System;assembly=mscorlib"
-           xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"           
                Height="1123" Width="794">
     <Grid Grid.Column="1" Grid.Row="1" Background="White">
         <Grid.ColumnDefinitions>

@@ -3,6 +3,7 @@ using MEIKReport.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 using System.Xml;
 
 namespace MEIKReport.Views
@@ -58,9 +61,7 @@ namespace MEIKReport.Views
                     //    this.reportPage = scrollViewer;
                     //}
                     this.shortFormReportModel=SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
-                    this.reportDataGrid.DataContext = this.shortFormReportModel;
-                    this.dataScreenDate.Text = shortFormReportModel.DataScreenDate;
-                    this.dataSignDate.Text = shortFormReportModel.DataSignDate;
+                                        
                     if (shortFormReportModel.DataScreenShotImg != null)
                     {
                         this.dataScreenShotImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataScreenShotImg);
@@ -73,18 +74,24 @@ namespace MEIKReport.Views
                 }
                 else
                 {
-                    this.dataUserCode.Text = person.Code;
-                    this.dataName.Text = person.SurName;
-                    this.dataAge.Text = person.Age + "";
-                    this.dataScreenDate.Value = DateTime.Parse(person.Regdate);
+                    shortFormReportModel.DataUserCode = person.Code;
+                    shortFormReportModel.DataName = person.SurName;
+                    shortFormReportModel.DataAge = person.Age + "";                    
+                    shortFormReportModel.DataScreenDate = DateTime.Parse(person.Regdate).ToLongDateString();
+                    shortFormReportModel.DataSignDate = DateTime.Today.ToLongDateString();
                     bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     if (defaultSign)
                     {
-                        dataSignImg.Source = ImageTools.GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg");
-                        //dataScreenShotImg.Source = GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Images/BigIcon.png");
+                        string imgFile = AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg";
+                        if (File.Exists(imgFile))
+                        {
+                            dataSignImg.Source = ImageTools.GetBitmapImage(imgFile);
+                            //dataScreenShotImg.Source = GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Images/BigIcon.png");
+                        }
                     }
                     
                 }
+                this.reportDataGrid.DataContext = this.shortFormReportModel;
             }
 
             
@@ -124,7 +131,12 @@ namespace MEIKReport.Views
             PrintDialog pdlg = new PrintDialog();
             if (pdlg.ShowDialog() == true)
             {
-                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/SummaryReportDocument.xaml", shortFormReportModel);
+                string reportTempl = "Views/SummaryReportDocument.xaml";
+                if (this.dataScreenShotImg.Source != null)
+                {
+                    reportTempl = "Views/SummaryReportImageDocument.xaml";
+                }
+                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
                 FixedDocument fixedDoc = new FixedDocument();//创建一个文档
                 fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
 
@@ -182,6 +194,7 @@ namespace MEIKReport.Views
         {
             shortFormReportModel.DataUserCode = this.dataUserCode.Text;
             shortFormReportModel.DataAge = this.dataAge.Text;
+            shortFormReportModel.DataAddress = person.Address;
             shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;            
             shortFormReportModel.DataComments = this.dataComments.Text;
             shortFormReportModel.DataConclusion = this.dataConclusion.Text;
@@ -269,8 +282,7 @@ namespace MEIKReport.Views
 
         private void LoadScreenShot(Object imgFileName)
         {
-            dataScreenShotImg.Source = ImageTools.GetBitmapImage(imgFileName as string);
-            this.btnRemoveImg.IsEnabled = true;
+            dataScreenShotImg.Source = ImageTools.GetBitmapImage(imgFileName as string);            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -284,8 +296,32 @@ namespace MEIKReport.Views
 
         private void btnRemoveImg_Click(object sender, RoutedEventArgs e)
         {
-            this.dataScreenShotImg.Source = null;
-            this.btnRemoveImg.IsEnabled = false;
+            this.dataScreenShotImg.Source = null;            
+        }
+
+        private void savePdfBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string xpsFile = dataFolder + "/" + person.Code + ".xps";
+            if (File.Exists(xpsFile)) {
+                File.Delete(xpsFile);
+            }
+            string reportTempl = "Views/SummaryReportDocument.xaml";
+            if (this.dataScreenShotImg.Source != null)
+            {
+                reportTempl = "Views/SummaryReportImageDocument.xaml";
+            }
+            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+            XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
+            //将flow document写入基于内存的xps document中去
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);            
+            writer.Write(page);            
+            xpsDocument.Close();
+            var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
+            if (dlg.ShowDialog(this) == true)
+            {
+                PDFTools.SavePDFFile(xpsFile, dlg.FileName);
+            }
+            
         }
         
     }

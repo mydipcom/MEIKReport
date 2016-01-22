@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:s ="clr-namespace:System;assembly=mscorlib"
       xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-      Height="1183" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">
+      Icon="/MEIKReport;component/Images/MEIK-ICON.png"
+      Height="1233" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">
     <Grid Background="#FFB8B8B8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,21 +16,22 @@
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Button Name="previewBtn" Width="100" Height="28" Margin="0,0,10,0" Click="previewBtn_Click">PrintPreview</Button>
                 <Button Name="printBtn" Width="100" Height="28" Margin="0,0,10,0" Click="printBtn_Click">Print</Button>
+                <Button Name="savePdfBtn" Width="100" Height="28" Margin="0,0,10,0" Click="savePdfBtn_Click">Export to PDF</Button>
                 <Button Name="saveBtn" Width="100" Height="28" Margin="0,0,10,0" Click="save_Click">Save</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
             </WrapPanel>
         </Grid>
-        <ScrollViewer Name="reportPage" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="#FFB8B8B8">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid Name="reportPage" ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="#FFB8B8B8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="794"/>
@@ -38,7 +40,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="1123"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1" Grid.Row="1" Background="White">
                     <Grid.ColumnDefinitions>
@@ -110,7 +112,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Date of Screening: " FontWeight="Bold"/>
-                            <extToolkit:DateTimePicker Name="dataScreenDate" Height="20" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>
+                            <extToolkit:DateTimePicker Name="dataScreenDate" Text="{Binding DataScreenDate}" Height="20" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>
                             <!--<DatePicker x:Name="SellStartDateText" Height="16" Width="120" VerticalContentAlignment="Stretch" VerticalAlignment="Center" BorderThickness="0"/>-->
                             <!--<TextBlock Text="October 25, 2014" Width="120" TextDecorations="Underline"/>-->
                             <TextBlock Text="Screening Location: " FontWeight="Bold" Margin="60,0,0,0"/>
@@ -121,13 +123,13 @@
                         </StackPanel>
                         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Medical Record No. (MRN): " FontWeight="Bold"/>
-                            <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="500"/>
+                            <TextBox Name="dataUserCode" Text="{Binding DataUserCode}" Width="500" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
                         </StackPanel>
                         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Name: " FontWeight="Bold"/>
-                            <TextBlock Name="dataName" Text="{Binding DataName}" Width="250"/>
-                            <TextBlock Text="Age: " FontWeight="Bold"/>
-                            <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="150"/>
+                            <TextBox Name="dataName" Text="{Binding DataName}" Width="250" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
+                            <TextBlock Text="Age: " FontWeight="Bold" Margin="5,0,0,0"/>
+                            <TextBox Name="dataAge" Text="{Binding DataAge}" Width="145" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
                         </StackPanel>
                         <Border Grid.Row="6" BorderBrush="Black" BorderThickness="0,0,0,1">
                         </Border>
@@ -140,7 +142,7 @@
                             <TextBlock Text="" Width="100"/>
                             <TextBlock Text="Finding: " FontWeight="Bold"/>
                             <ComboBox Name="dataLeftFinding" Text="{Binding DataLeftFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Probably benign findings</ComboBoxItem>
                                 <ComboBoxItem>No pathological changes</ComboBoxItem>
                                 <ComboBoxItem>Benign findings</ComboBoxItem>
@@ -151,7 +153,7 @@
                             <!--<TextBlock Text="Probably benign findings" Width="200"/>-->
                             <TextBlock Text="Finding: " FontWeight="Bold"/>
                             <ComboBox Name="dataRightFinding" Text="{Binding DataRightFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Probably benign findings</ComboBoxItem>
                                 <ComboBoxItem>No pathological changes</ComboBoxItem>
                                 <ComboBoxItem>Benign findings</ComboBoxItem>
@@ -177,7 +179,7 @@
                         <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="BI-RADS category: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Not available</ComboBoxItem>
                                 <ComboBoxItem>0 Category -  Poor Image - Re-Screen</ComboBoxItem>
                                 <ComboBoxItem>1 Category -  No pathological changes detected</ComboBoxItem>
@@ -191,7 +193,7 @@
                         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Recommendation: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>MEIK Re-examination in 3 months</ComboBoxItem>
                                 <ComboBoxItem>MEIK Re-examination in 6 months</ComboBoxItem>
                                 <ComboBoxItem>MEIK Yearly Routine</ComboBoxItem>                                
@@ -201,7 +203,7 @@
                         <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Further examination: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Breast Ultrasound</ComboBoxItem>
                                 <ComboBoxItem>Standard Mammogram</ComboBoxItem>
                                 <ComboBoxItem>Biopsy</ComboBoxItem>                                
@@ -211,7 +213,7 @@
                         <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion" Text="{Binding DataConclusion}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
                                 <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
                                 <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
@@ -221,17 +223,17 @@
                         <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
                                 <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
                                 <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
                             </ComboBox>
-                            <!--<TextBlock Text="Choose an item." Width="500"/>-->
+                            <!--<TextBlock Text="." Width="500"/>-->
                         </StackPanel>
                         <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="Comments: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact Nuvotek at 0917-984-8105 or Landline 475-8961 to make an appt.</ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</ComboBoxItem>                                
                             </ComboBox>
@@ -252,7 +254,7 @@
                                 <RowDefinition Height="4"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <extToolkit:DateTimePicker Name="dataSignDate" VerticalAlignment="Bottom" Height="26" Width="140" FontSize="14" Value="{x:Static s:DateTime.Today}" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerVisibility="Hidden" TextAlignment="Left" TimePickerShowButtonSpinner="False"/>
+                            <extToolkit:DateTimePicker Name="dataSignDate" VerticalAlignment="Bottom" Height="26" Width="140" FontSize="14" Text="{Binding DataSignDate}" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerVisibility="Hidden" TextAlignment="Left" TimePickerShowButtonSpinner="False"/>
                             <!--<DatePicker Grid.Column="0" Width="150" VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="{x:Null}" SelectedDateFormat="Long" SelectedDate="{x:Static s:DateTime.Today}"/>-->
                             <Grid Name="signPanel" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                 <Image Name="dataSignImg" Height="40" Width="204"></Image>                                

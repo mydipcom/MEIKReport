@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:s ="clr-namespace:System;assembly=mscorlib"
       xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-      Height="1183" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">    
+      Icon="/MEIKReport;component/Images/MEIK-ICON.png"
+      Height="1233" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">    
     <Grid Background="#FFB8B8B8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>            
@@ -15,17 +16,18 @@
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Button Name="previewBtn" Width="100" Height="28" Margin="0,0,10,0" Click="previewBtn_Click">PrintPreview</Button>
                 <Button Name="printBtn" Width="100" Height="28" Margin="0,0,10,0" Click="printBtn_Click">Print</Button>
+                <Button Name="savePdfBtn" Width="100" Height="28" Margin="0,0,10,0" Click="savePdfBtn_Click">Export to PDF</Button>
                 <Button Name="save" Width="100" Height="28" Margin="0,0,10,0" Click="save_Click">Save</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0">Open Diagnostics Window</Button>
+                <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
             </WrapPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,10,0,-10">
@@ -38,7 +40,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="1123"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="1" Background="White">
@@ -129,12 +131,13 @@
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Full name: " FontWeight="Bold"/>
-                            <TextBlock Name="dataName" Text="{Binding DataName}" Width="230" TextDecorations="Underline" FontSize="10"/>
+                            <TextBox Name="dataName" Text="{Binding DataName}" VerticalAlignment="Center" Width="230" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
+                            <!--<TextBlock Name="dataName" Text="{Binding DataName}" Width="230" TextDecorations="Underline" FontSize="10"/>-->
                             <TextBlock Text="Screening Date: " FontWeight="Bold" Margin="20,0,0,0"/>
-                            <extToolkit:DateTimePicker Name="dataScreenDate" Height="18" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left" FontSize="10"/>
+                            <extToolkit:DateTimePicker Name="dataScreenDate" Text="{Binding DataScreenDate}" Height="18" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left" FontSize="10"/>
                             <TextBlock Text="Gender: " FontWeight="Bold" Margin="5,0,0,0"/>
                             <ComboBox Name="dataGender" Text="{Binding DataGender}" Width="110" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Female</ComboBoxItem>
                                 <ComboBoxItem>Male</ComboBoxItem>
                             </ComboBox>                            
@@ -145,7 +148,8 @@
                         </StackPanel>
                         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Address: " FontWeight="Bold"/>
-                            <TextBlock Name="dataAddress" Text="{Binding DataAddress}" Width="380" Height="18" Margin="0,0,5,0" FontSize="10"></TextBlock>
+                            <TextBox Name="dataAddress" Text="{Binding DataAddress}" VerticalAlignment="Center" Width="380" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
+                            <!--<TextBlock Name="dataAddress" Text="{Binding DataAddress}" Width="380" Height="18" Margin="0,0,5,0" FontSize="10"></TextBlock>-->
                             <!--<TextBlock Text="" Width="380" TextDecorations="Underline"/>-->
                             <TextBlock Text="Health insurance card: " FontWeight="Bold"/>
                             <TextBox Name="dataHealthCard" Text="{Binding DataHealthCard}" Width="180" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
@@ -155,17 +159,18 @@
                             <TextBlock Text="MRN# (Code):  " FontWeight="Bold"/>
                             <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="150" TextDecorations="Underline" FontSize="10"/>
                             <TextBlock Text="Age: " FontWeight="Bold" Margin="10,0,0,0"/>
-                            <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="60" FontSize="10"/>
+                            <TextBox Name="dataAge" Text="{Binding DataAge}" Width="55" Margin="0,0,5,0" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
+                            <!--<TextBlock Name="dataAge" Text="{Binding DataAge}" Width="60" FontSize="10"/>-->
                             <TextBlock Text="Weight: " FontWeight="Bold"/>
                             <TextBox Name="dataWeight" Text="{Binding DataWeight}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
-                            <ComboBox Name="dataWeightUnit" Text="{Binding DataWeightUnit}" Width="50" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
+                            <ComboBox Name="dataWeightUnit" Text="{Binding DataWeightUnit}" Height="18" Width="50" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
                                 <ComboBoxItem>Lbs</ComboBoxItem>
                                 <ComboBoxItem IsSelected="True">Kgs</ComboBoxItem>                                
                             </ComboBox>
                             <!--<TextBlock Text="" Width="102"/>-->
                             <TextBlock Text="Menstrual cycle: " FontWeight="Bold"/>
                             <ComboBox Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}" Width="161" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Phase 1</ComboBoxItem>
                                 <ComboBoxItem>Phase 2</ComboBoxItem>
                                 <ComboBoxItem>Phase 1 2</ComboBoxItem>
@@ -180,7 +185,7 @@
                             <TextBox Name="dataHormones" Text="{Binding DataHormones}" VerticalAlignment="Center" Width="140" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"/>
                             <TextBlock Text="Skin affections: " FontWeight="Bold" Margin="5,0,0,0"/>
                             <ComboBox Name="dataSkinAffections" Text="{Binding DataSkinAffections}" Width="300" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>YES</ComboBoxItem>
                                 <ComboBoxItem>NO</ComboBoxItem>
                                 <ComboBoxItem>Nevus</ComboBoxItem>
@@ -194,13 +199,13 @@
                         <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Pertinent/Family history of breast cancer: " FontWeight="Bold"/>
                             <ComboBox Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="110" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Positive</ComboBoxItem>
                                 <ComboBoxItem>Negative</ComboBoxItem>                                
                             </ComboBox>
                             <TextBlock Text="- Mother  Ultrasound/Mammogram findings: " FontWeight="Bold"/>
                             <ComboBox Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="140" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>None - No UTZ / Mammo</ComboBoxItem>
                                 <ComboBoxItem>Negative</ComboBoxItem>
                                 <ComboBoxItem>Benign</ComboBoxItem>
@@ -223,12 +228,12 @@
                         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Palpable Mass: " Width="380"/>
                             <ComboBox Name="dataLeftPalpableMass" Text="{Binding DataLeftPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>                                
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>                                
                                 <ComboBoxItem>Negative</ComboBoxItem>
                                 <ComboBoxItem>Positive</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightPalpableMass" Text="{Binding DataRightPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Negative</ComboBoxItem>
                                 <ComboBoxItem>Positive</ComboBoxItem>
                             </ComboBox>
@@ -236,13 +241,13 @@
                         <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Focal / Diffuse changes of electrical conductivity" Width="380"/>
                             <ComboBox Name="dataLeftChangesOfElectricalConductivity" Text="{Binding DataLeftChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No</ComboBoxItem>
                                 <ComboBoxItem>Focal</ComboBoxItem>
                                 <ComboBoxItem>Diffuse</ComboBoxItem>                                
                             </ComboBox>
                             <ComboBox Name="dataRightChangesOfElectricalConductivity" Text="{Binding DataRightChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No</ComboBoxItem>
                                 <ComboBoxItem>Focal</ComboBoxItem>
                                 <ComboBoxItem>Diffuse</ComboBoxItem>
@@ -251,12 +256,12 @@
                         <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Mammary gland structure" Width="380"/>
                             <ComboBox Name="dataLeftMammaryStruct" Text="{Binding DataLeftMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Altered</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightMammaryStruct" Text="{Binding DataRightMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Altered</ComboBoxItem>
                             </ComboBox>
@@ -264,14 +269,14 @@
                         <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Lactiferous sinus zone" Width="380"/>
                             <ComboBox Name="dataLeftLactiferousSinusZone" Text="{Binding DataLeftLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Not visualized</ComboBoxItem>
                                 <ComboBoxItem>Not Dilated</ComboBoxItem>
                                 <ComboBoxItem>Dilated</ComboBoxItem>
                                 <ComboBoxItem>Granulated</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightLactiferousSinusZone" Text="{Binding DataRightLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Not visualized</ComboBoxItem>
                                 <ComboBoxItem>Not Dilated</ComboBoxItem>
                                 <ComboBoxItem>Dilated</ComboBoxItem>
@@ -281,13 +286,13 @@
                         <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Mammary gland contour" Width="380"/>
                             <ComboBox Name="dataLeftMammaryContour" Text="{Binding DataLeftMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Thickened</ComboBoxItem>
                                 <ComboBoxItem>Deformed</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightMammaryContour" Text="{Binding DataRightMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Thickened</ComboBoxItem>
                                 <ComboBoxItem>Deformed</ComboBoxItem>
@@ -316,14 +321,14 @@
                         <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Shape" Width="380"/>
                             <ComboBox Name="dataLeftShape" Text="{Binding DataLeftShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Round</ComboBoxItem>
                                 <ComboBoxItem>Oval</ComboBoxItem>
                                 <ComboBoxItem>Lobular</ComboBoxItem>
                                 <ComboBoxItem>Irregular</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightShape" Text="{Binding DataRightShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Round</ComboBoxItem>
                                 <ComboBoxItem>Oval</ComboBoxItem>
                                 <ComboBoxItem>Lobular</ComboBoxItem>
@@ -333,13 +338,13 @@
                         <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Contour around focus" Width="380"/>
                             <ComboBox Name="dataLeftContourAroundFocus" Text="{Binding DataLeftContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Distinct</ComboBoxItem>
                                 <ComboBoxItem>Hyperimpedance</ComboBoxItem>
                                 <ComboBoxItem>Indistinct</ComboBoxItem>                                
                             </ComboBox>
                             <ComboBox Name="dataRightContourAroundFocus" Text="{Binding DataRightContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Distinct</ComboBoxItem>
                                 <ComboBoxItem>Hyperimpedance</ComboBoxItem>
                                 <ComboBoxItem>Indistinct</ComboBoxItem>
@@ -348,14 +353,14 @@
                         <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Internal electrical structure" Width="380"/>
                             <ComboBox Name="dataLeftInternalElectricalStructure" Text="{Binding DataLeftInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Hyperimpedance</ComboBoxItem>
                                 <ComboBoxItem>Isoimpedance</ComboBoxItem>
                                 <ComboBoxItem>Hypoimpedance</ComboBoxItem>
                                 <ComboBoxItem>Animpedance</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightInternalElectricalStructure" Text="{Binding DataRightInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Hyperimpedance</ComboBoxItem>
                                 <ComboBoxItem>Isoimpedance</ComboBoxItem>
                                 <ComboBoxItem>Hypoimpedance</ComboBoxItem>
@@ -365,7 +370,7 @@
                         <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Surrounding tissues and peripheral contour" Width="380"/>
                             <ComboBox Name="dataLeftSurroundingTissues" Text="{Binding DataLeftSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Structure disturbance</ComboBoxItem>
                                 <ComboBoxItem>Structure displacement</ComboBoxItem>
@@ -374,7 +379,7 @@
                                 <ComboBoxItem>Retraction</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightSurroundingTissues" Text="{Binding DataRightSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Preserved</ComboBoxItem>
                                 <ComboBoxItem>Structure disturbance</ComboBoxItem>
                                 <ComboBoxItem>Structure displacement</ComboBoxItem>
@@ -395,7 +400,7 @@
                             <TextBlock Text="Oncomarker Highlight" Width="200"/>
                             <TextBlock Text="Benign Changes" Width="180" />
                             <ComboBox Name="dataLeftOncomarkerHighlightBenignChanges" Text="{Binding DataLeftOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>positive</ComboBoxItem>
                                 <ComboBoxItem>negative</ComboBoxItem>
                                 <ComboBoxItem>1st Layer</ComboBoxItem>
@@ -407,7 +412,7 @@
                                 <ComboBoxItem>7th Layer</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightOncomarkerHighlightBenignChanges" Text="{Binding DataRightOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>positive</ComboBoxItem>
                                 <ComboBoxItem>negative</ComboBoxItem>
                                 <ComboBoxItem>1st Layer</ComboBoxItem>
@@ -423,7 +428,7 @@
                             <TextBlock Text="" Width="200"/>
                             <TextBlock Text="Suspicious Changes" Width="180" />
                             <ComboBox Name="dataLeftOncomarkerHighlightSuspiciousChanges" Text="{Binding DataLeftOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>positive</ComboBoxItem>
                                 <ComboBoxItem>negative</ComboBoxItem>
                                 <ComboBoxItem>1st Layer</ComboBoxItem>
@@ -435,7 +440,7 @@
                                 <ComboBoxItem>7th Layer</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightOncomarkerHighlightSuspiciousChanges" Text="{Binding DataRightOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>positive</ComboBoxItem>
                                 <ComboBoxItem>negative</ComboBoxItem>
                                 <ComboBoxItem>1st Layer</ComboBoxItem>
@@ -474,7 +479,7 @@
                         <StackPanel Grid.Row="31" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
                             <ComboBox Name="dataMeanElectricalConductivity3" Text="{Binding DataMeanElectricalConductivity3}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,15,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Postmenopausal</ComboBoxItem>
                                 <ComboBoxItem>Pregnant</ComboBoxItem>
                                 <ComboBoxItem>Lactating</ComboBoxItem>                                
@@ -505,7 +510,7 @@
                         <StackPanel Grid.Row="34" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
                             <ComboBox Name="dataComparativeElectricalConductivity3" Text="{Binding DataComparativeElectricalConductivity3}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,15,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Postmenopausal</ComboBoxItem>
                                 <ComboBoxItem>Pregnant</ComboBoxItem>
                                 <ComboBoxItem>Lactating</ComboBoxItem>
@@ -534,7 +539,7 @@
                         <StackPanel Grid.Row="37" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
                             <ComboBox Name="dataDivergenceBetweenHistograms3" Text="{Binding DataDivergenceBetweenHistograms3}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,15,0">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Postmenopausal</ComboBoxItem>
                                 <ComboBoxItem>Pregnant</ComboBoxItem>
                                 <ComboBoxItem>Lactating</ComboBoxItem>
@@ -561,13 +566,13 @@
                             <TextBlock Text="Age-related electrical conductivity" Width="300"/>
                             <TextBox Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
                             <ComboBox Name="dataLeftAgeElectricalConductivity" Text="{Binding DataLeftAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&lt; 5 pct </ComboBoxItem>
                                 <ComboBoxItem>5th - 95th pct</ComboBoxItem>
                                 <ComboBoxItem>&gt; 95 pct</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Name="dataRightAgeElectricalConductivity" Text="{Binding DataRightAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&lt; 5 pct</ComboBoxItem>
                                 <ComboBoxItem>5th - 95th pct</ComboBoxItem>
                                 <ComboBoxItem>&gt; 95 pct</ComboBoxItem>
@@ -576,7 +581,7 @@
                         <StackPanel Grid.Row="41" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Age Value of EC" Width="210"/>
                             <ComboBox Name="dataAgeValueOfEC" Text="{Binding DataAgeValueOfEC}" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Age       5%    50%    95%</ComboBoxItem>
                                 <ComboBoxItem>20-29   0.18   0.28   0.44</ComboBoxItem>
                                 <ComboBoxItem>30-39   0.16   0.40   0.53</ComboBoxItem>
@@ -592,7 +597,7 @@
                         <StackPanel Grid.Row="43" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataExamConclusion" Text="{Binding DataExamConclusion}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Pubertal Period</ComboBoxItem>
                                 <ComboBoxItem>Early childbearing age</ComboBoxItem> 
                                 <ComboBoxItem>Childbearing age</ComboBoxItem>
@@ -603,7 +608,7 @@
                         <StackPanel Grid.Row="44" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Left mammary gland: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}" Width="280" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&gt; 0.66 Amorphous type</ComboBoxItem>
                                 <ComboBoxItem>0.57-0.65 Mixed type predominantly amorphous</ComboBoxItem>
                                 <ComboBoxItem>0.30-0.56 Mixed type</ComboBoxItem>
@@ -612,7 +617,7 @@
                             </ComboBox>                            
                             <TextBlock Text="Age-related electrical conductivity: " Width="190" Margin="5,0,0,0"/>
                             <ComboBox Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&lt; 5 %</ComboBoxItem>
                                 <ComboBoxItem>5 - 95%</ComboBoxItem>
                                 <ComboBoxItem>&gt; 95%</ComboBoxItem>                                
@@ -623,7 +628,7 @@
                             <TextBox Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
                             <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
                             <ComboBox Name="dataLeftFindings" Text="{Binding DataLeftFindings}" Width="515" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No Focal changes of electroconductivity detected</ComboBoxItem>
                                 <ComboBoxItem>Focal changes of electroconductivity detected. (Mean Electrical Conductivity; EC lesion):</ComboBoxItem>                                
                             </ComboBox>                            
@@ -632,7 +637,7 @@
                             <TextBlock Text="  Result: " Width="55"/>
                             <TextBlock Text="Left mammary gland: " Width="120"  FontWeight="Bold"/>
                             <ComboBox Name="dataLeftMammaryGlandResult" Text="{Binding DataLeftMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No Pathological Changes Detected</ComboBoxItem>
                                 <ComboBoxItem>Benign Lesion</ComboBoxItem>
                                 <ComboBoxItem>Probably Benign Findings</ComboBoxItem>
@@ -643,7 +648,7 @@
                         <StackPanel Grid.Row="47" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataRightMammaryGland" Text="{Binding DataRightMammaryGland}" Width="280" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&gt; 0.66 Amorphous type</ComboBoxItem>
                                 <ComboBoxItem>0.57-0.65 Mixed type predominantly amorphous</ComboBoxItem>
                                 <ComboBoxItem>0.30-0.56 Mixed type</ComboBoxItem>
@@ -652,7 +657,7 @@
                             </ComboBox>
                             <TextBlock Text="Age-related electrical conductivity: " Width="190"/>
                             <ComboBox Name="dataRightAgeRelated" Text="{Binding DataRightAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>&lt; 5 %</ComboBoxItem>
                                 <ComboBoxItem>5 - 95%</ComboBoxItem>
                                 <ComboBoxItem>&gt; 95%</ComboBoxItem>
@@ -663,7 +668,7 @@
                             <TextBox Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
                             <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
                             <ComboBox Name="dataRightFindings" Text="{Binding DataRightFindings}" Width="515" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No Focal changes of electroconductivity detected</ComboBoxItem>
                                 <ComboBoxItem>Focal changes of electroconductivity detected. (Mean Electrical Conductivity; EC lesion):</ComboBoxItem>
                             </ComboBox>
@@ -672,7 +677,7 @@
                             <TextBlock Text="  Result: " Width="50" />
                             <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataRightMammaryGlandResult" Text="{Binding DataRightMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No Pathological Changes Detected</ComboBoxItem>
                                 <ComboBoxItem>Benign Lesion</ComboBoxItem>
                                 <ComboBoxItem>Probably Benign Findings</ComboBoxItem>
@@ -687,7 +692,7 @@
                             <TextBlock Text="BI-EIM: " Width="50" FontWeight="Bold"/>
                             <TextBlock Text="Total Pts: " Width="60" FontWeight="Bold"/>
                             <ComboBox Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="108" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>1</ComboBoxItem>
                                 <ComboBoxItem>2</ComboBoxItem>
                                 <ComboBoxItem>3</ComboBoxItem>
@@ -699,7 +704,7 @@
                             </ComboBox>                            
                             <TextBlock Text="Point / Category: " Width="100" FontWeight="Bold"/>
                             <ComboBox Name="dataPoint" Text="{Binding DataPoint}" Width="120" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>0-1 pt - 1 Category</ComboBoxItem>
                                 <ComboBoxItem>2-3 pts - 2 Category</ComboBoxItem>
                                 <ComboBoxItem>4 pt - 3 Category</ComboBoxItem>
@@ -707,12 +712,12 @@
                                 <ComboBoxItem>8 pt - 5 Category</ComboBoxItem>                                
                             </ComboBox>
                             <TextBlock Text="Technician: " Width="70"/>
-                            <TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="BI-RADS category: " Width="110" FontWeight="Bold"/>
                             <ComboBox Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>0 Category - Poor Image - Re-Screen</ComboBoxItem>
                                 <ComboBoxItem>1 Category - No pathological changes detected</ComboBoxItem>
                                 <ComboBoxItem>2 Category - Benign lesion</ComboBoxItem>
@@ -724,7 +729,7 @@
                         <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Recommendations: " Width="110" FontWeight="Bold"/>
                             <ComboBox Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>MEIK Re-examination in 3 months</ComboBoxItem>
                                 <ComboBoxItem>MEIK Re-examination in 6 months</ComboBoxItem>
                                 <ComboBoxItem>MEIK Yearly Routine</ComboBoxItem>
@@ -733,7 +738,7 @@
                         <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Suggestion: " Width="70" FontWeight="Bold"/>
                             <ComboBox Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Breast Ultrasound</ComboBoxItem>
                                 <ComboBoxItem>Standard Mammogram</ComboBoxItem>
                                 <ComboBoxItem>Biopsy</ComboBoxItem>                                
@@ -742,7 +747,7 @@
                         <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Conclusion: " Width="70" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion" Text="{Binding DataConclusion}" Width="600" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
                                 <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
                                 <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
@@ -751,7 +756,7 @@
                         <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="70" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
                                 <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
                                 <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
@@ -760,7 +765,7 @@
                         <StackPanel Grid.Row="57" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Comments: " Width="70" FontWeight="Bold"/>
                             <ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True">Choose an item</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact Nuvotek at 0917-984-8105 or Landline 475-8961 to make an appt.</ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</ComboBoxItem>
                             </ComboBox>

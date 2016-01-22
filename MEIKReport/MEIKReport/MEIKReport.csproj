@@ -48,6 +48,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MEIK-ICON_256-256.ICO</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -86,6 +90,7 @@
     <Compile Include="Common\MouseHook .cs" />
     <Compile Include="Common\MouseSimulator.cs" />
     <Compile Include="Common\OperateIniFile.cs" />
+    <Compile Include="Common\PDFTools.cs" />
     <Compile Include="Common\ScreenCapture.cs" />
     <Compile Include="Common\ScreenShot.cs" />
     <Compile Include="Common\SerializeUtilities.cs" />
@@ -251,12 +256,6 @@
     <Resource Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\watermark.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TaskIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\livite.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +276,15 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Signature\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MEIK-ICON.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gxpswin32-9.18.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="MEIK-ICON_256-256.ICO" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

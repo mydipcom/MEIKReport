@@ -49,12 +49,12 @@ namespace MEIKReport
                 if (shortFormReport != null)
                 {
                     var signImage = doc.FindName("dataSignImg") as Image;
-                    if (signImage != null)
+                    if (signImage != null && shortFormReport.DataSignImg!=null)
                     {
                         signImage.Source = ImageTools.GetBitmapImage(shortFormReport.DataSignImg);
                     }
                     var screenShotImg = doc.FindName("dataScreenShotImg") as Image;
-                    if (screenShotImg != null)
+                    if (screenShotImg != null && shortFormReport.DataScreenShotImg != null)
                     {
                         screenShotImg.Source = ImageTools.GetBitmapImage(shortFormReport.DataScreenShotImg);
                     }

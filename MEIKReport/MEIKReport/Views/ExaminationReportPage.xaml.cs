@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 using System.Xml;
 
 namespace MEIKReport.Views
@@ -50,7 +52,11 @@ namespace MEIKReport.Views
                 {                    
                     this.shortFormReportModel = SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
                     this.reportDataGrid.DataContext = this.shortFormReportModel;
-                    this.dataScreenDate.Text = shortFormReportModel.DataScreenDate;
+                    //this.dataUserCode.Text = shortFormReportModel.DataUserCode;
+                    //this.dataName.Text = shortFormReportModel.DataName;
+                    //this.dataAge.Text = shortFormReportModel.DataAge;
+                    //this.dataAddress.Text = shortFormReportModel.DataAddress;
+                    //this.dataScreenDate.Text = shortFormReportModel.DataScreenDate;
                     
                     if (shortFormReportModel.DataSignImg != null)
                     {
@@ -59,11 +65,16 @@ namespace MEIKReport.Views
                 }
                 else
                 {
-                    this.dataUserCode.Text = person.Code;
-                    this.dataName.Text = person.SurName;
-                    this.dataAge.Text = person.Age + "";
-                    this.dataAddress.Text = person.Address;
-                    this.dataScreenDate.Value = DateTime.Parse(person.Regdate);
+                    shortFormReportModel.DataUserCode = person.Code;
+                    shortFormReportModel.DataName = person.SurName;
+                    shortFormReportModel.DataAge = person.Age + "";
+                    shortFormReportModel.DataAddress = person.Address;
+                    shortFormReportModel.DataScreenDate = DateTime.Parse(person.Regdate).ToLongDateString();
+                    //this.dataUserCode.Text = person.Code;
+                    //this.dataName.Text = person.SurName;
+                    //this.dataAge.Text = person.Age + "";
+                    //this.dataAddress.Text = person.Address;
+                    //this.dataScreenDate.Value = DateTime.Parse(person.Regdate);
                     bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     if (defaultSign)
                     {
@@ -71,6 +82,7 @@ namespace MEIKReport.Views
                         //dataScreenShotImg.Source = GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Images/BigIcon.png");
                     }
                 }
+                this.reportDataGrid.DataContext = this.shortFormReportModel;
             }
             
         }
@@ -89,8 +101,8 @@ namespace MEIKReport.Views
         }
 
         private void previewBtn_Click(object sender, RoutedEventArgs e)
-        {            
-            PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml",true, "");
+        {
+            PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, shortFormReportModel);
             previewWnd.Owner = this;
             previewWnd.ShowInTaskbar = false;
             previewWnd.ShowDialog();
@@ -101,7 +113,7 @@ namespace MEIKReport.Views
             PrintDialog pdlg = new PrintDialog();
             if (pdlg.ShowDialog() == true)
             {
-                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", "");
+                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
                 FixedDocument fixedDoc = new FixedDocument();//创建一个文档
                 fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
 
@@ -109,6 +121,22 @@ namespace MEIKReport.Views
                 ((IAddChild)pageContent).AddChild(page);
                 fixedDoc.Pages.Add(pageContent);//将对象加入到当前文档中
                 Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, fixedDoc.DocumentPaginator);
+            }
+        }
+
+        private void btnOpenDiagn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                this.btnOpenDiagn.IsEnabled = false;
+                this.WindowState = WindowState.Minimized;
+                App.opendWin = this;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
             }
         }
 
@@ -293,22 +321,6 @@ namespace MEIKReport.Views
             
         }
 
-        private void btnOpenDiagn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
-                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                this.btnOpenDiagn.IsEnabled = false;
-                this.WindowState = WindowState.Minimized;
-                App.opendWin = this;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("System Exception: " + ex.Message);
-            }
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Do you want to save the report?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -321,6 +333,27 @@ namespace MEIKReport.Views
         private void ShowSignature(Object obj)
         {                     
             dataSignImg.Source = ImageTools.GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg");
-        }        
+        }
+
+        private void savePdfBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string xpsFile = dataFolder + "/" + person.Code + ".xps";
+            if (File.Exists(xpsFile))
+            {
+                File.Delete(xpsFile);
+            }
+            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
+            XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
+            //将flow document写入基于内存的xps document中去
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+            writer.Write(page);
+            xpsDocument.Close();
+            var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
+            if (dlg.ShowDialog(this) == true)
+            {
+                PDFTools.SavePDFFile(xpsFile, dlg.FileName);
+            }
+
+        }
     }
 }
