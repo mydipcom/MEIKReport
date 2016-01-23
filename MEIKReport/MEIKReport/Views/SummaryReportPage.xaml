@@ -4,7 +4,7 @@
       xmlns:s ="clr-namespace:System;assembly=mscorlib"
       xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
       Icon="/MEIKReport;component/Images/MEIK-ICON.png"
-      Height="1233" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing">
+      Height="1233" Width="1000" Title="Summary Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing" StateChanged="Window_StateChanged">
     <Grid Background="#FFB8B8B8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

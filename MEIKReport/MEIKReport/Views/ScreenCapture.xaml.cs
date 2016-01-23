@@ -87,14 +87,17 @@ namespace MEIKReport.Views
             iy = Convert.ToInt32(y);
             iw = Convert.ToInt32(width);
             ih = Convert.ToInt32(height);
+            string screenshotFolder = AppDomain.CurrentDomain.BaseDirectory + "/Screenshot";
             try{
                 
                 Bitmap image = new Bitmap(iw, ih, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 Graphics g = Graphics.FromImage(image);
-                g.CopyFromScreen(ix, iy, ix, iy, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);
-                if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Screenshot/"))
+                g.CopyFromScreen(ix, iy, ix, iy, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);                
+                if (!Directory.Exists(screenshotFolder))
                 {
-                    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/Screenshot/");
+                    Directory.CreateDirectory(screenshotFolder);
+                    FileHelper.SetFolderPower(screenshotFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
                 }
                 string imgFileName = AppDomain.CurrentDomain.BaseDirectory + "/Screenshot/" + this.selectedUser.Code;
                 image.Save(imgFileName, ImageFormat.Png);
@@ -106,6 +109,8 @@ namespace MEIKReport.Views
             }
             catch(Exception)
             {
+                FileHelper.SetFolderPower(screenshotFolder, "Everyone", "FullControl");
+                FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
                 System.Windows.MessageBox.Show("Failed to capture the screen.");
             }
             App.opendWin.WindowState = WindowState.Maximized;

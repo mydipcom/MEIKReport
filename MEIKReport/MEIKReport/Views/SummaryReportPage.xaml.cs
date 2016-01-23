@@ -45,75 +45,86 @@ namespace MEIKReport.Views
         }
         public SummaryReportPage(object data): this()
         {
-            this.person = data as Person;
-            if (this.person == null)
-            {
-                MessageBox.Show("Please select a patient.");
-                this.Close();
-            }
-            else
-            {
-                string dataFile=dataFolder+"/"+person.Code+".dat";
-                if(File.Exists(dataFile)){
-                    ////序列化xaml
-                    //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code+".dat", FileMode.Open))
-                    //{                        
-                    //    var scrollViewer = XamlReader.Load(fs) as ScrollViewer;                        
-                    //    this.reportPage = scrollViewer;
-                    //}
-                    this.shortFormReportModel=SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
-                                        
-                    if (shortFormReportModel.DataScreenShotImg != null)
-                    {
-                        this.dataScreenShotImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataScreenShotImg);
-                    }
-                    if (shortFormReportModel.DataSignImg != null)
-                    {
-                        this.dataSignImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataSignImg);
-                    }                                        
-
+            try { 
+                this.person = data as Person;
+                if (this.person == null)
+                {
+                    MessageBox.Show("Please select a patient.");
+                    this.Close();
                 }
                 else
                 {
-                    shortFormReportModel.DataUserCode = person.Code;
-                    shortFormReportModel.DataName = person.SurName;
-                    shortFormReportModel.DataAge = person.Age + "";                    
-                    shortFormReportModel.DataScreenDate = DateTime.Parse(person.Regdate).ToLongDateString();
-                    shortFormReportModel.DataSignDate = DateTime.Today.ToLongDateString();
-                    bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                    if (defaultSign)
-                    {
-                        string imgFile = AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg";
-                        if (File.Exists(imgFile))
+                    string dataFile=dataFolder+"/"+person.Code+".dat";
+                    if(File.Exists(dataFile)){
+                        ////序列化xaml
+                        //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code+".dat", FileMode.Open))
+                        //{                        
+                        //    var scrollViewer = XamlReader.Load(fs) as ScrollViewer;                        
+                        //    this.reportPage = scrollViewer;
+                        //}
+                        this.shortFormReportModel=SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
+                                        
+                        if (shortFormReportModel.DataScreenShotImg != null)
                         {
-                            dataSignImg.Source = ImageTools.GetBitmapImage(imgFile);
-                            //dataScreenShotImg.Source = GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Images/BigIcon.png");
+                            this.dataScreenShotImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataScreenShotImg);
                         }
-                    }
-                    
-                }
-                this.reportDataGrid.DataContext = this.shortFormReportModel;
-            }
+                        if (shortFormReportModel.DataSignImg != null)
+                        {
+                            this.dataSignImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataSignImg);
+                        }                                        
 
+                    }
+                    else
+                    {
+                        shortFormReportModel.DataUserCode = person.Code;
+                        shortFormReportModel.DataName = person.SurName;
+                        shortFormReportModel.DataAge = person.Age + "";                    
+                        shortFormReportModel.DataScreenDate = DateTime.Parse(person.Regdate).ToLongDateString();
+                        shortFormReportModel.DataSignDate = DateTime.Today.ToLongDateString();
+                        bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                        if (defaultSign)
+                        {
+                            string imgFile = AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg";
+                            if (File.Exists(imgFile))
+                            {
+                                dataSignImg.Source = ImageTools.GetBitmapImage(imgFile);
+                                //dataScreenShotImg.Source = GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Images/BigIcon.png");
+                            }
+                        }
+                    
+                    }
+                    this.reportDataGrid.DataContext = this.shortFormReportModel;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.opendWin = null;
-            IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
-            //如果主窗体存在
-            if (mainWinHwnd != IntPtr.Zero)
-            {
-                int WM_SYSCOMMAND = 0x0112;
-                int SC_CLOSE = 0xF060;
-                Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+            try { 
+                App.opendWin = null;
+                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                //如果主窗体存在
+                if (mainWinHwnd != IntPtr.Zero)
+                {
+                    int WM_SYSCOMMAND = 0x0112;
+                    int SC_CLOSE = 0xF060;
+                    Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+                }
+                this.Owner.Show();
+                //if (closeWindowEvent != null)
+                //{
+                //    closeWindowEvent(sender, e);
+                //}
             }
-            this.Owner.Show();
-            //if (closeWindowEvent != null)
-            //{
-            //    closeWindowEvent(sender, e);
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void DoPrint(PrintDialog pdlg, DocumentPaginator paginator)
         {
@@ -122,38 +133,50 @@ namespace MEIKReport.Views
 
         private void previewBtn_Click(object sender, RoutedEventArgs e)
         {
-            LoadDataModel();
-            string reportTempl = "Views/SummaryReportDocument.xaml";
-            if (this.dataScreenShotImg.Source != null)
-            {
-                reportTempl = "Views/SummaryReportImageDocument.xaml";
-            }
-
-            PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, shortFormReportModel);
-            previewWnd.Owner = this;
-            previewWnd.ShowInTaskbar = false;
-            previewWnd.ShowDialog();
-        }
-
-        private void printBtn_Click(object sender, RoutedEventArgs e)
-        {
-            LoadDataModel();
-            PrintDialog pdlg = new PrintDialog();
-            if (pdlg.ShowDialog() == true)
-            {
+            try { 
+                LoadDataModel();
                 string reportTempl = "Views/SummaryReportDocument.xaml";
                 if (this.dataScreenShotImg.Source != null)
                 {
                     reportTempl = "Views/SummaryReportImageDocument.xaml";
                 }
-                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
-                FixedDocument fixedDoc = new FixedDocument();//创建一个文档
-                fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
 
-                PageContent pageContent = new PageContent();
-                ((IAddChild)pageContent).AddChild(page);
-                fixedDoc.Pages.Add(pageContent);//将对象加入到当前文档中
-                Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, fixedDoc.DocumentPaginator);
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, shortFormReportModel);
+                previewWnd.Owner = this;
+                previewWnd.ShowInTaskbar = false;
+                previewWnd.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void printBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try { 
+                LoadDataModel();
+                PrintDialog pdlg = new PrintDialog();
+                if (pdlg.ShowDialog() == true)
+                {
+                    string reportTempl = "Views/SummaryReportDocument.xaml";
+                    if (this.dataScreenShotImg.Source != null)
+                    {
+                        reportTempl = "Views/SummaryReportImageDocument.xaml";
+                    }
+                    FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+                    FixedDocument fixedDoc = new FixedDocument();//创建一个文档
+                    fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
+
+                    PageContent pageContent = new PageContent();
+                    ((IAddChild)pageContent).AddChild(page);
+                    fixedDoc.Pages.Add(pageContent);//将对象加入到当前文档中
+                    Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, fixedDoc.DocumentPaginator);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -183,7 +206,7 @@ namespace MEIKReport.Views
             {                
                 if (!Directory.Exists(dataFolder))
                 {
-                    Directory.CreateDirectory(dataFolder);
+                    this.CreateFolder(dataFolder);
                 }
                 LoadDataModel();
                 string datafile = dataFolder + "/" + person.Code + ".dat";
@@ -192,6 +215,8 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
+                FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+                FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 MessageBox.Show("Failed to save the report. Error: " + ex.Message);
             } 
         }
@@ -294,31 +319,38 @@ namespace MEIKReport.Views
 
         private void savePdfBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(dataFolder))
+            try { 
+                if (!Directory.Exists(dataFolder))
+                {
+                    this.CreateFolder(dataFolder);                    
+                }
+                string xpsFile = dataFolder + "/" + person.Code + ".xps";
+                if (File.Exists(xpsFile)) {
+                    File.Delete(xpsFile);
+                }
+                string reportTempl = "Views/SummaryReportDocument.xaml";
+                if (this.dataScreenShotImg.Source != null)
+                {
+                    reportTempl = "Views/SummaryReportImageDocument.xaml";
+                }
+                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+                XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
+                //将flow document写入基于内存的xps document中去
+                XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);            
+                writer.Write(page);            
+                xpsDocument.Close();
+                var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
+                if (dlg.ShowDialog(this) == true)
+                {
+                    PDFTools.SavePDFFile(xpsFile, dlg.FileName);
+                }
+            }
+            catch (Exception ex)
             {
-                Directory.CreateDirectory(dataFolder);
+                FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+                FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+                MessageBox.Show(ex.Message);
             }
-            string xpsFile = dataFolder + "/" + person.Code + ".xps";
-            if (File.Exists(xpsFile)) {
-                File.Delete(xpsFile);
-            }
-            string reportTempl = "Views/SummaryReportDocument.xaml";
-            if (this.dataScreenShotImg.Source != null)
-            {
-                reportTempl = "Views/SummaryReportImageDocument.xaml";
-            }
-            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
-            XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
-            //将flow document写入基于内存的xps document中去
-            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);            
-            writer.Write(page);            
-            xpsDocument.Close();
-            var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
-            if (dlg.ShowDialog(this) == true)
-            {
-                PDFTools.SavePDFFile(xpsFile, dlg.FileName);
-            }
-            
         }
 
         /// <summary>
@@ -340,8 +372,10 @@ namespace MEIKReport.Views
                 else
                 {
                     //Win32Api.ShowWindow(mainWinHwnd, 1);
-                }
+                }                
                 WinMinimized();
+                var mainWin = this.Owner.Owner as MainWindow;
+                mainWin.StartMouseHook();
 
             }
             catch (Exception ex)
@@ -387,9 +421,46 @@ namespace MEIKReport.Views
             App.opendWin = this;
             this.WindowState = WindowState.Minimized;
             //this.WindowStartupLocation = WindowStartupLocation.Manual;//设置可手动指定窗体位置                
-            int left = (int)(System.Windows.SystemParameters.PrimaryScreenWidth - 150);
+            int left = (int)(System.Windows.SystemParameters.PrimaryScreenWidth - 156);
             IntPtr winHandle = new WindowInteropHelper(this).Handle;
             Win32Api.MoveWindow(winHandle, left, 0, 0, 0, false);
+        }
+
+        /// <summary>
+        /// 窗口大小状态变化时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var mainWin = this.Owner.Owner as MainWindow;
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    mainWin.StopMouseHook();
+                }
+                if (this.WindowState == WindowState.Minimized)
+                {
+                    WinMinimized();
+                    IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                    //如果主窗体不存在
+                    if (mainWinHwnd != IntPtr.Zero)
+                    {
+                        mainWin.StartMouseHook();
+                    }
+                }
+            }
+            catch(Exception ex){
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CreateFolder(string folderPath)
+        {
+            Directory.CreateDirectory(folderPath);
+            FileHelper.SetFolderPower(folderPath, "Everyone", "FullControl");
+            FileHelper.SetFolderPower(folderPath, "Users", "FullControl");
         }
         
     }

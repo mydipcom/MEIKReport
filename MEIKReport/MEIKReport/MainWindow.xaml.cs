@@ -39,15 +39,16 @@ namespace MEIKReport
 
         public MainWindow()
         {            
-            InitializeComponent();                                  
+            InitializeComponent();
+            //DirectoryInfo dirinfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);            
+            //FileHelper.SetFolderPower(AppDomain.CurrentDomain.BaseDirectory, "Everyone", "FullControl");
+            //FileHelper.SetFolderPower(AppDomain.CurrentDomain.BaseDirectory, "Users", "FullControl");
         }
                        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                        
             StartApp();
-            //启动鼠标钩子
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
-            mouseHook.Start();
             //启用键盘钩子
             //keyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(keyboardHook_KeyDown);
             //keyboardHook.Start();            
@@ -56,60 +57,84 @@ namespace MEIKReport
             //Application.AddMessageFilter(globalClick);
         }
 
+        /// <summary>
+        /// 启用鼠标钩子
+        /// </summary>
+        public void StartMouseHook(){
+            //启动鼠标钩子            
+            mouseHook.Start();
+        }
+        /// <summary>
+        /// 停止鼠标钩子
+        /// </summary>
+        public void StopMouseHook()
+        {
+            mouseHook.Stop();
+        }
+
         public void StartApp()
         {
-            App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
-            if (!Win32Api.IsWindow(App.splashWinHwnd))//MEIK程序没有启动时
+            try
             {
-                string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                meikPath += "\\MEIK.exe";
-                if (File.Exists(meikPath))
+                App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
+                if (Win32Api.IsWindow(App.splashWinHwnd))//MEIK程序已经启动时
                 {
-                    try
-                    {                        
-                        //启动外部程序
-                        AppProc = Process.Start(meikPath);
-                        if (AppProc != null)
-                        {
-                            AppProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; //隐藏
-                            //proc.WaitForExit();//等待外部程序退出后才能往下执行
-                            AppProc.WaitForInputIdle();
-                            /**这段代码是把其他程序的窗体嵌入到当前窗体中**/
-                            IntPtr appWinHandle = AppProc.MainWindowHandle;
-                            App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
-                            //监视进程退出
-                            AppProc.EnableRaisingEvents = true;
-                            //指定退出事件方法
-                            AppProc.Exited += new EventHandler(proc_Exited);
-                            //设置程序嵌入到当前窗体
-                            Win32Api.MoveWindow(App.splashWinHwnd, 0, 0, 720, 576, true);
-                            // Set new process's parent to this window   
-                            Win32Api.SetParent(App.splashWinHwnd, meikPanel.Handle);
-                            //Add WS_CHILD window style to child window 
-                            const int GWL_STYLE = -16;
-                            const int WS_CHILD = 0x40000000;
-                            int style = Win32Api.GetWindowLong(App.splashWinHwnd, GWL_STYLE);
-                            style = style | WS_CHILD;
-                            Win32Api.SetWindowLong(App.splashWinHwnd, GWL_STYLE, style);
+                    btnExit_Click(null, null);
+                }
+                StartMeik();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
+            }
+        }
 
-                            ////把WPF窗口句柄转换为对象，但只针对WPF窗体
-                            //HwndSource hwndSource = HwndSource.FromHwnd(splashWinHwnd);
-                            //Window wnd = hwndSource.RootVisual as Window;
-                        }
-                    }
-                    catch (ArgumentException ex)
+        private void StartMeik()
+        {
+            string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            meikPath += "\\MEIK.exe";
+            if (File.Exists(meikPath))
+            {
+                try
+                {
+                    //启动外部程序
+                    AppProc = Process.Start(meikPath);
+                    if (AppProc != null)
                     {
-                        MessageBox.Show("Failed to start MEIK software v. 5.6, Exception Message:"+ex.Message);
+                        AppProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; //隐藏
+                        //proc.WaitForExit();//等待外部程序退出后才能往下执行
+                        AppProc.WaitForInputIdle();
+                        /**这段代码是把其他程序的窗体嵌入到当前窗体中**/
+                        IntPtr appWinHandle = AppProc.MainWindowHandle;
+                        App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
+                        //监视进程退出
+                        AppProc.EnableRaisingEvents = true;
+                        //指定退出事件方法
+                        AppProc.Exited += new EventHandler(proc_Exited);
+                        //设置程序嵌入到当前窗体
+                        Win32Api.MoveWindow(App.splashWinHwnd, 0, 0, 720, 576, true);
+                        // Set new process's parent to this window   
+                        Win32Api.SetParent(App.splashWinHwnd, meikPanel.Handle);
+                        //Add WS_CHILD window style to child window 
+                        const int GWL_STYLE = -16;
+                        const int WS_CHILD = 0x40000000;
+                        int style = Win32Api.GetWindowLong(App.splashWinHwnd, GWL_STYLE);
+                        style = style | WS_CHILD;
+                        Win32Api.SetWindowLong(App.splashWinHwnd, GWL_STYLE, style);
+
+                        ////把WPF窗口句柄转换为对象，但只针对WPF窗体
+                        //HwndSource hwndSource = HwndSource.FromHwnd(splashWinHwnd);
+                        //Window wnd = hwndSource.RootVisual as Window;
                     }
                 }
-                else
+                catch (ArgumentException ex)
                 {
-                    MessageBox.Show("The file " + meikPath + "\\MEIK.exe is not exist.");
+                    MessageBox.Show("Failed to start MEIK software v. 5.6, Exception Message:" + ex.Message);
                 }
             }
-            else//MEIK程序已经启动时
+            else
             {
-
+                MessageBox.Show("The file " + meikPath + "\\MEIK.exe is not exist.");
             }
         }
 
@@ -130,6 +155,7 @@ namespace MEIKReport
             {
                 IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Screening");
                 Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                this.StartMouseHook();
                 this.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
@@ -145,6 +171,7 @@ namespace MEIKReport
             {
                 IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
                 Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                this.StartMouseHook();
                 this.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
@@ -206,8 +233,9 @@ namespace MEIKReport
                         }
                         else
                         {
-                            this.Visibility = Visibility.Visible;
+                            this.Visibility = Visibility.Visible;                            
                         }
+                        this.StartMouseHook();
                     }
                 }                
             }                        

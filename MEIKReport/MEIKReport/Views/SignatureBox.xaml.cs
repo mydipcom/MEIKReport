@@ -119,6 +119,8 @@ namespace MEIKReport
                 if (!Directory.Exists(signFolder))
                 {
                     Directory.CreateDirectory(signFolder);
+                    FileHelper.SetFolderPower(signFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(signFolder, "Users", "FullControl");
                 }
                 if (this.cbDefault.IsChecked == true)
                 {
@@ -146,6 +148,8 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
+                FileHelper.SetFolderPower(signFolder, "Everyone", "FullControl");
+                FileHelper.SetFolderPower(signFolder, "Users", "FullControl");
                 MessageBox.Show(ex.Message);                
             }
             finally
