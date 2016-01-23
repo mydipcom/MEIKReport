@@ -4365,8 +4365,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{B94D6AD3-8E5D-48AA-975B-EA8F9F25EB45}</td><td/></row>
-		<row><td>LAUNCHPROGRAMFILEKEY</td><td>meikreport.exe1</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{085C5071-79CF-42E3-BC55-E3DA517B64C9}</td><td/></row>
+		<row><td>LAUNCHPROGRAMFILEKEY</td><td>meikreport.exe</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>

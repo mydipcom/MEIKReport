@@ -16,8 +16,8 @@
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="600"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="350"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -27,6 +27,7 @@
                 <Button Name="saveBtn" Width="100" Height="28" Margin="0,0,10,0" Click="save_Click">Save</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <!--<Button Name="btnOpenScreen" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenScreen_Click">Open Screening Window</Button>-->
                 <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
             </WrapPanel>
         </Grid>

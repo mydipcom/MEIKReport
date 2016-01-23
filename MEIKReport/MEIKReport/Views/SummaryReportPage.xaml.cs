@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -98,7 +99,16 @@ namespace MEIKReport.Views
         }
 
         private void Window_Closed(object sender, EventArgs e)
-        {            
+        {
+            App.opendWin = null;
+            IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+            //如果主窗体存在
+            if (mainWinHwnd != IntPtr.Zero)
+            {
+                int WM_SYSCOMMAND = 0x0112;
+                int SC_CLOSE = 0xF060;
+                Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+            }
             this.Owner.Show();
             //if (closeWindowEvent != null)
             //{
@@ -170,8 +180,7 @@ namespace MEIKReport.Views
         private void SaveReport()
         {                                                           
             try
-            {
-                dataFolder = AppDomain.CurrentDomain.BaseDirectory + "/Data";
+            {                
                 if (!Directory.Exists(dataFolder))
                 {
                     Directory.CreateDirectory(dataFolder);
@@ -244,23 +253,7 @@ namespace MEIKReport.Views
             //scaleTrans.ScaleY = 0.5;
             //this.inkCanvas.Strokes = ((InkCanvas)obj).Strokes;            
             dataSignImg.Source = ImageTools.GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg");
-        }
-      
-        private void btnOpenDiagn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
-                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                this.btnOpenDiagn.IsEnabled = false;
-                this.WindowState = WindowState.Minimized;
-                App.opendWin = this;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("System Exception: " + ex.Message);
-            }
-        }
+        }            
 
         private void btnScreenShot_Click(object sender, RoutedEventArgs e)
         {
@@ -301,6 +294,10 @@ namespace MEIKReport.Views
 
         private void savePdfBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists(dataFolder))
+            {
+                Directory.CreateDirectory(dataFolder);
+            }
             string xpsFile = dataFolder + "/" + person.Code + ".xps";
             if (File.Exists(xpsFile)) {
                 File.Delete(xpsFile);
@@ -322,6 +319,77 @@ namespace MEIKReport.Views
                 PDFTools.SavePDFFile(xpsFile, dlg.FileName);
             }
             
+        }
+
+        /// <summary>
+        /// 打开MEIK程序的诊断窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnOpenDiagn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                //如果主窗体不存在
+                if (mainWinHwnd == IntPtr.Zero)
+                {
+                    IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                    Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                }
+                else
+                {
+                    //Win32Api.ShowWindow(mainWinHwnd, 1);
+                }
+                WinMinimized();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
+            }
+        }
+
+        ///// <summary>
+        ///// 打开MEIK程序的扫描窗口
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void btnOpenScreen_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {                
+        //        IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+        //        //如果主窗体不存在
+        //        if (mainWinHwnd == IntPtr.Zero)
+        //        {
+        //            IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Screening");
+        //            Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+        //        }
+        //        else
+        //        {
+        //            //Win32Api.ShowWindow(mainWinHwnd, 1);
+        //        }
+        //        WinMinimized();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("System Exception: " + ex.Message);
+        //    }
+        //}
+
+        /// <summary>
+        /// 最小化窗体以便显示MEIK程序窗体
+        /// </summary>
+        private void WinMinimized()
+        {
+            App.opendWin = this;
+            this.WindowState = WindowState.Minimized;
+            //this.WindowStartupLocation = WindowStartupLocation.Manual;//设置可手动指定窗体位置                
+            int left = (int)(System.Windows.SystemParameters.PrimaryScreenWidth - 150);
+            IntPtr winHandle = new WindowInteropHelper(this).Handle;
+            Win32Api.MoveWindow(winHandle, left, 0, 0, 0, false);
         }
         
     }

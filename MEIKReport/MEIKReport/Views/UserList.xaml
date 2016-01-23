@@ -135,9 +135,9 @@
             <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Name="exitReport" Width="100" Style="{StaticResource buttonStyle}" Click="exitReport_Click" >Exit</Button>
             </StackPanel>
-            <WrapPanel Name="reportButtonPanel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">                
-                <Button Click="SummaryReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0">Summary Report</Button>
+            <WrapPanel Name="reportButtonPanel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">                                
                 <Button Click="ExaminationReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0">Examination Report</Button>
+                <Button Click="SummaryReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0">Summary Report</Button>
             </WrapPanel>
         </Grid>
 

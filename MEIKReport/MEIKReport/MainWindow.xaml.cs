@@ -193,26 +193,16 @@ namespace MEIKReport
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 IntPtr exitButtonHandle= Win32Api.WindowFromPoint(e.X, e.Y);
-                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);
+                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);                
                 if (Win32Api.GetParent(winHandle) == AppProc.MainWindowHandle)
-                {
+                {                    
                     StringBuilder winText = new StringBuilder(512);
                     Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
                     if ("EXIT".Equals(winText.ToString()))
                     {
                         if (App.opendWin != null)
                         {
-                            try
-                            {
-                                int WM_SYSCOMMAND = 0x0112;
-                                int SC_CLOSE = 0xF060;
-                                Win32Api.SendMessage(winHandle, WM_SYSCOMMAND, SC_CLOSE, 0);
-                            }
-                            finally
-                            {
-                                App.opendWin.WindowState = WindowState.Maximized;    
-                            }
-                                                    
+                            App.opendWin.WindowState = WindowState.Maximized;                                                    
                         }
                         else
                         {

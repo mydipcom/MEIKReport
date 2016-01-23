@@ -36,9 +36,13 @@ namespace MEIKReport
             cbDefault.IsChecked = defaultSign;
             if (defaultSign)
             {
-                using (var stream = System.IO.File.OpenRead(signFolder + "/default.strokes"))
+                string signImgFile = signFolder + "/default.strokes";
+                if (File.Exists(signImgFile))
                 {
-                    this.inkCanvas.Strokes = new System.Windows.Ink.StrokeCollection(stream);
+                    using (var stream = System.IO.File.OpenRead(signImgFile))
+                    {
+                        this.inkCanvas.Strokes = new System.Windows.Ink.StrokeCollection(stream);
+                    }
                 }
             }
         }                
