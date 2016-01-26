@@ -248,6 +248,14 @@ namespace MEIKReport.Model
             set { dataPertinentHistory = value; }
         }
 
+        private string dataPertinentHistory1;
+
+        public string DataPertinentHistory1
+        {
+            get { return dataPertinentHistory1; }
+            set { dataPertinentHistory1 = value; }
+        }
+
         private string dataMotherUltra;
 
         public string DataMotherUltra

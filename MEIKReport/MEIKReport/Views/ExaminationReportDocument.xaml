@@ -128,8 +128,10 @@
             </StackPanel>
             <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="Pertinent/Family history of breast cancer: " FontWeight="Bold"/>
-                <TextBlock Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="110"  Margin="0,0,5,0"/>                    
-                <TextBlock Text="- Mother  Ultrasound/Mammogram findings: " FontWeight="Bold"/>
+                <TextBlock Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="65"/>
+                <TextBlock Text="-"/>
+                <TextBlock Name="dataPertinentHistory1" Text="{Binding DataPertinentHistory1}" Width="80"  Margin="0,0,5,0"/>
+                <TextBlock Text="Ultrasound/Mammogram findings: " FontWeight="Bold"/>
                 <TextBlock Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="140"/>                    
             </StackPanel>
             <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" >

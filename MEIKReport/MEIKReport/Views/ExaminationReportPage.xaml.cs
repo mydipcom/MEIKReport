@@ -31,7 +31,7 @@ namespace MEIKReport.Views
     {
         private delegate void DoPrintMethod(PrintDialog pdlg, DocumentPaginator paginator);
         //public event CloseWindowHandler closeWindowEvent;
-        private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "/Data";
+        private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private Person person = null;
         private ShortFormReport shortFormReportModel = new ShortFormReport();
         public ExaminationReportPage()
@@ -49,7 +49,7 @@ namespace MEIKReport.Views
                 }
                 else
                 {
-                    string dataFile = dataFolder + "/" + person.Code + ".dat";
+                    string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     if (File.Exists(dataFile))
                     {                    
                         this.shortFormReportModel = SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
@@ -113,7 +113,8 @@ namespace MEIKReport.Views
 
         private void previewBtn_Click(object sender, RoutedEventArgs e)
         {
-            try { 
+            try {
+                LoadDataModel();
                 PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, shortFormReportModel);
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
@@ -127,7 +128,8 @@ namespace MEIKReport.Views
 
         private void printBtn_Click(object sender, RoutedEventArgs e)
         {
-            try { 
+            try {
+                LoadDataModel();
                 PrintDialog pdlg = new PrintDialog();
                 if (pdlg.ShowDialog() == true)
                 {
@@ -195,7 +197,7 @@ namespace MEIKReport.Views
                     FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 }
                 LoadDataModel();
-                string datafile = dataFolder + "/" + person.Code + ".dat";
+                string datafile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
                 MessageBox.Show("Report is saved successfully.");
             }
@@ -241,6 +243,7 @@ namespace MEIKReport.Views
             shortFormReportModel.DataHormones = this.dataHormones.Text;
             shortFormReportModel.DataSkinAffections = this.dataSkinAffections.Text;
             shortFormReportModel.DataPertinentHistory = this.dataPertinentHistory.Text;
+            shortFormReportModel.DataPertinentHistory1 = this.dataPertinentHistory1.Text;
             shortFormReportModel.DataMotherUltra = this.dataMotherUltra.Text;
             shortFormReportModel.DataLeftBreast = this.dataLeftBreast.Text;
             shortFormReportModel.DataRightBreast = this.dataRightBreast.Text;
@@ -376,7 +379,10 @@ namespace MEIKReport.Views
                     FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                     FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 }
-                string xpsFile = dataFolder + "/" + person.Code + ".xps";
+                LoadDataModel();
+                //string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
                 if (File.Exists(xpsFile))
                 {
                     File.Delete(xpsFile);
@@ -391,6 +397,7 @@ namespace MEIKReport.Views
                 if (dlg.ShowDialog(this) == true)
                 {
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
+                    MessageBox.Show("Exported the PDF file successfully.");
                 }
             }
             catch (Exception ex)

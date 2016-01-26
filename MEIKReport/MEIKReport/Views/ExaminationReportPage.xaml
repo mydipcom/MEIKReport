@@ -198,12 +198,14 @@
                         </StackPanel>
                         <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Pertinent/Family history of breast cancer: " FontWeight="Bold"/>
-                            <ComboBox Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="110" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
+                            <ComboBox Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="75" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Positive</ComboBoxItem>
                                 <ComboBoxItem>Negative</ComboBoxItem>                                
                             </ComboBox>
-                            <TextBlock Text="- Mother  Ultrasound/Mammogram findings: " FontWeight="Bold"/>
+                            <TextBlock Text="-"/>
+                            <TextBox Name="dataPertinentHistory1" Text="{Binding DataPertinentHistory1}" VerticalAlignment="Center" Width="80" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"/>
+                            <TextBlock Text="Ultrasound/Mammogram findings: " FontWeight="Bold" Margin="5,0,0,0"/>
                             <ComboBox Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="140" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>None - No UTZ / Mammo</ComboBoxItem>

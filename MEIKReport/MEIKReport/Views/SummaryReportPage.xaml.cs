@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +37,7 @@ namespace MEIKReport.Views
         private delegate void DoPrintMethod(PrintDialog pdlg, DocumentPaginator paginator);
         //public event CloseWindowHandler closeWindowEvent;       
 
-        private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "/Data";
+        private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private Person person = null;
         private ShortFormReport shortFormReportModel = new ShortFormReport();
         public SummaryReportPage()
@@ -54,7 +55,7 @@ namespace MEIKReport.Views
                 }
                 else
                 {
-                    string dataFile=dataFolder+"/"+person.Code+".dat";
+                    string dataFile=dataFolder+System.IO.Path.DirectorySeparatorChar+person.Code+".dat";
                     if(File.Exists(dataFile)){
                         ////序列化xaml
                         //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code+".dat", FileMode.Open))
@@ -283,9 +284,9 @@ namespace MEIKReport.Views
         private void btnScreenShot_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
-                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+            {                
+                //IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                //Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 this.WindowState = WindowState.Minimized;
                 App.opendWin = this;
                 ScreenCapture screenCaptureWin = new ScreenCapture(this.person);
@@ -319,13 +320,18 @@ namespace MEIKReport.Views
 
         private void savePdfBtn_Click(object sender, RoutedEventArgs e)
         {
-            try { 
+            try {
                 if (!Directory.Exists(dataFolder))
                 {
-                    this.CreateFolder(dataFolder);                    
+                    this.CreateFolder(dataFolder);
                 }
-                string xpsFile = dataFolder + "/" + person.Code + ".xps";
-                if (File.Exists(xpsFile)) {
+                LoadDataModel();
+                //string tempPath=Path.GetTempPath().ToString();
+                string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                //string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                if (File.Exists(xpsFile))
+                {
                     File.Delete(xpsFile);
                 }
                 string reportTempl = "Views/SummaryReportDocument.xaml";
@@ -336,13 +342,16 @@ namespace MEIKReport.Views
                 FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
                 XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
                 //将flow document写入基于内存的xps document中去
-                XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);            
+                XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
                 writer.Write(page);            
                 xpsDocument.Close();
+                
+                //string xpsFile = "C:\\MEIKReport\\14102500104.xps";
                 var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
                 if (dlg.ShowDialog(this) == true)
                 {
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
+                    MessageBox.Show("Exported the PDF file successfully.");
                 }
             }
             catch (Exception ex)
@@ -350,7 +359,7 @@ namespace MEIKReport.Views
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 MessageBox.Show(ex.Message);
-            }
+            }            
         }
 
         /// <summary>

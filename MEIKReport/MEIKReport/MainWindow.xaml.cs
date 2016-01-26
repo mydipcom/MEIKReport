@@ -39,10 +39,7 @@ namespace MEIKReport
 
         public MainWindow()
         {            
-            InitializeComponent();
-            //DirectoryInfo dirinfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);            
-            //FileHelper.SetFolderPower(AppDomain.CurrentDomain.BaseDirectory, "Everyone", "FullControl");
-            //FileHelper.SetFolderPower(AppDomain.CurrentDomain.BaseDirectory, "Users", "FullControl");
+            InitializeComponent();            
         }
                        
         private void Window_Loaded(object sender, RoutedEventArgs e)

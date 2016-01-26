@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MEIKReport.Common
 {
@@ -16,11 +17,10 @@ namespace MEIKReport.Common
         /// <param name="xpsPath"></param>
         /// <param name="pdfFilePath"></param>
         public  static void SavePDFFile(string xpsPath, string pdfFilePath)
-        {
+        {            
             if (File.Exists(xpsPath))
-            {
-                //pdfFilePath = this.GetContainerPathFromDialog();
-
+            {                
+                //pdfFilePath = this.GetContainerPathFromDialog();         
                 var excuteDll = Path.Combine(System.Environment.CurrentDirectory, "gxpswin32-9.18.exe");
 
                 ProcessStartInfo gxpsArguments = new ProcessStartInfo(excuteDll, String.Format("-sDEVICE=pdfwrite -sOutputFile={0} -dNOPAUSE {1}", pdfFilePath, xpsPath));
@@ -31,7 +31,14 @@ namespace MEIKReport.Common
                 {
                     gxps.WaitForExit();
                 }
-                File.Delete(xpsPath);//删除临时文件
+                if (File.Exists(xpsPath))
+                {
+                    File.Delete(xpsPath);//删除临时文件
+                }
+            }
+            else
+            {
+                MessageBox.Show("The file not find.");
             }
 
         }
