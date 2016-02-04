@@ -106,7 +106,6 @@
     <Compile Include="Common\OperateIniFile.cs" />
     <Compile Include="Common\PDFTools.cs" />
     <Compile Include="Common\ScreenCapture.cs" />
-    <Compile Include="Common\ScreenShot.cs" />
     <Compile Include="Common\SerializeUtilities.cs" />
     <Compile Include="Common\Win32Api.cs" />
     <Compile Include="Common\WindowListen.cs" />
@@ -296,7 +295,7 @@
     <Resource Include="Images\MEIK-ICON.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="gxpswin32-9.18.exe">
+    <Content Include="gxpswin32.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="MEIK-ICON_256-256.ICO" />

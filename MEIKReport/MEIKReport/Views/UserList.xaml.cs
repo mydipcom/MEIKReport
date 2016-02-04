@@ -33,7 +33,7 @@ namespace MEIKReport
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Visibility = Visibility.Hidden;
             var selectedUser = this.CodeListBox.SelectedItem as Person;
             //var name=selectedUser.GetAttribute("Name");
             // View Examination Report
@@ -45,7 +45,7 @@ namespace MEIKReport
 
         private void SummaryReport_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Visibility = Visibility.Hidden;
             var selectedUser = this.CodeListBox.SelectedItem as Person;
             //var name = selectedUser.GetAttribute("Name");
             SummaryReportPage summaryReportPage = new SummaryReportPage(selectedUser);
@@ -60,9 +60,27 @@ namespace MEIKReport
         }
 
         private void Window_Closed(object sender, EventArgs e)
-        {
-            //this.Owner.Show();
-            this.Owner.Visibility=Visibility.Visible;
+        {                        
+            try
+            {
+                App.opendWin = null;
+                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                //如果主窗体存在
+                if (mainWinHwnd != IntPtr.Zero)
+                {
+                    int WM_SYSCOMMAND = 0x0112;
+                    int SC_CLOSE = 0xF060;
+                    Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Owner.Visibility = Visibility.Visible;                
+            }
         }
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
@@ -107,6 +125,7 @@ namespace MEIKReport
                                 person.Address = address;
                                 person.Birthday = birthmonth + "/" + birthdate + "/" + birthyear;
                                 person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;
+                                person.ArchiveFolder = folderName;
                                 if (!string.IsNullOrEmpty(person.Birthday))
                                 {
                                     int m_Y1 = DateTime.Parse(person.Birthday).Year;
@@ -125,10 +144,12 @@ namespace MEIKReport
                 if (set.Count > 0)
                 {
                     reportButtonPanel.Visibility = Visibility.Visible;
+                    emailButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     reportButtonPanel.Visibility = Visibility.Hidden;
+                    emailButton.Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
@@ -141,6 +162,11 @@ namespace MEIKReport
         {
             this.Close();
             this.Owner.Show();
+        }
+
+        private void EmailButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
         
         

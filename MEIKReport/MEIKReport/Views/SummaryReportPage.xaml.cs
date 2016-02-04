@@ -55,7 +55,12 @@ namespace MEIKReport.Views
                 }
                 else
                 {
-                    string dataFile=dataFolder+System.IO.Path.DirectorySeparatorChar+person.Code+".dat";
+                    string dataFile = FindUserReportData(person.ArchiveFolder);
+                    if (string.IsNullOrEmpty(dataFile))
+                    {
+                        dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
+                    }
+                    //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     if(File.Exists(dataFile)){
                         ////序列化xaml
                         //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code+".dat", FileMode.Open))
@@ -106,26 +111,28 @@ namespace MEIKReport.Views
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            try { 
-                App.opendWin = null;
-                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
-                //如果主窗体存在
-                if (mainWinHwnd != IntPtr.Zero)
-                {
-                    int WM_SYSCOMMAND = 0x0112;
-                    int SC_CLOSE = 0xF060;
-                    Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
-                }
-                this.Owner.Show();
-                //if (closeWindowEvent != null)
-                //{
-                //    closeWindowEvent(sender, e);
-                //}
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            App.opendWin = null;
+            this.Owner.Show();
+            //try { 
+            //    App.opendWin = null;
+            //    IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+            //    //如果主窗体存在
+            //    if (mainWinHwnd != IntPtr.Zero)
+            //    {
+            //        int WM_SYSCOMMAND = 0x0112;
+            //        int SC_CLOSE = 0xF060;
+            //        Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+            //    }
+            //    this.Owner.Show();
+            //    //if (closeWindowEvent != null)
+            //    //{
+            //    //    closeWindowEvent(sender, e);
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
         private void DoPrint(PrintDialog pdlg, DocumentPaginator paginator)
         {
@@ -183,7 +190,7 @@ namespace MEIKReport.Views
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            SaveReport();          
+            SaveReport(null);          
             //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code + ".dat", FileMode.Create))
             //{
             //    XamlWriter.Save(this.reportPage, fs);
@@ -201,16 +208,25 @@ namespace MEIKReport.Views
         /// <summary>
         /// 保存报表数据到文件
         /// </summary>
-        private void SaveReport()
+        private void SaveReport(string otherDataFolder)
         {                                                           
             try
-            {                
-                if (!Directory.Exists(dataFolder))
+            {
+                string datafile = null;
+                if (!string.IsNullOrEmpty(otherDataFolder))
                 {
-                    this.CreateFolder(dataFolder);
+                    datafile = otherDataFolder + "/" + person.Code + ".dat";
                 }
-                LoadDataModel();
-                string datafile = dataFolder + "/" + person.Code + ".dat";
+                else 
+                {
+                    if (!Directory.Exists(dataFolder))
+                    {
+                        this.CreateFolder(dataFolder);
+                    }
+                    datafile = dataFolder + "/" + person.Code + ".dat";
+                }
+                
+                LoadDataModel();                
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
                 MessageBox.Show("Report is saved successfully.");
             }
@@ -309,7 +325,7 @@ namespace MEIKReport.Views
             MessageBoxResult result = MessageBox.Show("Do you want to save the report?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
-                SaveReport();                
+                SaveReport(null);                
             }
         }
 
@@ -327,9 +343,9 @@ namespace MEIKReport.Views
                 }
                 LoadDataModel();
                 //string tempPath=Path.GetTempPath().ToString();
-                string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
-                //string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                //string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
                 if (File.Exists(xpsFile))
                 {
                     File.Delete(xpsFile);
@@ -470,6 +486,47 @@ namespace MEIKReport.Views
             Directory.CreateDirectory(folderPath);
             FileHelper.SetFolderPower(folderPath, "Everyone", "FullControl");
             FileHelper.SetFolderPower(folderPath, "Users", "FullControl");
+        }
+
+        private string FindUserReportData(string folderName)
+        {
+            //遍历指定文件夹下所有文件
+            DirectoryInfo theFolder = new DirectoryInfo(folderName);
+            DirectoryInfo[] dirInfo = theFolder.GetDirectories();
+            List<DirectoryInfo> list = dirInfo.ToList();
+            list.Add(theFolder);
+            dirInfo = list.ToArray();
+            foreach (DirectoryInfo NextFolder in dirInfo)
+            {
+                FileInfo[] fileInfo = null;
+                try
+                {
+                    fileInfo = NextFolder.GetFiles();
+                    //遍历文件
+                    foreach (FileInfo NextFile in fileInfo)
+                    {
+                        if ((person.Code+".dat").Equals(NextFile.Name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return NextFile.FullName;
+                        }
+                    }
+                }
+                catch (Exception) { }
+            }
+            return null;
+        }
+
+        private void saveAsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.ShowDialog();
+            string folderName = folderBrowserDialog.SelectedPath;            
+            if (!string.IsNullOrEmpty(folderName))
+            {
+                SaveReport(folderName);                
+                MessageBox.Show("Saved the report file successfully.");
+            }
+             
         }
         
     }

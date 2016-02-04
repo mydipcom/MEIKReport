@@ -13,6 +13,13 @@ namespace MEIKReport.Model
         private string birthday;
         private string regdate;
 
+        private string archiveFolder;
+
+        public string ArchiveFolder
+        {
+            get { return archiveFolder; }
+            set { archiveFolder = value; }
+        }
 
         #region Public Members
         public int Id { 

@@ -16,8 +16,8 @@
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="450"/>
-                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="620"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <WrapPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -25,6 +25,7 @@
                 <Button Name="printBtn" Width="100" Height="28" Margin="0,0,10,0" Click="printBtn_Click">Print</Button>
                 <Button Name="savePdfBtn" Width="100" Height="28" Margin="0,0,10,0" Click="savePdfBtn_Click">Export to PDF</Button>
                 <Button Name="saveBtn" Width="100" Height="28" Margin="0,0,10,0" Click="save_Click">Save</Button>
+                <Button Name="saveAsBtn" Width="100" Height="28" Margin="0,0,10,0" Click="saveAsBtn_Click">Save as...</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <!--<Button Name="btnOpenScreen" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenScreen_Click">Open Screening Window</Button>-->

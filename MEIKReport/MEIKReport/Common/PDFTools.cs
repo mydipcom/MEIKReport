@@ -21,9 +21,9 @@ namespace MEIKReport.Common
             if (File.Exists(xpsPath))
             {                
                 //pdfFilePath = this.GetContainerPathFromDialog();         
-                var excuteDll = Path.Combine(System.Environment.CurrentDirectory, "gxpswin32-9.18.exe");
+                var excuteDll = Path.Combine(System.Environment.CurrentDirectory, "gxpswin32.exe");
 
-                ProcessStartInfo gxpsArguments = new ProcessStartInfo(excuteDll, String.Format("-sDEVICE=pdfwrite -sOutputFile={0} -dNOPAUSE {1}", pdfFilePath, xpsPath));
+                ProcessStartInfo gxpsArguments = new ProcessStartInfo(excuteDll, String.Format("-sDEVICE=pdfwrite -sOutputFile={0} -dNOPAUSE {1}", "\"" + pdfFilePath + "\"", "\"" + xpsPath + "\""));
 
                 gxpsArguments.WindowStyle = ProcessWindowStyle.Hidden;
 

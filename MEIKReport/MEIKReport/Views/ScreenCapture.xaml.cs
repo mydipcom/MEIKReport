@@ -42,7 +42,7 @@ namespace MEIKReport.Views
             this.selectedUser = data as Person;
         }
 
-        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             isMouseDown = true;
             x = e.GetPosition(null).X;
@@ -70,12 +70,12 @@ namespace MEIKReport.Views
                 if (e.LeftButton == MouseButtonState.Released)
                 {
                     cnv.Children.Clear();
-                    width = e.GetPosition(null).X - x;
-                    height = e.GetPosition(null).Y - y;
+                    width = r.Width;
+                    height = r.Height;
                     this.CaptureScreen(x, y, width, height);
                     this.x = this.y = 0;
                     this.isMouseDown = false;
-                    this.Close();
+                    this.Close();                    
                 }
             }
         }
@@ -87,19 +87,20 @@ namespace MEIKReport.Views
             iy = Convert.ToInt32(y);
             iw = Convert.ToInt32(width);
             ih = Convert.ToInt32(height);
-            string screenshotFolder = AppDomain.CurrentDomain.BaseDirectory + "/Screenshot";
+            string screenshotFolder = AppDomain.CurrentDomain.BaseDirectory +System.IO.Path.DirectorySeparatorChar+ "Screenshot";
             try{
-                
-                Bitmap image = new Bitmap(iw, ih, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                Graphics g = Graphics.FromImage(image);
-                g.CopyFromScreen(ix, iy, ix, iy, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);                
                 if (!Directory.Exists(screenshotFolder))
                 {
                     Directory.CreateDirectory(screenshotFolder);
                     FileHelper.SetFolderPower(screenshotFolder, "Everyone", "FullControl");
                     FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
                 }
-                string imgFileName = AppDomain.CurrentDomain.BaseDirectory + "/Screenshot/" + this.selectedUser.Code;
+
+                Bitmap image = new Bitmap(iw, ih, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(image);
+                g.CopyFromScreen(ix, iy, 0, 0, new System.Drawing.Size(iw, ih), CopyPixelOperation.SourceCopy);                
+                
+                string imgFileName = screenshotFolder + System.IO.Path.DirectorySeparatorChar + this.selectedUser.Code;
                 image.Save(imgFileName, ImageFormat.Png);
 
                 if (this.callbackMethod != null)
@@ -111,7 +112,7 @@ namespace MEIKReport.Views
             {
                 FileHelper.SetFolderPower(screenshotFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
-                System.Windows.MessageBox.Show("Failed to capture the screen.");
+                System.Windows.MessageBox.Show("Failed to capture the screen. Please use the left mouse button to drag on the screen after you clicked the button Capture Screen.");
             }
             App.opendWin.WindowState = WindowState.Maximized;
             this.Close();
