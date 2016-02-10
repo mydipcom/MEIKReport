@@ -346,6 +346,7 @@ namespace MEIKReport.Views
                 //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 //string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
                 string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+                
                 if (File.Exists(xpsFile))
                 {
                     File.Delete(xpsFile);
@@ -366,6 +367,12 @@ namespace MEIKReport.Views
                 var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
                 if (dlg.ShowDialog(this) == true)
                 {
+                    string pdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
+                    if (File.Exists(pdfFile))
+                    {
+                        File.Delete(pdfFile);
+                    }
+                    PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
                     MessageBox.Show("Exported the PDF file successfully.");
                 }

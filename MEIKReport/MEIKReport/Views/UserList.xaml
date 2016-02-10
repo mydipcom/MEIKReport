@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MEIKReport.UserList"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MEIK Report" Height="600" Width="800" WindowStyle="ThreeDBorderWindow"
+        Title="MEIK Report" Height="600" Width="800"
         Icon="/MEIKReport;component/Images/MEIK-ICON.png"
         ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized" Topmost="True">    
     <!--<Window.TaskbarItemInfo>

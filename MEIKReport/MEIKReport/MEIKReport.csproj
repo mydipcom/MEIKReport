@@ -95,6 +95,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\DelegateHelper.cs" />
+    <Compile Include="Common\EmailHelper.cs" />
     <Compile Include="Common\FileHelper.cs" />
     <Compile Include="Common\GlobalHook.cs" />
     <Compile Include="Common\GlobalMouseHandler.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ReportSettingModel.cs" />
     <Compile Include="Model\ShortFormReport.cs" />
     <Compile Include="PrintPreviewWindow.xaml.cs">
       <DependentUpon>PrintPreviewWindow.xaml</DependentUpon>
@@ -127,8 +129,14 @@
     <Compile Include="Views\ScreenCapture.xaml.cs">
       <DependentUpon>ScreenCapture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddNamePage.xaml.cs">
+      <DependentUpon>AddNamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignatureBox.xaml.cs">
       <DependentUpon>SignatureBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportSettingPage.xaml.cs">
+      <DependentUpon>ReportSettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserList_old.xaml.cs">
       <DependentUpon>UserList_old.xaml</DependentUpon>
@@ -146,16 +154,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow2.xaml.cs">
-      <DependentUpon>MainWindow2.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PrintPreviewWindow.xaml">
@@ -182,11 +182,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddNamePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SignatureBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SummaryReportImageDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ReportSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

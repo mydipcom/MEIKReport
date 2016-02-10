@@ -113,6 +113,7 @@
                 <Button Focusable="True" Name="btnScreening" Style="{StaticResource NewButtonStyle}"  Height="26" FontSize="16" FontFamily="Global Sans Serif" FontWeight="Bold" IsDefault="True" Loaded="btnScreening_Loaded" Click="btnScreening_Click">Screening</Button>
                 <Button Focusable="True" Name="btnDiagnostics" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnDiagnostics_Click">Diagnostics</Button>
                 <Button Focusable="True" Name="btnReport" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnReport_Click">Report</Button>
+                <Button Focusable="True" Name="btnSetting" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnSetting_Click">Report Perferences</Button>
                 <Button Focusable="True" Name="btnExit" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnExit_Click">Exit</Button>
             </StackPanel>
         </Canvas>

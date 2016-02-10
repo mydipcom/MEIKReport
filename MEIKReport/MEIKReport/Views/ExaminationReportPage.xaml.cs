@@ -411,6 +411,12 @@ namespace MEIKReport.Views
                 var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
                 if (dlg.ShowDialog(this) == true)
                 {
+                    string pdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
+                    if (File.Exists(pdfFile))
+                    {
+                        File.Delete(pdfFile);
+                    }
+                    PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
                     MessageBox.Show("Exported the PDF file successfully.");
                 }

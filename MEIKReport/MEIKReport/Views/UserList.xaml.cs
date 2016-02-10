@@ -26,9 +26,12 @@ namespace MEIKReport
     /// </summary>
     public partial class UserList : Window
     {
+        private ReportSettingModel reportSettingModel = new ReportSettingModel();
+        private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         public UserList()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            LoadInitConfig();
         }        
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
@@ -166,9 +169,70 @@ namespace MEIKReport
 
         private void EmailButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (string.IsNullOrEmpty(reportSettingModel.MailAddress) || string.IsNullOrEmpty(reportSettingModel.MailHost)
+                || string.IsNullOrEmpty(reportSettingModel.MailUsername) || string.IsNullOrEmpty(reportSettingModel.MailPwd))
+            {
+                MessageBox.Show("You don't configure the mail account or configured the mail account incorrectly.");
+                return;
+            }
+            string toMail="";
+            MessageBoxResult result = MessageBox.Show("Do you want to email the report files to " + toMail + "?", "Email the report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    var selectedUser = this.CodeListBox.SelectedItem as Person;
+                    string senderServerIp = reportSettingModel.MailHost;
+                    string toMailAddress = toMail;
+                    string fromMailAddress = reportSettingModel.MailAddress;
+                    string subjectInfo =reportSettingModel.MailSubject+ " ("+selectedUser.SurName +")";
+                    string bodyInfo = "";
+                    string mailUsername = reportSettingModel.MailUsername;
+                    string mailPassword = reportSettingModel.MailPwd;
+                    string mailPort = reportSettingModel.MailPort+"";
+                    string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
+                    string pdfFile=dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "_LF.pdf";
+                    string attachPath = dataFile + ";" + pdfFile;
+                    bool isSsl = reportSettingModel.MailSsl;
+                    EmailHelper email = new EmailHelper(senderServerIp, toMailAddress, fromMailAddress, subjectInfo, bodyInfo, mailUsername, mailPassword, mailPort, isSsl, false);
+                    email.AddAttachments(attachPath);
+                    email.Send();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
         }
-        
-        
+
+        private void LoadInitConfig()
+        {
+            try
+            {                
+                string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                if (!string.IsNullOrEmpty(doctorNames))
+                {
+                    var doctorList = doctorNames.Split(';').ToList<string>();
+                    doctorList.ForEach(item => reportSettingModel.DoctorNames.Add(item));
+                }
+                string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                if (!string.IsNullOrEmpty(doctorNames))
+                {
+                    var techList = techNames.Split(';').ToList<string>();
+                    techList.ForEach(item => reportSettingModel.TechNames.Add(item));
+                }
+                reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                
+                reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load the report setting. Exception: " + ex.Message);
+            }            
+        }
     }
 }

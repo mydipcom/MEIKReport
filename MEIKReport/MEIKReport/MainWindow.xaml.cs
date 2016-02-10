@@ -254,6 +254,14 @@ namespace MEIKReport
             {
                 AppProc.Kill();
             }
+        }
+
+        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+            ReportSettingPage reportSettingPage = new ReportSettingPage();
+            reportSettingPage.Owner = this;
+            reportSettingPage.Show();
         }         
         
     }

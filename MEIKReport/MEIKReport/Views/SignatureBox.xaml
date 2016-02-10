@@ -1,13 +1,11 @@
 ﻿<Window x:Class="MEIKReport.SignatureBox"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Doctor Signature Box" Height="230" Width="800" ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" WindowStyle="SingleBorderWindow" Topmost="True" WindowStartupLocation="CenterScreen">    
+        Title="Doctor Signature Box" Height="230" Width="800" ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" Topmost="True" WindowStartupLocation="CenterScreen">    
     <!--<Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="My Application" Overlay="/MEIKReport;component/Images/ProgressIcon.jpg" ProgressState="Normal"  ProgressValue="10" />
     </Window.TaskbarItemInfo>-->
-    <Window.Resources>        
-        <CollectionViewSource x:Key="CustomerSource" />
-    </Window.Resources>
+
     <Grid>
         <Grid.Background>
             <SolidColorBrush Color="Gray"></SolidColorBrush>
