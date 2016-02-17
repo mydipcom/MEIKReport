@@ -29,7 +29,7 @@
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <!--<Button Name="btnOpenScreen" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenScreen_Click">Open Screening Window</Button>-->
-                <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
+                <Button Name="btnOpenDiagn" Width="160" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
             </WrapPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -46,14 +46,14 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1" Grid.Row="1" Background="White">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="754"/>
-                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="1083"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Name="reportDataGrid" Grid.Column="1" Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -84,7 +84,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="1.5*"/>
-                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="1.9*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -256,7 +256,7 @@
                                 <RowDefinition Height="4"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <extToolkit:DateTimePicker Name="dataSignDate" VerticalAlignment="Bottom" Height="26" Width="140" FontSize="14" Text="{Binding DataSignDate}" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerVisibility="Hidden" TextAlignment="Left" TimePickerShowButtonSpinner="False"/>
+                            <extToolkit:DateTimePicker Name="dataSignDate" VerticalAlignment="Bottom" Height="26" Width="150" FontSize="14" Text="{Binding DataSignDate}" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerVisibility="Hidden" TextAlignment="Left" TimePickerShowButtonSpinner="False"/>
                             <!--<DatePicker Grid.Column="0" Width="150" VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="{x:Null}" SelectedDateFormat="Long" SelectedDate="{x:Static s:DateTime.Today}"/>-->
                             <Grid Name="signPanel" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                 <Image Name="dataSignImg" Height="40" Width="204"></Image>                                
@@ -270,12 +270,30 @@
                         
                         <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="MEIK Technician: " Width="120"/>
-                            <TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <ComboBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="350" Height="24" BorderBrush="Gray" Background="{x:Null}" FontSize="10" >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ComboBox>
+                            <!--<TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>-->
                             <!--<TextBlock Text="Rizza Joanna C. Salas - RN" Width="350" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="Doctor:" Width="120"/>
-                            <TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
+                            <ComboBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="24" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ComboBox>
+                            <!--<TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>-->
                             <!--<TextBlock Text="Dr. Maria Cristina B. Almonte" Width="350" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >

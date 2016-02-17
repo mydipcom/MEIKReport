@@ -69,16 +69,27 @@ namespace MEIKReport
         private void btnClearSignBox_Click(object sender, RoutedEventArgs e)
         {
             this.inkCanvas.Strokes.Clear();
+            this.inkCanvas.Background = null;
         }
 
         private void btnLoadSign_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog() { Filter = "strokes|*.strokes" };
+            var dlg = new Microsoft.Win32.OpenFileDialog() { Filter = "strokes|*.strokes|png|*.png|jpg|*.jpg|jpeg|*.jpeg" };
             if (dlg.ShowDialog(this) == true)
             {
                 using (var stream = System.IO.File.OpenRead(dlg.FileName))
                 {
-                    this.inkCanvas.Strokes = new System.Windows.Ink.StrokeCollection(stream);
+                    if (dlg.FileName.EndsWith(".strokes"))
+                    {
+                        this.inkCanvas.Strokes = new System.Windows.Ink.StrokeCollection(stream);                        
+                    }
+                    else
+                    {
+                        var brush = new ImageBrush();
+                        brush.ImageSource = new BitmapImage(new Uri(dlg.FileName, UriKind.RelativeOrAbsolute));
+                        this.inkCanvas.Background = brush;
+                        
+                    }
                 }
             }
 

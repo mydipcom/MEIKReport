@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MEIKReport.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,6 +21,7 @@ namespace MEIKReport
         public static IntPtr splashWinHwnd = IntPtr.Zero;
         public static Window opendWin = null;
         public static string dataFolder = null;
+        public static ReportSettingModel reportSettingModel = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {

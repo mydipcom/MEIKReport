@@ -22,7 +22,7 @@
             <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">                                            
                 <Label>Set as default signature</Label>
                 <CheckBox Name="cbDefault" VerticalAlignment="Center"></CheckBox>
-                <Button Name="btnLoadSign" Width="150" Height="22" Content="Load Old Signature" Margin="15,0,0,0" Click="btnLoadSign_Click"></Button>
+                <Button Name="btnLoadSign" Width="120" Height="22" Content="Load Signature" Margin="15,0,0,0" Click="btnLoadSign_Click"></Button>
                 <Button Name="btnSaveSign" Width="100" Height="22" Content="Save" Margin="15,0,0,0" Click="btnSaveSign_Click"></Button>
                 <Button Name="btnClearSignBox" Width="100" Height="22" Content="Clear" Margin="15,0,0,0" Click="btnClearSignBox_Click"></Button>
                 <Button Name="btnOkSignBox" Width="100" Height="22" Content="Confirm" Margin="15,0,0,0" Click="btnOkSignBox_Click"></Button>

@@ -40,7 +40,17 @@ namespace MEIKReport
         /// <returns></returns>
         public static FixedPage LoadFixedDocumentAndRender(string strTmplName, Object data)
         {
-            FixedPage doc = (FixedPage)Application.LoadComponent(new Uri(strTmplName, UriKind.RelativeOrAbsolute));            
+            FixedPage doc = (FixedPage)Application.LoadComponent(new Uri(strTmplName, UriKind.RelativeOrAbsolute));
+            if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+            {
+                doc.Width = 96 * 8.5;
+                doc.Height = 96 * 11;
+            }
+            else if ("A4".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+            {
+                doc.Width = 96 * 8.27;
+                doc.Height = 96 * 11.69;                
+            }
             doc.DataContext = data;
             //加载图片到文档中
             if (data.GetType() == typeof(ShortFormReport))

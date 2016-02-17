@@ -4,7 +4,7 @@
       xmlns:s ="clr-namespace:System;assembly=mscorlib"
       xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
       Icon="/MEIKReport;component/Images/MEIK-ICON.png"
-      Height="1233" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing" StateChanged="Window_StateChanged">    
+      Height="1293" Width="1000" Title="Examination Report" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Maximized" Closing="Window_Closing" StateChanged="Window_StateChanged">    
     <Grid Background="#FFB8B8B8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>            
@@ -28,7 +28,7 @@
                 <Button Name="saveAsBtn" Width="100" Height="28" Margin="0,0,10,0" Click="saveAsBtn_Click">Save as...</Button>
             </WrapPanel>
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Name="btnOpenDiagn" Width="150" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
+                <Button Name="btnOpenDiagn" Width="160" Height="28" Margin="0,0,10,0" Click="btnOpenDiagn_Click">Open Diagnostics Window</Button>
             </WrapPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,10,0,-10">
@@ -39,21 +39,21 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="1123"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1153"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="1" Background="White">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="760"/>
-                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="764"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="1083"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Name="reportDataGrid" Grid.Column="1" Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -170,7 +170,7 @@
                             </ComboBox>
                             <!--<TextBlock Text="" Width="102"/>-->
                             <TextBlock Text="Menstrual cycle: " FontWeight="Bold"/>
-                            <ComboBox Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}" Width="161" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
+                            <ComboBox Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}" Width="156" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Phase 1</ComboBoxItem>
                                 <ComboBoxItem>Phase 2</ComboBoxItem>
@@ -207,9 +207,9 @@
                             <TextBlock Text="-"/>
                             <TextBox Name="dataPertinentHistory1" Text="{Binding DataPertinentHistory1}" VerticalAlignment="Center" Width="80" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"/>
                             <TextBlock Text="Ultrasound/Mammogram findings: " FontWeight="Bold" Margin="5,0,0,0"/>
-                            <ComboBox Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="140" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>None - No UTZ / Mammo</ComboBoxItem>
+                                <ComboBoxItem>No UTZ / Mammo</ComboBoxItem>
                                 <ComboBoxItem>Negative</ComboBoxItem>
                                 <ComboBoxItem>Benign</ComboBoxItem>
                                 <ComboBoxItem>Suspicious</ComboBoxItem>
@@ -715,7 +715,16 @@
                                 <ComboBoxItem>8 pt - 5 Category</ComboBoxItem>                                
                             </ComboBox>
                             <TextBlock Text="Technician: " Width="70"/>
-                            <TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
+                            <ComboBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ComboBox>
+                            <!--<TextBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
                         </StackPanel>
                         <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="BI-RADS category: " Width="110" FontWeight="Bold"/>
@@ -788,7 +797,16 @@
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <TextBlock Text="Doctor: " Width="70" FontWeight="Bold"/>
-                                <TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="280" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
+                                <ComboBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="280" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock Text="{Binding}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ComboBox>
+                                <!--<TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="280" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                                 <Grid>
@@ -822,6 +840,10 @@
                         </StackPanel>-->
 
                     </Grid>
+                    <WrapPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Button Name="btnScreenShot" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="180" Height="18" Click="btnScreenShot_Click">Capture Screen</Button>
+                        <Button Name="btnRemoveImg" Margin="10,0,0,0" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="180" Height="18" Click="btnRemoveImg_Click">Remove Image</Button>
+                    </WrapPanel>
                 </Grid>
             </Grid>
         </ScrollViewer>

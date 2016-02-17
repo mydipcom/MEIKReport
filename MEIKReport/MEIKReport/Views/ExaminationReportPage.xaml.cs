@@ -34,6 +34,7 @@ namespace MEIKReport.Views
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private Person person = null;
         private ShortFormReport shortFormReportModel = new ShortFormReport();
+        
         public ExaminationReportPage()
         {
             InitializeComponent();
@@ -62,7 +63,25 @@ namespace MEIKReport.Views
                         if (shortFormReportModel.DataSignImg != null)
                         {
                             this.dataSignImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataSignImg);
-                        }     
+                        }
+                        if (shortFormReportModel.DataScreenShotImg != null)
+                        {
+                            this.btnScreenShot.Content = "View Screenshot";
+                            this.btnRemoveImg.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            this.btnScreenShot.Content = "Capture Screen";
+                            this.btnRemoveImg.Visibility = Visibility.Hidden;
+                        }
+                        if (!App.reportSettingModel.TechNames.Contains(shortFormReportModel.DataMeikTech))
+                        {
+                            App.reportSettingModel.TechNames.Add(shortFormReportModel.DataMeikTech);
+                        }
+                        if (!App.reportSettingModel.DoctorNames.Contains(shortFormReportModel.DataDoctor))
+                        {
+                            App.reportSettingModel.DoctorNames.Add(shortFormReportModel.DataDoctor);
+                        }
                     }
                     else
                     {
@@ -70,7 +89,7 @@ namespace MEIKReport.Views
                         shortFormReportModel.DataName = person.SurName;
                         shortFormReportModel.DataAge = person.Age + "";
                         shortFormReportModel.DataAddress = person.Address;
-                        shortFormReportModel.DataScreenDate = DateTime.Parse(person.Regdate).ToLongDateString();
+                        shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToLongDateString();
                         
                         bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                         if (defaultSign)
@@ -84,6 +103,9 @@ namespace MEIKReport.Views
                         }
                     }
                     this.reportDataGrid.DataContext = this.shortFormReportModel;
+                    this.dataMeikTech.ItemsSource=App.reportSettingModel.TechNames;
+                    this.dataDoctor.ItemsSource= App.reportSettingModel.DoctorNames;
+
                 }
             }
             catch (Exception ex)
@@ -142,7 +164,14 @@ namespace MEIKReport.Views
                 {
                     FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
                     FixedDocument fixedDoc = new FixedDocument();//创建一个文档
-                    fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
+                    if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+                    {
+                        fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
+                    }
+                    else if ("A4".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+                    {
+                        fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.27, 96 * 11.69);
+                    }
 
                     PageContent pageContent = new PageContent();
                     ((IAddChild)pageContent).AddChild(page);
@@ -200,7 +229,7 @@ namespace MEIKReport.Views
                 string datafile = null;
                 if (!string.IsNullOrEmpty(otherDataFolder))
                 {
-                    datafile = otherDataFolder + "/" + person.Code + ".dat";
+                    datafile = otherDataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                 }
                 else
                 {
@@ -214,6 +243,21 @@ namespace MEIKReport.Views
                 }                
                 LoadDataModel();                
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
+                File.Copy(datafile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat",true);
+
+                //Save PDF file
+                string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
+                string lfReportTempl = "Views/ExaminationReportDocument.xaml";
+                ExportPDF(lfReportTempl, lfPdfFile);
+                File.Copy(lfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
+                string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
+                string sfReportTempl = "Views/SummaryReportDocument.xaml";                
+                if (shortFormReportModel.DataScreenShotImg != null)
+                {
+                    sfReportTempl = "Views/SummaryReportImageDocument.xaml";                                        
+                }
+                ExportPDF(sfReportTempl, sfPdfFile);
+                File.Copy(sfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
                 MessageBox.Show("Report is saved successfully.");
             }
             catch (Exception ex)
@@ -411,12 +455,12 @@ namespace MEIKReport.Views
                 var dlg = new Microsoft.Win32.SaveFileDialog() { Filter = "pdf|*.pdf" };
                 if (dlg.ShowDialog(this) == true)
                 {
-                    string pdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
-                    if (File.Exists(pdfFile))
-                    {
-                        File.Delete(pdfFile);
-                    }
-                    PDFTools.SavePDFFile(xpsFile, pdfFile);
+                    //string pdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
+                    //if (File.Exists(pdfFile))
+                    //{
+                    //    File.Delete(pdfFile);
+                    //}
+                    //PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
                     MessageBox.Show("Exported the PDF file successfully.");
                 }
@@ -427,6 +471,30 @@ namespace MEIKReport.Views
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void ExportPDF(string reportTempl,string pdfFile)
+        {
+            string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+            //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            //string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+            if (File.Exists(xpsFile))
+            {
+                File.Delete(xpsFile);
+            }
+
+            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+            
+            XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
+            //将flow document写入基于内存的xps document中去
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+            writer.Write(page);
+            xpsDocument.Close();            
+            if (File.Exists(pdfFile))
+            {
+                File.Delete(pdfFile);
+            }            
+            PDFTools.SavePDFFile(xpsFile, pdfFile);                        
         }
 
         /// <summary>
@@ -511,6 +579,55 @@ namespace MEIKReport.Views
                 catch (Exception) { }
             }
             return null;
+        }
+
+        private void btnScreenShot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (shortFormReportModel.DataScreenShotImg == null)
+                {
+                    this.WindowState = WindowState.Minimized;
+                    App.opendWin = this;
+                    ScreenCapture screenCaptureWin = new ScreenCapture(this.person);
+                    screenCaptureWin.callbackMethod = LoadScreenShot;
+                    screenCaptureWin.ShowDialog();
+                }
+                else
+                {
+                    ViewImagePage viewImagePage = new ViewImagePage(shortFormReportModel.DataScreenShotImg);
+                    viewImagePage.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
+            } 
+        }
+
+        private void LoadScreenShot(Object imgFileName)
+        {
+            var screenShotImg = ImageTools.GetBitmapImage(imgFileName as string);
+            if (screenShotImg != null)
+            {
+                var stream = screenShotImg.StreamSource;
+                stream.Position = 0;
+                byte[] buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                stream.Flush();
+                shortFormReportModel.DataScreenShotImg = buffer;
+                this.btnScreenShot.Content = "View Screenshot";
+                this.btnRemoveImg.Visibility = Visibility.Visible;
+            }
+           
+            //dataScreenShotImg.Source = ImageTools.GetBitmapImage(imgFileName as string);
+        }
+
+        private void btnRemoveImg_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnScreenShot.Content = "Capture Screen";
+            shortFormReportModel.DataScreenShotImg = null;
+            this.btnRemoveImg.Visibility = Visibility.Hidden;
         }
     }
 }

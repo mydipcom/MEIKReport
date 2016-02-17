@@ -23,55 +23,25 @@ namespace MEIKReport
 {    
     public partial class ReportSettingPage : Window
     {
-        private ReportSettingModel reportSettingModel = new ReportSettingModel();
+        
         public ReportSettingPage()
         {
             InitializeComponent();
-            LoadInitConfig();            
+            LoadInitConfig();
+            if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+            {
+                radLetter.IsChecked = true;
+                radA4.IsChecked = false;
+            }
+            else
+            {
+                radLetter.IsChecked = false;
+                radA4.IsChecked = true;
+            }
+            this.tabSetting.DataContext = App.reportSettingModel;
         }
 
-        private void LoadInitConfig()
-        {
-            try
-            {
-                string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                
-                if (!string.IsNullOrEmpty(doctorNames))
-                {
-                    var doctorList = doctorNames.Split(';').ToList<string>();
-                    doctorList.ForEach(item => reportSettingModel.DoctorNames.Add(item));
-                }
-                string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                
-                if (!string.IsNullOrEmpty(doctorNames))
-                {
-                    var techList = techNames.Split(';').ToList<string>();
-                    techList.ForEach(item => reportSettingModel.TechNames.Add(item));
-                }
-                reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                if ("Letter".Equals(reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
-                {
-                    radLetter.IsChecked = true;
-                    radA4.IsChecked = false;
-                }
-                else
-                {
-                    radLetter.IsChecked = false;
-                    radA4.IsChecked = true;
-                }
-                reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.ToMailAddress = OperateIniFile.ReadIniData("Mail", "To Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.MailSubject = OperateIniFile.ReadIniData("Mail", "Mail Subject", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                this.tabSetting.DataContext = reportSettingModel;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to load the report setting. Exception: " + ex.Message);
-            }
-        }
+        
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -84,19 +54,20 @@ namespace MEIKReport
             {
                 if (!string.IsNullOrEmpty(txtMailPwd.Password))
                 {
-                    this.reportSettingModel.MailPwd = txtMailPwd.Password;
+                    App.reportSettingModel.MailPwd = txtMailPwd.Password;
                 }
-                OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", this.reportSettingModel.DoctorNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", this.reportSettingModel.TechNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Report", "Print Paper", this.reportSettingModel.PrintPaper, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "My Mail Address", this.reportSettingModel.MailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "To Mail Address", this.reportSettingModel.ToMailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail Subject", this.reportSettingModel.MailSubject, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail Host", this.reportSettingModel.MailHost, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail Port", this.reportSettingModel.MailPort.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail Username", this.reportSettingModel.MailUsername, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail Password", this.reportSettingModel.MailPwd, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Mail", "Mail SSL", this.reportSettingModel.MailSsl.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", App.reportSettingModel.DoctorNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", App.reportSettingModel.TechNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Report", "Print Paper", App.reportSettingModel.PrintPaper, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "My Mail Address", App.reportSettingModel.MailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "To Mail Address", App.reportSettingModel.ToMailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Subject", App.reportSettingModel.MailSubject, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Content", App.reportSettingModel.MailSubject, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Host", App.reportSettingModel.MailHost, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Port", App.reportSettingModel.MailPort.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Username", App.reportSettingModel.MailUsername, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail Password", App.reportSettingModel.MailPwd, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Mail", "Mail SSL", App.reportSettingModel.MailSsl.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 MessageBox.Show("Saved the report setting successfully.");
             }
             catch (Exception ex)
@@ -125,7 +96,7 @@ namespace MEIKReport
 
         private void btnAddDoctor_Click(object sender, RoutedEventArgs e)
         {
-            AddNamePage addNamePage = new AddNamePage(this.reportSettingModel.DoctorNames);            
+            AddNamePage addNamePage = new AddNamePage(App.reportSettingModel.DoctorNames);            
             addNamePage.ShowDialog();
         }
 
@@ -133,13 +104,13 @@ namespace MEIKReport
         {
             if (this.listDoctorName.SelectedIndex != -1)
             {
-                this.reportSettingModel.DoctorNames.RemoveAt(this.listDoctorName.SelectedIndex);
+                App.reportSettingModel.DoctorNames.RemoveAt(this.listDoctorName.SelectedIndex);
             }
         }
 
         private void btnAddTech_Click(object sender, RoutedEventArgs e)
         {
-            AddNamePage addNamePage = new AddNamePage(this.reportSettingModel.TechNames);            
+            AddNamePage addNamePage = new AddNamePage(App.reportSettingModel.TechNames);            
             addNamePage.ShowDialog();
 
         }
@@ -148,9 +119,45 @@ namespace MEIKReport
         {
             if (this.listTechnicianName.SelectedIndex != -1)
             {
-                this.reportSettingModel.TechNames.RemoveAt(this.listTechnicianName.SelectedIndex);
+                App.reportSettingModel.TechNames.RemoveAt(this.listTechnicianName.SelectedIndex);
             }
-        }       
-                      
+        }
+
+        private void LoadInitConfig()
+        {
+            try
+            {
+                if (App.reportSettingModel == null)
+                {
+                    App.reportSettingModel = new ReportSettingModel();
+                    string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    if (!string.IsNullOrEmpty(doctorNames))
+                    {
+                        var doctorList = doctorNames.Split(';').ToList<string>();
+                        doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+                    }
+                    string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    if (!string.IsNullOrEmpty(doctorNames))
+                    {
+                        var techList = techNames.Split(';').ToList<string>();
+                        techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+                    }
+                    App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.ToMailAddress = OperateIniFile.ReadIniData("Mail", "To Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailSubject = OperateIniFile.ReadIniData("Mail", "Mail Subject", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailBody = OperateIniFile.ReadIniData("Mail", "Mail Content", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                    App.reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load the report setting. Exception: " + ex.Message);
+            }
+        }
     }
 }

@@ -1,0 +1,13 @@
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MainWindow.baml
+C:\Project\MEIKReport\MEIKCount\obj\Debug\App.baml
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MainWindow.g.cs
+C:\Project\MEIKReport\MEIKCount\obj\Debug\App.g.cs
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount_MarkupCompile.cache
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.g.resources
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.Properties.Resources.resources
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.csproj.GenerateResource.Cache
+C:\Project\MEIKReport\MEIKCount\bin\Debug\MEIKCount.exe.config
+C:\Project\MEIKReport\MEIKCount\bin\Debug\MEIKCount.exe
+C:\Project\MEIKReport\MEIKCount\bin\Debug\MEIKCount.pdb
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.exe
+C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.pdb

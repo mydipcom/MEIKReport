@@ -132,6 +132,9 @@
     <Compile Include="Views\AddNamePage.xaml.cs">
       <DependentUpon>AddNamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewImagePage.xaml.cs">
+      <DependentUpon>ViewImagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignatureBox.xaml.cs">
       <DependentUpon>SignatureBox.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNamePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ViewImagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

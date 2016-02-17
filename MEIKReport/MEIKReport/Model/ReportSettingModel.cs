@@ -52,6 +52,14 @@ namespace MEIKReport.Model
             set { mailSubject = value; OnPropertyChanged("MailSubject"); }
         }
 
+        private string mailBody = null;
+
+        public string MailBody
+        {
+            get { return mailBody; }
+            set { mailBody = value; OnPropertyChanged("MailBody"); }
+        }
+
         private string mailHost = null;
 
         public string MailHost

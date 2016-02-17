@@ -1,16 +1,16 @@
 ﻿<FixedPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"           
-               Height="1123" Width="794">
+               Height="1056" Width="794">
     <Grid Grid.Column="1" Grid.Row="1" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="714"/>
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="1043"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="976"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.ColumnDefinitions>

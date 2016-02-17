@@ -41,11 +41,13 @@ namespace MEIKReport
         {            
             InitializeComponent();            
         }
-                       
+        
+               
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                        
             StartApp();
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
+            
             //启用键盘钩子
             //keyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(keyboardHook_KeyDown);
             //keyboardHook.Start();            
@@ -262,7 +264,42 @@ namespace MEIKReport
             ReportSettingPage reportSettingPage = new ReportSettingPage();
             reportSettingPage.Owner = this;
             reportSettingPage.Show();
-        }         
+        }
+
+        //private void LoadInitConfig()
+        //{
+        //    try
+        //    {
+        //        string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        if (!string.IsNullOrEmpty(doctorNames))
+        //        {
+        //            var doctorList = doctorNames.Split(';').ToList<string>();
+        //            doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+        //        }
+        //        string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        if (!string.IsNullOrEmpty(doctorNames))
+        //        {
+        //            var techList = techNames.Split(';').ToList<string>();
+        //            techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+        //        }
+        //        App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                
+        //        App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.ToMailAddress = OperateIniFile.ReadIniData("Mail", "To Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailSubject = OperateIniFile.ReadIniData("Mail", "Mail Subject", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailBody = OperateIniFile.ReadIniData("Mail", "Mail Content","", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+        //        App.reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //        App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Failed to load the report setting. Exception: " + ex.Message);
+        //    }
+        //}
         
     }
 }
