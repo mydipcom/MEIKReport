@@ -36,10 +36,28 @@ namespace MEIKReport
         protected MouseHook mouseHook = new MouseHook();
         protected KeyboardHook keyboardHook = new KeyboardHook();  
         //private WindowListen windowListen = new WindowListen();               
+        private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        private string strScreening = "Screening";
+        private string strDiagnostics = "Diagnostics";
+        private string strExit = "Exit";
+
 
         public MainWindow()
-        {            
-            InitializeComponent();            
+        {
+            
+            if (File.Exists(meikFolder + "\\Language.CHN"))
+            {
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+                strScreening = "筛选";
+                strDiagnostics = "诊断";
+                strExit = "退出";
+            }
+            //else
+            //{
+            //    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+            //}
+            InitializeComponent();          
         }
         
                
@@ -90,8 +108,8 @@ namespace MEIKReport
 
         private void StartMeik()
         {
-            string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-            meikPath += "\\MEIK.exe";
+            //string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            string meikPath = meikFolder+"\\MEIK.exe";
             if (File.Exists(meikPath))
             {
                 try
@@ -152,7 +170,7 @@ namespace MEIKReport
         {
             try
             {
-                IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Screening");
+                IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strScreening);
                 Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 this.StartMouseHook();
                 this.Visibility = Visibility.Hidden;
@@ -168,7 +186,7 @@ namespace MEIKReport
         {
             try
             {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strDiagnostics);
                 Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 this.StartMouseHook();
                 this.Visibility = Visibility.Hidden;
@@ -191,14 +209,22 @@ namespace MEIKReport
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Exit");
-            Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-            App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
-            if (App.splashWinHwnd != IntPtr.Zero)
+            try
             {
-                exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Exit");
+                IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strExit);
                 Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
+                if (App.splashWinHwnd != IntPtr.Zero)
+                {
+                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strExit);
+                    Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                }
+                
             }
+            catch (Exception ex)
+            {
+                this.Close();
+            }            
         }
 
         /// <summary>
@@ -224,7 +250,7 @@ namespace MEIKReport
                 {                    
                     StringBuilder winText = new StringBuilder(512);
                     Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
-                    if ("EXIT".Equals(winText.ToString()))
+                    if (strExit.Equals(winText.ToString(),StringComparison.OrdinalIgnoreCase))
                     {
                         if (App.opendWin != null)
                         {

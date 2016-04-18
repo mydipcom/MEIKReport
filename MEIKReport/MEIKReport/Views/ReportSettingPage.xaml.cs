@@ -84,14 +84,18 @@ namespace MEIKReport
 
         private void tabMail_GotFocus(object sender, RoutedEventArgs e)
         {
-            labSettingTitle.Content = "Default Mail Setting";
-            labSettingDesc.Content = "There are some initial mail parameters, you can change that at any time.";
+            var title = Application.Current.FindResource("SettingEmailTitle").ToString();
+            var desc = Application.Current.FindResource("SettingEmailDesc").ToString();
+            labSettingTitle.Content = title;
+            labSettingDesc.Content = desc;
         }
 
         private void tabReport_GotFocus(object sender, RoutedEventArgs e)
         {
-            labSettingTitle.Content = "Default Report Setting";
-            labSettingDesc.Content = "There are some initial report parameters, you can change that at any time.";
+            var title = Application.Current.FindResource("SettingReportTitle").ToString();
+            var desc = Application.Current.FindResource("SettingReportDesc").ToString();
+            labSettingTitle.Content = title;
+            labSettingDesc.Content = desc;
         }
 
         private void btnAddDoctor_Click(object sender, RoutedEventArgs e)

@@ -27,13 +27,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Width="125" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
-                <Label Style="{StaticResource labelStyle}" >Selection of archive</Label>                
+                <Label Style="{StaticResource labelStyle}" Content="{DynamicResource  UserListWinBrowerLab}" ></Label>                
             </StackPanel>
             <StackPanel Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center">
                 <TextBox Name="txtFolderPath" Width="350" IsEnabled="False" Height="26"></TextBox>
             </StackPanel>
             <StackPanel Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Button Name="btnSelectFolder" Width="100" Height="22" Content="BROWSE..." Click="btnSelectFolder_Click"></Button>
+                <Button Name="btnSelectFolder" Width="100" Height="22" Content="{DynamicResource  UserListWinBrowerBtn}" Click="btnSelectFolder_Click"></Button>
             </StackPanel>
         </Grid>
         <Grid Name="dataGrid" Grid.Row="1" DataContext="{Binding Source={StaticResource CustomerSource}}">
@@ -51,7 +51,7 @@
                 </ItemsControl.ItemTemplate>
             </ListBox>
             <TabControl Name="tabGroup" Grid.Column="1" SelectedIndex="0" Margin="0,5,0,5">
-                <TabItem Name="tabPersonal" Header="Personal Data" Height="Auto">
+                <TabItem Name="tabPersonal" Header="{DynamicResource UserDataPersonalTab}" Height="Auto">
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="26"/>
@@ -68,18 +68,18 @@
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Surname:</Label>
-                        <Label Grid.Row="1" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Given name:</Label>
-                        <Label Grid.Row="2" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Other name:</Label>
+                        <Label Grid.Row="0" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal1}"></Label>
+                        <Label Grid.Row="1" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal2}"></Label>
+                        <Label Grid.Row="2" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal3}"></Label>
                         <WrapPanel Grid.Row="3" Grid.Column="1">
-                            <Label Width="60" HorizontalContentAlignment="Center">day</Label>
-                            <Label Width="60" HorizontalContentAlignment="Center">month</Label>
-                            <Label Width="60" HorizontalContentAlignment="Center">year</Label>
+                            <Label Width="60" HorizontalContentAlignment="Center" Content="{DynamicResource UserDataPersonal7}"></Label>
+                            <Label Width="60" HorizontalContentAlignment="Center" Content="{DynamicResource UserDataPersonal8}"></Label>
+                            <Label Width="60" HorizontalContentAlignment="Center" Content="{DynamicResource UserDataPersonal9}"></Label>
                         </WrapPanel>
-                        
-                        <Label Grid.Row="4" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Birthday:</Label>
-                        <Label Grid.Row="5" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Registration Date:</Label>
-                        <Label Grid.Row="7" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right">Address:</Label>
+
+                        <Label Grid.Row="4" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal4}"></Label>
+                        <Label Grid.Row="5" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal5}"></Label>
+                        <Label Grid.Row="7" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal6}"></Label>
 
                         <Label Grid.Row="0" Grid.Column="1" Name="txtName" Width="Auto" HorizontalContentAlignment="Left" Content="{Binding Path=SurName}"></Label>
                         <Label Grid.Row="1" Grid.Column="1" Name="txtGivenName" Width="Auto" HorizontalContentAlignment="Left" Content="{Binding Path=GivenName}"></Label>
@@ -101,7 +101,7 @@
                         <Label Grid.Row="7" Grid.Column="1" Name="txtAddress" Width="Auto" HorizontalContentAlignment="Left" Content="{Binding Path=Address}"></Label>                                               
                     </Grid>
                 </TabItem>
-                <TabItem Name="tabComplaints" Header="Complaints" Height="Auto">
+                <TabItem Name="tabComplaints" Header="{DynamicResource UserDataComplaintsTab}" Height="Auto">
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="26"/>
@@ -120,28 +120,28 @@
                         </Grid.ColumnDefinitions>
                         <WrapPanel Grid.Row="0" Grid.Column="1">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Pain}"></CheckBox>
-                            <Label>Pain</Label>
+                            <Label Content="{DynamicResource UserDataComplaints1}"></Label>
                         </WrapPanel>
                         <WrapPanel Grid.Row="1" Grid.Column="1">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Colostrum}"></CheckBox>
-                            <Label>Colostrum</Label>
+                            <Label Content="{DynamicResource UserDataComplaints2}"></Label>
                         </WrapPanel>
                         <WrapPanel Grid.Row="2" Grid.Column="1">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=SerousDischarge}"></CheckBox>
-                            <Label>Serous discharge</Label>
+                            <Label Content="{DynamicResource UserDataComplaints3}"></Label>
                         </WrapPanel>
                         <WrapPanel Grid.Row="3" Grid.Column="1">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BloodDischarge}"></CheckBox>
-                            <Label>Blood discharge</Label>
+                            <Label Content="{DynamicResource UserDataComplaints4}"></Label>
                         </WrapPanel>
                         <WrapPanel Grid.Row="4" Grid.Column="1">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Other}"></CheckBox>
-                            <Label>Other</Label>
+                            <Label Content="{DynamicResource UserDataComplaints5}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
                             <TextBox Name="txtOtherDesc" TextWrapping="Wrap" Height="300" IsEnabled="False" Text="{Binding Path=OtherDesc}"></TextBox>
                         </StackPanel>
-                        <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Header="Special conditions">
+                        <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Header="{DynamicResource UserDataComplaints6}">
                             <Grid Margin="8">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="26"/>
@@ -155,14 +155,14 @@
                                 </Grid.ColumnDefinitions>
                                 <WrapPanel Grid.Row="0" Grid.Column="0">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Pregnancy}"></CheckBox>
-                                    <Label>Pregnancy</Label>
+                                    <Label Content="{DynamicResource UserDataComplaints7}"></Label>
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="1" Grid.Column="0">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Lactation}"></CheckBox>
-                                    <Label>Lactation</Label>
+                                    <Label Content="{DynamicResource UserDataComplaints8}"></Label>
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="0" Grid.Column="1">
-                                    <Label VerticalAlignment="Center">Duration (weeks)</Label>
+                                    <Label VerticalAlignment="Center" Content="{DynamicResource UserDataComplaints9}"></Label>
                                     <TextBox Width="80" Height="24" Text="{Binding Path=PregnancyTerm}" IsEnabled="False"/>
                                 </WrapPanel>
                             </Grid>
@@ -170,9 +170,9 @@
                         
                     </Grid>
                 </TabItem>
-                <TabItem Name="tabAnamnesis" Header="Anamnesis" Height="Auto">
+                <TabItem Name="tabAnamnesis" Header="{DynamicResource UserDataAnamnesisTab}" Height="Auto">
                     <TabControl Name="tabAnamnesisGroup" SelectedIndex="0" Margin="0,5,0,5">
-                        <TabItem Name="tabMenses" Header="Menses" Height="Auto">
+                        <TabItem Name="tabMenses" Header="{DynamicResource UserDataAnamnesis1}" Height="Auto">
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>                                    
                                     <RowDefinition Height="26"/>
@@ -190,33 +190,33 @@
                                 </Grid.ColumnDefinitions>
                                 <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=MenstrualCycleDisorder}"></CheckBox>
-                                    <Label>Menstrual cycle disorder</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis2}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                                     <TextBox TextWrapping="Wrap" Height="70" IsEnabled="False" Text="{Binding Path=MenstrualCycleDisorderDesc}"></TextBox>
                                 </StackPanel>
                                 <WrapPanel Grid.Row="2" Grid.ColumnSpan="2">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Postmenopause}"></CheckBox>
-                                    <Label>Postmenopause</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis3}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
                                     <TextBox TextWrapping="Wrap" Height="70" IsEnabled="False" Text="{Binding Path=PostmenopauseDesc}"></TextBox>
                                 </StackPanel>
                                 <WrapPanel Grid.Row="4" Grid.ColumnSpan="2">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=HormonalContraceptives}"></CheckBox>
-                                    <Label>Hormonal contraceptives</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis4}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="5">
-                                    <Label Width="150">Brand name</Label>                                    
+                                    <Label Width="150" Content="{DynamicResource UserDataAnamnesis5}"></Label>                                    
                                 </StackPanel>
                                 <TextBox Grid.Row="5" Grid.Column="1" Width="Auto" TextWrapping="Wrap" Height="45" IsEnabled="False" Text="{Binding Path=HormonalContraceptivesBrandName}"></TextBox>
                                 <WrapPanel Grid.Row="6">
-                                    <Label Width="150">Administration period</Label>                                    
+                                    <Label Width="150" Content="{DynamicResource UserDataAnamnesis6}"></Label>                                    
                                 </WrapPanel>
                                 <TextBox Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" Height="45" IsEnabled="False" Text="{Binding Path=HormonalContraceptivesPeriod}"></TextBox>
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabSomatic" Header="Somatic" Height="Auto">
+                        <TabItem Name="tabSomatic" Header="{DynamicResource UserDataAnamnesis7}" Height="Auto">
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="26"/>
@@ -232,37 +232,37 @@
                                 </Grid.RowDefinitions>                                
                                 <WrapPanel Grid.Row="0">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Adiposity}"></CheckBox>
-                                    <Label>Adiposity</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis8}"></Label>
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="1">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=EssentialHypertension}"></CheckBox>
-                                    <Label>Essential hypertension</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis9}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="2">
                                     <TextBox TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=EssentialHypertensionDesc}"></TextBox>
                                 </StackPanel>
                                 <WrapPanel Grid.Row="3">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Diabetes}"></CheckBox>
-                                    <Label>Diabetes</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis10}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="4">
                                     <TextBox TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=DiabetesDesc}"></TextBox>
                                 </StackPanel>
                                 <WrapPanel Grid.Row="5">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=ThyroidGlandDiseases}"></CheckBox>
-                                    <Label>Thyroid gland diseases</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis11}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="6">
                                     <TextBox Width="Auto" TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=ThyroidGlandDiseasesDesc}"></TextBox>
                                 </StackPanel>
                                 <WrapPanel Grid.Row="7">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=SomaticOther}"></CheckBox>
-                                    <Label>Other</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis12}"></Label>
                                 </WrapPanel>
                                 <TextBox Grid.Row="8" TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=SomaticOtherDesc}"></TextBox>
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabGynecologic" Header="Gynecologic" Height="Auto">
+                        <TabItem Name="tabGynecologic" Header="{DynamicResource UserDataAnamnesis13}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="60"/>
@@ -279,13 +279,13 @@
                                     </Grid.ColumnDefinitions>
                                     <WrapPanel Grid.Row="0">
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Infertility}"></CheckBox>
-                                        <Label>Infertility</Label>
+                                        <Label Content="{DynamicResource UserDataAnamnesis14}"></Label>
                                     </WrapPanel>
                                     <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
                                         <TextBox TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=InfertilityDesc}"></TextBox>
                                     </StackPanel>
                                 </Grid>
-                                <GroupBox Grid.Row="1" Header="Ovary diseases">
+                                <GroupBox Grid.Row="1" Header="{DynamicResource UserDataAnamnesis15}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="26"/>                                                                                       
@@ -293,22 +293,22 @@
                                         </Grid.RowDefinitions>
                                         <WrapPanel Grid.Row="0">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=OvaryDiseases}"></CheckBox>
-                                            <Label>Inflammation</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis16}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=OvaryCyst}"></CheckBox>
-                                            <Label>Cyst</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis17}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=OvaryCancer}"></CheckBox>
-                                            <Label>Cancer</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis18}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=OvaryEndometriosis}"></CheckBox>
-                                            <Label>Endometriosis</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis19}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=OvaryOther}"></CheckBox>
-                                            <Label>Other (description)</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                         </WrapPanel>
                                         <StackPanel Grid.Row="2" VerticalAlignment="Center">
                                             <TextBox TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=OvaryOtherDesc}"></TextBox>
                                         </StackPanel>
                                     </Grid>
                                 </GroupBox>
-                                <GroupBox Grid.Row="2" Header="Uterus diseases">
+                                <GroupBox Grid.Row="2" Header="{DynamicResource UserDataAnamnesis21}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="26"/>
@@ -316,15 +316,15 @@
                                         </Grid.RowDefinitions>
                                         <WrapPanel Grid.Row="0">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UterusDiseases}"></CheckBox>
-                                            <Label>Inflammation</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis16}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UterusMyoma}"></CheckBox>
-                                            <Label>Myoma</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis22}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UterusCancer}"></CheckBox>
-                                            <Label>Cancer</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis18}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UterusEndometriosis}"></CheckBox>
-                                            <Label>Endometriosis</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis19}"></Label>
                                             <CheckBox Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UterusOther}"></CheckBox>
-                                            <Label>Other (description)</Label>
+                                            <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                         </WrapPanel>
                                         <StackPanel Grid.Row="2" VerticalAlignment="Center">
                                             <TextBox TextWrapping="Wrap" Height="48" IsEnabled="False" Text="{Binding Path=UterusOtherDesc}"></TextBox>
@@ -333,7 +333,7 @@
                                 </GroupBox>                                
                                 <WrapPanel Grid.Row="3">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=GynecologicOther}"></CheckBox>
-                                    <Label>Other (description)</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                 </WrapPanel>
                                 <StackPanel Grid.Row="4">
                                     <TextBox TextWrapping="Wrap" Height="68" IsEnabled="False" Text="{Binding Path=GynecologicOtherDesc}"></TextBox>
@@ -341,7 +341,7 @@
                                 
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabObstetric" Header="Obstetric" Height="Auto">
+                        <TabItem Name="tabObstetric" Header="{DynamicResource UserDataAnamnesis23}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="26"/>
@@ -350,21 +350,21 @@
                                     <RowDefinition Height="30"/>                                    
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Label Margin="80,0,0,0" Grid.Row="0">number</Label>
+                                <Label Margin="80,0,0,0" Grid.Row="0" Content="{DynamicResource UserDataAnamnesis24}"></Label>
                                 <WrapPanel Grid.Row="1">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Abortions}"></CheckBox>
-                                    <Label Width="62">Abortions</Label>
+                                    <Label Width="62" Content="{DynamicResource UserDataAnamnesis25}"></Label>
                                     <TextBox Width="80" Height="24" Text="{Binding Path=AbortionsNumber}" IsEnabled="False"/>
                                 </WrapPanel>
-                                <Label Margin="80,0,0,0" Grid.Row="2">number</Label>
+                                <Label Margin="80,0,0,0" Grid.Row="2" Content="{DynamicResource UserDataAnamnesis24}"></Label>
                                 <WrapPanel Grid.Row="3">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Births}"></CheckBox>
-                                    <Label Width="62">Births</Label>
+                                    <Label Width="62" Content="{DynamicResource UserDataAnamnesis26}"></Label>
                                     <TextBox Width="80" Height="24" Text="{Binding Path=BirthsNumber}" IsEnabled="False"/>
                                 </WrapPanel>
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabLactation" Header="Lactation" Height="Auto">
+                        <TabItem Name="tabLactation" Header="{DynamicResource UserDataAnamnesis27}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="26"/>
@@ -374,21 +374,21 @@
                                 </Grid.RowDefinitions>                                
                                 <WrapPanel Grid.Row="0">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=LactationTill1Month}"></CheckBox>
-                                    <Label>Under 1 month</Label>                                    
+                                    <Label Content="{DynamicResource UserDataAnamnesis28}"></Label>                                    
                                 </WrapPanel>                                
                                 <WrapPanel Grid.Row="1">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=LactationTill1Year}"></CheckBox>
-                                    <Label>Under 1 year</Label>                                    
+                                    <Label Content="{DynamicResource UserDataAnamnesis29}"></Label>                                    
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="2">
                                     <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=LactationOver1Year}"></CheckBox>
-                                    <Label>Over 1 year</Label>
+                                    <Label Content="{DynamicResource UserDataAnamnesis30}"></Label>
                                 </WrapPanel>
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem Name="tabDisease" Header="Disease" Height="Auto">
+                <TabItem Name="tabDisease" Header="{DynamicResource UserDataDiseaseTab}" Height="Auto">
                     <Grid>
                         <Grid.RowDefinitions>                            
                             <RowDefinition Height="26"/>
@@ -407,73 +407,73 @@
                         </Grid.RowDefinitions>                        
                         <WrapPanel Grid.Row="0">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Trauma}"></CheckBox>
-                            <Label>Trauma</Label>
+                            <Label Content="{DynamicResource UserDataDisease1}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="1">
                             <TextBox TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=TraumaDesc}"></TextBox>
                         </StackPanel>
                         <WrapPanel Grid.Row="2">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Mastitis}"></CheckBox>
-                            <Label>Cannot Remove System Shell Notification Icon</Label>
+                            <Label Content="{DynamicResource UserDataDisease2}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="3">
                             <TextBox TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=MastitisDesc}"></TextBox>
                         </StackPanel>
                         <WrapPanel Grid.Row="4">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=FibrousCysticMastopathy}"></CheckBox>
-                            <Label>Fibrous-cystic mastopathy</Label>
+                            <Label Content="{DynamicResource UserDataDisease3}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="5">
                             <TextBox Width="Auto" TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=FibrousCysticMastopathyDesc}"></TextBox>
                         </StackPanel>
                         <WrapPanel Grid.Row="6">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Cysts}"></CheckBox>
-                            <Label>Cysts</Label>
+                            <Label Content="{DynamicResource UserDataDisease4}"></Label>
                         </WrapPanel>
                         <TextBox Grid.Row="7" TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=CystsDesc}"></TextBox>
                         <WrapPanel Grid.Row="8">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=Cancer}"></CheckBox>
-                            <Label>Cancer</Label>
+                            <Label Content="{DynamicResource UserDataDisease5}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="9">
                             <TextBox Width="Auto" TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=CancerDesc}"></TextBox>
                         </StackPanel>
                         <WrapPanel Grid.Row="10">
                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=DiseasesOther}"></CheckBox>
-                            <Label>Other (description)</Label>
+                            <Label Content="{DynamicResource UserDataDisease6}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="11">
                             <TextBox Width="Auto" TextWrapping="Wrap" Height="38" IsEnabled="False" Text="{Binding Path=DiseasesOtherDesc}"></TextBox>
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem Name="tabExaminations" Header="Examinations" Height="Auto">
+                <TabItem Name="tabExaminations" Header="{DynamicResource UserDataExaminationsTab}" Height="Auto">
                     <TabControl SelectedIndex="0" Margin="0,5,0,5">
-                        <TabItem Name="tabPalpation" Header="Palpation" Height="Auto">
+                        <TabItem Name="tabPalpation" Header="{DynamicResource UserDataExaminations1}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>                                    
                                     <RowDefinition Height="26"/>
                                     <RowDefinition Height="250"/>                                    
                                     <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>                                
-                                <GroupBox Header="Changes" Grid.Row="0">
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                     <WrapPanel>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=PalpationDiffuse}"></CheckBox>
-                                        <Label>Diffuse</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations3}"></Label>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=PalpationFocal}"></CheckBox>
-                                        <Label>Focal</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations4}"></Label>
                                     </WrapPanel>
                                 </GroupBox>
                                 <StackPanel Grid.Row="1">
-                                    <Label>Comment</Label>
+                                    <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                 </StackPanel>
                                 <StackPanel Grid.Row="2">
                                     <TextBox TextWrapping="Wrap" Height="240" IsEnabled="False" Text="{Binding Path=PalpationDesc}"></TextBox>
                                 </StackPanel>                                
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabUltrasound" Header="Ultrasound" Height="Auto">
+                        <TabItem Name="tabUltrasound" Header="{DynamicResource UserDataExaminations6}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>
@@ -481,23 +481,23 @@
                                     <RowDefinition Height="250"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Changes" Grid.Row="0">
+                                <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                     <WrapPanel>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UltrasoundDiffuse}"></CheckBox>
-                                        <Label>Diffuse</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations3}"></Label>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=UltrasoundFocal}"></CheckBox>
-                                        <Label>Focal</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations4}"></Label>
                                     </WrapPanel>
                                 </GroupBox>
                                 <StackPanel Grid.Row="1">
-                                    <Label>Comment</Label>
+                                    <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                 </StackPanel>
                                 <StackPanel Grid.Row="2">
                                     <TextBox TextWrapping="Wrap" Height="240" IsEnabled="False" Text="{Binding Path=UltrasoundnDesc}"></TextBox>
                                 </StackPanel>
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabMammography" Header="Mammography" Height="Auto">
+                        <TabItem Name="tabMammography" Header="{DynamicResource UserDataExaminations7}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>
@@ -505,38 +505,38 @@
                                     <RowDefinition Height="250"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Changes" Grid.Row="0">
+                                <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                     <WrapPanel>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=MammographyDiffuse}"></CheckBox>
-                                        <Label>Diffuse</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations3}"></Label>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=MammographyFocal}"></CheckBox>
-                                        <Label>Focal</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations4}"></Label>
                                     </WrapPanel>
                                 </GroupBox>
                                 <StackPanel Grid.Row="1">
-                                    <Label>Comment</Label>
+                                    <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                 </StackPanel>
                                 <StackPanel Grid.Row="2">
                                     <TextBox TextWrapping="Wrap" Height="240" IsEnabled="False" Text="{Binding Path=MammographyDesc}"></TextBox>
                                 </StackPanel>
                             </Grid>
                         </TabItem>
-                        <TabItem Name="tabBiopsy" Header="Biopsy" Height="Auto">
+                        <TabItem Name="tabBiopsy" Header="{DynamicResource UserDataExaminations8}" Height="Auto">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>                                    
                                     <RowDefinition Height="350"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <GroupBox Header="Changes" Grid.Row="0">
+                                <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                     <WrapPanel>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyDiffuse}"></CheckBox>
-                                        <Label>Diffuse</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations3}"></Label>
                                         <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyFocal}"></CheckBox>
-                                        <Label>Focal</Label>
+                                        <Label Content="{DynamicResource UserDataExaminations4}"></Label>
                                     </WrapPanel>
                                 </GroupBox>
-                                <GroupBox Header="Diagnosis" Grid.Row="1">
+                                <GroupBox Header="{DynamicResource UserDataExaminations9}" Grid.Row="1">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="26"/>
@@ -550,27 +550,27 @@
                                         </Grid.RowDefinitions>
                                         <WrapPanel Grid.Row="0">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyCancer}"></CheckBox>
-                                            <Label>Cancer</Label>                                            
+                                            <Label Content="{DynamicResource UserDataExaminations10}"></Label>                                            
                                         </WrapPanel>
                                         <WrapPanel Grid.Row="1">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyProliferation}"></CheckBox>
-                                            <Label>Proliferation</Label>
+                                            <Label Content="{DynamicResource UserDataExaminations11}"></Label>
                                         </WrapPanel>
                                         <WrapPanel Grid.Row="2">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyDysplasia}"></CheckBox>
-                                            <Label>Dysplasia</Label>
+                                            <Label Content="{DynamicResource UserDataExaminations12}"></Label>
                                         </WrapPanel>
                                         <WrapPanel Grid.Row="3">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyIntraductalPapilloma}"></CheckBox>
-                                            <Label>Intraductal papilloma</Label>
+                                            <Label Content="{DynamicResource UserDataExaminations13}"></Label>
                                         </WrapPanel>
                                         <WrapPanel Grid.Row="4">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyFibroadenoma}"></CheckBox>
-                                            <Label>ibroadenoma</Label>
+                                            <Label Content="{DynamicResource UserDataExaminations14}"></Label>
                                         </WrapPanel>
                                         <WrapPanel Grid.Row="5">
                                             <CheckBox Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsEnabled="False" IsChecked="{Binding Path=BiopsyOther}"></CheckBox>
-                                            <Label>Other (description)</Label>
+                                            <Label Content="{DynamicResource UserDataExaminations15}"></Label>
                                         </WrapPanel>
                                         <StackPanel Grid.Row="6">
                                             <TextBox TextWrapping="Wrap" Height="200" IsEnabled="False" Text="{Binding Path=BiopsyOtherDesc}"></TextBox>
@@ -611,14 +611,14 @@
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Name="exitReport" Width="100" Style="{StaticResource buttonStyle}" Click="exitReport_Click" >Exit</Button>
+                <Button Name="exitReport" Width="100" Style="{StaticResource buttonStyle}" Click="exitReport_Click" Content="{DynamicResource CommonExitBtn}"></Button>
             </StackPanel>
-            <WrapPanel Name="reportButtonPanel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">                                
-                <Button Click="ExaminationReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0">Examination Report</Button>
-                <Button Click="SummaryReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0">Summary Report</Button>                
+            <WrapPanel Name="reportButtonPanel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden">
+                <Button Click="ExaminationReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Content="{DynamicResource UserListWinExaminationReportBtn}"></Button>
+                <Button Click="SummaryReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Content="{DynamicResource UserListWinSummaryReportBtn}"></Button>                
             </WrapPanel>
             <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Visibility="Hidden" Name="emailButton" Width="120" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Click="EmailButton_Click">Email Report</Button>
+                <Button Visibility="Hidden" Name="emailButton" Width="120" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Click="EmailButton_Click" Content="{DynamicResource UserListWinEmailReportBtn}"></Button>
             </StackPanel>
         </Grid>
 

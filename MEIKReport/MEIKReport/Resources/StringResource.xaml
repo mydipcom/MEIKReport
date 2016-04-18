@@ -1,0 +1,133 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="MainWinMenuTitle">Choose an operating mode</sys:String>
+    <sys:String x:Key="MainWinMenuScreening">Screening</sys:String>
+    <sys:String x:Key="MainWinMenuDiagnostics">Diagnostics</sys:String>
+    <sys:String x:Key="MainWinMenuReport">Report</sys:String>
+    <sys:String x:Key="MainWinMenuPerferences">Perferences</sys:String>
+    <sys:String x:Key="MainWinMenuExit">Exit</sys:String>
+
+    <sys:String x:Key="CommonExitBtn">Exit</sys:String>
+    <sys:String x:Key="CommonPreviewBtn">PrintPreview</sys:String>
+    <sys:String x:Key="CommonPrintBtn">Print</sys:String>
+    <sys:String x:Key="CommonExportBtn">Export to PDF</sys:String>
+    <sys:String x:Key="CommonSaveBtn">Save</sys:String>
+    <sys:String x:Key="CommonSaveAsBtn">Save as...</sys:String>
+    <sys:String x:Key="CommonOpenBtn">Open Diagnostics Window</sys:String>
+    <sys:String x:Key="CommonAddBtn">Add</sys:String>
+    <sys:String x:Key="CommonDeleteBtn">Delete</sys:String>
+    <sys:String x:Key="CommonCloseBtn">Close</sys:String>
+    
+    <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
+    <sys:String x:Key="UserListWinBrowerBtn">BROWSE...</sys:String>
+    <sys:String x:Key="UserListWinExaminationReportBtn">Examination Report</sys:String>
+    <sys:String x:Key="UserListWinSummaryReportBtn">Summary Report</sys:String>
+    <sys:String x:Key="UserListWinEmailReportBtn">Email Report</sys:String>
+
+    <sys:String x:Key="SignaureWinLab">Set as default signature</sys:String>
+    <sys:String x:Key="SignaureWinLoadBtn">Load Signature</sys:String>
+    <sys:String x:Key="SignaureWinClearBtn">Clear</sys:String>
+    <sys:String x:Key="SignaureWinConfirmBtn">Confirm</sys:String>
+    
+
+    <sys:String x:Key="SettingReportTitle">Default Report Setting</sys:String>
+    <sys:String x:Key="SettingReportDesc">There are some initial report parameters, you can change that at any time.</sys:String>
+    <sys:String x:Key="SettingReportTabTitle"> Report Setting </sys:String>
+    <sys:String x:Key="SettingReportNameGroupHeader">Available Personal Name</sys:String>
+    <sys:String x:Key="SettingReportDoctorNameLab">Doctor's Name:</sys:String>
+    <sys:String x:Key="SettingReportTechNameLab">Technician's Name:</sys:String>
+    <sys:String x:Key="SettingReportPrintGroupHeader">Default Print Paper</sys:String>
+    <sys:String x:Key="SettingEmailTitle">Default Mail Setting</sys:String>
+    <sys:String x:Key="SettingEmailDesc">There are some initial mail parameters, you can change that at any time.</sys:String>
+    <sys:String x:Key="SettingEmailTabTitle"> Mail Setting </sys:String>
+    <sys:String x:Key="SettingEmailHost">SMTP Host</sys:String>
+    <sys:String x:Key="SettingEmailPort">SMTP Port</sys:String>
+    <sys:String x:Key="SettingEmailSSL">Use SSL</sys:String>
+    <sys:String x:Key="SettingEmailUsername">SMTP Username</sys:String>
+    <sys:String x:Key="SettingEmailPassword">SMTP Password</sys:String>
+    <sys:String x:Key="SettingEmailFrom">My Mail Address</sys:String>
+    <sys:String x:Key="SettingEmailTo">To Mail Address</sys:String>
+    <sys:String x:Key="SettingEmailSubject">Mail Subject</sys:String>
+    <sys:String x:Key="SettingEmailBody">Mail Body</sys:String>
+
+    <sys:String x:Key="UserDataPersonalTab">Personal Data</sys:String>
+    <sys:String x:Key="UserDataPersonal1">Surname:</sys:String>
+    <sys:String x:Key="UserDataPersonal2">Given name:</sys:String>
+    <sys:String x:Key="UserDataPersonal3">Other names:</sys:String>
+    <sys:String x:Key="UserDataPersonal4">DOB:</sys:String>
+    <sys:String x:Key="UserDataPersonal5">Registration date:</sys:String>
+    <sys:String x:Key="UserDataPersonal6">Address:</sys:String>
+    <sys:String x:Key="UserDataPersonal7">day</sys:String>
+    <sys:String x:Key="UserDataPersonal8">month</sys:String>
+    <sys:String x:Key="UserDataPersonal9">year</sys:String>
+
+    <sys:String x:Key="UserDataComplaintsTab">Complaints</sys:String>
+    <sys:String x:Key="UserDataComplaints1">Pain</sys:String>
+    <sys:String x:Key="UserDataComplaints2">Colostrum</sys:String>
+    <sys:String x:Key="UserDataComplaints3">Serous discharge</sys:String>
+    <sys:String x:Key="UserDataComplaints4">Blood discharge</sys:String>
+    <sys:String x:Key="UserDataComplaints5">Other</sys:String>
+    <sys:String x:Key="UserDataComplaints6">Special conditions</sys:String>
+    <sys:String x:Key="UserDataComplaints7">Pregnancy</sys:String>
+    <sys:String x:Key="UserDataComplaints8">Lactation</sys:String>
+    <sys:String x:Key="UserDataComplaints9">Duration (weeks)</sys:String>
+
+    <sys:String x:Key="UserDataAnamnesisTab">Anamnesis</sys:String>
+    <sys:String x:Key="UserDataAnamnesis1">Menses</sys:String>
+    <sys:String x:Key="UserDataAnamnesis2">Menstrual cycle disorder</sys:String>
+    <sys:String x:Key="UserDataAnamnesis3">Postmenopause</sys:String>
+    <sys:String x:Key="UserDataAnamnesis4">Hormonal contraceptives</sys:String>
+    <sys:String x:Key="UserDataAnamnesis5">Brand name</sys:String>
+    <sys:String x:Key="UserDataAnamnesis6">Administration period</sys:String>
+    <sys:String x:Key="UserDataAnamnesis7">Somatic</sys:String>
+    <sys:String x:Key="UserDataAnamnesis8">Adiposity</sys:String>
+    <sys:String x:Key="UserDataAnamnesis9">Essential hypertension</sys:String>
+    <sys:String x:Key="UserDataAnamnesis10">Diabetes</sys:String>
+    <sys:String x:Key="UserDataAnamnesis11">Thyroid gland diseases</sys:String>
+    <sys:String x:Key="UserDataAnamnesis12">Other</sys:String>
+    <sys:String x:Key="UserDataAnamnesis13">Gynecologic</sys:String>
+    <sys:String x:Key="UserDataAnamnesis14">Infertility</sys:String>
+    <sys:String x:Key="UserDataAnamnesis15">Ovary diseases</sys:String>
+    <sys:String x:Key="UserDataAnamnesis16">Inflammation</sys:String>
+    <sys:String x:Key="UserDataAnamnesis17">Cyst</sys:String>
+    <sys:String x:Key="UserDataAnamnesis18">Cancer</sys:String>
+    <sys:String x:Key="UserDataAnamnesis19">Endometriosis</sys:String>
+    <sys:String x:Key="UserDataAnamnesis20">Other (description)</sys:String>
+    <sys:String x:Key="UserDataAnamnesis21">Uterus diseases</sys:String>
+    <sys:String x:Key="UserDataAnamnesis22">Myoma</sys:String>
+    <sys:String x:Key="UserDataAnamnesis23">Obstetric</sys:String>
+    <sys:String x:Key="UserDataAnamnesis24">number</sys:String>
+    <sys:String x:Key="UserDataAnamnesis25">Abortions</sys:String>
+    <sys:String x:Key="UserDataAnamnesis26">Births</sys:String>
+    <sys:String x:Key="UserDataAnamnesis27">Lactation</sys:String>
+    <sys:String x:Key="UserDataAnamnesis28">Under 1 month</sys:String>
+    <sys:String x:Key="UserDataAnamnesis29">Under 1 year</sys:String>
+    <sys:String x:Key="UserDataAnamnesis30">Over 1 year</sys:String>
+
+    <sys:String x:Key="UserDataDiseaseTab">Disease</sys:String>
+    <sys:String x:Key="UserDataDisease1">Trauma</sys:String>
+    <sys:String x:Key="UserDataDisease2">Cannot Remove System Shell Notification Icon</sys:String>
+    <sys:String x:Key="UserDataDisease3">Fibrous-cystic mastopathy</sys:String>
+    <sys:String x:Key="UserDataDisease4">Cysts</sys:String>
+    <sys:String x:Key="UserDataDisease5">Cancer</sys:String>
+    <sys:String x:Key="UserDataDisease6">Other (description)</sys:String>
+
+    <sys:String x:Key="UserDataExaminationsTab">Examinations</sys:String>
+    <sys:String x:Key="UserDataExaminations1">Palpation</sys:String>
+    <sys:String x:Key="UserDataExaminations2">Changes</sys:String>
+    <sys:String x:Key="UserDataExaminations3">Diffuse</sys:String>
+    <sys:String x:Key="UserDataExaminations4">Focal</sys:String>
+    <sys:String x:Key="UserDataExaminations5">Comment</sys:String>
+    <sys:String x:Key="UserDataExaminations6">Ultrasound</sys:String>
+    <sys:String x:Key="UserDataExaminations7">Mammography</sys:String>
+    <sys:String x:Key="UserDataExaminations8">Biopsy</sys:String>
+    <sys:String x:Key="UserDataExaminations9">Diagnosis</sys:String>
+    <sys:String x:Key="UserDataExaminations10">Cancer</sys:String>
+    <sys:String x:Key="UserDataExaminations11">Proliferation</sys:String>
+    <sys:String x:Key="UserDataExaminations12">Dysplasia</sys:String>
+    <sys:String x:Key="UserDataExaminations13">Intraductal papilloma</sys:String>
+    <sys:String x:Key="UserDataExaminations14">Fibroadenoma</sys:String>
+    <sys:String x:Key="UserDataExaminations15">Other (description)</sys:String>
+
+</ResourceDictionary>

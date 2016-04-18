@@ -12,6 +12,9 @@
                 <!--The source of the resource dictionary is spcified-->
                 <!--We can add many number of references over here as the source-->
                 <ResourceDictionary Source="Styles/ReportStyle.xaml"/>
+                <ResourceDictionary Source="Resources/StringResource.xaml" />
+                <!--<ResourceDictionary Source="Resources/StringResource.zh-CN.xaml" />-->
+
                 <!--<ResourceDictionary Source="Styles/ReportData.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

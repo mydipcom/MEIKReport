@@ -20,8 +20,8 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Name="labSettingTitle" Grid.Row="0" FontSize="14" FontWeight="Bold" Height="40" Margin="20,0,0,0" VerticalContentAlignment="Bottom">Default Report Setting</Label>
-            <Label Name="labSettingDesc" Grid.Row="1" FontSize="14" Height="40"  Margin="40,0,0,0" VerticalContentAlignment="Top">There are some initial report parameters, you can change that at any time. </Label>
+            <Label Name="labSettingTitle" Grid.Row="0" FontSize="14" FontWeight="Bold" Height="40" Margin="20,0,0,0" VerticalContentAlignment="Bottom" Content="{StaticResource SettingReportTitle}"></Label>
+            <Label Name="labSettingDesc" Grid.Row="1" FontSize="14" Height="40"  Margin="40,0,0,0" VerticalContentAlignment="Top" Content="{StaticResource SettingReportDesc}"></Label>
         </Grid>
         <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0,1,0,0"/>
         <Grid Grid.Row="2" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="10">
                 <TabControl Name="tabSetting" SelectedIndex="0">
-                    <TabItem Name="tabReport" Header=" Report Setting " FontSize="14" Height="Auto" GotFocus="tabReport_GotFocus">
+                    <TabItem Name="tabReport" Header="{StaticResource SettingReportTabTitle}" FontSize="14" Height="Auto" GotFocus="tabReport_GotFocus">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="120"/>
@@ -39,7 +39,7 @@
                                 <RowDefinition Height="42"/>                                
                             </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="0" Margin="10" Header="Available Personal Name">
+                            <GroupBox Grid.Row="0" Margin="10" Header="{StaticResource SettingReportNameGroupHeader}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
@@ -50,7 +50,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
-                                        <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">Doctor's Name:</Label>
+                                        <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingReportDoctorNameLab}"></Label>
                                     </StackPanel>
                                     <WrapPanel Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Left">
                                         <ComboBox Name="listDoctorName" Grid.Row="0" Grid.Column="0" Height="26" Width="280" IsSynchronizedWithCurrentItem="True" FontSize="14" ItemsSource="{Binding DoctorNames}">
@@ -62,11 +62,11 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ComboBox>
-                                        <Button Name="btnAddDoctor" Width="80" Margin="10,0,0,0" Click="btnAddDoctor_Click">Add</Button>
-                                        <Button Name="btnDelDoctor" Width="80" Margin="5,0,0,0" Click="btnDelDoctor_Click">Delete</Button>
+                                        <Button Name="btnAddDoctor" Width="80" Margin="10,0,0,0" Click="btnAddDoctor_Click" Content="{StaticResource CommonAddBtn}"></Button>
+                                        <Button Name="btnDelDoctor" Width="80" Margin="5,0,0,0" Click="btnDelDoctor_Click" Content="{StaticResource CommonDeleteBtn}"></Button>
                                     </WrapPanel>
                                     <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
-                                        <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">Technician's Name:</Label>
+                                        <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingReportTechNameLab}"></Label>
                                     </StackPanel>
                                     <WrapPanel Grid.Row="1" Grid.Column="1" Margin="5" HorizontalAlignment="Left">
                                         <ComboBox Name="listTechnicianName" Grid.Row="0" Grid.Column="0" Height="26" Width="280" IsSynchronizedWithCurrentItem="True" FontSize="14" ItemsSource="{Binding TechNames}">
@@ -78,12 +78,12 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ComboBox>
-                                        <Button Name="btnAddTech" Width="80" Margin="10,0,0,0" Click="btnAddTech_Click">Add</Button>
-                                        <Button Name="btnDelTech" Width="80" Margin="5,0,0,0" Click="btnDelTech_Click">Delete</Button>
+                                        <Button Name="btnAddTech" Width="80" Margin="10,0,0,0" Click="btnAddTech_Click" Content="{StaticResource CommonAddBtn}"></Button>
+                                        <Button Name="btnDelTech" Width="80" Margin="5,0,0,0" Click="btnDelTech_Click" Content="{StaticResource CommonDeleteBtn}"></Button>
                                     </WrapPanel>
                                 </Grid>
                             </GroupBox>
-                            <GroupBox Grid.Row="1" Margin="10" Header="Default Print Paper">
+                            <GroupBox Grid.Row="1" Margin="10" Header="{StaticResource SettingReportPrintGroupHeader}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
@@ -102,7 +102,7 @@
                             </GroupBox>                                                        
                         </Grid>
                     </TabItem>
-                    <TabItem Name="tabMail" Header=" Mail Setting " FontSize="14" Height="Auto" GotFocus="tabMail_GotFocus">
+                    <TabItem Name="tabMail" Header="{StaticResource SettingEmailTabTitle}" FontSize="14" Height="Auto" GotFocus="tabMail_GotFocus">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
@@ -122,50 +122,50 @@
                             </Grid.ColumnDefinitions>
                             
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">SMTP Host</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailHost}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Left">
                                 <TextBox Name="txtMailHost" Text="{Binding MailHost}" FontSize="14" Width="190" Height="28"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="2" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">SMTP Port</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailPort}"></Label>
                             </StackPanel>
                             <WrapPanel Grid.Row="0" Grid.Column="3" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBox Name="txtMailPort" Text="{Binding MailPort}" FontSize="14" Width="50" Height="28"></TextBox>
-                                <CheckBox Name="txtMailSsl" Margin="20,0,0,0" IsChecked="{Binding MailSsl}" Height="28" Width="80" FontSize="14">Use SSL</CheckBox>
+                                <CheckBox Name="txtMailSsl" Margin="20,0,0,0" IsChecked="{Binding MailSsl}" Height="28" Width="80" FontSize="14" Content="{StaticResource SettingEmailSSL}"></CheckBox>
                             </WrapPanel>
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">SMTP Username</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailUsername}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" Margin="5" HorizontalAlignment="Left">
                                 <TextBox Name="txtMailUsername" Text="{Binding MailUsername}" FontSize="14" Width="190" Height="28"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">SMTP Password</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailPassword}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="3" Margin="5" HorizontalAlignment="Left">
                                 <PasswordBox Name="txtMailPwd"  FontSize="14" Width="190" Height="28"></PasswordBox>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="5,10,5,5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">My Mail Address</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailFrom}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,10,5,5" HorizontalAlignment="Left">
                                 <TextBox Name="txtMyMailAddress" Text="{Binding MailAddress}" FontSize="14" Width="190" Height="28"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="2" Margin="5,10,5,5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">To Mail Address</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailTo}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="3" Margin="5,10,5,5" HorizontalAlignment="Left">
                                 <TextBox Name="txtToMailAddress" Text="{Binding ToMailAddress}" FontSize="14" Width="200" Height="28"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="3" Grid.Column="0" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">Mail Subject</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailSubject}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" HorizontalAlignment="Left">
                                 <TextBox Name="txtMailSubject" Text="{Binding MailSubject}" Height="28" Width="510" FontSize="14"></TextBox>                               
                             </StackPanel>
                             <StackPanel Grid.Row="4" Grid.Column="0" Margin="5">
-                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right">Mail Body</Label>
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingEmailBody}"></Label>
                             </StackPanel>
                             <StackPanel Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="5,0,0,0" HorizontalAlignment="Left">
                                 <TextBox Name="txtMailBody" Text="{Binding MailBody}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="110" Width="510" FontSize="14"></TextBox>
@@ -175,8 +175,8 @@
                 </TabControl>
             </StackPanel>
             <WrapPanel Grid.Row="1" Margin="0,0,10,0" HorizontalAlignment="Right">
-                <Button Name="btnReportSettingSave" Height="30" FontSize="14" Width="100" Click="btnReportSettingSave_Click">Save</Button>
-                <Button Name="btnReportSettingClose" Height="30" FontSize="14" Width="100" Click="btnReportSettingClose_Click" Margin="10,0,0,0">Close</Button>
+                <Button Name="btnReportSettingSave" Height="30" FontSize="14" Width="100" Click="btnReportSettingSave_Click" Content="{StaticResource CommonSaveBtn}"></Button>
+                <Button Name="btnReportSettingClose" Height="30" FontSize="14" Width="100" Click="btnReportSettingClose_Click" Margin="10,0,0,0" Content="{StaticResource CommonCloseBtn}"></Button>
             </WrapPanel>
         </Grid>
         
