@@ -7,6 +7,7 @@
     <sys:String x:Key="MainWinMenuReport">Report</sys:String>
     <sys:String x:Key="MainWinMenuPerferences">Perferences</sys:String>
     <sys:String x:Key="MainWinMenuExit">Exit</sys:String>
+    <sys:String x:Key="MainWinDeviceNo">Device Number: </sys:String>
 
     <sys:String x:Key="CommonExitBtn">Exit</sys:String>
     <sys:String x:Key="CommonPreviewBtn">PrintPreview</sys:String>
@@ -18,7 +19,37 @@
     <sys:String x:Key="CommonAddBtn">Add</sys:String>
     <sys:String x:Key="CommonDeleteBtn">Delete</sys:String>
     <sys:String x:Key="CommonCloseBtn">Close</sys:String>
+
+    <sys:String x:Key="Excel1">MRN#(Code)</sys:String>
+    <sys:String x:Key="Excel2">Patient Name</sys:String>
+    <sys:String x:Key="Excel3">Description</sys:String>
+    <sys:String x:Key="Excel4">Screening Date</sys:String>
     
+    <sys:String x:Key="MailSubject">Screening Records</sys:String>
+
+    <sys:String x:Key="Message_1">Failed to start MEIK software v. 5.6, Exception Message:</sys:String>
+    <sys:String x:Key="Message_2">Report is saved successfully.</sys:String>
+    <sys:String x:Key="Message_3">Failed to save the report. Error:</sys:String>
+    <sys:String x:Key="Message_4">Do you want to save the report?</sys:String>
+    <sys:String x:Key="Message_5">Exported the PDF file successfully.</sys:String>
+    <sys:String x:Key="Message_6">Saved the report file successfully.</sys:String>
+    <sys:String x:Key="Message_7">Do you want to save the report?</sys:String>
+    <sys:String x:Key="Message_8">Please select a patient.</sys:String>
+    <sys:String x:Key="Message_9">Failed to load the report setting. Exception:</sys:String>
+    <sys:String x:Key="Message_10">Failed to capture the screen. Please use the left mouse button to drag on the screen after you clicked the button Capture Screen.</sys:String>
+    <sys:String x:Key="Message_11">Please input a name.</sys:String>
+    <sys:String x:Key="Message_12">This name already exists.</sys:String>
+    <sys:String x:Key="Message_13">Failed to save the report setting. Exception:</sys:String>
+    <sys:String x:Key="Message_14">Saved the report setting successfully.</sys:String>
+    <sys:String x:Key="Message_15">You don't configure the mail account or configured the mail account incorrectly.</sys:String>
+    <sys:String x:Key="Message_16">The user's report has not been created, please fill and save the report first.</sys:String>
+    <sys:String x:Key="Message_17">Are you sure to email all of the data to Data Center?</sys:String>
+    <sys:String x:Key="Message_18">Sent the emial successfully.</sys:String>
+    <sys:String x:Key="Message_19">Failed to send email, Exception:</sys:String>
+    <sys:String x:Key="Message_20">Failed to load the report setting. Exception:</sys:String>
+    <sys:String x:Key="Message_21">The {0} directory Cannot be packaged up  as a ZIP file. Exception:</sys:String>
+    
+
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">BROWSE...</sys:String>
     <sys:String x:Key="UserListWinExaminationReportBtn">Examination Report</sys:String>
@@ -129,5 +160,208 @@
     <sys:String x:Key="UserDataExaminations13">Intraductal papilloma</sys:String>
     <sys:String x:Key="UserDataExaminations14">Fibroadenoma</sys:String>
     <sys:String x:Key="UserDataExaminations15">Other (description)</sys:String>
+
+
+    <sys:String x:Key="ReportContext_1" xml:space="preserve">Full name: </sys:String>
+    <sys:String x:Key="ReportContext_2" xml:space="preserve">Screening Date: </sys:String>
+    <sys:String x:Key="ReportContext_3" xml:space="preserve">Gender: </sys:String>
+    <sys:String x:Key="ReportContext_4">Female</sys:String>
+    <sys:String x:Key="ReportContext_5">Male</sys:String>
+    <sys:String x:Key="ReportContext_6" xml:space="preserve">Screening Location: </sys:String>
+    <sys:String x:Key="ReportContext_7" xml:space="preserve">Address: </sys:String>
+    <sys:String x:Key="ReportContext_8" xml:space="preserve">Health insurance card: </sys:String>
+    <sys:String x:Key="ReportContext_9" xml:space="preserve">MRN# (Code): </sys:String>
+    <sys:String x:Key="ReportContext_10" xml:space="preserve">Age: </sys:String>
+    <sys:String x:Key="ReportContext_11" xml:space="preserve">Weight: </sys:String>
+    <sys:String x:Key="ReportContext_12">Lbs</sys:String>
+    <sys:String x:Key="ReportContext_13">Kgs</sys:String>
+    <sys:String x:Key="ReportContext_14" xml:space="preserve">Menstrual cycle: </sys:String>
+    <sys:String x:Key="ReportContext_15">Phase 1</sys:String>
+    <sys:String x:Key="ReportContext_16">Phase 2</sys:String>
+    <sys:String x:Key="ReportContext_17">Phase 1 2</sys:String>
+    <sys:String x:Key="ReportContext_18">Dysmenorrhea</sys:String>
+    <sys:String x:Key="ReportContext_19">Amenorrhea</sys:String>
+    <sys:String x:Key="ReportContext_20">Pregnancy</sys:String>
+    <sys:String x:Key="ReportContext_21">Lactation</sys:String>
+    <sys:String x:Key="ReportContext_22" xml:space="preserve">Hormones: </sys:String>
+    <sys:String x:Key="ReportContext_23" xml:space="preserve">Skin affections: </sys:String>
+    <sys:String x:Key="ReportContext_24">YES</sys:String>
+    <sys:String x:Key="ReportContext_25">NO</sys:String>
+    <sys:String x:Key="ReportContext_26">Nevus</sys:String>
+    <sys:String x:Key="ReportContext_27">Wart</sys:String>
+    <sys:String x:Key="ReportContext_28">Acne</sys:String>
+    <sys:String x:Key="ReportContext_29">Post operative scar</sys:String>
+    <sys:String x:Key="ReportContext_30">Skin burn after-effects</sys:String>
+    <sys:String x:Key="ReportContext_31">Sun burn after-effects</sys:String>
+    <sys:String x:Key="ReportContext_32" xml:space="preserve">Pertinent/Family history of breast cancer: </sys:String>
+    
+    <sys:String x:Key="ReportContext_33">Positive</sys:String>
+    <sys:String x:Key="ReportContext_34">Negative</sys:String>
+
+    <sys:String x:Key="ReportContext_35" xml:space="preserve">Ultrasound/Mammogram findings: </sys:String>
+    <sys:String x:Key="ReportContext_36">No UTZ / Mammo</sys:String>
+    <sys:String x:Key="ReportContext_37">Negative</sys:String>
+    <sys:String x:Key="ReportContext_38">Benign</sys:String>
+    <sys:String x:Key="ReportContext_39">Suspicious</sys:String>
+    <sys:String x:Key="ReportContext_40">Images Chosen:</sys:String>
+    <sys:String x:Key="ReportContext_41" xml:space="preserve">Left Breast: </sys:String>
+    <sys:String x:Key="ReportContext_42" xml:space="preserve">Right Breast: </sys:String>
+    <sys:String x:Key="ReportContext_43">VISUAL CHARACTERISTIC OF THE IMAGE</sys:String>
+    <sys:String x:Key="ReportContext_44">LEFT</sys:String>
+    <sys:String x:Key="ReportContext_45">RIGHT</sys:String>
+    <sys:String x:Key="ReportContext_46">Palpable Mass:</sys:String>
+    <sys:String x:Key="ReportContext_47">Focal / Diffuse changes of electrical conductivity</sys:String>
+    <sys:String x:Key="ReportContext_48">No</sys:String>
+    <sys:String x:Key="ReportContext_49">Focal</sys:String>
+    <sys:String x:Key="ReportContext_50">Diffuse</sys:String>
+    <sys:String x:Key="ReportContext_51">Mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_52">Preserved</sys:String>
+    <sys:String x:Key="ReportContext_53">Altered</sys:String>
+    <sys:String x:Key="ReportContext_54">Lactiferous sinus zone</sys:String>
+    <sys:String x:Key="ReportContext_55">Not visualized</sys:String>
+    <sys:String x:Key="ReportContext_56">Not Dilated</sys:String>
+    <sys:String x:Key="ReportContext_57">Dilated</sys:String>
+    <sys:String x:Key="ReportContext_58">Granulated</sys:String>
+    <sys:String x:Key="ReportContext_59">Mammary gland contour</sys:String>
+    <sys:String x:Key="ReportContext_60">Preserved</sys:String>
+    <sys:String x:Key="ReportContext_61">Thickened</sys:String>
+    <sys:String x:Key="ReportContext_62">Deformed</sys:String>
+    <sys:String x:Key="ReportContext_63">DESCRIPTION OF FOCAL CHANGES OF ELECTRICAL CONDUCTIVITY</sys:String>
+    <sys:String x:Key="ReportContext_64">Segment</sys:String>
+    <sys:String x:Key="ReportContext_65">Number</sys:String>
+    <sys:String x:Key="ReportContext_66">Size</sys:String>
+    <sys:String x:Key="ReportContext_67">Shape</sys:String>
+    <sys:String x:Key="ReportContext_68">Round</sys:String>
+    <sys:String x:Key="ReportContext_69">Oval</sys:String>
+    <sys:String x:Key="ReportContext_70">Lobular</sys:String>
+    <sys:String x:Key="ReportContext_71">Irregular</sys:String>
+    <sys:String x:Key="ReportContext_72">Contour around focus</sys:String>
+    <sys:String x:Key="ReportContext_73">Distinct</sys:String>
+    <sys:String x:Key="ReportContext_74">Hyperimpedance</sys:String>
+    <sys:String x:Key="ReportContext_75">Indistinct</sys:String>
+    <sys:String x:Key="ReportContext_76">Internal electrical structure</sys:String>
+    <sys:String x:Key="ReportContext_77">Hyperimpedance</sys:String>
+    <sys:String x:Key="ReportContext_78">Isoimpedance</sys:String>
+    <sys:String x:Key="ReportContext_79">Hypoimpedance</sys:String>
+    <sys:String x:Key="ReportContext_80">Animpedance</sys:String>
+    <sys:String x:Key="ReportContext_81">Surrounding tissues and peripheral contour</sys:String>
+    <sys:String x:Key="ReportContext_82">Preserved</sys:String>
+    <sys:String x:Key="ReportContext_83">Structure disturbance</sys:String>
+    <sys:String x:Key="ReportContext_84">Structure displacement</sys:String>
+    <sys:String x:Key="ReportContext_85">Thickening</sys:String>
+    <sys:String x:Key="ReportContext_86">Extrusion</sys:String>
+    <sys:String x:Key="ReportContext_87">Retraction</sys:String>
+    <sys:String x:Key="ReportContext_88">QUANTITATIVE CHARACTERISTICS</sys:String>
+    <sys:String x:Key="ReportContext_89">Reference values</sys:String>
+    <sys:String x:Key="ReportContext_90">Oncomarker Highlight</sys:String>
+    <sys:String x:Key="ReportContext_91">Benign Changes</sys:String>
+    <sys:String x:Key="ReportContext_92">1st Layer</sys:String>
+    <sys:String x:Key="ReportContext_93">2st Layer</sys:String>
+    <sys:String x:Key="ReportContext_94">3st Layer</sys:String>
+    <sys:String x:Key="ReportContext_95">4st Layer</sys:String>
+    <sys:String x:Key="ReportContext_96">5st Layer</sys:String>
+    <sys:String x:Key="ReportContext_97">6st Layer</sys:String>
+    <sys:String x:Key="ReportContext_98">7st Layer</sys:String>
+    <sys:String x:Key="ReportContext_99">Suspicious Changes</sys:String>
+    <sys:String x:Key="ReportContext_100">Mean electrical conductivity</sys:String>
+    <sys:String x:Key="ReportContext_101">1 phase</sys:String>
+    <sys:String x:Key="ReportContext_102">2 phase</sys:String>
+    <sys:String x:Key="ReportContext_103">Postmenopausal</sys:String>
+    <sys:String x:Key="ReportContext_104">Pregnant</sys:String>
+    <sys:String x:Key="ReportContext_105">Lactating</sys:String>
+    <sys:String x:Key="ReportContext_106">Comparative electrical conductivity</sys:String>
+    <sys:String x:Key="ReportContext_107">Divergence between histograms</sys:String>
+    <sys:String x:Key="ReportContext_108">Comparison with Norm</sys:String>
+    <sys:String x:Key="ReportContext_109">Phase electrical conductivity</sys:String>
+    <sys:String x:Key="ReportContext_110">Age-related electrical conductivity</sys:String>
+    <sys:String x:Key="ReportContext_111">&lt; 5 pct</sys:String>
+    <sys:String x:Key="ReportContext_112">5 - 95 pct</sys:String>
+    <sys:String x:Key="ReportContext_113">&gt; 95 pct</sys:String>
+    <sys:String x:Key="ReportContext_114">Age Value of EC</sys:String>
+    <sys:String x:Key="ReportContext_115">Conclusion:</sys:String>
+    <sys:String x:Key="ReportContext_116">Pubertal Period</sys:String>
+    <sys:String x:Key="ReportContext_117">Early childbearing age</sys:String>
+    <sys:String x:Key="ReportContext_118">Childbearing age</sys:String>
+    <sys:String x:Key="ReportContext_119">Perimenopausal period</sys:String>
+    <sys:String x:Key="ReportContext_120">Postmenopausal period</sys:String>
+    <sys:String x:Key="ReportContext_121">Left mammary gland:</sys:String>
+    <sys:String x:Key="ReportContext_122">&gt; 0.66 Amorphous type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_123">0.57-0.65 Mixed type with amorphous component predominance</sys:String>
+    <sys:String x:Key="ReportContext_124">0.30-0.56 Mixed type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_125">0.22-0.29 Mixed type with ductal component predominance</sys:String>
+    <sys:String x:Key="ReportContext_126">0.22 Ductal type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_127" xml:space="preserve">Age-related electrical conductivity: </sys:String>
+    <sys:String x:Key="ReportContext_128" xml:space="preserve">  Mean EC of  lesion:</sys:String>
+    <sys:String x:Key="ReportContext_129">Findings:</sys:String>
+    <sys:String x:Key="ReportContext_130">No Focal changes of electroconductivity detected</sys:String>
+    <sys:String x:Key="ReportContext_131">Focal changes of electroconductivity detected </sys:String>
+    <sys:String x:Key="ReportContext_132" xml:space="preserve">  Result:</sys:String>
+    <sys:String x:Key="ReportContext_133">Left mammary gland:</sys:String>
+    <sys:String x:Key="ReportContext_134">No Pathological Changes Detected</sys:String>
+    <sys:String x:Key="ReportContext_135">Benign Lesion</sys:String>
+    <sys:String x:Key="ReportContext_136">Probably Benign Findings</sys:String>
+    <sys:String x:Key="ReportContext_137">Suspicious Abnormality</sys:String>
+    <sys:String x:Key="ReportContext_138">Highly Suggestive of Malignancy</sys:String>
+    <sys:String x:Key="ReportContext_139">Right mammary gland:</sys:String>
+    <sys:String x:Key="ReportContext_140">Right mammary gland:</sys:String>
+    <sys:String x:Key="ReportContext_141">BI-EIM:</sys:String>
+    <sys:String x:Key="ReportContext_142" xml:space="preserve">Total Pts: </sys:String>
+    <sys:String x:Key="ReportContext_143" xml:space="preserve">Point / Category: </sys:String>
+    <sys:String x:Key="ReportContext_144">0-1 pt - 1 Category</sys:String>
+    <sys:String x:Key="ReportContext_145">2-3 pts - 2 Category</sys:String>
+    <sys:String x:Key="ReportContext_146">4 pt - 3 Category</sys:String>
+    <sys:String x:Key="ReportContext_147">5-7 pts - 4 Category</sys:String>
+    <sys:String x:Key="ReportContext_148">8 pt - 5 Category</sys:String>
+    <sys:String x:Key="ReportContext_149" xml:space="preserve">Technician: </sys:String>
+    <sys:String x:Key="ReportContext_150" xml:space="preserve">BI-RADS category: </sys:String>
+    <sys:String x:Key="ReportContext_151">0 Category - Poor Image - Re-Screen</sys:String>
+    <sys:String x:Key="ReportContext_152">1 Category - No pathological changes detected</sys:String>
+    <sys:String x:Key="ReportContext_153">2 Category - Benign lesion</sys:String>
+    <sys:String x:Key="ReportContext_154">3 Category - Probably benign findings</sys:String>
+    <sys:String x:Key="ReportContext_155">4 Category - Suspicious abnormality</sys:String>
+    <sys:String x:Key="ReportContext_156">5 Category - Highly suggestive malignancy</sys:String>
+    <sys:String x:Key="ReportContext_157" xml:space="preserve">Recommendations: </sys:String>
+    <sys:String x:Key="ReportContext_158">MEIK Re-examination in 3 months</sys:String>
+    <sys:String x:Key="ReportContext_159">MEIK Re-examination in 6 months</sys:String>
+    <sys:String x:Key="ReportContext_160">MEIK Yearly Routine</sys:String>
+    <sys:String x:Key="ReportContext_161" xml:space="preserve">Suggestion: </sys:String>
+    <sys:String x:Key="ReportContext_162">Breast Ultrasound</sys:String>
+    <sys:String x:Key="ReportContext_163">Standard Mammogram</sys:String>
+    <sys:String x:Key="ReportContext_164">Biopsy</sys:String>
+    <sys:String x:Key="ReportContext_165" xml:space="preserve">Conclusion: </sys:String>
+    <sys:String x:Key="ReportContext_166">No early breast cancer detected at the time of the scan.  Please correlate clinically.</sys:String>
+    <sys:String x:Key="ReportContext_167">Benign lesion detected.  Suggest further evaluation and management.</sys:String>
+    <sys:String x:Key="ReportContext_168">Suspicious lesion detected. Suggest further evaluation and management.</sys:String>
+    <sys:String x:Key="ReportContext_169" xml:space="preserve">Comments: </sys:String>
+    <sys:String x:Key="ReportContext_170">View Screenshot</sys:String>
+    <sys:String x:Key="ReportContext_171">For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</sys:String>
+    <sys:String x:Key="ReportContext_172">Refer to Surgeon – Follow up Biopsy</sys:String>
+    <sys:String x:Key="ReportContext_173" xml:space="preserve">Doctor: </sys:String>
+    <sys:String x:Key="ReportContext_174" xml:space="preserve">Doctor's Signature: </sys:String>
+    <sys:String x:Key="ReportContext_175">Capture Screen</sys:String>
+    <sys:String x:Key="ReportContext_176">Remove Image</sys:String>
+    <sys:String x:Key="ReportContext_177" xml:space="preserve">Date of Screening: </sys:String>
+    <sys:String x:Key="ReportContext_178" xml:space="preserve">Medical Record No. (MRN): </sys:String>
+    <sys:String x:Key="ReportContext_179" xml:space="preserve">Name: </sys:String>
+    <sys:String x:Key="ReportContext_180">Left Breast</sys:String>
+    <sys:String x:Key="ReportContext_181">Right Breast</sys:String>
+    <sys:String x:Key="ReportContext_182" xml:space="preserve">Finding: </sys:String>
+    <sys:String x:Key="ReportContext_183">Probably benign findings</sys:String>
+    <sys:String x:Key="ReportContext_184">No pathological changes</sys:String>
+    <sys:String x:Key="ReportContext_185">Benign findings</sys:String>
+    <sys:String x:Key="ReportContext_186">Probably benign findings</sys:String>
+    <sys:String x:Key="ReportContext_187">Suspicious abnormality</sys:String>
+    <sys:String x:Key="ReportContext_188" xml:space="preserve">Location: </sys:String>
+    <sys:String x:Key="ReportContext_189" xml:space="preserve">Further examination: </sys:String>
+    <sys:String x:Key="ReportContext_190">Date</sys:String>
+    <sys:String x:Key="ReportContext_191" xml:space="preserve">MEIK Technician: </sys:String>
+    <sys:String x:Key="ReportContext_192">Size:</sys:String>
+    <sys:String x:Key="ReportContext_193">The above described results are based on interpretations at the time of the scan and must be correlated with previous mammogram and ultrasound results (if any), clinical history, clinical findings and other ancillary procedures.</sys:String>
+    <sys:String x:Key="ReportContext_194">MEIK is a screening procedure and is an adjunct modality for Mammography &amp; Breast Ultrasound.</sys:String>
+    <sys:String x:Key="ReportContext_195">*Green marks indicate benign findings and red marks indicate suspicious changes</sys:String>
+    <sys:String x:Key="ReportContext_196">PATIENT'S MEIK RESULT</sys:String>
+    <sys:String x:Key="ReportContext_197">MEIK v.5.6 - Digital Mammograph Summary Report</sys:String>
+    <sys:String x:Key="ReportContext_198">Mammary Glands Electrical Impedance Examination Report</sys:String>
+    <sys:String x:Key="ReportContext_199">3D-Electro-Mammograph – MEIK v.5.6</sys:String>
 
 </ResourceDictionary>

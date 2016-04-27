@@ -49,13 +49,18 @@ namespace MEIKReport.Views
                     this.Close();
                 }
                 else
-                {                                        
+                {                    
                     string dataFile = FindUserReportData(person.ArchiveFolder);
                     if (string.IsNullOrEmpty(dataFile))
                     {
                         dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     }
                     //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
+                    if (App.strDiagnostics != "Diagnostics")
+                    {
+                        dataScreenDate.FormatString = "yyyy年MM月dd日";
+                    }
+
                     if (File.Exists(dataFile))
                     {                    
                         this.shortFormReportModel = SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
@@ -66,12 +71,12 @@ namespace MEIKReport.Views
                         }
                         if (shortFormReportModel.DataScreenShotImg != null)
                         {
-                            this.btnScreenShot.Content = "View Screenshot";
+                            this.btnScreenShot.Content = App.Current.FindResource("ReportContext_170").ToString();// "View Screenshot";
                             this.btnRemoveImg.Visibility = Visibility.Visible;
                         }
                         else
                         {
-                            this.btnScreenShot.Content = "Capture Screen";
+                            this.btnScreenShot.Content = App.Current.FindResource("ReportContext_175").ToString();// "Capture Screen";
                             this.btnRemoveImg.Visibility = Visibility.Hidden;
                         }
                         if (!App.reportSettingModel.TechNames.Contains(shortFormReportModel.DataMeikTech))
@@ -85,6 +90,9 @@ namespace MEIKReport.Views
                     }
                     else
                     {
+                        string docFile = FindUserReportWord(person.ArchiveFolder);
+                        shortFormReportModel=WordTools.ReadWordFile(docFile);
+
                         shortFormReportModel.DataUserCode = person.Code;
                         shortFormReportModel.DataName = person.SurName;
                         shortFormReportModel.DataAge = person.Age + "";
@@ -144,7 +152,7 @@ namespace MEIKReport.Views
         {
             try {
                 LoadDataModel();
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, shortFormReportModel);
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, shortFormReportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
@@ -165,7 +173,7 @@ namespace MEIKReport.Views
                     FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
                     FixedDocument fixedDoc = new FixedDocument();//创建一个文档
                     if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
-                    {
+                    {                        
                         fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
                     }
                     else if ("A4".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
@@ -193,7 +201,7 @@ namespace MEIKReport.Views
                 //如果主窗体不存在
                 if (mainWinHwnd == IntPtr.Zero)
                 {
-                    IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                    IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
                     Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }                
                 WinMinimized();
@@ -243,13 +251,13 @@ namespace MEIKReport.Views
                 }                
                 LoadDataModel();                
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
-                File.Copy(datafile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat",true);
+                File.Copy(datafile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
 
                 //Save PDF file
                 string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
                 string lfReportTempl = "Views/ExaminationReportDocument.xaml";
                 ExportPDF(lfReportTempl, lfPdfFile);
-                File.Copy(lfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
+                File.Copy(lfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
                 string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
                 string sfReportTempl = "Views/SummaryReportDocument.xaml";                
                 if (shortFormReportModel.DataScreenShotImg != null)
@@ -257,14 +265,15 @@ namespace MEIKReport.Views
                     sfReportTempl = "Views/SummaryReportImageDocument.xaml";                                        
                 }
                 ExportPDF(sfReportTempl, sfPdfFile);
-                File.Copy(sfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
-                MessageBox.Show("Report is saved successfully.");
+                File.Copy(sfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
+
+                MessageBox.Show(App.Current.FindResource("Message_2").ToString());
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show("Failed to save the report. Error: " + ex.Message);
+                MessageBox.Show(App.Current.FindResource("Message_3").ToString() + ex.Message);
             }
         }
 
@@ -278,7 +287,7 @@ namespace MEIKReport.Views
             shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;
             shortFormReportModel.DataComments = this.dataComments.Text;
             shortFormReportModel.DataConclusion = this.dataConclusion.Text;
-            shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
+            //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
             shortFormReportModel.DataDoctor = this.dataDoctor.Text;
             shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
             
@@ -353,30 +362,30 @@ namespace MEIKReport.Views
             shortFormReportModel.DataRightMeanElectricalConductivity3N1 = this.dataRightMeanElectricalConductivity3N1.Text;
             shortFormReportModel.DataRightMeanElectricalConductivity3N2 = this.dataRightMeanElectricalConductivity3N2.Text;
 
-            shortFormReportModel.DataComparativeElectricalConductivityReference1 = this.dataComparativeElectricalConductivityReference1.Text;
+            //shortFormReportModel.DataComparativeElectricalConductivityReference1 = this.dataComparativeElectricalConductivityReference1.Text;
             shortFormReportModel.DataLeftComparativeElectricalConductivity1 = this.dataLeftComparativeElectricalConductivity1.Text;
-            shortFormReportModel.DataRightComparativeElectricalConductivity1 = this.dataRightComparativeElectricalConductivity1.Text;
-            shortFormReportModel.DataComparativeElectricalConductivityReference2 = this.dataComparativeElectricalConductivityReference2.Text;
+            //shortFormReportModel.DataRightComparativeElectricalConductivity1 = this.dataRightComparativeElectricalConductivity1.Text;
+            //shortFormReportModel.DataComparativeElectricalConductivityReference2 = this.dataComparativeElectricalConductivityReference2.Text;
             shortFormReportModel.DataLeftComparativeElectricalConductivity2 = this.dataLeftComparativeElectricalConductivity2.Text;
-            shortFormReportModel.DataRightComparativeElectricalConductivity2 = this.dataRightComparativeElectricalConductivity2.Text;
+            //shortFormReportModel.DataRightComparativeElectricalConductivity2 = this.dataRightComparativeElectricalConductivity2.Text;
             shortFormReportModel.DataComparativeElectricalConductivity3 = this.dataComparativeElectricalConductivity3.Text;
             shortFormReportModel.DataLeftComparativeElectricalConductivity3 = this.dataLeftComparativeElectricalConductivity3.Text;
-            shortFormReportModel.DataRightComparativeElectricalConductivity3 = this.dataRightComparativeElectricalConductivity3.Text;
+            //shortFormReportModel.DataRightComparativeElectricalConductivity3 = this.dataRightComparativeElectricalConductivity3.Text;
 
-            shortFormReportModel.DataDivergenceBetweenHistogramsReference1 = this.dataDivergenceBetweenHistogramsReference1.Text;
+            //shortFormReportModel.DataDivergenceBetweenHistogramsReference1 = this.dataDivergenceBetweenHistogramsReference1.Text;
             shortFormReportModel.DataLeftDivergenceBetweenHistograms1 = this.dataLeftDivergenceBetweenHistograms1.Text;
-            shortFormReportModel.DataRightDivergenceBetweenHistograms1 = this.dataRightDivergenceBetweenHistograms1.Text;
-            shortFormReportModel.DataDivergenceBetweenHistogramsReference2 = this.dataDivergenceBetweenHistogramsReference2.Text;
+            //shortFormReportModel.DataRightDivergenceBetweenHistograms1 = this.dataRightDivergenceBetweenHistograms1.Text;
+            //shortFormReportModel.DataDivergenceBetweenHistogramsReference2 = this.dataDivergenceBetweenHistogramsReference2.Text;
             shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = this.dataLeftDivergenceBetweenHistograms2.Text;
-            shortFormReportModel.DataRightDivergenceBetweenHistograms2 = this.dataRightDivergenceBetweenHistograms2.Text;
+            //shortFormReportModel.DataRightDivergenceBetweenHistograms2 = this.dataRightDivergenceBetweenHistograms2.Text;
             shortFormReportModel.DataDivergenceBetweenHistograms3 = this.dataDivergenceBetweenHistograms3.Text;
             shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = this.dataLeftDivergenceBetweenHistograms3.Text;
-            shortFormReportModel.DataRightDivergenceBetweenHistograms3 = this.dataRightDivergenceBetweenHistograms3.Text;
+            //shortFormReportModel.DataRightDivergenceBetweenHistograms3 = this.dataRightDivergenceBetweenHistograms3.Text;
 
             shortFormReportModel.DataLeftComparisonWithNorm = this.dataLeftComparisonWithNorm.Text;
             shortFormReportModel.DataRightComparisonWithNorm = this.dataRightComparisonWithNorm.Text;
 
-            shortFormReportModel.DataPhaseElectricalConductivityReference = this.dataPhaseElectricalConductivityReference.Text;
+            //shortFormReportModel.DataPhaseElectricalConductivityReference = this.dataPhaseElectricalConductivityReference.Text;
             shortFormReportModel.DataLeftPhaseElectricalConductivity = this.dataLeftPhaseElectricalConductivity.Text;
             shortFormReportModel.DataRightPhaseElectricalConductivity = this.dataRightPhaseElectricalConductivity.Text;
 
@@ -417,7 +426,7 @@ namespace MEIKReport.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to save the report?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(null);
@@ -462,7 +471,7 @@ namespace MEIKReport.Views
                     //}
                     //PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
-                    MessageBox.Show("Exported the PDF file successfully.");
+                    MessageBox.Show(App.Current.FindResource("Message_5").ToString());
                 }
             }
             catch (Exception ex)
@@ -548,7 +557,7 @@ namespace MEIKReport.Views
             if (!string.IsNullOrEmpty(folderName))
             {
                 SaveReport(folderName);
-                MessageBox.Show("Saved the report file successfully.");
+                MessageBox.Show(App.Current.FindResource("Message_6").ToString());
             }
 
         }
@@ -571,6 +580,34 @@ namespace MEIKReport.Views
                     foreach (FileInfo NextFile in fileInfo)
                     {
                         if ((person.Code + ".dat").Equals(NextFile.Name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return NextFile.FullName;
+                        }
+                    }
+                }
+                catch (Exception) { }
+            }
+            return null;
+        }
+
+        private string FindUserReportWord(string folderName)
+        {
+            //遍历指定文件夹下所有文件
+            DirectoryInfo theFolder = new DirectoryInfo(folderName);
+            DirectoryInfo[] dirInfo = theFolder.GetDirectories();
+            List<DirectoryInfo> list = dirInfo.ToList();
+            list.Add(theFolder);
+            dirInfo = list.ToArray();
+            foreach (DirectoryInfo NextFolder in dirInfo)
+            {
+                FileInfo[] fileInfo = null;
+                try
+                {
+                    fileInfo = NextFolder.GetFiles();
+                    //遍历文件
+                    foreach (FileInfo NextFile in fileInfo)
+                    {
+                        if ((person.Code + ".doc").Equals(NextFile.Name, StringComparison.OrdinalIgnoreCase))
                         {
                             return NextFile.FullName;
                         }
@@ -616,7 +653,7 @@ namespace MEIKReport.Views
                 stream.Read(buffer, 0, buffer.Length);
                 stream.Flush();
                 shortFormReportModel.DataScreenShotImg = buffer;
-                this.btnScreenShot.Content = "View Screenshot";
+                this.btnScreenShot.Content = App.Current.FindResource("ReportContext_170").ToString();                
                 this.btnRemoveImg.Visibility = Visibility.Visible;
             }
            
@@ -625,7 +662,7 @@ namespace MEIKReport.Views
 
         private void btnRemoveImg_Click(object sender, RoutedEventArgs e)
         {
-            this.btnScreenShot.Content = "Capture Screen";
+            this.btnScreenShot.Content = App.Current.FindResource("ReportContext_175").ToString();            
             shortFormReportModel.DataScreenShotImg = null;
             this.btnRemoveImg.Visibility = Visibility.Hidden;
         }

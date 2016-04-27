@@ -3,7 +3,7 @@
                Height="1056" Width="794">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="764"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -79,338 +79,388 @@
                 <RowDefinition Height="*"/>                
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
-                <TextBlock Text="Mammary Glands Electrical Impedance Examination Report" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+                <TextBlock Text="{StaticResource ReportContext_198}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
-                <TextBlock Text="3D-Electro-Mammograph – MEIK v.5.6" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_199}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" TextDecorations="Underline"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Full name: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_1}" FontWeight="Bold"/>
                 <TextBlock Name="dataName" Text="{Binding DataName}" VerticalAlignment="Center" Width="230" Height="18"></TextBlock>
                 <!--<TextBlock Name="dataName" Text="{Binding DataName}" Width="230" TextDecorations="Underline"/>-->
-                <TextBlock Text="Screening Date: " FontWeight="Bold" Margin="20,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_2}" FontWeight="Bold" Margin="20,0,0,0"/>
                 <TextBlock Name="dataScreenDate" Text="{Binding DataScreenDate}" Height="18" Width="125"/>
-                <TextBlock Text="Gender: " FontWeight="Bold" Margin="5,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_3}" FontWeight="Bold" Margin="5,0,0,0"/>
                 <TextBlock Name="dataGender" Text="{Binding DataGender}" Width="110"/>                    
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Screening Location: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_6}" FontWeight="Bold"/>
                 <TextBlock Name="dataScreenLocation" Text="{Binding DataScreenLocation}" VerticalAlignment="Center" Width="450" Height="18" Margin="0,0,5,0"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Address: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_7}" FontWeight="Bold"/>
                 <TextBlock Name="dataAddress" Text="{Binding DataAddress}" Width="380" Height="18" Margin="0,0,5,0"></TextBlock>
                 <!--<TextBlock Name="dataAddress" Text="{Binding DataAddress}" Width="380" Height="18" Margin="0,0,5,0"></TextBlock>-->
                 <!--<TextBlock Text="" Width="380" TextDecorations="Underline"/>-->
-                <TextBlock Text="Health insurance card: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_8}" FontWeight="Bold"/>
                 <TextBlock Name="dataHealthCard" Text="{Binding DataHealthCard}" Width="180" Height="18"></TextBlock>
                 <!--<TextBlock Text="" Width="150"/>-->
             </StackPanel>
             <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="MRN# (Code):  " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_9}" FontWeight="Bold"/>
                 <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="150"/>
-                <TextBlock Text="Age: " FontWeight="Bold" Margin="10,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_10}" FontWeight="Bold" Margin="10,0,0,0"/>
                 <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="55" Margin="0,0,5,0" Height="18"></TextBlock>
                 <!--<TextBlock Name="dataAge" Text="{Binding DataAge}" Width="60"/>-->
-                <TextBlock Text="Weight: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_11}" FontWeight="Bold"/>
                 <TextBlock Name="dataWeight" Text="{Binding DataWeight}" TextAlignment="Right" Width="50" Height="18"></TextBlock>
                 <TextBlock Name="dataWeightUnit" Text="{Binding DataWeightUnit}" Height="18" Width="50"  Margin="0,0,5,0"/>                    
                 <!--<TextBlock Text="" Width="102"/>-->
-                <TextBlock Text="Menstrual cycle: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_14}" FontWeight="Bold"/>
                 <TextBlock Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}" Width="161"  Margin="0,0,5,0"/>                    
             </StackPanel>
             <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Hormones: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_22}" FontWeight="Bold"/>
                 <TextBlock Name="dataHormones" Text="{Binding DataHormones}" VerticalAlignment="Center" Width="140" Height="18"/>
-                <TextBlock Text="Skin affections: " FontWeight="Bold" Margin="5,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_23}" FontWeight="Bold" Margin="5,0,0,0"/>
                 <TextBlock Name="dataSkinAffections" Text="{Binding DataSkinAffections}" Width="400"/>
                     
             </StackPanel>
             <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Pertinent/Family history of breast cancer: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_32}" FontWeight="Bold"/>
                 <TextBlock Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="65"/>
                 <TextBlock Text="-"/>
                 <TextBlock Name="dataPertinentHistory1" Text="{Binding DataPertinentHistory1}" Width="80"  Margin="0,0,5,0"/>
-                <TextBlock Text="Ultrasound/Mammogram findings: " FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_35}" FontWeight="Bold"/>
                 <TextBlock Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="140"/>                    
             </StackPanel>
             <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Images Chosen: " Width="130" FontWeight="Bold" Margin="250,0,0,0"/>
-                <TextBlock Text="Left Breast: "/>
+                <TextBlock Text="{StaticResource ReportContext_40}" Width="130" FontWeight="Bold" Margin="250,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_41}"/>
                 <TextBlock Name="dataLeftBreast" Text="{Binding DataLeftBreast}" Width="80" Height="18"></TextBlock>
-                <TextBlock Text="Right Breast: " Margin="5,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_42}" Margin="5,0,0,0"/>
                 <TextBlock Name="dataRightBreast" Text="{Binding DataRightBreast}" Width="80" Height="18"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="VISUAL CHARACTERISTIC OF THE IMAGE" Width="400" FontWeight="Bold"/>
-                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
-                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_43}" Width="420" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_44}" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_45}" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
             </StackPanel>
             <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Palpable Mass: " Width="380"/>
-                <TextBlock Name="dataLeftPalpableMass" Text="{Binding DataLeftPalpableMass}" Width="150"/>
-                <TextBlock Name="dataRightPalpableMass" Text="{Binding DataRightPalpableMass}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_46}" Width="380"/>
+                <TextBlock Name="dataLeftPalpableMass" Text="{Binding DataLeftPalpableMass}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightPalpableMass" Text="{Binding DataRightPalpableMass}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Focal / Diffuse changes of electrical conductivity" Width="380"/>
-                <TextBlock Name="dataLeftChangesOfElectricalConductivity" Text="{Binding DataLeftChangesOfElectricalConductivity}" Width="150"/>
-                <TextBlock Name="dataRightChangesOfElectricalConductivity" Text="{Binding DataRightChangesOfElectricalConductivity}" Width="150" Margin="5,0,0,0"/>                
+                <TextBlock Text="{StaticResource ReportContext_47}" Width="380"/>
+                <TextBlock Name="dataLeftChangesOfElectricalConductivity" Text="{Binding DataLeftChangesOfElectricalConductivity}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightChangesOfElectricalConductivity" Text="{Binding DataRightChangesOfElectricalConductivity}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                
             </StackPanel>
             <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Mammary gland structure" Width="380"/>
-                <TextBlock Name="dataLeftMammaryStruct" Text="{Binding DataLeftMammaryStruct}" Width="150"/>
-                <TextBlock Name="dataRightMammaryStruct" Text="{Binding DataRightMammaryStruct}" Width="150" Margin="5,0,0,0"/>                
+                <TextBlock Text="{StaticResource ReportContext_51}" Width="380"/>
+                <TextBlock Name="dataLeftMammaryStruct" Text="{Binding DataLeftMammaryStruct}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightMammaryStruct" Text="{Binding DataRightMammaryStruct}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                
             </StackPanel>
             <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Lactiferous sinus zone" Width="380"/>
-                <TextBlock Name="dataLeftLactiferousSinusZone" Text="{Binding DataLeftLactiferousSinusZone}" Width="150"/>
-                <TextBlock Name="dataRightLactiferousSinusZone" Text="{Binding DataRightLactiferousSinusZone}" Width="150" Margin="5,0,0,0"/>                
+                <TextBlock Text="{StaticResource ReportContext_54}" Width="380"/>
+                <TextBlock Name="dataLeftLactiferousSinusZone" Text="{Binding DataLeftLactiferousSinusZone}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightLactiferousSinusZone" Text="{Binding DataRightLactiferousSinusZone}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                
             </StackPanel>
             <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Mammary gland contour" Width="380"/>
-                <TextBlock Name="dataLeftMammaryContour" Text="{Binding DataLeftMammaryContour}" Width="150"/>
-                <TextBlock Name="dataRightMammaryContour" Text="{Binding DataRightMammaryContour}" Width="150" Margin="5,0,0,0"/>                
+                <TextBlock Text="{StaticResource ReportContext_59}" Width="380"/>
+                <TextBlock Name="dataLeftMammaryContour" Text="{Binding DataLeftMammaryContour}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightMammaryContour" Text="{Binding DataRightMammaryContour}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                
             </StackPanel>
             <StackPanel Grid.Row="17" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="DESCRIPTION OF FOCAL CHANGES OF ELECTRICAL CONDUCTIVITY" Width="400" FontWeight="Bold"/>
-                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
-                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_63}" Width="420" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_44}" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_45}" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
             </StackPanel>
             <StackPanel Grid.Row="18" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Segment" Width="380"/>
-                <TextBlock Name="dataLeftLocation" Text="{Binding DataLeftLocation}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightLocation" Text="{Binding DataRightLocation}" Width="150" Height="18" Margin="5,0,0,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_64}" Width="380"/>
+                <TextBlock Name="dataLeftLocation" Text="{Binding DataLeftLocation}" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightLocation" Text="{Binding DataRightLocation}" Width="150" Height="18" Margin="5,0,0,0" TextAlignment="Center"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="19" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Number" Width="380"/>
-                <TextBlock Name="dataLeftNumber" Text="{Binding DataLeftNumber}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightNumber" Text="{Binding DataRightNumber}" Width="150" Height="18" Margin="5,0,0,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_65}" Width="380"/>
+                <TextBlock Name="dataLeftNumber" Text="{Binding DataLeftNumber}" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightNumber" Text="{Binding DataRightNumber}" Width="150" Height="18" Margin="5,0,0,0" TextAlignment="Center"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="20" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Size" Width="380"/>
-                <TextBlock Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightSize" Text="{Binding DataRightSize}" Width="150" Height="18" Margin="5,0,0,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_66}" Width="380"/>
+                <TextBlock Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightSize" Text="{Binding DataRightSize}" Width="150" Height="18" Margin="5,0,0,0" TextAlignment="Center"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Shape" Width="380"/>
-                <TextBlock Name="dataLeftShape" Text="{Binding DataLeftShape}" Width="150"/>
-                <TextBlock Name="dataRightShape" Text="{Binding DataRightShape}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_67}" Width="380"/>
+                <TextBlock Name="dataLeftShape" Text="{Binding DataLeftShape}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightShape" Text="{Binding DataRightShape}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Contour around focus" Width="380"/>
-                <TextBlock Name="dataLeftContourAroundFocus" Text="{Binding DataLeftContourAroundFocus}" Width="150"/>
-                <TextBlock Name="dataRightContourAroundFocus" Text="{Binding DataRightContourAroundFocus}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_72}" Width="380"/>
+                <TextBlock Name="dataLeftContourAroundFocus" Text="{Binding DataLeftContourAroundFocus}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightContourAroundFocus" Text="{Binding DataRightContourAroundFocus}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Internal electrical structure" Width="380"/>
-                <TextBlock Name="dataLeftInternalElectricalStructure" Text="{Binding DataLeftInternalElectricalStructure}" Width="150"/>
-                <TextBlock Name="dataRightInternalElectricalStructure" Text="{Binding DataRightInternalElectricalStructure}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_76}" Width="380"/>
+                <TextBlock Name="dataLeftInternalElectricalStructure" Text="{Binding DataLeftInternalElectricalStructure}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightInternalElectricalStructure" Text="{Binding DataRightInternalElectricalStructure}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Surrounding tissues and peripheral contour" Width="380"/>
-                <TextBlock Name="dataLeftSurroundingTissues" Text="{Binding DataLeftSurroundingTissues}" Width="150"/>
-                <TextBlock Name="dataRightSurroundingTissues" Text="{Binding DataRightSurroundingTissues}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_81}" Width="380"/>
+                <TextBlock Name="dataLeftSurroundingTissues" Text="{Binding DataLeftSurroundingTissues}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightSurroundingTissues" Text="{Binding DataRightSurroundingTissues}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="25" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="QUANTITATIVE CHARACTERISTICS" Width="400" FontWeight="Bold"/>
-                <TextBlock Text="LEFT" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
-                <TextBlock Text="RIGHT" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_88}" Width="420" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_44}" Width="150" FontWeight="Bold" TextDecorations="Underline"/>
+                <TextBlock Text="{StaticResource ReportContext_45}" Width="120" FontWeight="Bold" TextDecorations="Underline"/>
             </StackPanel>
             <StackPanel Grid.Row="26" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Reference values" Margin="280,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_89}" Margin="290,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Row="27" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Oncomarker Highlight" Width="200"/>
-                <TextBlock Text="Benign Changes" Width="180" />
-                <TextBlock Name="dataLeftOncomarkerHighlightBenignChanges" Text="{Binding DataLeftOncomarkerHighlightBenignChanges}" Width="150"/>
-                <TextBlock Name="dataRightOncomarkerHighlightBenignChanges" Text="{Binding DataRightOncomarkerHighlightBenignChanges}" Width="150" Margin="5,0,0,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_90}" Width="200"/>
+                <TextBlock Text="{StaticResource ReportContext_91}" Width="180" />
+                <TextBlock Name="dataLeftOncomarkerHighlightBenignChanges" Text="{Binding DataLeftOncomarkerHighlightBenignChanges}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightOncomarkerHighlightBenignChanges" Text="{Binding DataRightOncomarkerHighlightBenignChanges}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="200"/>
-                <TextBlock Text="Suspicious Changes" Width="180" />
-                <TextBlock Name="dataLeftOncomarkerHighlightSuspiciousChanges" Text="{Binding DataLeftOncomarkerHighlightSuspiciousChanges}" Width="150"/>
-                <TextBlock Name="dataRightOncomarkerHighlightSuspiciousChanges" Text="{Binding DataRightOncomarkerHighlightSuspiciousChanges}" Width="150" Margin="5,0,0,0"/>                
+                <TextBlock Text="{StaticResource ReportContext_99}" Width="180" />
+                <TextBlock Name="dataLeftOncomarkerHighlightSuspiciousChanges" Text="{Binding DataLeftOncomarkerHighlightSuspiciousChanges}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightOncomarkerHighlightSuspiciousChanges" Text="{Binding DataRightOncomarkerHighlightSuspiciousChanges}" Width="150" Margin="5,0,0,0" TextAlignment="Center"/>                
             </StackPanel>
             <StackPanel Grid.Row="29" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Mean electrical conductivity" Width="220"/>
-                <TextBlock Text="1 phase" Width="160" />
-                <TextBlock Name="dataLeftMeanElectricalConductivity1" Text="{Binding DataLeftMeanElectricalConductivity1}" Width="90" Height="18" Margin="0,0,1,0"></TextBlock>
-                <TextBlock Name="dataLeftMeanElectricalConductivity1N1" Text="{Binding DataLeftMeanElectricalConductivity1N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataLeftMeanElectricalConductivity1N2" Text="{Binding DataLeftMeanElectricalConductivity1N2}" Width="27" Height="18"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity1" Text="{Binding DataRightMeanElectricalConductivity1}" Width="90" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity1N1" Text="{Binding DataRightMeanElectricalConductivity1N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataRightMeanElectricalConductivity1N2" Text="{Binding DataRightMeanElectricalConductivity1N2}" Width="27" Height="18"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_100}" Width="220"/>
+                <TextBlock Text="{StaticResource ReportContext_101}" Width="160" />
+                <TextBlock Name="dataLeftMeanElectricalConductivity1" Text="{Binding DataLeftMeanElectricalConductivity1}" Width="86" Height="18" Margin="0,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity1N1" Text="{Binding DataLeftMeanElectricalConductivity1N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity1N2" Text="{Binding DataLeftMeanElectricalConductivity1N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <StackPanel Width="1" Background="Black" Margin="4,0,0,0"/>
+                <TextBlock Name="dataRightMeanElectricalConductivity1" Text="{Binding DataRightMeanElectricalConductivity1}" Width="86" Height="18" Margin="5,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity1N1" Text="{Binding DataRightMeanElectricalConductivity1N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity1N2" Text="{Binding DataRightMeanElectricalConductivity1N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
             </StackPanel>
             <StackPanel Grid.Row="30" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="220"/>
-                <TextBlock Text="2 phase" Width="160" />
-                <TextBlock Name="dataLeftMeanElectricalConductivity2" Text="{Binding DataLeftMeanElectricalConductivity2}" Width="90" Height="18" Margin="0,0,1,0"></TextBlock>
-                <TextBlock Name="dataLeftMeanElectricalConductivity2N1" Text="{Binding DataLeftMeanElectricalConductivity2N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataLeftMeanElectricalConductivity2N2" Text="{Binding DataLeftMeanElectricalConductivity2N2}" Width="27" Height="18"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity2" Text="{Binding DataRightMeanElectricalConductivity2}" Width="90" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity2N1" Text="{Binding DataRightMeanElectricalConductivity2N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataRightMeanElectricalConductivity2N2" Text="{Binding DataRightMeanElectricalConductivity2N2}" Width="27" Height="18"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_102}" Width="160" />
+                <TextBlock Name="dataLeftMeanElectricalConductivity2" Text="{Binding DataLeftMeanElectricalConductivity2}" Width="86" Height="18" Margin="0,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity2N1" Text="{Binding DataLeftMeanElectricalConductivity2N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity2N2" Text="{Binding DataLeftMeanElectricalConductivity2N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <StackPanel Width="1" Background="Black" Margin="4,0,0,0"/>
+                <TextBlock Name="dataRightMeanElectricalConductivity2" Text="{Binding DataRightMeanElectricalConductivity2}" Width="86" Height="18" Margin="5,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity2N1" Text="{Binding DataRightMeanElectricalConductivity2N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity2N2" Text="{Binding DataRightMeanElectricalConductivity2N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
             </StackPanel>
             <StackPanel Grid.Row="31" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="210"/>
-                <TextBlock Name="dataMeanElectricalConductivity3" Text="{Binding DataMeanElectricalConductivity3}" Width="150" Margin="5,0,15,0"/>                
-                <TextBlock Name="dataLeftMeanElectricalConductivity3" Text="{Binding DataLeftMeanElectricalConductivity3}" Width="90" Height="18" Margin="0,0,1,0"></TextBlock>
-                <TextBlock Name="dataLeftMeanElectricalConductivity3N1" Text="{Binding DataLeftMeanElectricalConductivity3N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataLeftMeanElectricalConductivity3N2" Text="{Binding DataLeftMeanElectricalConductivity3N2}" Width="27" Height="18"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity3" Text="{Binding DataRightMeanElectricalConductivity3}" Width="90" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Name="dataRightMeanElectricalConductivity3N1" Text="{Binding DataRightMeanElectricalConductivity3N1}" Width="27" Height="18"></TextBlock>
-                <TextBlock Text="/"/>
-                <TextBlock Name="dataRightMeanElectricalConductivity3N2" Text="{Binding DataRightMeanElectricalConductivity3N2}" Width="27" Height="18"></TextBlock>
+                <TextBlock Name="dataMeanElectricalConductivity3" Text="{Binding DataMeanElectricalConductivity3}" Width="150" Margin="5,0,15,0"/>
+                <TextBlock Name="dataLeftMeanElectricalConductivity3" Text="{Binding DataLeftMeanElectricalConductivity3}" Width="86" Height="18" Margin="0,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity3N1" Text="{Binding DataLeftMeanElectricalConductivity3N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataLeftMeanElectricalConductivity3N2" Text="{Binding DataLeftMeanElectricalConductivity3N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <StackPanel Width="1" Background="Black" Margin="4,0,0,0"/>
+                <TextBlock Name="dataRightMeanElectricalConductivity3" Text="{Binding DataRightMeanElectricalConductivity3}" Width="86" Height="18" Margin="5,0,1,0" TextAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity3N1" Text="{Binding DataRightMeanElectricalConductivity3N1}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
+                <TextBlock Text="/" VerticalAlignment="Bottom"/>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="dataRightMeanElectricalConductivity3N2" Text="{Binding DataRightMeanElectricalConductivity3N2}" Width="28" Height="18" TextAlignment="Center"></TextBlock>
+                </Border>
             </StackPanel>
             <StackPanel Grid.Row="32" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Comparative electrical conductivity" Width="220"/>
-                <TextBlock Text="1 phase" Width="80" />
-                <TextBlock Name="dataComparativeElectricalConductivityReference1" Text="{Binding DataComparativeElectricalConductivityReference1}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftComparativeElectricalConductivity1" Text="{Binding DataLeftComparativeElectricalConductivity1}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightComparativeElectricalConductivity1" Text="{Binding DataRightComparativeElectricalConductivity1}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_106}" Width="220"/>
+                <TextBlock Text="{StaticResource ReportContext_101}" Width="80" />
+                <TextBlock Text="(-0.07-0.07)" Width="80" />
+                <!--<TextBlock Name="dataComparativeElectricalConductivityReference1" Text="{Binding DataComparativeElectricalConductivityReference1}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>-->
+                <TextBlock Name="dataLeftComparativeElectricalConductivity1" Text="{Binding DataLeftComparativeElectricalConductivity1}" Margin="80,0,0,0" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <!--<TextBlock Name="dataRightComparativeElectricalConductivity1" Text="{Binding DataRightComparativeElectricalConductivity1}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>-->
             </StackPanel>
             <StackPanel Grid.Row="33" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="220"/>
-                <TextBlock Text="2 phase" Width="80" />
-                <TextBlock Name="dataComparativeElectricalConductivityReference2" Text="{Binding DataComparativeElectricalConductivityReference2}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftComparativeElectricalConductivity2" Text="{Binding DataLeftComparativeElectricalConductivity2}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightComparativeElectricalConductivity2" Text="{Binding DataRightComparativeElectricalConductivity2}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_102}" Width="80" />
+                <TextBlock Text="(-0.10-0.10)" Width="80" />
+                <!--<TextBlock Name="dataComparativeElectricalConductivityReference2" Text="{Binding DataComparativeElectricalConductivityReference2}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>-->
+                <TextBlock Name="dataLeftComparativeElectricalConductivity2" Text="{Binding DataLeftComparativeElectricalConductivity2}" Margin="80,0,0,0" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <!--<TextBlock Name="dataRightComparativeElectricalConductivity2" Text="{Binding DataRightComparativeElectricalConductivity2}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>-->
             </StackPanel>
             <StackPanel Grid.Row="34" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="210"/>
-                <TextBlock Name="dataComparativeElectricalConductivity3" Text="{Binding DataComparativeElectricalConductivity3}" Width="150" Margin="5,0,15,0"/>                    
-                <TextBlock Name="dataLeftComparativeElectricalConductivity3" Text="{Binding DataLeftComparativeElectricalConductivity3}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightComparativeElectricalConductivity3" Text="{Binding DataRightComparativeElectricalConductivity3}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Name="dataComparativeElectricalConductivity3" Text="{Binding DataComparativeElectricalConductivity3}" Width="150" Margin="5,0,15,0"/>
+                <TextBlock Name="dataLeftComparativeElectricalConductivity3" Text="{Binding DataLeftComparativeElectricalConductivity3}" Margin="80,0,0,0" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <!--<TextBlock Name="dataRightComparativeElectricalConductivity3" Text="{Binding DataRightComparativeElectricalConductivity3}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>-->
             </StackPanel>
             <StackPanel Grid.Row="35" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Divergence between histograms" Width="220"/>
-                <TextBlock Text="1 phase" Width="80" />
-                <TextBlock Name="dataDivergenceBetweenHistogramsReference1" Text="{Binding DataDivergenceBetweenHistogramsReference1}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftDivergenceBetweenHistograms1" Text="{Binding DataLeftDivergenceBetweenHistograms1}" Width="100" Height="18"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_107}" Width="220"/>
+                <TextBlock Text="{StaticResource ReportContext_101}" Width="80" />
+                <TextBlock Text="(below 40%)" Width="80" />
+                <!--<TextBlock Name="dataDivergenceBetweenHistogramsReference1" Text="{Binding DataDivergenceBetweenHistogramsReference1}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>-->
+                <TextBlock Name="dataLeftDivergenceBetweenHistograms1" Text="{Binding DataLeftDivergenceBetweenHistograms1}" Margin="80,0,0,0" Width="80" Height="18" TextAlignment="Right"></TextBlock>
                 <TextBlock Text="%" Width="50"/>
-                <TextBlock Name="dataRightDivergenceBetweenHistograms1" Text="{Binding DataRightDivergenceBetweenHistograms1}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Text="%" Width="50"/>
+                <!--<TextBlock Name="dataRightDivergenceBetweenHistograms1" Text="{Binding DataRightDivergenceBetweenHistograms1}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="%" Width="50"/>-->
             </StackPanel>
             <StackPanel Grid.Row="36" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="220"/>
-                <TextBlock Text="2 phase" Width="80" />
-                <TextBlock Name="dataDivergenceBetweenHistogramsReference2" Text="{Binding DataDivergenceBetweenHistogramsReference2}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftDivergenceBetweenHistograms2" Text="{Binding DataLeftDivergenceBetweenHistograms2}" Width="100" Height="18"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_102}" Width="80" />
+                <TextBlock Text="(below 40%)" Width="80" />
+                <!--<TextBlock Name="dataDivergenceBetweenHistogramsReference2" Text="{Binding DataDivergenceBetweenHistogramsReference2}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>-->
+                <TextBlock Name="dataLeftDivergenceBetweenHistograms2" Text="{Binding DataLeftDivergenceBetweenHistograms2}" Margin="80,0,0,0" Width="80" Height="18" TextAlignment="Right"></TextBlock>
                 <TextBlock Text="%" Width="50"/>
-                <TextBlock Name="dataRightDivergenceBetweenHistograms2" Text="{Binding DataRightDivergenceBetweenHistograms2}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Text="%" Width="50"/>
+                <!--<TextBlock Name="dataRightDivergenceBetweenHistograms2" Text="{Binding DataRightDivergenceBetweenHistograms2}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="%" Width="50"/>-->
             </StackPanel>
             <StackPanel Grid.Row="37" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="210"/>
-                <TextBlock Name="dataDivergenceBetweenHistograms3" Text="{Binding DataDivergenceBetweenHistograms3}" Width="150" Margin="5,0,15,0"/>                
-                <TextBlock Name="dataLeftDivergenceBetweenHistograms3" Text="{Binding DataLeftDivergenceBetweenHistograms3}" Width="100" Height="18"></TextBlock>
+                <TextBlock Name="dataDivergenceBetweenHistograms3" Text="{Binding DataDivergenceBetweenHistograms3}" Width="150" Margin="5,0,15,0"/>
+                <TextBlock Name="dataLeftDivergenceBetweenHistograms3" Text="{Binding DataLeftDivergenceBetweenHistograms3}" Margin="80,0,0,0" Width="80" Height="18" TextAlignment="Right"></TextBlock>
                 <TextBlock Text="%" Width="50"/>
-                <TextBlock Name="dataRightDivergenceBetweenHistograms3" Text="{Binding DataRightDivergenceBetweenHistograms3}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
-                <TextBlock Text="%" Width="50"/>
+                <!--<TextBlock Name="dataRightDivergenceBetweenHistograms3" Text="{Binding DataRightDivergenceBetweenHistograms3}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="%" Width="50"/>-->
             </StackPanel>
             <StackPanel Grid.Row="38" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Comparison with Norm" Width="380"/>
-                <TextBlock Name="dataLeftComparisonWithNorm" Text="{Binding DataLeftComparisonWithNorm}" Width="100" Height="18"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_108}" Width="380"/>
+                <TextBlock Name="dataLeftComparisonWithNorm" Text="{Binding DataLeftComparisonWithNorm}" Width="100" Height="18" TextAlignment="Right"></TextBlock>
                 <TextBlock Text="%" Width="50"/>
-                <TextBlock Name="dataRightComparisonWithNorm" Text="{Binding DataRightComparisonWithNorm}" Width="100" Height="18" Margin="5,0,1,0"></TextBlock>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightComparisonWithNorm" Text="{Binding DataRightComparisonWithNorm}" Width="80" Height="18" TextAlignment="Right" Margin="5,0,1,0"></TextBlock>
                 <TextBlock Text="%" Width="50"/>
             </StackPanel>
             <StackPanel Grid.Row="39" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Phase electrical conductivity" Width="300"/>
-                <TextBlock Name="dataPhaseElectricalConductivityReference" Text="{Binding DataPhaseElectricalConductivityReference}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftPhaseElectricalConductivity" Text="{Binding DataLeftPhaseElectricalConductivity}" Width="150" Height="18"></TextBlock>
-                <TextBlock Name="dataRightPhaseElectricalConductivity" Text="{Binding DataRightPhaseElectricalConductivity}" Width="150" Height="18" Margin="5,0,1,0"></TextBlock>
+                <TextBlock Text="{StaticResource ReportContext_109}" Width="300"/>
+                <TextBlock Text="(-0.11-0.11)" Width="80" />
+                <!--<TextBlock Name="dataPhaseElectricalConductivityReference" Text="{Binding DataPhaseElectricalConductivityReference}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>-->
+                <TextBlock Name="dataLeftPhaseElectricalConductivity" Text="{Binding DataLeftPhaseElectricalConductivity}" Width="150" Height="18" TextAlignment="Center"></TextBlock>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightPhaseElectricalConductivity" Text="{Binding DataRightPhaseElectricalConductivity}" Width="150" Height="18" Margin="5,0,1,0" TextAlignment="Center"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="40" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Age-related electrical conductivity" Width="300"/>
-                <TextBlock Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Name="dataLeftAgeElectricalConductivity" Text="{Binding DataLeftAgeElectricalConductivity}" Width="150"/>
-                <TextBlock Name="dataRightAgeElectricalConductivity" Text="{Binding DataRightAgeElectricalConductivity}" Width="150" Margin="5,0,1,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_110}" Width="300"/>
+                <!--<TextBlock Text="(0.26/0.22)" Width="80" />-->
+                <TextBlock Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" Margin="0,0,5,0" TextAlignment="Center"></TextBlock>
+                <TextBlock Name="dataLeftAgeElectricalConductivity" Text="{Binding DataLeftAgeElectricalConductivity}" Width="150" TextAlignment="Center"/>
+                <StackPanel Width="1" Background="Black"/>
+                <TextBlock Name="dataRightAgeElectricalConductivity" Text="{Binding DataRightAgeElectricalConductivity}" Width="150" Margin="5,0,1,0" TextAlignment="Center"/>                    
             </StackPanel>
             <StackPanel Grid.Row="41" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Age Value of EC" Width="210"/>
+                <TextBlock Text="{StaticResource ReportContext_114}" Width="210"/>
                 <TextBlock Name="dataAgeValueOfEC" Text="{Binding DataAgeValueOfEC}" Width="250" Margin="5,0,1,0"/>                   
             </StackPanel>
             <StackPanel Grid.Row="42" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <Rectangle Width="760" Fill="Black" Height="1"></Rectangle>
             </StackPanel>
             <StackPanel Grid.Row="43" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_115}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataExamConclusion" Text="{Binding DataExamConclusion}" Width="450" Margin="5,0,1,0"/>                    
             </StackPanel>
             <StackPanel Grid.Row="44" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Left mammary gland: " Width="150" FontWeight="Bold"/>
-                <TextBlock Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}" Width="280" Margin="5,0,1,0"/>                    
-                <TextBlock Text="Age-related electrical conductivity: " Width="190" Margin="5,0,0,0"/>
+                <TextBlock Text="{StaticResource ReportContext_121}" Width="130" FontWeight="Bold"/>
+                <TextBlock Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}" Width="300" Margin="5,0,1,0"/>
+                <TextBlock Text="{StaticResource ReportContext_127}" Width="190" Margin="5,0,0,0"/>
                 <TextBlock Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}" Width="120"/>                    
             </StackPanel>
             <StackPanel Grid.Row="45" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="  Mean EC of  lesion: " Width="110"/>
+                <TextBlock Text="{StaticResource ReportContext_128}" Width="150"/>
                 <TextBlock Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" Width="50" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
-                <TextBlock Name="dataLeftFindings" Text="{Binding DataLeftFindings}" Width="515" Margin="5,0,1,0"/>                    
+                <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold"/>
+                <TextBlock Name="dataLeftFindings" Text="{Binding DataLeftFindings}" Width="450" Margin="5,0,1,0"/>                    
             </StackPanel>
             <StackPanel Grid.Row="46" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="  Result: " Width="55"/>
-                <TextBlock Text="Left mammary gland: " Width="120"  FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_132}" Width="55"/>
+                <!--<TextBlock Text="Left mammary gland: " Width="120"  FontWeight="Bold"/>-->
                 <TextBlock Name="dataLeftMammaryGlandResult" Text="{Binding DataLeftMammaryGlandResult}" Width="550" Margin="5,0,1,0"/>                    
             </StackPanel>
             <StackPanel Grid.Row="47" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
-                <TextBlock Name="dataRightMammaryGland" Text="{Binding DataRightMammaryGland}" Width="280" Margin="5,0,1,0"/>                    
-                <TextBlock Text="Age-related electrical conductivity: " Width="190"/>
+                <TextBlock Text="{StaticResource ReportContext_139}" Width="130" FontWeight="Bold"/>
+                <TextBlock Name="dataRightMammaryGland" Text="{Binding DataRightMammaryGland}" Width="300" Margin="5,0,1,0"/>
+                <TextBlock Text="{StaticResource ReportContext_127}" Width="190"/>
                 <TextBlock Name="dataRightAgeRelated" Text="{Binding DataRightAgeRelated}" Width="120"/>                    
             </StackPanel>
             <StackPanel Grid.Row="48" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="  Mean EC of  lesion: " Width="110"/>
+                <TextBlock Text="{StaticResource ReportContext_128}" Width="150"/>
                 <TextBlock Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" Width="50" Height="18" Margin="0,0,5,0"></TextBlock>
-                <TextBlock Text="Findings: " Width="60" FontWeight="Bold"/>
-                <TextBlock Name="dataRightFindings" Text="{Binding DataRightFindings}" Width="515" Margin="5,0,1,0"/>                   
+                <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold"/>
+                <TextBlock Name="dataRightFindings" Text="{Binding DataRightFindings}" Width="450" Margin="5,0,1,0"/>                   
             </StackPanel>
             <StackPanel Grid.Row="49" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="  Result: " Width="50" />
-                <TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_132}" Width="50" />
+                <!--<TextBlock Text="Right mammary gland: " Width="150" FontWeight="Bold"/>-->
                 <TextBlock Name="dataRightMammaryGlandResult" Text="{Binding DataRightMammaryGlandResult}" Width="550" Margin="5,0,1,0"/>                    
             </StackPanel>
             <StackPanel Grid.Row="50" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <Rectangle Width="760" Fill="Black" Height="1"></Rectangle>
             </StackPanel>
             <StackPanel Grid.Row="51" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="BI-EIM: " Width="50" FontWeight="Bold"/>
-                <TextBlock Text="Total Pts: " Width="60" FontWeight="Bold"/>
-                <TextBlock Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="108" Margin="0,0,1,0"/>                    
-                <TextBlock Text="Point / Category: " Width="100" FontWeight="Bold"/>
-                <TextBlock Name="dataPoint" Text="{Binding DataPoint}" Width="120" Margin="0,0,1,0"/>                    
-                <TextBlock Text="Technician: " Width="70"/>
+                <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_142}" Width="60" FontWeight="Bold"/>
+                <TextBlock Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="108" Margin="0,0,1,0"/>
+                <TextBlock Text="{StaticResource ReportContext_143}" Width="100" FontWeight="Bold"/>
+                <TextBlock Name="dataPoint" Text="{Binding DataPoint}" Width="120" Margin="0,0,1,0"/>
+                <TextBlock Text="{StaticResource ReportContext_149}" Width="70"/>
                 <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" Background="{x:Null}"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="BI-RADS category: " Width="110" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_150}" Width="110" FontWeight="Bold"/>
                 <TextBlock Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="500"/>                    
             </StackPanel>
             <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Recommendations: " Width="110" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_157}" Width="110" FontWeight="Bold"/>
                 <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="500"/>                    
             </StackPanel>
             <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Suggestion: " Width="70" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_161}" Width="70" FontWeight="Bold"/>
                 <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="500"/>                    
             </StackPanel>
             <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Conclusion: " Width="70" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_165}" Width="70" FontWeight="Bold"/>
                 <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}" Width="600"/>                    
             </StackPanel>
-            <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" >
+            <!--<StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="" Width="70" FontWeight="Bold"/>
                 <TextBlock Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550"/>                    
-            </StackPanel>
-            <StackPanel Grid.Row="57" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="Comments: " Width="70" FontWeight="Bold"/>
+            </StackPanel>-->
+            <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" Grid.RowSpan="2">
+                <TextBlock Text="{StaticResource ReportContext_169}" Width="70" FontWeight="Bold"/>
                 <TextBlock Name="dataComments" Text="{Binding DataComments}" Width="600"/>                    
             </StackPanel>
             <Grid Grid.Row="58" Grid.RowSpan="2">
@@ -422,12 +472,12 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <!--<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
                     <TextBlock Text="" Width="100"/>
                     <TextBlock Text="    Refer to Surgeon – Follow up Biopsy" Width="500"/>
-                </StackPanel>
+                </StackPanel>-->
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                    <TextBlock Text="Doctor: " Width="70" FontWeight="Bold"/>
+                    <TextBlock Text="{StaticResource ReportContext_173}" Width="70" FontWeight="Bold"/>
                     <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Width="280" Height="18"></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
@@ -441,7 +491,7 @@
                             <RowDefinition Height="1"/>
                         </Grid.RowDefinitions>
                         <StackPanel VerticalAlignment="Bottom" >
-                            <TextBlock Grid.Row="2" Text="Doctor's Signature: " Grid.Column="1" Height="18" Width="110" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <TextBlock Grid.Row="2" Text="{StaticResource ReportContext_174}" Grid.Column="1" Height="18" Width="110" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                             <Image Name="dataSignImg" Height="36" Width="196"></Image>

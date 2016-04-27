@@ -50,7 +50,7 @@ namespace MEIKReport.Views
                 this.person = data as Person;
                 if (this.person == null)
                 {
-                    MessageBox.Show("Please select a patient.");
+                    MessageBox.Show(App.Current.FindResource("Message_8").ToString());
                     this.Close();
                 }
                 else
@@ -59,6 +59,11 @@ namespace MEIKReport.Views
                     if (string.IsNullOrEmpty(dataFile))
                     {
                         dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
+                    }
+                    if (App.strDiagnostics != "Diagnostics")
+                    {
+                        dataScreenDate.FormatString = "yyyy年MM月dd日";
+                        dataSignDate.FormatString = "yyyy年MM月dd日";
                     }
                     //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     if(File.Exists(dataFile)){
@@ -160,7 +165,7 @@ namespace MEIKReport.Views
                     reportTempl = "Views/SummaryReportImageDocument.xaml";
                 }
 
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, shortFormReportModel);
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, shortFormReportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
@@ -246,14 +251,14 @@ namespace MEIKReport.Views
                 
                 LoadDataModel();                
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
-                File.Copy(datafile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
+                File.Copy(datafile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
 
                 //Save PDF file
                 //Save PDF file
                 string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
                 string lfReportTempl = "Views/ExaminationReportDocument.xaml";
                 ExportPDF(lfReportTempl, lfPdfFile);
-                File.Copy(lfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
+                File.Copy(lfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
                 string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
                 string sfReportTempl = "Views/SummaryReportDocument.xaml";
                 if (shortFormReportModel.DataScreenShotImg != null)
@@ -261,14 +266,14 @@ namespace MEIKReport.Views
                     sfReportTempl = "Views/SummaryReportImageDocument.xaml";                    
                 }
                 ExportPDF(sfReportTempl, sfPdfFile);
-                File.Copy(sfPdfFile, App.dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
+                File.Copy(sfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
                 MessageBox.Show("Report is saved successfully.");
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show("Failed to save the report. Error: " + ex.Message);
+                MessageBox.Show(App.Current.FindResource("Message_3").ToString() +" "+ ex.Message);
             } 
         }
 
@@ -283,16 +288,16 @@ namespace MEIKReport.Views
             shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;            
             shortFormReportModel.DataComments = this.dataComments.Text;
             shortFormReportModel.DataConclusion = this.dataConclusion.Text;
-            shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
+            //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
             shortFormReportModel.DataDoctor = this.dataDoctor.Text;
             shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
-            shortFormReportModel.DataLeftFinding = this.dataLeftFinding.Text;
+            //shortFormReportModel.DataLeftFinding = this.dataLeftFinding.Text;
             shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
             shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
             shortFormReportModel.DataMeikTech = this.dataMeikTech.Text;
             shortFormReportModel.DataName = this.dataName.Text;
             shortFormReportModel.DataRecommendation = this.dataRecommendation.Text;
-            shortFormReportModel.DataRightFinding = this.dataRightFinding.Text;
+            //shortFormReportModel.DataRightFinding = this.dataRightFinding.Text;
             shortFormReportModel.DataRightLocation = this.dataRightLocation.Text;
             shortFormReportModel.DataRightSize = this.dataRightSize.Text;
             shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
@@ -356,7 +361,7 @@ namespace MEIKReport.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to save the report?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(null);                
@@ -408,7 +413,7 @@ namespace MEIKReport.Views
                     //}
                     //PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
-                    MessageBox.Show("Exported the PDF file successfully.");
+                    MessageBox.Show(App.Current.FindResource("Message_5").ToString());
                 }
             }
             catch (Exception ex)
@@ -455,7 +460,7 @@ namespace MEIKReport.Views
                 //如果主窗体不存在
                 if (mainWinHwnd == IntPtr.Zero)
                 {
-                    IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, "Diagnostics");
+                    IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
                     Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }
                 else
@@ -587,8 +592,8 @@ namespace MEIKReport.Views
             string folderName = folderBrowserDialog.SelectedPath;            
             if (!string.IsNullOrEmpty(folderName))
             {
-                SaveReport(folderName);                
-                MessageBox.Show("Saved the report file successfully.");
+                SaveReport(folderName);
+                MessageBox.Show(App.Current.FindResource("Message_6").ToString());
             }
              
         }

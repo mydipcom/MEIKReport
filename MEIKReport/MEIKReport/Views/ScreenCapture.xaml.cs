@@ -112,7 +112,7 @@ namespace MEIKReport.Views
             {
                 FileHelper.SetFolderPower(screenshotFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
-                System.Windows.MessageBox.Show("Failed to capture the screen. Please use the left mouse button to drag on the screen after you clicked the button Capture Screen.");
+                System.Windows.MessageBox.Show(App.Current.FindResource("Message_10").ToString());
             }
             App.opendWin.WindowState = WindowState.Maximized;
             this.Close();

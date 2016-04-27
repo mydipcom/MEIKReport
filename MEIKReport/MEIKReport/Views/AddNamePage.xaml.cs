@@ -39,14 +39,14 @@ namespace MEIKReport
         {
             if (string.IsNullOrEmpty(this.txtName.Text))
             {
-                MessageBox.Show("Please input a name.");
+                MessageBox.Show(App.Current.FindResource("Message_11").ToString());
                 this.txtName.Focus();
             }
             else
             {
                 if (nameList.Contains(this.txtName.Text))
                 {
-                    MessageBox.Show("This name already exists.");
+                    MessageBox.Show(App.Current.FindResource("Message_12").ToString());
                 }
                 else
                 {                                        

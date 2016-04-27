@@ -11,6 +11,12 @@
                 <Setter Property="Background" Value="#4E87D4" />
                 <Setter Property="Foreground" Value="White" />
             </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <!--The source of the resource dictionary is spcified-->
+                <!--We can add many number of references over here as the source-->                
+                <ResourceDictionary Source="Resources/StringResource.xaml" />
+                <!--<ResourceDictionary Source="Resources/StringResource.zh-CN.xaml" />-->                
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

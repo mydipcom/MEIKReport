@@ -77,14 +77,14 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="0.1*"/>
                             <RowDefinition Height="0.4*"/>
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="1.3*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.2*"/>
                             <RowDefinition Height="1.5*"/>
-                            <RowDefinition Height="1.9*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -106,123 +106,123 @@
                             </Grid.RowDefinitions>
                             <!--<Image Source="/Images/livite.jpg" Grid.Row="0" Grid.Column="0"></Image>
                             <Image Source="/Images/logo.jpg" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"></Image>-->
-                            <TextBlock Text="PATIENT'S MEIK RESULT" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
-                            <TextBlock Text="MEIK v.5.6 - Digital Mammograph Summary Report" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock Text="{StaticResource ReportContext_196}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock Text="{StaticResource ReportContext_197}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
                         </Grid>
                         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,3"></Border>
                         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
                         </StackPanel>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Date of Screening: " FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_177}" FontWeight="Bold"/>
                             <extToolkit:DateTimePicker Name="dataScreenDate" Text="{Binding DataScreenDate}" Height="20" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>
                             <!--<DatePicker x:Name="SellStartDateText" Height="16" Width="120" VerticalContentAlignment="Stretch" VerticalAlignment="Center" BorderThickness="0"/>-->
                             <!--<TextBlock Text="October 25, 2014" Width="120" TextDecorations="Underline"/>-->
-                            <TextBlock Text="Screening Location: " FontWeight="Bold" Margin="60,0,0,0"/>
+                            <TextBlock Text="{StaticResource ReportContext_6}" FontWeight="Bold" Margin="60,0,0,0"/>
                             <TextBox Name="dataScreenLocation" Text="{Binding DataScreenLocation}" Width="320" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
                             <!--<ComboBox Name="dataScreenLocation" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="2" FontSize="10">                                
                                 <ComboBoxItem IsSelected="True">DPMMH</ComboBoxItem>                                
                             </ComboBox>-->
                         </StackPanel>
                         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Medical Record No. (MRN): " FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_178}" FontWeight="Bold"/>
                             <TextBox Name="dataUserCode" Text="{Binding DataUserCode}" Width="500" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
                         </StackPanel>
                         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Name: " FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_179}" FontWeight="Bold"/>
                             <TextBox Name="dataName" Text="{Binding DataName}" Width="250" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
-                            <TextBlock Text="Age: " FontWeight="Bold" Margin="5,0,0,0"/>
+                            <TextBlock Text="{StaticResource ReportContext_10}" FontWeight="Bold" Margin="5,0,0,0"/>
                             <TextBox Name="dataAge" Text="{Binding DataAge}" Width="145" Height="20" BorderBrush="Gray" Background="{x:Null}"/>
                         </StackPanel>
                         <Border Grid.Row="6" BorderBrush="Black" BorderThickness="0,0,0,1">
                         </Border>
                         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="" Width="180"/>
-                            <TextBlock Text="Left Breast" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
-                            <TextBlock Text="Right Breast" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
+                            <TextBlock Text="{StaticResource ReportContext_180}" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
+                            <TextBlock Text="{StaticResource ReportContext_181}" Width="200" FontWeight="Bold" TextDecorations="Underline"/>
                         </StackPanel>
                         <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="" Width="100"/>
-                            <TextBlock Text="Finding: " FontWeight="Bold"/>
-                            <ComboBox Name="dataLeftFinding" Text="{Binding DataLeftFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                            <TextBlock Text="{StaticResource ReportContext_182}" FontWeight="Bold"/>
+                            <ComboBox Name="dataLeftMammaryGlandResult" Text="{Binding DataLeftMammaryGlandResult}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
-                                <ComboBoxItem>No pathological changes</ComboBoxItem>
-                                <ComboBoxItem>Benign findings</ComboBoxItem>
-                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
-                                <ComboBoxItem>Suspicious abnormality</ComboBoxItem>                                
+                                <ComboBoxItem Content="{StaticResource ReportContext_134}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_135}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_136}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_137}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_138}"></ComboBoxItem>                                
                             </ComboBox>
                             <TextBlock Width="20"/>
                             <!--<TextBlock Text="Probably benign findings" Width="200"/>-->
-                            <TextBlock Text="Finding: " FontWeight="Bold"/>
-                            <ComboBox Name="dataRightFinding" Text="{Binding DataRightFinding}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
+                            <TextBlock Text="{StaticResource ReportContext_182}" FontWeight="Bold"/>
+                            <ComboBox Name="dataRightMammaryGlandResult" Text="{Binding DataRightMammaryGlandResult}" Width="180" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
-                                <ComboBoxItem>No pathological changes</ComboBoxItem>
-                                <ComboBoxItem>Benign findings</ComboBoxItem>
-                                <ComboBoxItem>Probably benign findings</ComboBoxItem>
-                                <ComboBoxItem>Suspicious abnormality</ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_134}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_135}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_136}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_137}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_138}"></ComboBoxItem>
                             </ComboBox>
                             <!--<TextBlock Text="Probably benign findings" Width="200"/>-->
                         </StackPanel>
                         <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Location: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_188}" Width="150" FontWeight="Bold"/>
                             <TextBox Name="dataLeftLocation" Text="{Binding DataLeftLocation}" Width="195" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
                             <TextBox Name="dataRightLocation" Text="{Binding DataRightLocation}" Width="200" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
                             <!--<TextBlock Text="6	o'clock" Width="200" FontWeight="Bold"/>-->
                             <!--<TextBlock Text="6	o'clock" Width="200" FontWeight="Bold"/>-->
                         </StackPanel>
                         <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Size: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_192}" Width="150" FontWeight="Bold"/>
                             <TextBox Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="195" Height="20" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0"></TextBox>
                             <TextBox Name="dataRightSize" Text="{Binding DataRightSize}" Width="200" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>
                             <!--<TextBlock Text="mm" Width="200" FontWeight="Bold"/>
                             <TextBlock Text="3x3; 3x3; 7x7 mm" Width="200" FontWeight="Bold"/>-->
                         </StackPanel>
                         <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="BI-RADS category: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_150}" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>Not available</ComboBoxItem>
-                                <ComboBoxItem>0 Category -  Poor Image - Re-Screen</ComboBoxItem>
-                                <ComboBoxItem>1 Category -  No pathological changes detected</ComboBoxItem>
-                                <ComboBoxItem>2 Category -  Benign lesion</ComboBoxItem>
-                                <ComboBoxItem>3 Category -  Probably benign findings</ComboBoxItem>
-                                <ComboBoxItem>4 Category -  Suspicious abnormality</ComboBoxItem>
-                                <ComboBoxItem>5 Category - Highly suggestive malignancy</ComboBoxItem>
+                                <!--<ComboBoxItem>Not available</ComboBoxItem>-->
+                                <ComboBoxItem Content="{StaticResource ReportContext_151}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_152}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_153}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_154}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_155}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_156}"></ComboBoxItem>
                             </ComboBox>
                             <!--<TextBlock Text="3  -  Probably benign findings" Width="550" FontWeight="Bold" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Recommendation: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_157}" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>MEIK Re-examination in 3 months</ComboBoxItem>
-                                <ComboBoxItem>MEIK Re-examination in 6 months</ComboBoxItem>
-                                <ComboBoxItem>MEIK Yearly Routine</ComboBoxItem>                                
+                                <ComboBoxItem Content="{StaticResource ReportContext_158}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_159}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_160}"></ComboBoxItem>                                
                             </ComboBox>
                             <!--<TextBlock Text="MEIK Re-examination in 3 months" Width="550" FontWeight="Bold" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Further examination: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_189}" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="300" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="12">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>Breast Ultrasound</ComboBoxItem>
-                                <ComboBoxItem>Standard Mammogram</ComboBoxItem>
-                                <ComboBoxItem>Biopsy</ComboBoxItem>                                
+                                <ComboBoxItem Content="{StaticResource ReportContext_162}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_163}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_164}"></ComboBoxItem>                              
                             </ComboBox>
                             <!--<TextBlock Text="Biopsy" Width="550" FontWeight="Bold" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Conclusion: " Width="150" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_165}" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion" Text="{Binding DataConclusion}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem>No early breast cancer detected at the time of the scan.  Please correlate clinically.</ComboBoxItem>
-                                <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
-                                <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_166}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_167}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_168}"></ComboBoxItem>
                             </ComboBox>
                             <!--<TextBlock Text="Suspicious lesion detected. Suggest further evaluation and management." Width="500"/>-->
                         </StackPanel>
-                        <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <!--<StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <TextBlock Text="" Width="150" FontWeight="Bold"/>
                             <ComboBox Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -230,20 +230,21 @@
                                 <ComboBoxItem>Benign lesion detected.  Suggest further evaluation and management.</ComboBoxItem>
                                 <ComboBoxItem>Suspicious lesion detected. Suggest further evaluation and management.</ComboBoxItem>
                             </ComboBox>
-                            <!--<TextBlock Text="." Width="500"/>-->
-                        </StackPanel>
-                        <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Comments: " Width="150" FontWeight="Bold"/>
-                            <ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            --><!--<TextBlock Text="." Width="500"/>--><!--
+                        </StackPanel>-->
+                        <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2">
+                            <TextBlock Text="{StaticResource ReportContext_169}" Width="150" FontWeight="Bold"/>
+                            <TextBox Name="dataComments" Text="{Binding DataComments}" Width="600" Height="44" BorderBrush="Gray" Background="{x:Null}" FontSize="10" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
+                            <!--<ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" Height="22" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact Nuvotek at 0917-984-8105 or Landline 475-8961 to make an appt.</ComboBoxItem>
                                 <ComboBoxItem>For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</ComboBoxItem>                                
-                            </ComboBox>
+                            </ComboBox>-->
                             <!--<TextBlock Text="For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt." Width="500"/>-->
                         </StackPanel>
-                        <StackPanel Grid.Row="17" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <!--<StackPanel Grid.Row="17" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="    Refer to surgeon for follow-up biopsy as soon as possible" Width="500"/>
-                        </StackPanel>
+                        </StackPanel>-->
                         <Border Grid.Row="18" BorderBrush="Black" BorderThickness="0,1,0,1">
                         </Border>
                         <Grid  Grid.Row="19" Grid.RowSpan="2">
@@ -262,14 +263,14 @@
                                 <Image Name="dataSignImg" Height="40" Width="204"></Image>                                
                             </Grid>
                             <Border Grid.Row="1" Grid.Column="0" Width="200" BorderBrush="Black" BorderThickness="0,1,0,0"/>
-                            <Border Grid.Row="1" Grid.Column="1" Width="250" BorderBrush="Black" BorderThickness="0,1,0,0"/>                            
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Date" Width="30"/>
-                            <Button Name="btnSignature" Style="{StaticResource NewButtonStyle}" Grid.Row="2" Grid.Column="1" Content="Doctor's Signature" Height="24" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnSignature_Click" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}"></Button>
+                            <Border Grid.Row="1" Grid.Column="1" Width="250" BorderBrush="Black" BorderThickness="0,1,0,0"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{StaticResource ReportContext_190}" Width="30"/>
+                            <Button Name="btnSignature" Style="{StaticResource NewButtonStyle}" Grid.Row="2" Grid.Column="1" Content="{StaticResource ReportContext_174}" Height="24" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnSignature_Click" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}"></Button>
                         </Grid>
                         
                         
                         <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="MEIK Technician: " Width="120"/>
+                            <TextBlock Text="{StaticResource ReportContext_191}" Width="120"/>
                             <ComboBox Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="350" Height="24" BorderBrush="Gray" Background="{x:Null}" FontSize="10" >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -283,7 +284,7 @@
                             <!--<TextBlock Text="Rizza Joanna C. Salas - RN" Width="350" />-->
                         </StackPanel>
                         <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="Doctor:" Width="120"/>
+                            <TextBlock Text="{StaticResource ReportContext_173}" Width="120"/>
                             <ComboBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="24" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -296,23 +297,23 @@
                             <!--<TextBox Name="dataDoctor" Text="{Binding DataDoctor}" Width="350" Height="20" BorderBrush="Gray" Background="{x:Null}"></TextBox>-->
                             <!--<TextBlock Text="Dr. Maria Cristina B. Almonte" Width="350" />-->
                         </StackPanel>
-                        <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <!--<StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="BI – RADS Categories: " Width="120"/>                            
                             <TextBlock Text="BI – RADS 0 poor image   BI – RADS 1 lesion is not defined	BI – RADS 2 benign tumours – routine mammography   BI – RADS 3 probably benign findings	BI – RADS 4 suspicious abnormality – biopsy" Width="600" TextWrapping="Wrap" />
-                        </StackPanel>
+                        </StackPanel>-->
                         <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="The above described results are based on interpretations at the time of the scan and must be correlated with previous mammogram and ultrasound results (if any), clinical history, clinical findings and other ancillary procedures." Width="650" TextWrapping="Wrap"/>
+                            <TextBlock Text="{StaticResource ReportContext_193}" Width="740" TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Grid.Row="25" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="MEIK is a screening procedure and is an adjunct modality for Mammography &amp; Breast Ultrasound." Width="650"/>
+                            <TextBlock Text="{StaticResource ReportContext_194}" Width="740"/>
                         </StackPanel>
                         <StackPanel Grid.Row="26" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="*Green marks indicate benign findings and red marks indicate suspicious changes" Width="580"/>
-                            <TextBlock Text="Revised by NUM 11/21/14" Width="200"/>
+                            <TextBlock Text="{StaticResource ReportContext_195}" Width="740"/>
+                            <!--<TextBlock Text="Revised by NUM 11/21/14" Width="200"/>-->
                         </StackPanel>
                         <WrapPanel Grid.Row="27" HorizontalAlignment="Right" >
-                            <Button Name="btnScreenShot" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnScreenShot_Click">Capture Screen</Button>
-                            <Button Name="btnRemoveImg" Margin="10,0,0,0" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnRemoveImg_Click">Remove Image</Button>
+                            <Button Name="btnScreenShot" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnScreenShot_Click" Content="{StaticResource ReportContext_175}"></Button>
+                            <Button Name="btnRemoveImg" Margin="10,0,0,0" Style="{StaticResource NewButtonStyle}" Canvas.Top="0" Canvas.Right="0" Width="200" Height="22" Click="btnRemoveImg_Click" Content="{StaticResource ReportContext_176}"></Button>
                         </WrapPanel>
                         <Grid Grid.Row="28" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Name="dataScreenShotImg" Height="300" Width="780" VerticalAlignment="Center"/>                            

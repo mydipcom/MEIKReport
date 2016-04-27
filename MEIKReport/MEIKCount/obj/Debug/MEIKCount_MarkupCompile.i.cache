@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Project\MEIKReport\MEIKCount\obj\Debug\
+D:\NewGit\MEIKReport\MEIKReport\MEIKCount\obj\Debug\
 MEIKCount
 none
 false
 DEBUG;TRACE
-C:\Project\MEIKReport\MEIKCount\App.xaml
-11151548125
+D:\NewGit\MEIKReport\MEIKReport\MEIKCount\App.xaml
+3-88655849
 
-11-2058726623
-12-1401562060
-MainWindow.xaml;
+11-1602436266
+13-133048047
+MainWindow.xaml;Resources\StringResource.xaml;Resources\StringResource.zh-CN.xaml;
 
 False
 

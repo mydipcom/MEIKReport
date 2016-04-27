@@ -67,6 +67,12 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -107,12 +113,16 @@
     <Compile Include="Common\OperateIniFile.cs" />
     <Compile Include="Common\PDFTools.cs" />
     <Compile Include="Common\ScreenCapture.cs" />
+    <Compile Include="Common\SecurityTools.cs" />
     <Compile Include="Common\SerializeUtilities.cs" />
     <Compile Include="Common\Win32Api.cs" />
     <Compile Include="Common\WindowListen.cs" />
+    <Compile Include="Common\WordTools.cs" />
+    <Compile Include="Common\ZipTools.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\ReportSettingModel.cs" />
     <Compile Include="Model\ShortFormReport.cs" />
     <Compile Include="PrintPreviewWindow.xaml.cs">
@@ -321,6 +331,8 @@
     <Content Include="gxpswin32.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\id_card_ok.png" />
+    <Resource Include="Images\id_card.png" />
     <Resource Include="MEIK-ICON_256-256.ICO" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

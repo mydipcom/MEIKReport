@@ -116,6 +116,8 @@
                 <Button Focusable="True" Name="btnSetting" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnSetting_Click" Content="{DynamicResource  MainWinMenuPerferences}"></Button>
                 <Button Focusable="True" Name="btnExit" Style="{StaticResource NewButtonStyle}" Height="26" FontSize="16" FontWeight="Bold" FocusVisualStyle="{DynamicResource ButtonFocusVisual}" FontFamily="Global Sans Serif" Click="btnExit_Click" Content="{DynamicResource  MainWinMenuExit}"></Button>
             </StackPanel>
+            <Label Focusable="False" Foreground="White" FontSize="16" Canvas.Right="80" Canvas.Top="520" FontFamily="Arial,Microsoft YaHei" FontWeight="Bold" Content="{DynamicResource  MainWinDeviceNo}"></Label>
+            <Label Name="labDeviceNo" Focusable="False" Foreground="White" FontSize="16" Canvas.Right="50" Canvas.Top="520" FontFamily="Arial,Microsoft YaHei" FontWeight="Bold" Content="001"></Label>
         </Canvas>
     </Grid>
 </Window>

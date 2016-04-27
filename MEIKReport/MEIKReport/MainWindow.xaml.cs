@@ -37,27 +37,36 @@ namespace MEIKReport
         protected KeyboardHook keyboardHook = new KeyboardHook();  
         //private WindowListen windowListen = new WindowListen();               
         private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
         private string strScreening = "Screening";
-        private string strDiagnostics = "Diagnostics";
+        //private string strDiagnostics = "Diagnostics";
         private string strExit = "Exit";
 
 
         public MainWindow()
         {
-            
-            if (File.Exists(meikFolder + "\\Language.CHN"))
+            string monthFolder = meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy");
+            if (!Directory.Exists(monthFolder))
+            {
+                Directory.CreateDirectory(monthFolder);
+            }
+            App.dataFolder = monthFolder;
+
+            if (File.Exists(meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
             {
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
                 strScreening = "筛选";
-                strDiagnostics = "诊断";
+                App.strDiagnostics = "诊断";
                 strExit = "退出";
-            }
+            }            
+
             //else
             //{
             //    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
             //}
-            InitializeComponent();          
+            InitializeComponent();
+            labDeviceNo.Content = deviceNo;
         }
         
                
@@ -146,7 +155,7 @@ namespace MEIKReport
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show("Failed to start MEIK software v. 5.6, Exception Message:" + ex.Message);
+                    MessageBox.Show(App.Current.FindResource("Message_1").ToString() +" "+ ex.Message);
                 }
             }
             else
@@ -186,7 +195,7 @@ namespace MEIKReport
         {
             try
             {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strDiagnostics);
+                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
                 Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 this.StartMouseHook();
                 this.Visibility = Visibility.Hidden;

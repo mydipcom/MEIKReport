@@ -25,6 +25,8 @@ namespace MEIKReport.Model
 
         private bool pain;
 
+        private string icon = "/Images/id_card.png";
+
         public bool Pain
         {
             get { return pain; }
@@ -100,6 +102,16 @@ namespace MEIKReport.Model
             set {
                 this.id = value;
                 OnPropertyChanged("Id");
+            }
+        }
+
+        public string Icon
+        {
+            get { return this.icon; }
+            set
+            {
+                this.icon = value;
+                OnPropertyChanged("Icon");
             }
         }
        

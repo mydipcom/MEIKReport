@@ -23,6 +23,23 @@ namespace MEIKReport.Model
             get { return techNames; }
             set { techNames = value; OnPropertyChanged("TechNames"); }
         }
+
+        private string meikBase = @"C:\Program Files (x86)\MEIK 5.6";
+
+        public string MeikBase
+        {
+            get { return meikBase; }
+            set { meikBase = value; OnPropertyChanged("MeikBase"); }
+        }
+
+        private bool useDefaultSignature;
+
+        public bool UseDefaultSignature
+        {
+            get { return useDefaultSignature; }
+            set { useDefaultSignature = value; OnPropertyChanged("UseDefaultSignature"); }
+        }
+
         private string printPaper = "Letter";
 
         public string PrintPaper
@@ -95,6 +112,25 @@ namespace MEIKReport.Model
         {
             get { return mailSsl; }
             set { mailSsl = value; OnPropertyChanged("MailSsl"); }
+        }
+
+        private string deviceNo = "000";
+
+        public string DeviceNo
+        {
+            get { return deviceNo; }
+            set { deviceNo = value; OnPropertyChanged("DeviceNo"); }
+        }
+
+        /// <summary>
+        /// 设备使用类型：1 操作员使用设备， 2 医生使用设备
+        /// </summary>
+        private int deviceType=1;
+
+        public int DeviceType
+        {
+            get { return deviceType; }
+            set { deviceType = value; OnPropertyChanged("DeviceType"); }
         }
     }
 }
