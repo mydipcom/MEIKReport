@@ -37,36 +37,35 @@ namespace MEIKReport
         protected KeyboardHook keyboardHook = new KeyboardHook();  
         //private WindowListen windowListen = new WindowListen();               
         private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        private string strScreening = "Screening";
+        //private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //private string strScreening = "Screening";
         //private string strDiagnostics = "Diagnostics";
-        private string strExit = "Exit";
+        //private string strExit = "Exit";
 
 
         public MainWindow()
-        {
+        {            
+            if (File.Exists(meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
+            {
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+                App.strScreening = "筛选";
+                App.strDiagnostics = "诊断";
+                App.strExit = "退出";
+            }            
+            //else
+            //{
+            //    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+            //}
+            InitializeComponent();
+            //labDeviceNo.Content = deviceNo;
+            this.Visibility = Visibility.Collapsed;
             string monthFolder = meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy");
             if (!Directory.Exists(monthFolder))
             {
                 Directory.CreateDirectory(monthFolder);
             }
             App.dataFolder = monthFolder;
-
-            if (File.Exists(meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
-            {
-                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
-                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
-                strScreening = "筛选";
-                App.strDiagnostics = "诊断";
-                strExit = "退出";
-            }            
-
-            //else
-            //{
-            //    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
-            //}
-            InitializeComponent();
-            labDeviceNo.Content = deviceNo;
         }
         
                
@@ -74,7 +73,7 @@ namespace MEIKReport
         {                        
             StartApp();
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
-            
+            btnReport_Click(null, null);
             //启用键盘钩子
             //keyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(keyboardHook_KeyDown);
             //keyboardHook.Start();            
@@ -107,7 +106,7 @@ namespace MEIKReport
                 {
                     btnExit_Click(null, null);
                 }
-                StartMeik();
+                StartMeik();                
             }
             catch (Exception ex)
             {
@@ -169,43 +168,43 @@ namespace MEIKReport
             base.DragMove();            
         }
 
-        private void btnScreening_Loaded(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            button.Focus();
-        }
+        //private void btnScreening_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    Button button = (Button)sender;
+        //    button.Focus();
+        //}
 
-        private void btnScreening_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strScreening);
-                Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                this.StartMouseHook();
-                this.Visibility = Visibility.Hidden;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("System Exception: "+ex.Message);
-            }
+        //private void btnScreening_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strScreening);
+        //        Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+        //        this.StartMouseHook();
+        //        this.Visibility = Visibility.Hidden;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("System Exception: "+ex.Message);
+        //    }
             
-        }
+        //}
 
-        private void btnDiagnostics_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
-                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                this.StartMouseHook();
-                this.Visibility = Visibility.Hidden;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("System Exception: " + ex.Message);
-            }
+        //private void btnDiagnostics_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
+        //        Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+        //        this.StartMouseHook();
+        //        this.Visibility = Visibility.Hidden;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("System Exception: " + ex.Message);
+        //    }
                  
-        }         
+        //}         
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
@@ -213,27 +212,47 @@ namespace MEIKReport
             UserList userList = new UserList();
             userList.Owner = this;
             userList.Show();
-            
+
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strExit);
+                IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
                 Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
                 if (App.splashWinHwnd != IntPtr.Zero)
                 {
-                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, strExit);
+                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
                     Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }
-                
+
             }
             catch (Exception ex)
             {
                 this.Close();
-            }            
+            }
+        }
+
+        public void exitMeik()
+        {
+            try
+            {
+                IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
+                Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
+                if (App.splashWinHwnd != IntPtr.Zero)
+                {
+                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
+                    Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
@@ -259,7 +278,7 @@ namespace MEIKReport
                 {                    
                     StringBuilder winText = new StringBuilder(512);
                     Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
-                    if (strExit.Equals(winText.ToString(),StringComparison.OrdinalIgnoreCase))
+                    if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         if (App.opendWin != null)
                         {
@@ -293,48 +312,13 @@ namespace MEIKReport
             }
         }
 
-        private void btnSetting_Click(object sender, RoutedEventArgs e)
-        {
-            this.Visibility = Visibility.Hidden;
-            ReportSettingPage reportSettingPage = new ReportSettingPage();
-            reportSettingPage.Owner = this;
-            reportSettingPage.Show();
-        }
-
-        //private void LoadInitConfig()
+        //private void btnSetting_Click(object sender, RoutedEventArgs e)
         //{
-        //    try
-        //    {
-        //        string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        if (!string.IsNullOrEmpty(doctorNames))
-        //        {
-        //            var doctorList = doctorNames.Split(';').ToList<string>();
-        //            doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
-        //        }
-        //        string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        if (!string.IsNullOrEmpty(doctorNames))
-        //        {
-        //            var techList = techNames.Split(';').ToList<string>();
-        //            techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
-        //        }
-        //        App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                
-        //        App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.ToMailAddress = OperateIniFile.ReadIniData("Mail", "To Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailSubject = OperateIniFile.ReadIniData("Mail", "Mail Subject", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailBody = OperateIniFile.ReadIniData("Mail", "Mail Content","", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-        //        App.reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //        App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Failed to load the report setting. Exception: " + ex.Message);
-        //    }
+        //    this.Visibility = Visibility.Hidden;
+        //    ReportSettingPage reportSettingPage = new ReportSettingPage();
+        //    reportSettingPage.Owner = this;
+        //    reportSettingPage.Show();
         //}
-        
+                
     }
 }

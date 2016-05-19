@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:wfi ="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
         xmlns:wf ="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"        
-        Title="MEIK Report" Height="576" Width="720" WindowStyle="None"  ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Loaded="Window_Loaded" 
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed">
+        Title="MEIK Report" Height="1" Width="1" WindowStyle="None"  ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Loaded="Window_Loaded" 
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed" Visibility="Collapsed">
     <!--<Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="My Application" Overlay="/MEIKReport;component/Images/ProgressIcon.jpg" ProgressState="Normal"  ProgressValue="10" />
     </Window.TaskbarItemInfo>-->
@@ -71,14 +71,14 @@
         
     </Window.Resources>
     <Grid>
-        <Canvas>
-            <wfi:WindowsFormsHost x:Name="windwosFormsHost" Foreground="{x:Null}" Background="{x:Null}" Focusable="False">
+        <Canvas Visibility="Collapsed">
+            <wfi:WindowsFormsHost x:Name="windwosFormsHost" Foreground="{x:Null}" Background="{x:Null}" Focusable="False" Visibility="Collapsed">
                 <wf:Panel Width="0" Height="0" x:Name="meikPanel"/>             
             </wfi:WindowsFormsHost>        
         </Canvas>
-        <Canvas Name="newMenuGrid">
+        <!--<Canvas Name="newMenuGrid">
             <Image Focusable="False" Width="720" Height="576" Source="Images\background.jpg" Canvas.Left="0" Canvas.Top="0"/>
-            <!--添加设备闪灯图片动画效果-->
+            --><!--添加设备闪灯图片动画效果--><!--
             <Image Focusable="False" Name="flashImg" Width="260" Height="360" Canvas.Left="302" Canvas.Top="170" Source="Images\flash.jpg" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Image.Triggers>
                     <EventTrigger RoutedEvent="Image.Loaded">
@@ -118,6 +118,6 @@
             </StackPanel>
             <Label Focusable="False" Foreground="White" FontSize="16" Canvas.Right="80" Canvas.Top="520" FontFamily="Arial,Microsoft YaHei" FontWeight="Bold" Content="{DynamicResource  MainWinDeviceNo}"></Label>
             <Label Name="labDeviceNo" Focusable="False" Foreground="White" FontSize="16" Canvas.Right="50" Canvas.Top="520" FontFamily="Arial,Microsoft YaHei" FontWeight="Bold" Content="001"></Label>
-        </Canvas>
+        </Canvas>-->
     </Grid>
 </Window>

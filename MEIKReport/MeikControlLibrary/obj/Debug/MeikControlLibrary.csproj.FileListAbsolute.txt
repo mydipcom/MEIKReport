@@ -7,7 +7,6 @@ C:\Project\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.pdb
 C:\Project\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.csprojResolveAssemblyReference.cache
 D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\bin\Debug\MeikControlLibrary.dll
 D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\bin\Debug\MeikControlLibrary.pdb
-D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.csprojResolveAssemblyReference.cache
 D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.MeikUserControl.resources
 D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.csproj.GenerateResource.Cache
 D:\NewGit\MEIKReport\MEIKReport\MeikControlLibrary\obj\Debug\MeikControlLibrary.dll

@@ -125,13 +125,23 @@
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\ReportSettingModel.cs" />
     <Compile Include="Model\ShortFormReport.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="PrintPreviewWindow.xaml.cs">
       <DependentUpon>PrintPreviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReportModel\ExaminationReportModel.cs" />
     <Compile Include="ReportModel\SummaryReportModel.cs" />
+    <Compile Include="Views\AddFolderPage.xaml.cs">
+      <DependentUpon>AddFolderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectTechnicianPage.xaml.cs">
+      <DependentUpon>SelectTechnicianPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BackButtonWindow.xaml.cs">
       <DependentUpon>BackButtonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecordsWindow.xaml.cs">
+      <DependentUpon>RecordsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OldMainWindow.xaml.cs">
       <DependentUpon>OldMainWindow.xaml</DependentUpon>
@@ -191,9 +201,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddFolderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectTechnicianPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\BackButtonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecordsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OldMainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -331,6 +353,7 @@
     <Content Include="gxpswin32.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\NuvoMED_Logo.png" />
     <Resource Include="Images\id_card_ok.png" />
     <Resource Include="Images\id_card.png" />
     <Resource Include="MEIK-ICON_256-256.ICO" />

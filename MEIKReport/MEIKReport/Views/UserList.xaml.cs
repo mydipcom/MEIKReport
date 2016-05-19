@@ -25,18 +25,35 @@ namespace MEIKReport
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class UserList : Window
-    {        
+    {
+        private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        protected MouseHook mouseHook = new MouseHook();
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private IList<Patient> patientList = new List<Patient>();
         public UserList()
         {
             InitializeComponent();
+            
             if (!string.IsNullOrEmpty(App.dataFolder))
             {
                 loadArchiveFolder(App.dataFolder);
+                string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                OperateIniFile.WriteIniData("Base", "Patients base", App.dataFolder, meikiniFile);
             }
             
             LoadInitConfig();
+            labDeviceNo.Content = App.reportSettingModel.DeviceNo;
+
+            if (App.reportSettingModel.DeviceType == 1 || App.reportSettingModel.DeviceType == 3)
+            {
+                btnRecords.Visibility = Visibility.Visible;
+            }
+            //if (App.reportSettingModel.DeviceType == 3)
+            //{
+            //    btnSummaryReport.Visibility = Visibility.Visible;
+            //}
+            mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);            
         }        
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
@@ -87,8 +104,18 @@ namespace MEIKReport
             }
             finally
             {
-                this.Owner.Visibility = Visibility.Visible;                
+                //this.Owner.Visibility = Visibility.Visible;                
+                var owner = this.Owner as MainWindow;
+                owner.exitMeik();
             }
+        }
+
+        private void exitReport_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            //this.Owner.Show();
+            var owner = this.Owner as MainWindow;
+            owner.exitMeik();
         }
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
@@ -98,13 +125,13 @@ namespace MEIKReport
             if (res == System.Windows.Forms.DialogResult.OK)
             {
                 string folderName = folderBrowserDialog.SelectedPath;
-                App.dataFolder = folderName;
-                loadArchiveFolder(App.dataFolder); 
+                //App.dataFolder = folderName;
+                loadArchiveFolder(folderName); 
             }        
         }
 
 
-        private void loadArchiveFolder(string folderName)
+        public void loadArchiveFolder(string folderName)
         {
             try
             {                
@@ -124,6 +151,13 @@ namespace MEIKReport
                 {
                     reportButtonPanel.Visibility = Visibility.Hidden;
                     emailButton.Visibility = Visibility.Hidden;
+                }
+                var selectItem = this.CodeListBox.SelectedItem as Person;
+                if (selectItem != null)
+                {
+                    string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                    OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
                 }
             }
             catch (Exception ex)
@@ -145,7 +179,15 @@ namespace MEIKReport
                     if (".crd".Equals(NextFile.Extension, StringComparison.OrdinalIgnoreCase))
                     {
                         Person person = new Person();
+                        //person.ArchiveFolder = folderName;
+                        person.ArchiveFolder = theFolder.FullName;
+                        person.CrdFilePath = NextFile.FullName;
+
                         person.Code = NextFile.Name.Substring(0, NextFile.Name.Length - 4);
+
+                        person.TechName = OperateIniFile.ReadIniData("Report", "Technician Name", "", NextFile.FullName);
+                        person.TechLicense=OperateIniFile.ReadIniData("Report", "Technician License", "", NextFile.FullName);                        
+
                         //Personal Data
                         person.SurName = OperateIniFile.ReadIniData("Personal data", "surname", "", NextFile.FullName);
                         person.GivenName = OperateIniFile.ReadIniData("Personal data", "given name", "", NextFile.FullName);
@@ -160,8 +202,7 @@ namespace MEIKReport
 
                         person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
                         //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;
-                        //person.ArchiveFolder = folderName;
-                        person.ArchiveFolder = theFolder.FullName;
+                        
                         if (!string.IsNullOrEmpty(person.Birthday))
                         {
                             int m_Y1 = DateTime.Parse(person.Birthday).Year;
@@ -279,13 +320,7 @@ namespace MEIKReport
             {
                 HandleFolder(subFolder.FullName, ref set);
             }
-        }
-
-        private void exitReport_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            this.Owner.Show();
-        }
+        }        
 
         private void EmailButton_Click(object sender, RoutedEventArgs e)
         {
@@ -312,6 +347,31 @@ namespace MEIKReport
             MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_17").ToString(), "Email Reports", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {
+                //如果是Technician那么判断报告是否已经填写Techinican名称
+                if (deviceType == 1)
+                {
+                    SelectTechnicianPage SelectTechnicianPage = new SelectTechnicianPage(App.reportSettingModel.TechNames, selectedUser);
+                    SelectTechnicianPage.Owner=this;
+                    SelectTechnicianPage.ShowDialog();
+                    if (!string.IsNullOrEmpty(selectedUser.TechName))
+                    {
+                        try
+                        {
+                            OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.CrdFilePath);
+                            OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.CrdFilePath);
+                        }
+                        catch (Exception exec)
+                        {
+                            //如果不能写入ini文件
+                            FileHelper.SetFolderPower(selectedUser.ArchiveFolder, "Everyone", "FullControl");
+                            FileHelper.SetFolderPower(selectedUser.ArchiveFolder, "Users", "FullControl");
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 try
                 {
                     string zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "_" + deviceNo + ".zip";
@@ -387,13 +447,29 @@ namespace MEIKReport
                     if (!string.IsNullOrEmpty(doctorNames))
                     {
                         var doctorList = doctorNames.Split(';').ToList<string>();
-                        doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+                        //doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+                        foreach (var item in doctorList)
+                        {
+                            User doctorUser = new User();
+                            string[] arr = item.Split('|');
+                            doctorUser.Name = arr[0];
+                            doctorUser.License = arr[1];
+                            App.reportSettingModel.DoctorNames.Add(doctorUser);
+                        }
                     }
                     string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    if (!string.IsNullOrEmpty(doctorNames))
+                    if (!string.IsNullOrEmpty(techNames))
                     {
                         var techList = techNames.Split(';').ToList<string>();
-                        techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+                        //techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+                        foreach (var item in techList)
+                        {
+                            User techUser = new User();
+                            string[] arr = item.Split('|');
+                            techUser.Name = arr[0];
+                            techUser.License = arr[1];
+                            App.reportSettingModel.TechNames.Add(techUser);
+                        }
                     }
                     App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -403,7 +479,11 @@ namespace MEIKReport
                     App.reportSettingModel.MailHost = OperateIniFile.ReadIniData("Mail", "Mail Host", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    App.reportSettingModel.MailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string mailPwd = OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    if (!string.IsNullOrEmpty(mailPwd))
+                    {
+                        App.reportSettingModel.MailPwd = SecurityTools.DecryptText(mailPwd);
+                    }   
                     App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.DeviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.DeviceType = Convert.ToInt32(OperateIniFile.ReadIniData("Device", "Device Type", "1", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
@@ -425,7 +505,10 @@ namespace MEIKReport
             if (e.AddedItems.Count > 0)
             {
                 var selectItem = (Person)e.AddedItems[0];
-                selectItem.Icon = "/Images/id_card_ok.png";
+                selectItem.Icon = "/Images/id_card_ok.png";                
+                string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
             }
             if (e.RemovedItems.Count > 0)
             {
@@ -476,6 +559,7 @@ namespace MEIKReport
         private void ListFiles(FileSystemInfo info)
         {
             if (!info.Exists) return;
+            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
             DirectoryInfo dir = info as DirectoryInfo;
             //不是目录 
             if (dir == null) return;
@@ -490,28 +574,37 @@ namespace MEIKReport
                     {
                         if (".tdb".Equals(file.Extension, StringComparison.OrdinalIgnoreCase))
                         {
-                            FileStream fsRead = new FileStream(file.FullName, FileMode.Open);
-                            byte[] nameBytes = new byte[105];
-                            byte[] codeBytes = new byte[11];
-                            byte[] descBytes = new byte[200];
-                            fsRead.Seek(12, SeekOrigin.Begin);
-                            fsRead.Read(nameBytes, 0, nameBytes.Count());
-                            fsRead.Seek(117, SeekOrigin.Begin);
-                            fsRead.Read(codeBytes, 0, codeBytes.Count());
-                            fsRead.Seek(129, SeekOrigin.Begin);
-                            fsRead.Read(descBytes, 0, descBytes.Count());
-                            fsRead.Close();
-                            string name = System.Text.Encoding.ASCII.GetString(nameBytes);
-                            name = name.Split("\0".ToCharArray())[0];
-                            string code = System.Text.Encoding.ASCII.GetString(codeBytes);
-                            string desc = System.Text.Encoding.ASCII.GetString(descBytes);
-                            desc = desc.Split("\0".ToCharArray())[0];
-                            var patient = new Patient();
-                            patient.Code = code;
-                            patient.Name = name;
-                            patient.Desc = desc;
-                            patient.ScreenDate = file.LastWriteTime.ToString();
-                            patientList.Add(patient);
+                            DateTime fileTime=file.LastWriteTime;
+                            fileTime = fileTime.AddMonths(-1);
+                            string dateStr = fileTime.Month+"/1/"+fileTime.Year;
+                            DateTime beginDate = DateTime.Parse(dateStr,culture, System.Globalization.DateTimeStyles.NoCurrentDateDefault);
+                            if (beginDate < fileTime)
+                            {
+
+                                FileStream fsRead = new FileStream(file.FullName, FileMode.Open);
+                                byte[] nameBytes = new byte[105];
+                                byte[] codeBytes = new byte[11];
+                                byte[] descBytes = new byte[200];
+                                fsRead.Seek(12, SeekOrigin.Begin);
+                                fsRead.Read(nameBytes, 0, nameBytes.Count());
+                                fsRead.Seek(117, SeekOrigin.Begin);
+                                fsRead.Read(codeBytes, 0, codeBytes.Count());
+                                fsRead.Seek(129, SeekOrigin.Begin);
+                                fsRead.Read(descBytes, 0, descBytes.Count());
+                                fsRead.Close();
+                                string name = System.Text.Encoding.ASCII.GetString(nameBytes);
+                                name = name.Split("\0".ToCharArray())[0];
+                                string code = System.Text.Encoding.ASCII.GetString(codeBytes);
+                                string desc = System.Text.Encoding.ASCII.GetString(descBytes);
+                                desc = desc.Split("\0".ToCharArray())[0];
+                                var patient = new Patient();
+                                patient.Code = code;
+                                patient.Name = name;
+                                patient.Desc = desc;
+                                patient.ScreenDate = fileTime.ToString();
+
+                                patientList.Add(patient);
+                            }
                             
                         }
                     }
@@ -524,5 +617,105 @@ namespace MEIKReport
             }
         }
 
+        private void btnScreening_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strScreening);
+                Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);                
+                StartMouseHook();
+                this.Visibility = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
+            }
+        }
+
+        private void btnDiagnostics_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {                
+                IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
+                Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
+                StartMouseHook();
+                this.Visibility = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("System Exception: " + ex.Message);
+            }
+        }
+
+        private void btnRecords_Click(object sender, RoutedEventArgs e)
+        {
+            RecordsWindow recordsWindow = new RecordsWindow();
+            recordsWindow.Owner = this;
+            recordsWindow.ShowDialog();
+        }
+
+        private void btnSetup_Click(object sender, RoutedEventArgs e)
+        {            
+            ReportSettingPage reportSettingPage = new ReportSettingPage();
+            reportSettingPage.Owner = this;
+            reportSettingPage.ShowDialog();
+        }
+
+        /// <summary>
+        /// 启用鼠标钩子
+        /// </summary>
+        public void StartMouseHook()
+        {
+            //启动鼠标钩子            
+            mouseHook.Start();
+        }
+        /// <summary>
+        /// 停止鼠标钩子
+        /// </summary>
+        public void StopMouseHook()
+        {
+            mouseHook.Stop();
+        }
+
+        /// <summary>
+        /// 鼠标按下的钩子回调方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void mouseHook_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                IntPtr exitButtonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);
+                var owner = this.Owner as MainWindow;
+                if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
+                {
+                    StringBuilder winText = new StringBuilder(512);
+                    Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
+                    if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (App.opendWin != null)
+                        {
+                            App.opendWin.Visibility = Visibility.Visible;
+                            App.opendWin.WindowState = WindowState.Maximized;                            
+                        }
+                        else
+                        {
+                            this.Visibility = Visibility.Visible;
+                        }
+                        this.StopMouseHook();
+                    }
+                }
+            }
+        }
+        
+
+        private void btnNewArchive_Click(object sender, RoutedEventArgs e)
+        {
+            AddFolderPage folderPage = new AddFolderPage();
+            folderPage.Owner = this;
+            folderPage.ShowDialog();
+        }       
     }
 }

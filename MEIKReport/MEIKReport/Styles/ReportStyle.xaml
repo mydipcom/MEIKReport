@@ -131,4 +131,63 @@
         <Setter Property="Foreground" Value="Black"/>
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>-->
     </Style>
+    <Style TargetType="{x:Type Button}" x:Key="NewButtonStyle1">
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property = "Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property = "Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <Setter Property = "Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="RootElement" BorderThickness="2">
+                        <Border.BorderBrush>
+                            <SolidColorBrush x:Name="BorderBrush" Color="White"/>
+                        </Border.BorderBrush>
+
+                        <Grid Margin="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition To="MouseOver" GeneratedDuration="0:0:0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="BorderBrush" Storyboard.TargetProperty="Color" To="Black" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="BorderBrush" Storyboard.TargetProperty="Color" To="Black" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Foused">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="BorderBrush" Storyboard.TargetProperty="Color" To="Black" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>-->
+    </Style>
 </ResourceDictionary>

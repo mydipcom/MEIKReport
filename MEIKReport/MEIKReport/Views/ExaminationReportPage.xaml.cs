@@ -2,6 +2,7 @@
 using MEIKReport.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,13 +35,16 @@ namespace MEIKReport.Views
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private Person person = null;
         private ShortFormReport shortFormReportModel = new ShortFormReport();
-        
+        protected MouseHook mouseHook = new MouseHook();
+
         public ExaminationReportPage()
         {
             InitializeComponent();
         }
         public ExaminationReportPage(object data): this()
-        {
+        {            
+            mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
+            //mouseHook.MouseMove += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseMove);
             try { 
                 this.person = data as Person;
                 if (this.person == null)
@@ -64,7 +68,40 @@ namespace MEIKReport.Views
                     if (File.Exists(dataFile))
                     {                    
                         this.shortFormReportModel = SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
-                        this.reportDataGrid.DataContext = this.shortFormReportModel;                                            
+                        //判断是否已经从MEIK生成的DOC文档中导入检查数据，如果之前没有，则查找是否已在本地生成DOC文档，导入数据
+                        if (string.IsNullOrEmpty(shortFormReportModel.DataLeftAgeRelated) && string.IsNullOrEmpty(shortFormReportModel.DataRightAgeRelated))
+                        {
+                            string docFile = FindUserReportWord(person.ArchiveFolder);
+                            if (!string.IsNullOrEmpty(docFile))
+                            {                                
+                                ShortFormReport shortFormReport = WordTools.ReadWordFile(docFile);
+                                shortFormReportModel.DataMenstrualCycle = shortFormReport.DataMenstrualCycle;
+                                shortFormReportModel.DataLeftMeanElectricalConductivity1 = shortFormReport.DataLeftMeanElectricalConductivity1;
+                                shortFormReportModel.DataRightMeanElectricalConductivity1 = shortFormReport.DataRightMeanElectricalConductivity1;
+                                shortFormReportModel.DataLeftMeanElectricalConductivity2 = shortFormReport.DataLeftMeanElectricalConductivity2;
+                                shortFormReportModel.DataRightMeanElectricalConductivity2 = shortFormReport.DataRightMeanElectricalConductivity2;
+                                shortFormReportModel.DataMeanElectricalConductivity3 =shortFormReport.DataMeanElectricalConductivity3;
+                                shortFormReportModel.DataLeftMeanElectricalConductivity3 =shortFormReport.DataLeftMeanElectricalConductivity3;
+                                shortFormReportModel.DataRightMeanElectricalConductivity3 = shortFormReport.DataRightMeanElectricalConductivity3;
+                                shortFormReportModel.DataLeftComparativeElectricalConductivity1 =shortFormReport.DataLeftComparativeElectricalConductivity1;
+                                shortFormReportModel.DataLeftComparativeElectricalConductivity2 =shortFormReport.DataLeftComparativeElectricalConductivity2;
+                                shortFormReportModel.DataLeftComparativeElectricalConductivity3 =shortFormReport.DataLeftComparativeElectricalConductivity3;
+                                shortFormReportModel.DataLeftDivergenceBetweenHistograms1 =shortFormReport.DataLeftDivergenceBetweenHistograms1;
+                                shortFormReportModel.DataLeftDivergenceBetweenHistograms2 =shortFormReport.DataLeftDivergenceBetweenHistograms2;
+                                shortFormReportModel.DataLeftDivergenceBetweenHistograms3 =shortFormReport.DataLeftDivergenceBetweenHistograms3;
+                                shortFormReportModel.DataLeftPhaseElectricalConductivity =shortFormReport.DataLeftPhaseElectricalConductivity;
+                                shortFormReportModel.DataRightPhaseElectricalConductivity =shortFormReport.DataRightPhaseElectricalConductivity;
+                                shortFormReportModel.DataAgeElectricalConductivityReference =shortFormReport.DataAgeElectricalConductivityReference;
+                                shortFormReportModel.DataLeftAgeElectricalConductivity =shortFormReport.DataLeftAgeElectricalConductivity;
+                                shortFormReportModel.DataRightAgeElectricalConductivity =shortFormReport.DataRightAgeElectricalConductivity;
+                                shortFormReportModel.DataExamConclusion =shortFormReport.DataExamConclusion;
+                                shortFormReportModel.DataLeftMammaryGland =shortFormReport.DataLeftMammaryGland;
+                                shortFormReportModel.DataLeftAgeRelated =shortFormReport.DataLeftAgeRelated;
+                                shortFormReportModel.DataRightMammaryGland =shortFormReport.DataRightMammaryGland;
+                                shortFormReportModel.DataRightAgeRelated =shortFormReport.DataRightAgeRelated;
+                            }
+                        }
+                        //this.reportDataGrid.DataContext = this.shortFormReportModel;                                            
                         if (shortFormReportModel.DataSignImg != null)
                         {
                             this.dataSignImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataSignImg);
@@ -78,27 +115,30 @@ namespace MEIKReport.Views
                         {
                             this.btnScreenShot.Content = App.Current.FindResource("ReportContext_175").ToString();// "Capture Screen";
                             this.btnRemoveImg.Visibility = Visibility.Hidden;
-                        }
-                        if (!App.reportSettingModel.TechNames.Contains(shortFormReportModel.DataMeikTech))
-                        {
-                            App.reportSettingModel.TechNames.Add(shortFormReportModel.DataMeikTech);
-                        }
-                        if (!App.reportSettingModel.DoctorNames.Contains(shortFormReportModel.DataDoctor))
-                        {
-                            App.reportSettingModel.DoctorNames.Add(shortFormReportModel.DataDoctor);
-                        }
+                        }                                          
+                        
                     }
                     else
                     {
                         string docFile = FindUserReportWord(person.ArchiveFolder);
-                        shortFormReportModel=WordTools.ReadWordFile(docFile);
-
+                        if (!string.IsNullOrEmpty(docFile))
+                        {
+                            shortFormReportModel = WordTools.ReadWordFile(docFile);
+                        }
                         shortFormReportModel.DataUserCode = person.Code;
                         shortFormReportModel.DataName = person.SurName;
                         shortFormReportModel.DataAge = person.Age + "";
-                        shortFormReportModel.DataAddress = person.Address;
-                        shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToLongDateString();
-                        
+                        shortFormReportModel.DataAddress = person.Address;                        
+
+                        if (App.strDiagnostics != "Diagnostics")
+                        {
+                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("yyyy年MM月dd日");
+                        }
+                        else
+                        {
+                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("MMMM d, yyyy");
+                        }
+
                         bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                         if (defaultSign)
                         {
@@ -111,9 +151,76 @@ namespace MEIKReport.Views
                         }
                     }
                     this.reportDataGrid.DataContext = this.shortFormReportModel;
-                    this.dataMeikTech.ItemsSource=App.reportSettingModel.TechNames;
-                    this.dataDoctor.ItemsSource= App.reportSettingModel.DoctorNames;
+                    //以下是添加处理操作员和医生的名字的选择项                    
+                    User doctorUser = new User();
+                    if (!string.IsNullOrEmpty(shortFormReportModel.DataDoctor))
+                    {
+                        doctorUser.Name = shortFormReportModel.DataDoctor;
+                        doctorUser.License = shortFormReportModel.DataDoctorLicense;
+                    }
+                    else
+                    {
+                        if(!string.IsNullOrEmpty(this.person.DoctorName)){
+                            doctorUser.Name = this.person.DoctorName;
+                            doctorUser.License = this.person.DoctorLicense;
+                            shortFormReportModel.DataDoctor = this.person.DoctorName;
+                            shortFormReportModel.DataDoctorLicense = this.person.DoctorLicense;
+                        }                                                
+                    }
+                    this.dataDoctor.ItemsSource = App.reportSettingModel.DoctorNames;
+                    if(!string.IsNullOrEmpty(doctorUser.Name)){                        
+                        for (int i = 0; i < App.reportSettingModel.DoctorNames.Count; i++)
+			            {
+                            var item=App.reportSettingModel.DoctorNames[i];
+                            if (doctorUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(doctorUser.License)==string.IsNullOrEmpty(item.License)||doctorUser.License==item.License))
+                            {                                
+                                this.dataDoctor.SelectedIndex = i;
+                                break;
+                            }
+			            }
+                        //如果没有找到匹配的用户
+                        if (this.dataDoctor.SelectedIndex == -1)
+                        {
+                            App.reportSettingModel.DoctorNames.Add(doctorUser);
+                            this.dataDoctor.SelectedIndex = App.reportSettingModel.DoctorNames.Count - 1;
+                        }
+                    }                                        
 
+                    User techUser = new User();
+                    if (!string.IsNullOrEmpty(shortFormReportModel.DataMeikTech))
+                    {
+                        techUser.Name = shortFormReportModel.DataMeikTech;
+                        techUser.License = shortFormReportModel.DataTechLicense;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(this.person.TechName))
+                        {
+                            techUser.Name = this.person.TechName;
+                            techUser.License = this.person.TechLicense;
+                            shortFormReportModel.DataMeikTech = this.person.TechName;
+                            shortFormReportModel.DataTechLicense = this.person.TechLicense;
+                        }
+                    }
+                    this.dataMeikTech.ItemsSource = App.reportSettingModel.TechNames;
+                    if (!string.IsNullOrEmpty(techUser.Name))
+                    {
+                        for (int i = 0; i < App.reportSettingModel.TechNames.Count; i++)
+                        {
+                            var item = App.reportSettingModel.TechNames[i];
+                            if (techUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(techUser.License) == string.IsNullOrEmpty(item.License) || techUser.License == item.License))
+                            {
+                                this.dataMeikTech.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //如果没有找到匹配的用户
+                        if (this.dataMeikTech.SelectedIndex == -1)
+                        {
+                            App.reportSettingModel.TechNames.Add(techUser);
+                            this.dataMeikTech.SelectedIndex = App.reportSettingModel.TechNames.Count - 1;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -123,24 +230,28 @@ namespace MEIKReport.Views
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.opendWin = null;
-            this.Owner.Show();
-            //try { 
-            //    App.opendWin = null;
-            //    IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
-            //    //如果主窗体存在
-            //    if (mainWinHwnd != IntPtr.Zero)
-            //    {
-            //        int WM_SYSCOMMAND = 0x0112;
-            //        int SC_CLOSE = 0xF060;
-            //        Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
-            //    }
-            //    this.Owner.Show();            
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            //App.opendWin = null;            
+            try
+            {
+                App.opendWin = null;
+                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                //如果主窗体存在
+                if (mainWinHwnd != IntPtr.Zero)
+                {
+                    int WM_SYSCOMMAND = 0x0112;
+                    int SC_CLOSE = 0xF060;
+                    Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+                }
+                
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Owner.Show();
+            }
         }
 
         private void DoPrint(PrintDialog pdlg, DocumentPaginator paginator)
@@ -205,8 +316,8 @@ namespace MEIKReport.Views
                     Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }                
                 WinMinimized();
-                var mainWin = this.Owner.Owner as MainWindow;
-                mainWin.StartMouseHook();
+                //var userListWin = this.Owner as UserList;
+                
 
             }
             catch (Exception ex)
@@ -249,7 +360,16 @@ namespace MEIKReport.Views
                     }
                     datafile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                 }                
-                LoadDataModel();                
+                LoadDataModel();
+                if (string.IsNullOrEmpty(shortFormReportModel.DataSignDate))
+                {
+                    if (App.strDiagnostics != "Diagnostics"){
+                        shortFormReportModel.DataSignDate = DateTime.Today.ToString("yyyy年MM月dd日");
+                    }
+                    else{
+                        shortFormReportModel.DataSignDate = DateTime.Today.ToLongDateString();
+                    }
+                }
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
                 File.Copy(datafile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
 
@@ -288,12 +408,22 @@ namespace MEIKReport.Views
             shortFormReportModel.DataComments = this.dataComments.Text;
             shortFormReportModel.DataConclusion = this.dataConclusion.Text;
             //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
-            shortFormReportModel.DataDoctor = this.dataDoctor.Text;
-            shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
-            
+            if (this.dataDoctor.SelectedItem != null)
+            {
+                var doctor = this.dataDoctor.SelectedItem as User;
+                shortFormReportModel.DataDoctor = doctor.Name;
+                shortFormReportModel.DataDoctorLicense = doctor.License;
+                shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
+            }
+            if (this.dataMeikTech.SelectedItem != null)
+            {
+                var technician = this.dataMeikTech.SelectedItem as User;
+                shortFormReportModel.DataMeikTech = technician.Name;
+                shortFormReportModel.DataTechLicense = technician.License;
+            }
             shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
             shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
-            shortFormReportModel.DataMeikTech = this.dataMeikTech.Text;
+            
             shortFormReportModel.DataName = this.dataName.Text;
             shortFormReportModel.DataRecommendation = this.dataRecommendation.Text;
             
@@ -504,50 +634,7 @@ namespace MEIKReport.Views
                 File.Delete(pdfFile);
             }            
             PDFTools.SavePDFFile(xpsFile, pdfFile);                        
-        }
-
-        /// <summary>
-        /// 窗口大小状态变化时
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            try { 
-                var mainWin = this.Owner.Owner as MainWindow;
-                if (this.WindowState == WindowState.Maximized)
-                {
-                    mainWin.StopMouseHook();
-                }
-                if (this.WindowState == WindowState.Minimized)
-                {
-                    WinMinimized();
-                    IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
-                    //如果主窗体不存在
-                    if (mainWinHwnd != IntPtr.Zero)
-                    {
-                        mainWin.StartMouseHook();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 最小化窗体以便显示MEIK程序窗体
-        /// </summary>
-        private void WinMinimized()
-        {
-            App.opendWin = this;
-            this.WindowState = WindowState.Minimized;
-            //this.WindowStartupLocation = WindowStartupLocation.Manual;//设置可手动指定窗体位置                
-            int left = (int)(System.Windows.SystemParameters.PrimaryScreenWidth - 156);
-            IntPtr winHandle = new WindowInteropHelper(this).Handle;
-            Win32Api.MoveWindow(winHandle, left, 0, 0, 0, false);
-        }
+        }        
 
         private void saveAsBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -666,5 +753,170 @@ namespace MEIKReport.Views
             shortFormReportModel.DataScreenShotImg = null;
             this.btnRemoveImg.Visibility = Visibility.Hidden;
         }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            //判断是否已经从MEIK生成的DOC文档中导入检查数据，如果之前没有，则查找是否已在本地生成DOC文档，导入数据            
+            string docFile = FindUserReportWord(person.ArchiveFolder);
+            if (!string.IsNullOrEmpty(docFile))
+            {
+                ShortFormReport shortFormReport = WordTools.ReadWordFile(docFile);
+                shortFormReportModel.DataMenstrualCycle = shortFormReport.DataMenstrualCycle;
+                shortFormReportModel.DataLeftMeanElectricalConductivity1 = shortFormReport.DataLeftMeanElectricalConductivity1;
+                shortFormReportModel.DataRightMeanElectricalConductivity1 = shortFormReport.DataRightMeanElectricalConductivity1;
+                shortFormReportModel.DataLeftMeanElectricalConductivity2 = shortFormReport.DataLeftMeanElectricalConductivity2;
+                shortFormReportModel.DataRightMeanElectricalConductivity2 = shortFormReport.DataRightMeanElectricalConductivity2;
+                shortFormReportModel.DataMeanElectricalConductivity3 = shortFormReport.DataMeanElectricalConductivity3;
+                shortFormReportModel.DataLeftMeanElectricalConductivity3 = shortFormReport.DataLeftMeanElectricalConductivity3;
+                shortFormReportModel.DataRightMeanElectricalConductivity3 = shortFormReport.DataRightMeanElectricalConductivity3;
+                shortFormReportModel.DataLeftComparativeElectricalConductivity1 = shortFormReport.DataLeftComparativeElectricalConductivity1;
+                shortFormReportModel.DataLeftComparativeElectricalConductivity2 = shortFormReport.DataLeftComparativeElectricalConductivity2;
+                shortFormReportModel.DataLeftComparativeElectricalConductivity3 = shortFormReport.DataLeftComparativeElectricalConductivity3;
+                shortFormReportModel.DataLeftDivergenceBetweenHistograms1 = shortFormReport.DataLeftDivergenceBetweenHistograms1;
+                shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = shortFormReport.DataLeftDivergenceBetweenHistograms2;
+                shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = shortFormReport.DataLeftDivergenceBetweenHistograms3;
+                shortFormReportModel.DataLeftPhaseElectricalConductivity = shortFormReport.DataLeftPhaseElectricalConductivity;
+                shortFormReportModel.DataRightPhaseElectricalConductivity = shortFormReport.DataRightPhaseElectricalConductivity;
+                shortFormReportModel.DataAgeElectricalConductivityReference = shortFormReport.DataAgeElectricalConductivityReference;
+                shortFormReportModel.DataLeftAgeElectricalConductivity = shortFormReport.DataLeftAgeElectricalConductivity;
+                shortFormReportModel.DataRightAgeElectricalConductivity = shortFormReport.DataRightAgeElectricalConductivity;
+                shortFormReportModel.DataExamConclusion = shortFormReport.DataExamConclusion;
+                shortFormReportModel.DataLeftMammaryGland = shortFormReport.DataLeftMammaryGland;
+                shortFormReportModel.DataLeftAgeRelated = shortFormReport.DataLeftAgeRelated;
+                shortFormReportModel.DataRightMammaryGland = shortFormReport.DataRightMammaryGland;
+                shortFormReportModel.DataRightAgeRelated = shortFormReport.DataRightAgeRelated;
+                MessageBox.Show(App.Current.FindResource("Message_27").ToString());
+            }
+            else
+            {
+                MessageBox.Show(App.Current.FindResource("Message_26").ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// 窗口大小状态变化时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var mainWin = this.Owner.Owner as MainWindow;
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    this.StopMouseHook();
+                }
+                if (this.WindowState == WindowState.Minimized)
+                {
+                    WinMinimized();                    
+                }
+                else
+                {
+                    this.StopMouseHook();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 最小化窗体以便显示MEIK程序窗体
+        /// </summary>
+        private void WinMinimized()
+        {
+            App.opendWin = this;
+            this.WindowState = WindowState.Minimized;
+            //this.WindowStartupLocation = WindowStartupLocation.Manual;//设置可手动指定窗体位置                
+            int left = (int)(System.Windows.SystemParameters.PrimaryScreenWidth - 156);
+            IntPtr winHandle = new WindowInteropHelper(this).Handle;
+            Win32Api.MoveWindow(winHandle, left, 0, 0, 0, false);
+            IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+            //如果主窗体存在
+            if (mainWinHwnd != IntPtr.Zero)
+            {
+                this.StartMouseHook();
+            }
+        }
+
+
+        /// <summary>
+        /// 启用鼠标钩子
+        /// </summary>
+        public void StartMouseHook()
+        {
+            //启动鼠标钩子            
+            mouseHook.Start();
+        }
+        /// <summary>
+        /// 停止鼠标钩子
+        /// </summary>
+        public void StopMouseHook()
+        {
+            mouseHook.Stop();
+        }
+
+        /// <summary>
+        /// 鼠标按下的钩子回调方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void mouseHook_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                IntPtr exitButtonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);
+                var owner = this.Owner.Owner as MainWindow;
+                if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
+                {
+                    StringBuilder winText = new StringBuilder(512);
+                    Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
+                    if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
+                        //如果主窗体存在
+                        if (mainWinHwnd != IntPtr.Zero)
+                        {
+                            int WM_SYSCOMMAND = 0x0112;
+                            int SC_CLOSE = 0xF060;
+                            Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+                        }
+                        //this.Visibility = Visibility.Visible;
+                        this.WindowState = WindowState.Normal;
+                        //this.StopMouseHook();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 鼠标移动的钩子回调方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void mouseHook_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {                                     
+            StringBuilder winText = new StringBuilder(512);
+            try
+            {
+                IntPtr exitButtonHandle = Win32Api.WindowFromPoint(e.X, e.Y);  
+                Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
+            }
+            catch(Exception){}
+            //如果鼠标移动到退出按钮上
+            if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                this.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.Visibility = Visibility.Visible;
+            }                            
+        }
+               
     }
 }

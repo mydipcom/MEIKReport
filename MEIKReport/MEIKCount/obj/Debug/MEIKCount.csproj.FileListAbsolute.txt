@@ -14,7 +14,6 @@ C:\Project\MEIKReport\MEIKCount\obj\Debug\MEIKCount.pdb
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\bin\Debug\MEIKCount.exe.config
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\bin\Debug\MEIKCount.exe
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\bin\Debug\MEIKCount.pdb
-D:\NewGit\MEIKReport\MEIKReport\MEIKCount\obj\Debug\MEIKCount.csprojResolveAssemblyReference.cache
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\obj\Debug\MainWindow.baml
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\obj\Debug\Resources\StringResource.baml
 D:\NewGit\MEIKReport\MEIKReport\MEIKCount\obj\Debug\Resources\StringResource.zh-CN.baml

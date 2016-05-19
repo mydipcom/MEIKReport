@@ -151,12 +151,26 @@ namespace MEIKReport.Model
             get { return dataMeikTech; }
             set { dataMeikTech = value; }
         }
+        private string dataTechLicense;
+
+        public string DataTechLicense
+        {
+            get { return dataTechLicense; }
+            set { dataTechLicense = value; }
+        }
         private string dataDoctor;
 
         public string DataDoctor
         {
             get { return dataDoctor; }
             set { dataDoctor = value; }
+        }
+        private string dataDoctorLicense;
+
+        public string DataDoctorLicense
+        {
+            get { return dataDoctorLicense; }
+            set { dataDoctorLicense = value; }
         }
         //private string dataCategories;
 

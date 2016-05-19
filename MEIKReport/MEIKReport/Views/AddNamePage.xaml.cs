@@ -26,13 +26,13 @@ namespace MEIKReport
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class AddNamePage : Window
-    {        
-        private ObservableCollection<string> nameList;
-        public AddNamePage(ObservableCollection<string> names)
+    {
+        private ObservableCollection<User> _userList;
+        public AddNamePage(ObservableCollection<User> userList)
         {
             InitializeComponent();
             this.txtName.Focus();
-            this.nameList = names;
+            this._userList = userList;
         }                        
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -42,17 +42,31 @@ namespace MEIKReport
                 MessageBox.Show(App.Current.FindResource("Message_11").ToString());
                 this.txtName.Focus();
             }
+            else if (this.txtName.Text.IndexOf(';') >= 0 || this.txtName.Text.IndexOf('|') >= 0 )
+            {
+                MessageBox.Show(App.Current.FindResource("Message_29").ToString());
+                this.txtName.Focus();
+            }
+            else if (this.txtLicense.Text.IndexOf(';') >= 0 || this.txtLicense.Text.IndexOf('|') >= 0)
+            {
+                MessageBox.Show(App.Current.FindResource("Message_29").ToString());
+                this.txtLicense.Focus();
+            }
             else
             {
-                if (nameList.Contains(this.txtName.Text))
+                foreach (var item in _userList)
                 {
-                    MessageBox.Show(App.Current.FindResource("Message_12").ToString());
+                    if (item.Name.Equals(this.txtName.Text))
+                    {
+                        MessageBox.Show(App.Current.FindResource("Message_12").ToString());
+                        return;
+                    }
                 }
-                else
-                {                                        
-                    nameList.Add(this.txtName.Text);                        
-                    this.Close();                    
-                }
+                User user = new User();
+                user.Name = this.txtName.Text;
+                user.License = this.txtLicense.Text;
+                _userList.Add(user);
+                this.Close();       
             }
 
         }

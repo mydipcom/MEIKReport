@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="MainWin1" xml:space="preserve">Patient Count: </sys:String>
-    <sys:String x:Key="MainWin2" xml:space="preserve">Total Screening Records: </sys:String>
+    <sys:String x:Key="MainWin2" xml:space="preserve">Total # of Screening Sessions </sys:String>
     <sys:String x:Key="MainWin3">MRN#(Code)</sys:String>
     <sys:String x:Key="MainWin4">Patient Name</sys:String>
     <sys:String x:Key="MainWin5">Description</sys:String>

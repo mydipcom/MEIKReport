@@ -6,6 +6,7 @@
     <sys:String x:Key="MainWinMenuDiagnostics">诊断</sys:String>
     <sys:String x:Key="MainWinMenuReport">报告</sys:String>
     <sys:String x:Key="MainWinMenuPerferences">设置</sys:String>
+    <sys:String x:Key="MainWinMenuRecords">统计</sys:String>
     <sys:String x:Key="MainWinMenuExit">退出</sys:String>
     <sys:String x:Key="MainWinDeviceNo">设备编号: </sys:String>
     
@@ -19,13 +20,29 @@
     <sys:String x:Key="CommonAddBtn">添加</sys:String>
     <sys:String x:Key="CommonDeleteBtn">删除</sys:String>
     <sys:String x:Key="CommonCloseBtn">关闭</sys:String>
+    <sys:String x:Key="CommonUpdateBtn">引入报告数据</sys:String>
+    <sys:String x:Key="CommonCancelBtn">取消</sys:String>
 
+    <sys:String x:Key="RecordsWin1" xml:space="preserve">患者总人数: </sys:String>
+    <sys:String x:Key="RecordsWin2" xml:space="preserve">设备扫描总次数: </sys:String>
+    <sys:String x:Key="RecordsWin3">导出到Excel</sys:String>
+    <sys:String x:Key="RecordsWin4">搜索</sys:String>
+    <sys:String x:Key="RecordsWin5">开始日期:</sys:String>
+    <sys:String x:Key="RecordsWin6">结束日期:</sys:String>
     <sys:String x:Key="Excel1">患者编号</sys:String>
     <sys:String x:Key="Excel2">患者名称</sys:String>
     <sys:String x:Key="Excel3">扫描说明</sys:String>
     <sys:String x:Key="Excel4">扫描时间</sys:String>
 
     <sys:String x:Key="MailSubject">扫描记录</sys:String>
+
+    <sys:String x:Key="Dialog1">请输入患者名称</sys:String>
+    <sys:String x:Key="Dialog2">姓:</sys:String>
+    <sys:String x:Key="Dialog3">名:</sys:String>
+    <sys:String x:Key="Dialog4">中间名:</sys:String>
+    <sys:String x:Key="Dialog5">患者编号:</sys:String>
+    <sys:String x:Key="Dialog6">创建</sys:String>
+    <sys:String x:Key="Dialog7">取消</sys:String>
 
     <sys:String x:Key="Message_1">启动MEIK v5.6程序失败, 错误信息:</sys:String>
     <sys:String x:Key="Message_2">保存报告数据成功!</sys:String>
@@ -48,13 +65,24 @@
     <sys:String x:Key="Message_19">发送邮件失败，错误原因:</sys:String>
     <sys:String x:Key="Message_20">加载报告配置参数失败. 异常信息:</sys:String>
     <sys:String x:Key="Message_21">目录 {0} 不能被打包成ZIP文件，错误原因:</sys:String>
-
+    <sys:String x:Key="Message_22">请输入患者姓氏</sys:String>
+    <sys:String x:Key="Message_23">创建患者档案目录成功！</sys:String>
+    <sys:String x:Key="Message_24">患者档案目录{0} 已存在.</sys:String>
+    <sys:String x:Key="Message_25">创建患者档案目录{0}失败{1}</sys:String>
+    <sys:String x:Key="Message_26">没有在患者文件夹中找到基础报告文档, 请先在诊断窗口访问报告功能生成基础报告文档。</sys:String>
+    <sys:String x:Key="Message_27">从基础报告文档更新数据到当前报告成功。</sys:String>
+    <sys:String x:Key="Message_28">请选择发送数据的技术员名称.</sys:String>
+    <sys:String x:Key="Message_29">输入的内容不允许包含';'或'|'.</sys:String>
+    
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">浏览文件夹...</sys:String>
+    <sys:String x:Key="UserListWinEditReportBtn">编辑报告</sys:String>
     <sys:String x:Key="UserListWinExaminationReportBtn">检查报告</sys:String>
     <sys:String x:Key="UserListWinSummaryReportBtn">总结报告</sys:String>
-    <sys:String x:Key="UserListWinEmailReportBtn">Email发送报告</sys:String>
-
+    <sys:String x:Key="UserListWinEmailReportBtn">发送数据</sys:String>
+    <sys:String x:Key="UserListWinPatientCardTitle">患者病历</sys:String>
+    <sys:String x:Key="UserListWinNewBtn">新建</sys:String>
+    
     <sys:String x:Key="SignaureWinLab">设置为默认签名</sys:String>
     <sys:String x:Key="SignaureWinLoadBtn">加载签名</sys:String>
     <sys:String x:Key="SignaureWinClearBtn">清除</sys:String>
@@ -63,9 +91,9 @@
     <sys:String x:Key="SettingReportTitle">默认的报表设置</sys:String>
     <sys:String x:Key="SettingReportDesc">下面是当前的一些报表相关参数设置，您可以随时修改它们.</sys:String>
     <sys:String x:Key="SettingReportTabTitle">报表设置</sys:String>
-    <sys:String x:Key="SettingReportNameGroupHeader">可用的人名</sys:String>
-    <sys:String x:Key="SettingReportDoctorNameLab">医生的名字:</sys:String>
-    <sys:String x:Key="SettingReportTechNameLab">技术员的名字:</sys:String>
+    <sys:String x:Key="SettingReportNameGroupHeader">用户信息</sys:String>
+    <sys:String x:Key="SettingReportDoctorNameLab">医生</sys:String>
+    <sys:String x:Key="SettingReportTechNameLab">技术员</sys:String>
     <sys:String x:Key="SettingReportPrintGroupHeader">默认的打印纸张</sys:String>
     <sys:String x:Key="SettingEmailTitle">默认的电子邮箱设置</sys:String>
     <sys:String x:Key="SettingEmailDesc">下面是当前的一些电子邮箱相关参数设置，您可以随时修改它们.</sys:String>
@@ -79,6 +107,8 @@
     <sys:String x:Key="SettingEmailTo">收件人邮箱</sys:String>
     <sys:String x:Key="SettingEmailSubject">邮件主题</sys:String>
     <sys:String x:Key="SettingEmailBody">邮件内容</sys:String>
+    <sys:String x:Key="SettingReportFullName">全名</sys:String>
+    <sys:String x:Key="SettingReportLicense">授权编号</sys:String>
 
     <sys:String x:Key="UserDataPersonalTab">个人信息</sys:String>
     <sys:String x:Key="UserDataPersonal1">姓:</sys:String>
@@ -317,7 +347,7 @@
     <sys:String x:Key="ReportContext_154">3 类 - 疑似良性发现</sys:String>
     <sys:String x:Key="ReportContext_155">4 类 - 疑似恶性发现</sys:String>
     <sys:String x:Key="ReportContext_156">5 类 - 高度可能为恶性</sys:String>
-    <sys:String x:Key="ReportContext_157" xml:space="preserve">推荐: </sys:String>
+    <sys:String x:Key="ReportContext_157" xml:space="preserve">建议: </sys:String>
     <sys:String x:Key="ReportContext_158">MEIK乳腺电阻抗检测 (三月内)</sys:String>
     <sys:String x:Key="ReportContext_159">MEIK乳腺电阻抗检测 (六月内)</sys:String>
     <sys:String x:Key="ReportContext_160">MEIK乳腺电阻抗检测 (年度)</sys:String>
@@ -339,7 +369,7 @@
     <sys:String x:Key="ReportContext_175">截取图像</sys:String>
     <sys:String x:Key="ReportContext_176">删除图像</sys:String>
     <sys:String x:Key="ReportContext_177" xml:space="preserve">检查日期: </sys:String>
-    <sys:String x:Key="ReportContext_178" xml:space="preserve">病历卡号: </sys:String>
+    <sys:String x:Key="ReportContext_178" xml:space="preserve">患者编号: </sys:String>
     <sys:String x:Key="ReportContext_179" xml:space="preserve">姓名: </sys:String>
     <sys:String x:Key="ReportContext_180">左乳</sys:String>
     <sys:String x:Key="ReportContext_181">右乳</sys:String>
@@ -361,4 +391,5 @@
     <sys:String x:Key="ReportContext_197">MEIK v.5.6 -乳腺成像总结报告</sys:String>
     <sys:String x:Key="ReportContext_198">乳腺电阻抗检查报告</sys:String>
     <sys:String x:Key="ReportContext_199">3D乳腺成像 – MEIK v.5.6</sys:String>
+    <sys:String x:Key="ReportContext_200">证书编号:</sys:String>
 </ResourceDictionary>

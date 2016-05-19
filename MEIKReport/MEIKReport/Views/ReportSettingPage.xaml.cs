@@ -38,7 +38,21 @@ namespace MEIKReport
                 radLetter.IsChecked = false;
                 radA4.IsChecked = true;
             }
-            this.tabSetting.DataContext = App.reportSettingModel;
+            //if (App.reportSettingModel.DeviceType == 1)
+            //{                
+            //    optDoctor.Visibility = Visibility.Collapsed;                  
+            //    optTech.Visibility = Visibility.Visible;
+            //}
+            //else if (App.reportSettingModel.DeviceType == 2)
+            //{
+            //    optDoctor.Visibility = Visibility.Visible;
+            //    optTech.Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    grpUserProfile.Visibility = Visibility.Collapsed;
+            //}
+            this.tabSetting.DataContext = App.reportSettingModel;          
         }
 
         
@@ -58,8 +72,23 @@ namespace MEIKReport
                 }
                 OperateIniFile.WriteIniData("Base", "MEIK base", App.reportSettingModel.MeikBase, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("Report", "Use Default Signature", App.reportSettingModel.UseDefaultSignature.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", App.reportSettingModel.DoctorNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", App.reportSettingModel.TechNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                User[] doctorUsers=App.reportSettingModel.DoctorNames.ToArray<User>();
+                List<string> doctorsArr = new List<string>();
+                foreach (var item in doctorUsers)
+                {
+                    doctorsArr.Add(item.Name + "|" + item.License);
+                }
+                OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", doctorsArr.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+
+                User[] techUsers = App.reportSettingModel.TechNames.ToArray<User>();
+                List<string> techArr = new List<string>();
+                foreach (var item in techUsers)
+                {
+                    techArr.Add(item.Name + "|" + item.License);
+                }
+                OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", techArr.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                //OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", App.reportSettingModel.DoctorNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                //OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", App.reportSettingModel.TechNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("Report", "Print Paper", App.reportSettingModel.PrintPaper, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("Mail", "My Mail Address", App.reportSettingModel.MailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("Mail", "To Mail Address", App.reportSettingModel.ToMailAddress, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -96,16 +125,16 @@ namespace MEIKReport
         {
             var title = Application.Current.FindResource("SettingEmailTitle").ToString();
             var desc = Application.Current.FindResource("SettingEmailDesc").ToString();
-            labSettingTitle.Content = title;
-            labSettingDesc.Content = desc;
+            //labSettingTitle.Content = title;
+            //labSettingDesc.Content = desc;
         }
 
         private void tabReport_GotFocus(object sender, RoutedEventArgs e)
         {
             var title = Application.Current.FindResource("SettingReportTitle").ToString();
             var desc = Application.Current.FindResource("SettingReportDesc").ToString();
-            labSettingTitle.Content = title;
-            labSettingDesc.Content = desc;
+            //labSettingTitle.Content = title;
+            //labSettingDesc.Content = desc;
         }
 
         private void btnAddDoctor_Click(object sender, RoutedEventArgs e)
@@ -146,17 +175,33 @@ namespace MEIKReport
                     App.reportSettingModel = new ReportSettingModel();
                     App.reportSettingModel.MeikBase = OperateIniFile.ReadIniData("Base", "MEIK base", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                    string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                    
                     if (!string.IsNullOrEmpty(doctorNames))
-                    {
+                    {                        
                         var doctorList = doctorNames.Split(';').ToList<string>();
-                        doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+                        //doctorList.ForEach(item => App.reportSettingModel.DoctorNames.Add(item));
+                        foreach (var item in doctorList)
+                        {
+                            User doctorUser=new User();
+                            string[] arr = item.Split('|');
+                            doctorUser.Name = arr[0];
+                            doctorUser.License = arr[1];
+                            App.reportSettingModel.DoctorNames.Add(doctorUser);
+                        }                        
                     }
-                    string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    if (!string.IsNullOrEmpty(doctorNames))
+                    string techNames = OperateIniFile.ReadIniData("Report", "Technician Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                    
+                    if (!string.IsNullOrEmpty(techNames))
                     {
                         var techList = techNames.Split(';').ToList<string>();
-                        techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+                        //techList.ForEach(item => App.reportSettingModel.TechNames.Add(item));
+                        foreach (var item in techList)
+                        {
+                            User techUser = new User();
+                            string[] arr = item.Split('|');
+                            techUser.Name = arr[0];
+                            techUser.License = arr[1];
+                            App.reportSettingModel.TechNames.Add(techUser);
+                        }
                     }
                     App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -167,13 +212,13 @@ namespace MEIKReport
                     App.reportSettingModel.MailPort = Convert.ToInt32(OperateIniFile.ReadIniData("Mail", "Mail Port", "25", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.MailUsername = OperateIniFile.ReadIniData("Mail", "Mail Username", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     string mailPwd=OperateIniFile.ReadIniData("Mail", "Mail Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    if(string.IsNullOrEmpty(mailPwd)){
+                    if(!string.IsNullOrEmpty(mailPwd)){
                         App.reportSettingModel.MailPwd = SecurityTools.DecryptText(mailPwd);
                     }                    
                     App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.DeviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.DeviceType = Convert.ToInt32(OperateIniFile.ReadIniData("Device", "Device Type", "1", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
-                }
+                }                
             }
             catch (Exception ex)
             {

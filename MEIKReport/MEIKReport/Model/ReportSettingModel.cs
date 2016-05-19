@@ -9,16 +9,16 @@ namespace MEIKReport.Model
 {
     public class ReportSettingModel : ViewModelBase
     {
-        private ObservableCollection<string> doctorNames = new ObservableCollection<string>();
+        private ObservableCollection<User> doctorNames = new ObservableCollection<User>();
 
-        public ObservableCollection<string> DoctorNames
+        public ObservableCollection<User> DoctorNames
         {
             get { return doctorNames; }
             set { doctorNames = value; OnPropertyChanged("DoctorNames"); }
         }
-        private ObservableCollection<string> techNames = new ObservableCollection<string>();
+        private ObservableCollection<User> techNames = new ObservableCollection<User>();
 
-        public ObservableCollection<string> TechNames
+        public ObservableCollection<User> TechNames
         {
             get { return techNames; }
             set { techNames = value; OnPropertyChanged("TechNames"); }

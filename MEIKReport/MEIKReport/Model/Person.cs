@@ -4,6 +4,7 @@ namespace MEIKReport.Model
     public class Person : ViewModelBase
     {
         private string archiveFolder;
+        private string crdFilePath;
         private int id;        
         private string code;
         private string surName;
@@ -745,6 +746,38 @@ namespace MEIKReport.Model
         {
             get { return biopsyOtherDesc; }
             set { biopsyOtherDesc = value; }
+        }
+
+        private string techName;
+        public string TechName
+        {
+            get { return techName; }
+            set { techName = value; }
+        }
+        private string techLicense;
+        public string TechLicense
+        {
+            get { return techLicense; }
+            set { techLicense = value; }
+        }
+
+        private string doctorName;
+        public string DoctorName
+        {
+            get { return doctorName; }
+            set { techName = value; }
+        }
+        private string doctorLicense;
+        public string DoctorLicense
+        {
+            get { return doctorLicense; }
+            set { doctorLicense = value; }
+        }
+
+        public string CrdFilePath
+        {
+            get { return crdFilePath; }
+            set { crdFilePath = value; }
         }
 
         #endregion

@@ -19,7 +19,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2.1*"/>
+                <RowDefinition Height="3.2*"/>
                 <RowDefinition Height=".3*"/>
                 <RowDefinition Height=".2*"/>
                 <RowDefinition Height="*"/>
@@ -30,7 +30,7 @@
                 <RowDefinition Height="1.2*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -59,18 +59,18 @@
                     <!--<ColumnDefinition Width="100"/>-->
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <!--<RowDefinition Height="3*"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="40"/>
+                    <!--<RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1.5*"/>-->
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <!--<Image Source="/Images/livite.jpg" Grid.Row="0" Grid.Column="0"></Image>
-                <Image Source="/Images/logo.jpg" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"></Image>
+                <Image Source="/Images/NuvoMED_Logo.png" Grid.Row="0" Grid.Column="0"></Image>
+                <!--<Image Source="/Images/logo.jpg" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"></Image>
                 <TextBlock Text="PATIENT'S MEIK RESULT" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
                 <TextBlock Text="MEIK v.5.6 - Digital Mammograph Summary Report" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>-->
-                <TextBlock Text="{StaticResource ReportContext_196}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
-                <TextBlock Text="{StaticResource ReportContext_197}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Text="{StaticResource ReportContext_196}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Text="{StaticResource ReportContext_197}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
             </Grid>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,3"></Border>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -115,10 +115,10 @@
                 <TextBlock Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="220" FontWeight="Bold" Margin="0,0,10,0"/>
                 <TextBlock Name="dataRightSize" Text="{Binding DataRightSize}" Width="300" FontWeight="Bold"/>
             </StackPanel>
-            <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
+            <!--<StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_150}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="560" FontWeight="Bold" />
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_157}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="560" FontWeight="Bold" />
@@ -154,7 +154,7 @@
                     <RowDefinition Height="4"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Name="dataSignDate" Text="{Binding DataSignDate}" VerticalAlignment="Bottom" Height="26" Width="140" FontSize="14"/>
+                <TextBlock Name="dataSignDate" Text="{Binding DataSignDate}" VerticalAlignment="Bottom" Height="26" Width="180" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center"/>
                 <!--<DatePicker Grid.Column="0" Width="150" VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="{x:Null}" SelectedDateFormat="Long" SelectedDate="{x:Static s:DateTime.Today}"/>-->
                 <Grid Name="signPanel" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                     <Image Name="dataSignImg" Height="40" Width="204">                        
@@ -167,13 +167,17 @@
             </Grid>
             
             
-            <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="{StaticResource ReportContext_191}" Width="120"/>
-                <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="550" />
+            <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="{StaticResource ReportContext_191}" Width="100" VerticalAlignment="Center"/>
+                <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="260"  VerticalAlignment="Center"/>
+                <TextBlock Text="{StaticResource ReportContext_200}" Width="80"  VerticalAlignment="Center"/>
+                <TextBlock Name="dataTechLicenseNo" Text="{Binding DataTechLicense}" Width="250"  VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="{StaticResource ReportContext_173}" Width="120"/>
-                <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Width="550" />
+                <TextBlock Text="{StaticResource ReportContext_173}" Width="100" VerticalAlignment="Center"/>
+                <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Width="260"  VerticalAlignment="Center"/>
+                <TextBlock Text="{StaticResource ReportContext_200}" Width="80"  VerticalAlignment="Center"/>
+                <TextBlock Name="dataDoctorLicenseNo" Text="{Binding DataDoctorLicense}" Width="250"  VerticalAlignment="Center"/>
             </StackPanel>
             <!--<StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="BI – RADS Categories: " Width="120"/>

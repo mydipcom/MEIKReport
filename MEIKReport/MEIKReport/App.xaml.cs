@@ -22,7 +22,10 @@ namespace MEIKReport
         public static Window opendWin = null;
         public static string dataFolder = null;
         public static ReportSettingModel reportSettingModel = null;
+        public static string strScreening = "Screening";
         public static string strDiagnostics = "Diagnostics";
+        public static string strExit = "Exit";
+
 
         protected override void OnStartup(StartupEventArgs e)
         {

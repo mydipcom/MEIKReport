@@ -2,6 +2,7 @@
 using MEIKReport.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
@@ -82,16 +83,7 @@ namespace MEIKReport.Views
                         if (shortFormReportModel.DataSignImg != null)
                         {
                             this.dataSignImg.Source = ImageTools.GetBitmapImage(shortFormReportModel.DataSignImg);
-                        }
-
-                        if (!App.reportSettingModel.TechNames.Contains(shortFormReportModel.DataMeikTech))
-                        {
-                            App.reportSettingModel.TechNames.Add(shortFormReportModel.DataMeikTech);
-                        }
-                        if (!App.reportSettingModel.DoctorNames.Contains(shortFormReportModel.DataDoctor))
-                        {
-                            App.reportSettingModel.DoctorNames.Add(shortFormReportModel.DataDoctor);
-                        }
+                        }                        
 
                     }
                     else
@@ -113,9 +105,79 @@ namespace MEIKReport.Views
                         }
                     
                     }
-                    this.reportDataGrid.DataContext = this.shortFormReportModel;
-                    this.dataMeikTech.ItemsSource = App.reportSettingModel.TechNames;
+                    this.reportDataGrid.DataContext = this.shortFormReportModel;                    
+                    //以下是添加处理操作员和医生的名字的选择项                    
+                    User doctorUser = new User();
+                    if (!string.IsNullOrEmpty(shortFormReportModel.DataDoctor))
+                    {
+                        doctorUser.Name = shortFormReportModel.DataDoctor;
+                        doctorUser.License = shortFormReportModel.DataDoctorLicense;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(this.person.DoctorName))
+                        {
+                            doctorUser.Name = this.person.DoctorName;
+                            doctorUser.License = this.person.DoctorLicense;
+                            shortFormReportModel.DataDoctor = this.person.DoctorName;
+                            shortFormReportModel.DataDoctorLicense = this.person.DoctorLicense;
+                        }
+                    }
                     this.dataDoctor.ItemsSource = App.reportSettingModel.DoctorNames;
+                    if (!string.IsNullOrEmpty(doctorUser.Name))
+                    {
+                        for (int i = 0; i < App.reportSettingModel.DoctorNames.Count; i++)
+                        {
+                            var item = App.reportSettingModel.DoctorNames[i];
+                            if (doctorUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(doctorUser.License) == string.IsNullOrEmpty(item.License) || doctorUser.License == item.License))
+                            {
+                                this.dataDoctor.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //如果没有找到匹配的用户
+                        if (this.dataDoctor.SelectedIndex == -1)
+                        {
+                            App.reportSettingModel.DoctorNames.Add(doctorUser);
+                            this.dataDoctor.SelectedIndex = App.reportSettingModel.DoctorNames.Count - 1;
+                        }
+                    }
+
+                    User techUser = new User();
+                    if (!string.IsNullOrEmpty(shortFormReportModel.DataMeikTech))
+                    {
+                        techUser.Name = shortFormReportModel.DataMeikTech;
+                        techUser.License = shortFormReportModel.DataTechLicense;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(this.person.TechName))
+                        {
+                            techUser.Name = this.person.TechName;
+                            techUser.License = this.person.TechLicense;
+                            shortFormReportModel.DataMeikTech = this.person.TechName;
+                            shortFormReportModel.DataTechLicense = this.person.TechLicense;
+                        }
+                    }
+                    this.dataMeikTech.ItemsSource = App.reportSettingModel.TechNames;
+                    if (!string.IsNullOrEmpty(techUser.Name))
+                    {
+                        for (int i = 0; i < App.reportSettingModel.TechNames.Count; i++)
+                        {
+                            var item = App.reportSettingModel.TechNames[i];
+                            if (techUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(techUser.License) == string.IsNullOrEmpty(item.License) || techUser.License == item.License))
+                            {
+                                this.dataMeikTech.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //如果没有找到匹配的用户
+                        if (this.dataMeikTech.SelectedIndex == -1)
+                        {
+                            App.reportSettingModel.TechNames.Add(techUser);
+                            this.dataMeikTech.SelectedIndex = App.reportSettingModel.TechNames.Count - 1;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -285,16 +347,28 @@ namespace MEIKReport.Views
             shortFormReportModel.DataUserCode = this.dataUserCode.Text;
             shortFormReportModel.DataAge = this.dataAge.Text;
             shortFormReportModel.DataAddress = person.Address;
-            shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;            
+            //shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;            
             shortFormReportModel.DataComments = this.dataComments.Text;
             shortFormReportModel.DataConclusion = this.dataConclusion.Text;
             //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
-            shortFormReportModel.DataDoctor = this.dataDoctor.Text;
+            if (this.dataDoctor.SelectedItem != null)
+            {
+                var doctor = this.dataDoctor.SelectedItem as User;
+                shortFormReportModel.DataDoctor = doctor.Name;
+                shortFormReportModel.DataDoctorLicense = doctor.License;
+                shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
+            }
+            if (this.dataMeikTech.SelectedItem != null)
+            {
+                var technician = this.dataMeikTech.SelectedItem as User;
+                shortFormReportModel.DataMeikTech = technician.Name;
+                shortFormReportModel.DataTechLicense = technician.License;
+            }
             shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
             //shortFormReportModel.DataLeftFinding = this.dataLeftFinding.Text;
             shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
             shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
-            shortFormReportModel.DataMeikTech = this.dataMeikTech.Text;
+            
             shortFormReportModel.DataName = this.dataName.Text;
             shortFormReportModel.DataRecommendation = this.dataRecommendation.Text;
             //shortFormReportModel.DataRightFinding = this.dataRightFinding.Text;
@@ -302,6 +376,8 @@ namespace MEIKReport.Views
             shortFormReportModel.DataRightSize = this.dataRightSize.Text;
             shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
             shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
+            shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.Text;
+            shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
             var screenShotImg = this.dataScreenShotImg.Source as BitmapImage;
             if (screenShotImg != null)
             {

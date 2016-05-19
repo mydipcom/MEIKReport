@@ -1,47 +1,69 @@
 ﻿<Window x:Class="MEIKReport.UserList"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MEIK Report" Height="600" Width="960"
+        Title="MEIK Application" Height="600" Width="960"
         Icon="/MEIKReport;component/Images/MEIK-ICON.png"
-        ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized" Topmost="True">    
+        ShowInTaskbar="False" ResizeMode="CanResize"  Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized">    
     <!--<Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="My Application" Overlay="/MEIKReport;component/Images/ProgressIcon.jpg" ProgressState="Normal"  ProgressValue="10" />
     </Window.TaskbarItemInfo>-->
     <Window.Resources>        
         <CollectionViewSource x:Key="CustomerSource" />
     </Window.Resources>
-    <Grid Margin="10,0,10,10">        
+    <Grid>        
         <!--<Grid.Background>
             <SolidColorBrush Color="Black"></SolidColorBrush>
         </Grid.Background>-->        
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>            
-        </Grid.RowDefinitions>        
-        <Grid Grid.Row="0" Margin="0,20,0,0">
+        </Grid.RowDefinitions>
+        <Grid Background="#FF395F7A">
+            <Grid.ColumnDefinitions>                
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel VerticalAlignment="Center" Margin="30,0,0,0">
+                <Button Name="btnScreening" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuScreening}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}" FontFamily="Arial,Microsoft YaHei" FontSize="15" Click="btnScreening_Click"></Button>
+                <Button Name="btnDiagnostics" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuDiagnostics}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}" FontFamily="Arial,Microsoft YaHei" FontSize="15" Margin="10,0,0,0" Click="btnDiagnostics_Click"></Button>
+                <Button Name="btnRecords" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuRecords}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}" FontFamily="Arial,Microsoft YaHei" FontSize="15" Margin="10,0,0,0" Click="btnRecords_Click" Visibility="Collapsed"></Button>
+                <Button Name="btnSetup" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuPerferences}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}"  FontFamily="Arial,Microsoft YaHei" FontSize="15" Margin="10,0,0,0" Click="btnSetup_Click"></Button>
+            </WrapPanel>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Label Content="{DynamicResource  MainWinDeviceNo}" FontSize="14" Foreground="White" FontWeight="Black" FontFamily="Arial,Microsoft YaHei"  ></Label>                
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label Name="labDeviceNo" Content="001" FontSize="14" Foreground="White" FontWeight="Black" FontFamily="Arial,Microsoft YaHei"></Label>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10,10,10,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"/>
-                <ColumnDefinition Width="360"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="430"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
-                <Label Style="{StaticResource labelStyle}" Content="{DynamicResource  UserListWinBrowerLab}" FontSize="14"></Label>                
+                <Label Content="{DynamicResource  UserListWinBrowerLab}" FontSize="14"></Label>                
             </StackPanel>
-            <StackPanel Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center">
-                <TextBox Name="txtFolderPath" Width="350" IsEnabled="False" Height="26"></TextBox>
-            </StackPanel>
+            <WrapPanel Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBox Name="txtFolderPath" Width="335" IsEnabled="False" Height="26"></TextBox>
+                <Button Name="btnSelectFolder" Width="90" Height="26" Content="{DynamicResource  UserListWinBrowerBtn}" FontSize="14" Style="{StaticResource NewButtonStyle}" Click="btnSelectFolder_Click"></Button>
+            </WrapPanel>
             <StackPanel Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Button Name="btnSelectFolder" Width="100" Height="22" Content="{DynamicResource  UserListWinBrowerBtn}" Click="btnSelectFolder_Click"></Button>
+                <Button Name="btnNewArchive" Width="90" Height="26" Content="{DynamicResource  UserListWinNewBtn}" FontSize="14" Style="{StaticResource NewButtonStyle}" Click="btnNewArchive_Click"></Button>
             </StackPanel>
-            <WrapPanel Name="reportButtonPanel" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
-                <Button Click="ExaminationReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="0,0,10,0" Content="{DynamicResource UserListWinExaminationReportBtn}"></Button>
-                <Button Click="SummaryReport_Click" Width="180" Style="{StaticResource buttonStyle}" Margin="0,0,10,0" Content="{DynamicResource UserListWinSummaryReportBtn}"></Button>
+            <WrapPanel Name="reportButtonPanel" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Click="ExaminationReport_Click" Width="120" Height="26" Style="{StaticResource NewButtonStyle}" Margin="0,0,8,0" FontSize="14" Content="{DynamicResource UserListWinEditReportBtn}"></Button>
+                <Button Name="btnSummaryReport" Click="SummaryReport_Click" Width="120" Height="26" Style="{StaticResource NewButtonStyle}" Margin="0,0,8,0" FontSize="14" Content="{DynamicResource UserListWinSummaryReportBtn}" Visibility="Collapsed"></Button>
+                <Button Name="emailButton" Width="100" Height="26" Style="{StaticResource NewButtonStyle}" Margin="0,0,10,0" FontSize="14" Click="EmailButton_Click" Content="{DynamicResource UserListWinEmailReportBtn}"></Button>
             </WrapPanel>
         </Grid>
-        <Grid Name="dataGrid" Grid.Row="1" DataContext="{Binding Source={StaticResource CustomerSource}}">
+        <Grid Name="dataGrid" Grid.Row="2" DataContext="{Binding Source={StaticResource CustomerSource}}" Margin="10,0,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="30"/>
@@ -54,12 +76,12 @@
             <!--<Border  Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="0,2,0,0"></Border>-->
             <Grid Grid.Row="1" Grid.Column="0" Background="#FF5E5F5F" Margin="5,0,1,0">
                 <StackPanel  VerticalAlignment="Center">
-                    <TextBlock Text="Medical Record No. (MRN)" TextAlignment="Center" FontSize="12" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="{DynamicResource  ReportContext_178}" TextAlignment="Center" FontSize="12" FontWeight="Bold" Foreground="White"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Background="#FF5E5F5F" Margin="0,0,5,0">
                 <StackPanel  VerticalAlignment="Center">
-                    <TextBlock Text="Patient's Card" TextAlignment="Center" FontSize="12" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="{DynamicResource  UserListWinPatientCardTitle}" TextAlignment="Center" FontSize="12" FontWeight="Bold" Foreground="White"/>
                 </StackPanel>
             </Grid>
             
@@ -629,18 +651,19 @@
             </Border>-->   
             
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3" Margin="20,0,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>                
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Name="exitReport" Width="100" Style="{StaticResource buttonStyle}" Click="exitReport_Click" Content="{DynamicResource CommonExitBtn}"></Button>
-            </StackPanel>
+            <!--<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Name="exitReport" Width="150" Style="{StaticResource buttonStyle}" Click="exitReport_Click" Content="{DynamicResource CommonExitBtn}"></Button>
+            </StackPanel>-->
             
             <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Visibility="Hidden" Name="emailButton" Width="120" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Click="EmailButton_Click" Content="{DynamicResource UserListWinEmailReportBtn}"></Button>
+                <!--<Button Visibility="Hidden" Name="emailButton" Width="120" Style="{StaticResource buttonStyle}" Margin="10,0,0,0" Click="EmailButton_Click" Content="{DynamicResource UserListWinEmailReportBtn}"></Button>-->
+                <Button Name="exitReport" Width="150" Height="30" Style="{StaticResource NewButtonStyle}" Click="exitReport_Click" Content="{DynamicResource CommonExitBtn}" FontSize="16"></Button>
             </StackPanel>
         </Grid>        
     </Grid>

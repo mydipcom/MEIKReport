@@ -448,11 +448,11 @@
                 <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="500"/>                    
             </StackPanel>
             <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="{StaticResource ReportContext_161}" Width="70" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_189}" Width="120" FontWeight="Bold"/>
                 <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="500"/>                    
             </StackPanel>
             <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="{StaticResource ReportContext_165}" Width="70" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_165}" Width="120" FontWeight="Bold"/>
                 <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}" Width="600"/>                    
             </StackPanel>
             <!--<StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -460,7 +460,7 @@
                 <TextBlock Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="550"/>                    
             </StackPanel>-->
             <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" Grid.RowSpan="2">
-                <TextBlock Text="{StaticResource ReportContext_169}" Width="70" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_169}" Width="120" FontWeight="Bold"/>
                 <TextBlock Name="dataComments" Text="{Binding DataComments}" Width="600"/>                    
             </StackPanel>
             <Grid Grid.Row="58" Grid.RowSpan="2">
