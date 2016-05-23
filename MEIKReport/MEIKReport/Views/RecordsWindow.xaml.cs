@@ -91,7 +91,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to count the screening times. Exception: " + ex.Message);
+                MessageBox.Show(this, "Failed to count the screening times. Exception: " + ex.Message);
             }
         }
 

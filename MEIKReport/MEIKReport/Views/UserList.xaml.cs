@@ -27,17 +27,17 @@ namespace MEIKReport
     public partial class UserList : Window
     {
         private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
         protected MouseHook mouseHook = new MouseHook();
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
         private IList<Patient> patientList = new List<Patient>();
         public UserList()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
+            listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
             if (!string.IsNullOrEmpty(App.dataFolder))
             {
-                loadArchiveFolder(App.dataFolder);
-                string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                loadArchiveFolder(App.dataFolder);                
                 string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 OperateIniFile.WriteIniData("Base", "Patients base", App.dataFolder, meikiniFile);
             }
@@ -100,7 +100,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
             finally
             {
@@ -125,7 +125,7 @@ namespace MEIKReport
             if (res == System.Windows.Forms.DialogResult.OK)
             {
                 string folderName = folderBrowserDialog.SelectedPath;
-                //App.dataFolder = folderName;
+                App.dataFolder = folderName;
                 loadArchiveFolder(folderName); 
             }        
         }
@@ -152,17 +152,23 @@ namespace MEIKReport
                     reportButtonPanel.Visibility = Visibility.Hidden;
                     emailButton.Visibility = Visibility.Hidden;
                 }
+
+                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 var selectItem = this.CodeListBox.SelectedItem as Person;
                 if (selectItem != null)
-                {
-                    string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                {                                        
+                    //修改原始MEIK程序中的患者档案目录，让原始MEIK程序运行后直接打开此患者档案
                     OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
+                }
+                else
+                {
+                    //修改原始MEIK程序中的患者档案目录，让原始MEIK程序运行后直接打开此患者档案
+                    OperateIniFile.WriteIniData("Base", "Patients base", folderName, meikiniFile);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -328,7 +334,7 @@ namespace MEIKReport
                 || string.IsNullOrEmpty(App.reportSettingModel.MailUsername) || string.IsNullOrEmpty(App.reportSettingModel.MailPwd)
                 || string.IsNullOrEmpty(App.reportSettingModel.ToMailAddress))
             {
-                MessageBox.Show(App.Current.FindResource("Message_15").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_15").ToString());
                 return;
             }
             string deviceNo = App.reportSettingModel.DeviceNo;
@@ -339,12 +345,12 @@ namespace MEIKReport
 
             if (!File.Exists(dataFile) && deviceType == 2)
             {
-                MessageBox.Show(App.Current.FindResource("Message_16").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_16").ToString());
                 return;
             }
                         
             string toMail = App.reportSettingModel.ToMailAddress;
-            MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_17").ToString(), "Email Reports", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_17").ToString(), "Email Reports", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {
                 //如果是Technician那么判断报告是否已经填写Techinican名称
@@ -382,7 +388,7 @@ namespace MEIKReport
                     }
                     catch (Exception ex1)
                     {
-                        MessageBox.Show(string.Format(App.Current.FindResource("Message_21").ToString()+" "+ ex1.Message, selectedUser.ArchiveFolder));
+                        MessageBox.Show(this, string.Format(App.Current.FindResource("Message_21").ToString() + " " + ex1.Message, selectedUser.ArchiveFolder));
                         return;
                     }
                     string senderServerIp = App.reportSettingModel.MailHost;
@@ -425,12 +431,12 @@ namespace MEIKReport
                         }
                         catch (Exception ex1) { }                        
                     }
-                    MessageBox.Show(App.Current.FindResource("Message_18").ToString());                    
+                    MessageBox.Show(this, App.Current.FindResource("Message_18").ToString());                    
                     
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(App.Current.FindResource("Message_19").ToString()+" "+ex.Message);
+                    MessageBox.Show(this, App.Current.FindResource("Message_19").ToString() + " " + ex.Message);
                 }
             }
         }
@@ -491,7 +497,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show(App.Current.FindResource("Message_20").ToString()+" " + ex.Message);
+                MessageBox.Show(this, App.Current.FindResource("Message_20").ToString() + " " + ex.Message);
             }
         }
         
@@ -506,7 +512,6 @@ namespace MEIKReport
             {
                 var selectItem = (Person)e.AddedItems[0];
                 selectItem.Icon = "/Images/id_card_ok.png";                
-                string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
             }
@@ -525,8 +530,7 @@ namespace MEIKReport
             var book = (Microsoft.Office.Interop.Excel._Workbook)(books.Add(System.Type.Missing));
             var sheets = (Microsoft.Office.Interop.Excel.Sheets)book.Worksheets;
             var sheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(1));
-            
-            string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                        
             ListFiles(new DirectoryInfo(meikFolder));
             
 
@@ -628,7 +632,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             }
         }
 
@@ -643,7 +647,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             }
         }
 
@@ -705,6 +709,11 @@ namespace MEIKReport
                             this.Visibility = Visibility.Visible;
                         }
                         this.StopMouseHook();
+
+                        string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                        App.dataFolder=OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                        txtFolderPath.Text = App.dataFolder;
+                        loadArchiveFolder(txtFolderPath.Text);
                     }
                 }
             }
@@ -716,6 +725,34 @@ namespace MEIKReport
             AddFolderPage folderPage = new AddFolderPage();
             folderPage.Owner = this;
             folderPage.ShowDialog();
+        }
+
+        private void listLang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var eleObj = listLang.SelectedItem as XmlElement;
+            var local = eleObj.GetAttribute("Flag");
+            if ("zh-HK".Equals(local))
+            {
+                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+                
+            }
+            else if ("zh-CN".Equals(local))
+            {
+                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+                
+            }
+            else
+            {
+                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+                
+            }
+            OperateIniFile.WriteIniData("Base", "Language", local, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
         }       
     }
 }

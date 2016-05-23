@@ -39,17 +39,17 @@ namespace MEIKReport
         {
             if (string.IsNullOrEmpty(this.txtName.Text))
             {
-                MessageBox.Show(App.Current.FindResource("Message_11").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_11").ToString());
                 this.txtName.Focus();
             }
             else if (this.txtName.Text.IndexOf(';') >= 0 || this.txtName.Text.IndexOf('|') >= 0 )
             {
-                MessageBox.Show(App.Current.FindResource("Message_29").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_29").ToString());
                 this.txtName.Focus();
             }
             else if (this.txtLicense.Text.IndexOf(';') >= 0 || this.txtLicense.Text.IndexOf('|') >= 0)
             {
-                MessageBox.Show(App.Current.FindResource("Message_29").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_29").ToString());
                 this.txtLicense.Focus();
             }
             else
@@ -58,7 +58,7 @@ namespace MEIKReport
                 {
                     if (item.Name.Equals(this.txtName.Text))
                     {
-                        MessageBox.Show(App.Current.FindResource("Message_12").ToString());
+                        MessageBox.Show(this, App.Current.FindResource("Message_12").ToString());
                         return;
                     }
                 }

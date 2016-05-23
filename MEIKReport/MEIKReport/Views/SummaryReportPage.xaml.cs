@@ -51,7 +51,7 @@ namespace MEIKReport.Views
                 this.person = data as Person;
                 if (this.person == null)
                 {
-                    MessageBox.Show(App.Current.FindResource("Message_8").ToString());
+                    MessageBox.Show(this, App.Current.FindResource("Message_8").ToString());
                     this.Close();
                 }
                 else
@@ -61,7 +61,12 @@ namespace MEIKReport.Views
                     {
                         dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     }
-                    if (App.strDiagnostics != "Diagnostics")
+                    if ("en-US".Equals(App.local))
+                    {
+                        dataScreenDate.FormatString = "MMMM d, yyyy";
+                        dataSignDate.FormatString = "MMMM d, yyyy";                        
+                    }
+                    else
                     {
                         dataScreenDate.FormatString = "yyyy年MM月dd日";
                         dataSignDate.FormatString = "yyyy年MM月dd日";
@@ -182,7 +187,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
             
         }
@@ -226,15 +231,15 @@ namespace MEIKReport.Views
                 {
                     reportTempl = "Views/SummaryReportImageDocument.xaml";
                 }
-
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, shortFormReportModel);                
+                var reportModel = CloneReportModel();
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow(reportTempl, true, reportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -250,7 +255,8 @@ namespace MEIKReport.Views
                     {
                         reportTempl = "Views/SummaryReportImageDocument.xaml";
                     }
-                    FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+                    var reportModel = CloneReportModel();
+                    FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, reportModel);
                     FixedDocument fixedDoc = new FixedDocument();//创建一个文档
                     if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
                     {
@@ -269,7 +275,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -279,7 +285,7 @@ namespace MEIKReport.Views
             //using (FileStream fs = new FileStream(dataFolder+"/"+person.Code + ".dat", FileMode.Create))
             //{
             //    XamlWriter.Save(this.reportPage, fs);
-            //    MessageBox.Show("Data is saved successfully.");
+            //    MessageBox.Show(this,"Data is saved successfully.");
             //}
         }
 
@@ -311,7 +317,8 @@ namespace MEIKReport.Views
                     datafile = dataFolder + "/" + person.Code + ".dat";
                 }
                 
-                LoadDataModel();                
+                LoadDataModel();
+                var reportModel = CloneReportModel();
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
                 File.Copy(datafile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
 
@@ -319,7 +326,7 @@ namespace MEIKReport.Views
                 //Save PDF file
                 string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
                 string lfReportTempl = "Views/ExaminationReportDocument.xaml";
-                ExportPDF(lfReportTempl, lfPdfFile);
+                ExportPDF(lfReportTempl, lfPdfFile, reportModel);
                 File.Copy(lfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
                 string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
                 string sfReportTempl = "Views/SummaryReportDocument.xaml";
@@ -327,15 +334,15 @@ namespace MEIKReport.Views
                 {
                     sfReportTempl = "Views/SummaryReportImageDocument.xaml";                    
                 }
-                ExportPDF(sfReportTempl, sfPdfFile);
+                ExportPDF(sfReportTempl, sfPdfFile, reportModel);
                 File.Copy(sfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
-                MessageBox.Show("Report is saved successfully.");
+                MessageBox.Show(this, "Report is saved successfully.");
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show(App.Current.FindResource("Message_3").ToString() +" "+ ex.Message);
+                MessageBox.Show(this, App.Current.FindResource("Message_3").ToString() + " " + ex.Message);
             } 
         }
 
@@ -349,35 +356,36 @@ namespace MEIKReport.Views
             shortFormReportModel.DataAddress = person.Address;
             //shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;            
             shortFormReportModel.DataComments = this.dataComments.Text;
-            shortFormReportModel.DataConclusion = this.dataConclusion.Text;
+            shortFormReportModel.DataConclusion = this.dataConclusion.SelectedIndex.ToString();
+            shortFormReportModel.DataFurtherExam = this.dataFurtherExam.SelectedIndex.ToString();
+            shortFormReportModel.DataRecommendation = this.dataRecommendation.SelectedIndex.ToString();
             //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
             if (this.dataDoctor.SelectedItem != null)
             {
                 var doctor = this.dataDoctor.SelectedItem as User;
                 shortFormReportModel.DataDoctor = doctor.Name;
                 shortFormReportModel.DataDoctorLicense = doctor.License;
-                shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
+                
             }
             if (this.dataMeikTech.SelectedItem != null)
             {
                 var technician = this.dataMeikTech.SelectedItem as User;
                 shortFormReportModel.DataMeikTech = technician.Name;
                 shortFormReportModel.DataTechLicense = technician.License;
-            }
-            shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
+            }            
             //shortFormReportModel.DataLeftFinding = this.dataLeftFinding.Text;
             shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
             shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
             
             shortFormReportModel.DataName = this.dataName.Text;
-            shortFormReportModel.DataRecommendation = this.dataRecommendation.Text;
+            
             //shortFormReportModel.DataRightFinding = this.dataRightFinding.Text;
             shortFormReportModel.DataRightLocation = this.dataRightLocation.Text;
             shortFormReportModel.DataRightSize = this.dataRightSize.Text;
             shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
             shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
-            shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.Text;
-            shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
+            shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.SelectedIndex.ToString();
+            shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.SelectedIndex.ToString();
             var screenShotImg = this.dataScreenShotImg.Source as BitmapImage;
             if (screenShotImg != null)
             {
@@ -402,6 +410,23 @@ namespace MEIKReport.Views
             }
             shortFormReportModel.DataSignDate = this.dataSignDate.Text;
         }
+
+        /// <summary>
+        /// 克隆数据模型对象
+        /// </summary>
+        private ShortFormReport CloneReportModel()
+        {
+            ShortFormReport reportModel = shortFormReportModel.Clone();
+            reportModel = shortFormReportModel.Clone();
+            reportModel.DataRecommendation = this.dataRecommendation.Text;
+            reportModel.DataConclusion = this.dataConclusion.Text;
+            reportModel.DataFurtherExam = this.dataFurtherExam.Text;
+            reportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;            
+
+            return reportModel;
+        }
+
+
         private void ShowSignature(Object obj)
         {           
             //this.inkCanvas.Strokes = (StrokeCollection)obj;
@@ -426,7 +451,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             }            
         }
 
@@ -437,7 +462,7 @@ namespace MEIKReport.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(null);                
@@ -471,7 +496,8 @@ namespace MEIKReport.Views
                 {
                     reportTempl = "Views/SummaryReportImageDocument.xaml";
                 }
-                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+                var reportModel = CloneReportModel();
+                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, reportModel);
                 XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
                 //将flow document写入基于内存的xps document中去
                 XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
@@ -489,18 +515,18 @@ namespace MEIKReport.Views
                     //}
                     //PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
-                    MessageBox.Show(App.Current.FindResource("Message_5").ToString());
+                    MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
                 }
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }            
         }
 
-        private void ExportPDF(string reportTempl, string pdfFile)
+        private void ExportPDF(string reportTempl, string pdfFile, ShortFormReport reportModel)
         {
             string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
             //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -510,7 +536,7 @@ namespace MEIKReport.Views
                 File.Delete(xpsFile);
             }
 
-            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, reportModel);
             XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
             //将flow document写入基于内存的xps document中去
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
@@ -550,7 +576,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             }
         }
 
@@ -579,7 +605,7 @@ namespace MEIKReport.Views
         //    }
         //    catch (Exception ex)
         //    {
-        //        MessageBox.Show("System Exception: " + ex.Message);
+        //        MessageBox.Show(this,"System Exception: " + ex.Message);
         //    }
         //}
 
@@ -622,7 +648,7 @@ namespace MEIKReport.Views
                 }
             }
             catch(Exception ex){
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -669,7 +695,7 @@ namespace MEIKReport.Views
             if (!string.IsNullOrEmpty(folderName))
             {
                 SaveReport(folderName);
-                MessageBox.Show(App.Current.FindResource("Message_6").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_6").ToString());
             }
              
         }

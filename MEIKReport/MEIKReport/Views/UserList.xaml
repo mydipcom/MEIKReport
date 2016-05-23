@@ -13,8 +13,21 @@
     <Grid>        
         <!--<Grid.Background>
             <SolidColorBrush Color="Black"></SolidColorBrush>
-        </Grid.Background>-->        
-
+        </Grid.Background>-->
+        <Grid.Resources>            
+            <XmlDataProvider x:Key="LanguageDataSource" XPath="Locals">
+                <x:XData>
+                    <Locals xmlns="">
+                        <Local Name="English" Flag="en-US">                            
+                        </Local>
+                        <Local Name="繁體中文" Flag="zh-HK">                            
+                        </Local>
+                        <!--<Local Name="简体中文" Flag="zh-CN">                         
+                        </Local>-->                        
+                    </Locals>
+                </x:XData>
+            </XmlDataProvider>            
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
@@ -24,7 +37,8 @@
         <Grid Background="#FF395F7A">
             <Grid.ColumnDefinitions>                
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <WrapPanel VerticalAlignment="Center" Margin="30,0,0,0">
@@ -33,10 +47,14 @@
                 <Button Name="btnRecords" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuRecords}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}" FontFamily="Arial,Microsoft YaHei" FontSize="15" Margin="10,0,0,0" Click="btnRecords_Click" Visibility="Collapsed"></Button>
                 <Button Name="btnSetup" Style="{StaticResource NewButtonStyle1}" Content="{DynamicResource  MainWinMenuPerferences}" Height="26" Width="150" FocusVisualStyle="{ StaticResource NewButtonFocusVisual}"  FontFamily="Arial,Microsoft YaHei" FontSize="15" Margin="10,0,0,0" Click="btnSetup_Click"></Button>
             </WrapPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ComboBox Name="listLang" Width="80" BorderBrush="White" Background="White"  ItemsSource="{Binding Source={StaticResource LanguageDataSource}, XPath=Local}" DisplayMemberPath="@Name" FontSize="12" SelectionChanged="listLang_SelectionChanged">                                    
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Label Content="{DynamicResource  MainWinDeviceNo}" FontSize="14" Foreground="White" FontWeight="Black" FontFamily="Arial,Microsoft YaHei"  ></Label>                
             </StackPanel>
-            <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Label Name="labDeviceNo" Content="001" FontSize="14" Foreground="White" FontWeight="Black" FontFamily="Arial,Microsoft YaHei"></Label>
             </StackPanel>
         </Grid>

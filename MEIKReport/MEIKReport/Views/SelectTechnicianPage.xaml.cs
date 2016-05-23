@@ -43,7 +43,7 @@ namespace MEIKReport
 
             if (this.listTechnicianName.SelectedIndex==-1)
             {
-                MessageBox.Show(App.Current.FindResource("Message_28").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_28").ToString());
                 this.listTechnicianName.Focus();                
             }
             else

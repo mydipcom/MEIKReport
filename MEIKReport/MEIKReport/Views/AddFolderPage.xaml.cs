@@ -27,8 +27,7 @@ namespace MEIKReport
     /// </summary>
     public partial class AddFolderPage : Window
     {
-        private string lastCode = OperateIniFile.ReadIniData("Data", "Last Code", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        private ObservableCollection<string> nameList;
+        private string lastCode = OperateIniFile.ReadIniData("Data", "Last Code", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
         public AddFolderPage()
         {
             InitializeComponent();
@@ -55,7 +54,7 @@ namespace MEIKReport
         {
             if (string.IsNullOrEmpty(this.txtLastName.Text))
             {
-                MessageBox.Show(App.Current.FindResource("Message_22").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_22").ToString());
                 this.txtLastName.Focus();
             }              
             else
@@ -81,11 +80,11 @@ namespace MEIKReport
                                                
                         FileHelper.SetFolderPower(patientFolder, "Everyone", "FullControl");
                         FileHelper.SetFolderPower(patientFolder, "Users", "FullControl");
-                        MessageBox.Show(App.Current.FindResource("Message_23").ToString());
+                        MessageBox.Show(this, App.Current.FindResource("Message_23").ToString());
                     }
                     else
                     {
-                        MessageBox.Show(string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));
+                        MessageBox.Show(this, string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));
                         UserList userlistWin = this.Owner as UserList;
                         userlistWin.loadArchiveFolder(patientFolder);
                     }
@@ -93,7 +92,7 @@ namespace MEIKReport
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(App.Current.FindResource("Message_25").ToString(),patientFolder,", Error: "+ex.Message));
+                    MessageBox.Show(this, string.Format(App.Current.FindResource("Message_25").ToString(), patientFolder, ", Error: " + ex.Message));
                 }
                 finally
                 {

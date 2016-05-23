@@ -141,7 +141,7 @@
                             <TextBlock Text="{StaticResource ReportContext_2}" FontWeight="Bold" Margin="20,0,0,0" VerticalAlignment="Center"/>
                             <extToolkit:DateTimePicker Name="dataScreenDate" Text="{Binding DataScreenDate}" Height="18" Width="125" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="MMMM d, yyyy" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left" FontSize="10"/>
                             <TextBlock Text="{StaticResource ReportContext_3}" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataGender" Text="{Binding DataGender}" Width="110" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataGender" Width="110" BorderBrush="Gray" Background="{x:Null}" FontSize="10" SelectedIndex="{Binding DataGender}">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_4}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_5}"></ComboBoxItem>
@@ -168,13 +168,13 @@
                             <!--<TextBlock Name="dataAge" Text="{Binding DataAge}" Width="60" FontSize="10"/>-->
                             <TextBlock Text="{StaticResource ReportContext_11}" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBox Name="dataWeight" Text="{Binding DataWeight}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
-                            <ComboBox Name="dataWeightUnit" Text="{Binding DataWeightUnit}" Height="18" Width="50" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
+                            <ComboBox Name="dataWeightUnit" SelectedIndex="{Binding DataWeightUnit}" Height="18" Width="50" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
                                 <ComboBoxItem Content="{StaticResource ReportContext_12}"></ComboBoxItem>
                                 <ComboBoxItem IsSelected="True" Content="{StaticResource ReportContext_13}"></ComboBoxItem>                                
                             </ComboBox>
                             <!--<TextBlock Text="" Width="102"/>-->
                             <TextBlock Text="{StaticResource ReportContext_14}" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}" Width="156" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
+                            <ComboBox Name="dataMenstrualCycle" SelectedIndex="{Binding DataMenstrualCycle}" Width="156" BorderBrush="Gray" Background="{x:Null}"  Margin="0,0,5,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_15}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_16}"></ComboBoxItem>
@@ -189,7 +189,7 @@
                             <TextBlock Text="{StaticResource ReportContext_22}" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBox Name="dataHormones" Text="{Binding DataHormones}" VerticalAlignment="Center" Width="140" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"/>
                             <TextBlock Text="{StaticResource ReportContext_23}" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataSkinAffections" Text="{Binding DataSkinAffections}" Width="300" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataSkinAffections" SelectedIndex="{Binding DataSkinAffections}" Width="300" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_24}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_25}"></ComboBoxItem>
@@ -203,7 +203,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_32}" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataPertinentHistory" Text="{Binding DataPertinentHistory}" Width="75" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataPertinentHistory" SelectedIndex="{Binding DataPertinentHistory}" Width="75" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>                                
@@ -211,7 +211,7 @@
                             <TextBlock Text="-"/>
                             <TextBox Name="dataPertinentHistory1" Text="{Binding DataPertinentHistory1}" VerticalAlignment="Center" Width="80" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"/>
                             <TextBlock Text="{StaticResource ReportContext_35}" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataMotherUltra" Text="{Binding DataMotherUltra}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataMotherUltra" SelectedIndex="{Binding DataMotherUltra}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_36}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_37}"></ComboBoxItem>
@@ -234,12 +234,12 @@
                         </StackPanel>
                         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_46}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftPalpableMass" Text="{Binding DataLeftPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftPalpableMass" SelectedIndex="{Binding DataLeftPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightPalpableMass" Text="{Binding DataRightPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightPalpableMass" SelectedIndex="{Binding DataRightPalpableMass}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
@@ -247,13 +247,13 @@
                         </StackPanel>
                         <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_47}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftChangesOfElectricalConductivity" Text="{Binding DataLeftChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftChangesOfElectricalConductivity" SelectedIndex="{Binding DataLeftChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_48}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_49}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_50}"></ComboBoxItem>                                
                             </ComboBox>
-                            <ComboBox Name="dataRightChangesOfElectricalConductivity" Text="{Binding DataRightChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightChangesOfElectricalConductivity" SelectedIndex="{Binding DataRightChangesOfElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_48}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_49}"></ComboBoxItem>
@@ -262,12 +262,12 @@
                         </StackPanel>
                         <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_51}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftMammaryStruct" Text="{Binding DataLeftMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftMammaryStruct" SelectedIndex="{Binding DataLeftMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_52}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_53}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightMammaryStruct" Text="{Binding DataRightMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightMammaryStruct" SelectedIndex="{Binding DataRightMammaryStruct}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_52}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_53}"></ComboBoxItem>
@@ -275,14 +275,14 @@
                         </StackPanel>
                         <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_54}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftLactiferousSinusZone" Text="{Binding DataLeftLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftLactiferousSinusZone" SelectedIndex="{Binding DataLeftLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_55}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_56}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_57}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_58}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightLactiferousSinusZone" Text="{Binding DataRightLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightLactiferousSinusZone" SelectedIndex="{Binding DataRightLactiferousSinusZone}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_55}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_56}"></ComboBoxItem>
@@ -292,13 +292,13 @@
                         </StackPanel>
                         <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_59}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftMammaryContour" Text="{Binding DataLeftMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftMammaryContour" SelectedIndex="{Binding DataLeftMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_60}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_61}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_62}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightMammaryContour" Text="{Binding DataRightMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightMammaryContour" SelectedIndex="{Binding DataRightMammaryContour}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_60}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_61}"></ComboBoxItem>
@@ -327,14 +327,14 @@
                         </StackPanel>
                         <StackPanel Grid.Row="21" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_67}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftShape" Text="{Binding DataLeftShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftShape" SelectedIndex="{Binding DataLeftShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_68}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_69}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_70}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_71}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightShape" Text="{Binding DataRightShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightShape" SelectedIndex="{Binding DataRightShape}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_68}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_69}"></ComboBoxItem>
@@ -344,13 +344,13 @@
                         </StackPanel>
                         <StackPanel Grid.Row="22" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_72}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftContourAroundFocus" Text="{Binding DataLeftContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftContourAroundFocus" SelectedIndex="{Binding DataLeftContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_73}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_74}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_75}"></ComboBoxItem>                                
                             </ComboBox>
-                            <ComboBox Name="dataRightContourAroundFocus" Text="{Binding DataRightContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightContourAroundFocus" SelectedIndex="{Binding DataRightContourAroundFocus}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_73}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_74}"></ComboBoxItem>
@@ -359,14 +359,14 @@
                         </StackPanel>
                         <StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_76}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftInternalElectricalStructure" Text="{Binding DataLeftInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftInternalElectricalStructure" SelectedIndex="{Binding DataLeftInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_77}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_78}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_79}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_80}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightInternalElectricalStructure" Text="{Binding DataRightInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightInternalElectricalStructure" SelectedIndex="{Binding DataRightInternalElectricalStructure}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_77}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_78}"></ComboBoxItem>
@@ -376,7 +376,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_81}" Width="380" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftSurroundingTissues" Text="{Binding DataLeftSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftSurroundingTissues" SelectedIndex="{Binding DataLeftSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_82}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_83}"></ComboBoxItem>
@@ -385,7 +385,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_86}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_87}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightSurroundingTissues" Text="{Binding DataRightSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightSurroundingTissues" SelectedIndex="{Binding DataRightSurroundingTissues}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_82}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_83}"></ComboBoxItem>
@@ -406,7 +406,7 @@
                         <StackPanel Grid.Row="27" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_90}" Width="200" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_91}" Width="180"  VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftOncomarkerHighlightBenignChanges" Text="{Binding DataLeftOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftOncomarkerHighlightBenignChanges" SelectedIndex="{Binding DataLeftOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
@@ -418,7 +418,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_97}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_98}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightOncomarkerHighlightBenignChanges" Text="{Binding DataRightOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightOncomarkerHighlightBenignChanges" SelectedIndex="{Binding DataRightOncomarkerHighlightBenignChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
@@ -434,7 +434,7 @@
                         <StackPanel Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="200"/>
                             <TextBlock Text="{StaticResource ReportContext_99}" Width="180"  VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftOncomarkerHighlightSuspiciousChanges" Text="{Binding DataLeftOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftOncomarkerHighlightSuspiciousChanges" SelectedIndex="{Binding DataLeftOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
@@ -446,7 +446,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_97}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_98}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightOncomarkerHighlightSuspiciousChanges" Text="{Binding DataRightOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
+                            <ComboBox Name="dataRightOncomarkerHighlightSuspiciousChanges" SelectedIndex="{Binding DataRightOncomarkerHighlightSuspiciousChanges}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,0,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_33}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_34}"></ComboBoxItem>
@@ -485,7 +485,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="31" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataMeanElectricalConductivity3" Text="{Binding DataMeanElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataMeanElectricalConductivity3" SelectedIndex="{Binding DataMeanElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
@@ -518,7 +518,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="34" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataComparativeElectricalConductivity3" Text="{Binding DataComparativeElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataComparativeElectricalConductivity3" SelectedIndex="{Binding DataComparativeElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
@@ -549,7 +549,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="37" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataDivergenceBetweenHistograms3" Text="{Binding DataDivergenceBetweenHistograms3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataDivergenceBetweenHistograms3" SelectedIndex="{Binding DataDivergenceBetweenHistograms3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
@@ -578,13 +578,13 @@
                             <TextBlock Text="{StaticResource ReportContext_110}" Width="300" VerticalAlignment="Center"/>
                             <!--<TextBlock Text="(0.26/0.22)" Width="80" />-->
                             <TextBox Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
-                            <ComboBox Name="dataLeftAgeElectricalConductivity" Text="{Binding DataLeftAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftAgeElectricalConductivity" SelectedIndex="{Binding DataLeftAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_113}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightAgeElectricalConductivity" Text="{Binding DataRightAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightAgeElectricalConductivity" SelectedIndex="{Binding DataRightAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
@@ -593,7 +593,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="41" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_114}" Width="210" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataAgeValueOfEC" Text="{Binding DataAgeValueOfEC}" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataAgeValueOfEC" SelectedIndex="{Binding DataAgeValueOfEC}" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>Age       5%    50%    95%</ComboBoxItem>
                                 <ComboBoxItem>20-29   0.18   0.28   0.44</ComboBoxItem>
@@ -609,7 +609,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="43" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_115}" Width="150" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataExamConclusion" Text="{Binding DataExamConclusion}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataExamConclusion" SelectedIndex="{Binding DataExamConclusion}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_116}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_117}"></ComboBoxItem>
@@ -620,7 +620,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="44" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_121}" Width="130" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataLeftMammaryGland" SelectedIndex="{Binding DataLeftMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_122}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_123}"></ComboBoxItem>
@@ -629,7 +629,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_126}"></ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_127}" Width="190" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftAgeRelated" SelectedIndex="{Binding DataLeftAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
@@ -640,7 +640,7 @@
                             <TextBlock Text="{StaticResource ReportContext_128}" Width="150" VerticalAlignment="Center"/>
                             <TextBox Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
                             <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftFindings" Text="{Binding DataLeftFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataLeftFindings" SelectedIndex="{Binding DataLeftFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_130}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_131}"></ComboBoxItem>                                
@@ -649,7 +649,7 @@
                         <StackPanel Grid.Row="46" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_132}" Width="55" VerticalAlignment="Center"/>
                             <!--<TextBlock Text="{StaticResource ReportContext_133}" Width="120"  FontWeight="Bold"/>-->
-                            <ComboBox Name="dataLeftMammaryGlandResult" Text="{Binding DataLeftMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataLeftMammaryGlandResult" SelectedIndex="{Binding DataLeftMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_134}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_135}"></ComboBoxItem>
@@ -660,7 +660,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="47" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_139}" Width="130" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightMammaryGland" Text="{Binding DataRightMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightMammaryGland" SelectedIndex="{Binding DataRightMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_122}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_123}"></ComboBoxItem>
@@ -669,7 +669,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_126}"></ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_127}" Width="190" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightAgeRelated" Text="{Binding DataRightAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataRightAgeRelated" SelectedIndex="{Binding DataRightAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
@@ -680,7 +680,7 @@
                             <TextBlock Text="{StaticResource ReportContext_128}" Width="150" VerticalAlignment="Center"/>
                             <TextBox Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
                             <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightFindings" Text="{Binding DataRightFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightFindings" SelectedIndex="{Binding DataRightFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_130}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_131}"></ComboBoxItem>
@@ -689,7 +689,7 @@
                         <StackPanel Grid.Row="49" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_132}" Width="50"  VerticalAlignment="Center"/>
                             <!--<TextBlock Text="{StaticResource ReportContext_140}" Width="150" FontWeight="Bold"/>-->
-                            <ComboBox Name="dataRightMammaryGlandResult" Text="{Binding DataRightMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightMammaryGlandResult" SelectedIndex="{Binding DataRightMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_134}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_135}"></ComboBoxItem>
@@ -704,7 +704,7 @@
                         <StackPanel Grid.Row="51" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
+                            <ComboBox Name="dataTotalPts" SelectedIndex="{Binding DataTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem>1</ComboBoxItem>
                                 <ComboBoxItem>2</ComboBoxItem>
@@ -716,7 +716,7 @@
                                 <ComboBoxItem>8</ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_143}" Width="110" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataPoint" Text="{Binding DataPoint}" Width="120" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
+                            <ComboBox Name="dataPoint" SelectedIndex="{Binding DataPoint}" Width="120" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_144}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_145}"></ComboBoxItem>
@@ -738,7 +738,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataBiRadsCategory" SelectedIndex="{Binding DataBiRadsCategory}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_151}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_152}"></ComboBoxItem>
@@ -750,7 +750,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_157}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataRecommendation" SelectedIndex="{Binding DataRecommendation}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_158}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_159}"></ComboBoxItem>
@@ -759,7 +759,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_189}" Width="120" FontWeight="Bold" VerticalAlignment="Bottom" Margin="0,0,0,3"/>
-                            <ComboBox Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataFurtherExam" SelectedIndex="{Binding DataFurtherExam}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_162}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_163}"></ComboBoxItem>
@@ -768,7 +768,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_165}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataConclusion" Text="{Binding DataConclusion}" Width="620" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataConclusion" SelectedIndex="{Binding DataConclusion}" Width="620" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_166}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_167}"></ComboBoxItem>

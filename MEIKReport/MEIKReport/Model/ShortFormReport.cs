@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MEIKReport.Model
 {
     [Serializable]
-    public class ShortFormReport
+    public class ShortFormReport:ICloneable
     {
         private string dataScreenDate;
 
@@ -958,6 +958,21 @@ namespace MEIKReport.Model
             set { dataPoint = value; }
         }
 
-
+        /// <summary>
+        /// 克隆此对象
+        /// </summary>
+        /// <returns></returns>
+        Object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+        /// <summary>
+        /// 克隆此对象
+        /// </summary>
+        /// <returns></returns>
+        public ShortFormReport Clone()
+        {
+            return (ShortFormReport)this.MemberwiseClone(); 
+        }
     }
 }

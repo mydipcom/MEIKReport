@@ -39,31 +39,31 @@ namespace MEIKReport.Common
                 }
                 else if (dataMenstrualCycle.StartsWith("1 phase") || dataMenstrualCycle.StartsWith("phase 1") || dataMenstrualCycle.StartsWith("第一阶段") || dataMenstrualCycle.StartsWith("一期"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_15").ToString();
+                    ShortFormReport.DataMenstrualCycle = "1";// App.Current.FindResource("ReportContext_15").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("2 phase") || dataMenstrualCycle.StartsWith("phase 2") || dataMenstrualCycle.StartsWith("第二阶段") || dataMenstrualCycle.StartsWith("二期"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_16").ToString();
+                    ShortFormReport.DataMenstrualCycle = "2";//App.Current.FindResource("ReportContext_16").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("1 and 2 phase") || dataMenstrualCycle.StartsWith("第一和第二阶段"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_17").ToString();
+                    ShortFormReport.DataMenstrualCycle = "3";//App.Current.FindResource("ReportContext_17").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("dysmenorrhea") || dataMenstrualCycle.StartsWith("痛经"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_18").ToString();
+                    ShortFormReport.DataMenstrualCycle = "4";// App.Current.FindResource("ReportContext_18").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("missing") || dataMenstrualCycle.StartsWith("绝经期"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_19").ToString();
+                    ShortFormReport.DataMenstrualCycle = "5";// App.Current.FindResource("ReportContext_19").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("pregnancy") || dataMenstrualCycle.StartsWith("孕期"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_20").ToString();
+                    ShortFormReport.DataMenstrualCycle = "6";// App.Current.FindResource("ReportContext_20").ToString();
                 }
                 else if (dataMenstrualCycle.StartsWith("lactation") || dataMenstrualCycle.StartsWith("哺乳期"))
                 {
-                    ShortFormReport.DataMenstrualCycle = App.Current.FindResource("ReportContext_21").ToString();
+                    ShortFormReport.DataMenstrualCycle = "7";// App.Current.FindResource("ReportContext_21").ToString();
                 }
                 //ShortFormReport.DataMenstrualCycle = doc.FormFields[11].Result;
                 //ShortFormReport.DataLeftChangesOfElectricalConductivity = doc.FormFields[15].Result;
@@ -98,19 +98,19 @@ namespace MEIKReport.Common
                 string dataMeanElectricalConductivity3 = doc.FormFields[41].Result;
                 if (string.IsNullOrEmpty(dataMeanElectricalConductivity3))
                 {
-                    ShortFormReport.DataMeanElectricalConductivity3 = "";
+                    ShortFormReport.DataMeanElectricalConductivity3 = "0";//"";
                 }
                 else if (dataMeanElectricalConductivity3.StartsWith("postmenopause") || dataMeanElectricalConductivity3.StartsWith("绝经后期"))
                 {
-                    ShortFormReport.DataMeanElectricalConductivity3 = App.Current.FindResource("ReportContext_103").ToString();
+                    ShortFormReport.DataMeanElectricalConductivity3 = "1";// App.Current.FindResource("ReportContext_103").ToString();
                 }
                 else if (dataMeanElectricalConductivity3.StartsWith("pregnancy") || dataMeanElectricalConductivity3.StartsWith("妊娠"))
                 {
-                    ShortFormReport.DataMeanElectricalConductivity3 = App.Current.FindResource("ReportContext_104").ToString();
+                    ShortFormReport.DataMeanElectricalConductivity3 = "2";// App.Current.FindResource("ReportContext_104").ToString();
                 }
                 else if (dataMeanElectricalConductivity3.StartsWith("lactation") || dataMeanElectricalConductivity3.StartsWith("哺乳期"))
                 {
-                    ShortFormReport.DataMeanElectricalConductivity3 = App.Current.FindResource("ReportContext_105").ToString();
+                    ShortFormReport.DataMeanElectricalConductivity3 = "3";// App.Current.FindResource("ReportContext_105").ToString();
                 }
                 //ShortFormReport.DataMeanElectricalConductivity3 = doc.FormFields[41].Result;
                 ShortFormReport.DataLeftMeanElectricalConductivity3 = doc.FormFields[42].Result;
@@ -137,152 +137,152 @@ namespace MEIKReport.Common
                 string dataLeftAgeElectricalConductivity = doc.FormFields[57].Result;
                 if (string.IsNullOrEmpty(dataLeftAgeElectricalConductivity))
                 {
-                    ShortFormReport.DataLeftAgeElectricalConductivity = "";
+                    ShortFormReport.DataLeftAgeElectricalConductivity = "0";// "";
                 }
                 else if (dataLeftAgeElectricalConductivity.StartsWith("<5"))
                 {
-                    ShortFormReport.DataLeftAgeElectricalConductivity = App.Current.FindResource("ReportContext_111").ToString();
+                    ShortFormReport.DataLeftAgeElectricalConductivity = "1";// App.Current.FindResource("ReportContext_111").ToString();
                 }
                 else if (dataLeftAgeElectricalConductivity.StartsWith(">95"))
                 {
-                    ShortFormReport.DataLeftAgeElectricalConductivity = App.Current.FindResource("ReportContext_113").ToString();
+                    ShortFormReport.DataLeftAgeElectricalConductivity = "3";// App.Current.FindResource("ReportContext_113").ToString();
                 }
                 else 
                 {
-                    ShortFormReport.DataLeftAgeElectricalConductivity = App.Current.FindResource("ReportContext_112").ToString();
+                    ShortFormReport.DataLeftAgeElectricalConductivity = "2";// App.Current.FindResource("ReportContext_112").ToString();
                 }
                 //ShortFormReport.DataLeftAgeElectricalConductivity = doc.FormFields[57].Result;
                 string dataRightAgeElectricalConductivity = doc.FormFields[58].Result;
                 if (string.IsNullOrEmpty(dataRightAgeElectricalConductivity))
                 {
-                    ShortFormReport.DataRightAgeElectricalConductivity = "";
+                    ShortFormReport.DataRightAgeElectricalConductivity = "0";// "";
                 }
                 else if (dataRightAgeElectricalConductivity.StartsWith("<5"))
                 {
-                    ShortFormReport.DataRightAgeElectricalConductivity = App.Current.FindResource("ReportContext_111").ToString();
+                    ShortFormReport.DataRightAgeElectricalConductivity = "1";// App.Current.FindResource("ReportContext_111").ToString();
                 }
                 else if (dataRightAgeElectricalConductivity.StartsWith(">95"))
                 {
-                    ShortFormReport.DataRightAgeElectricalConductivity = App.Current.FindResource("ReportContext_113").ToString();
+                    ShortFormReport.DataRightAgeElectricalConductivity = "3";// App.Current.FindResource("ReportContext_113").ToString();
                 }
                 else
                 {
-                    ShortFormReport.DataRightAgeElectricalConductivity = App.Current.FindResource("ReportContext_112").ToString();
+                    ShortFormReport.DataRightAgeElectricalConductivity = "2";// App.Current.FindResource("ReportContext_112").ToString();
                 }
                 //ShortFormReport.DataRightAgeElectricalConductivity = doc.FormFields[58].Result;
                 string dataExamConclusion = doc.FormFields[59].Result;
                 if (string.IsNullOrEmpty(dataExamConclusion))
                 {
-                    ShortFormReport.DataExamConclusion = "";
+                    ShortFormReport.DataExamConclusion = "0";//"";
                 }
                 else if (dataExamConclusion.StartsWith("Pubertal Period") || dataExamConclusion.StartsWith("青春期"))
                 {
-                    ShortFormReport.DataExamConclusion = App.Current.FindResource("ReportContext_116").ToString();
+                    ShortFormReport.DataExamConclusion = "1";// App.Current.FindResource("ReportContext_116").ToString();
                 }
                 else if (dataExamConclusion.StartsWith("Early childbearing age") || dataExamConclusion.StartsWith("育龄早期"))
                 {
-                    ShortFormReport.DataExamConclusion = App.Current.FindResource("ReportContext_117").ToString();
+                    ShortFormReport.DataExamConclusion = "2";// App.Current.FindResource("ReportContext_117").ToString();
                 }
                 else if (dataExamConclusion.StartsWith("Childbearing age") || dataExamConclusion.StartsWith("育龄期"))
                 {
-                    ShortFormReport.DataExamConclusion = App.Current.FindResource("ReportContext_118").ToString();
+                    ShortFormReport.DataExamConclusion = "3";// App.Current.FindResource("ReportContext_118").ToString();
                 }
                 else if (dataExamConclusion.StartsWith("Perimenopausal period") || dataExamConclusion.StartsWith("围绝经期"))
                 {
-                    ShortFormReport.DataExamConclusion = App.Current.FindResource("ReportContext_119").ToString();
+                    ShortFormReport.DataExamConclusion = "4";// App.Current.FindResource("ReportContext_119").ToString();
                 }
                 else if (dataExamConclusion.StartsWith("Postmenopausal period") || dataExamConclusion.StartsWith("绝经期"))
                 {
-                    ShortFormReport.DataExamConclusion = App.Current.FindResource("ReportContext_120").ToString();
+                    ShortFormReport.DataExamConclusion = "5";// App.Current.FindResource("ReportContext_120").ToString();
                 }
                 //ShortFormReport.DataExamConclusion = doc.FormFields[59].Result;
                 string dataLeftMammaryGland=doc.FormFields[60].Result;
                 if (string.IsNullOrEmpty(dataLeftMammaryGland))
                 {
-                    ShortFormReport.DataLeftMammaryGland = "";
+                    ShortFormReport.DataLeftMammaryGland = "0";// "";
                 }
                 else if (dataLeftMammaryGland.StartsWith("Ductal type") || dataLeftMammaryGland.StartsWith("导管型乳腺结构") || dataLeftMammaryGland.StartsWith("导管式结构"))
                 {
-                    ShortFormReport.DataLeftMammaryGland = App.Current.FindResource("ReportContext_126").ToString();
+                    ShortFormReport.DataLeftMammaryGland = "5";// App.Current.FindResource("ReportContext_126").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type with ductal component predominance") || dataLeftMammaryGland.StartsWith("混合型，导管型结构优势") || dataLeftMammaryGland.StartsWith("导管成分优先的"))
                 {
-                    ShortFormReport.DataLeftMammaryGland = App.Current.FindResource("ReportContext_125").ToString();
+                    ShortFormReport.DataLeftMammaryGland = "4";// App.Current.FindResource("ReportContext_125").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type of mammary gland structure") || dataLeftMammaryGland.StartsWith("Mixed type of structure") || dataLeftMammaryGland.StartsWith("混合型乳腺结构") || dataLeftMammaryGland.StartsWith("混合式结构"))
                 {
-                    ShortFormReport.DataLeftMammaryGland = App.Current.FindResource("ReportContext_124").ToString();
+                    ShortFormReport.DataLeftMammaryGland = "3";// App.Current.FindResource("ReportContext_124").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type with amorphous component predominance") || dataLeftMammaryGland.StartsWith("混合型，无定型结构优势") || ( dataLeftMammaryGland.Contains("无") && dataLeftMammaryGland.Contains("混合")))
                 {
-                    ShortFormReport.DataLeftMammaryGland = App.Current.FindResource("ReportContext_123").ToString();
+                    ShortFormReport.DataLeftMammaryGland = "2";// App.Current.FindResource("ReportContext_123").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Amorphous type") || dataLeftMammaryGland.StartsWith("无定型乳腺结构") || (dataLeftMammaryGland.Contains("无") && !dataLeftMammaryGland.Contains("混合")))
                 {
-                    ShortFormReport.DataLeftMammaryGland = App.Current.FindResource("ReportContext_122").ToString();
+                    ShortFormReport.DataLeftMammaryGland = "1";// App.Current.FindResource("ReportContext_122").ToString();
                 }
                 //ShortFormReport.DataLeftMammaryGland = doc.FormFields[60].Result;
                 string dataLeftAgeRelated = doc.FormFields[61].Result;
                 if (string.IsNullOrEmpty(dataLeftAgeRelated))
                 {
-                    ShortFormReport.DataLeftAgeRelated = "";
+                    ShortFormReport.DataLeftAgeRelated = "0";//"";
                 }
                 else if (dataLeftAgeRelated.StartsWith("<5"))
                 {
-                    ShortFormReport.DataLeftAgeRelated = App.Current.FindResource("ReportContext_111").ToString();
+                    ShortFormReport.DataLeftAgeRelated = "1";// App.Current.FindResource("ReportContext_111").ToString();
                 }
                 else if (dataLeftAgeRelated.StartsWith(">95"))
                 {
-                    ShortFormReport.DataLeftAgeRelated = App.Current.FindResource("ReportContext_113").ToString();
+                    ShortFormReport.DataLeftAgeRelated = "3";// App.Current.FindResource("ReportContext_113").ToString();
                 }
                 else
                 {
-                    ShortFormReport.DataLeftAgeRelated = App.Current.FindResource("ReportContext_112").ToString();
+                    ShortFormReport.DataLeftAgeRelated = "2";// App.Current.FindResource("ReportContext_112").ToString();
                 }
                 //ShortFormReport.DataLeftAgeRelated = doc.FormFields[61].Result;
 
                 string dataRightMammaryGland = doc.FormFields[64].Result;
                 if (string.IsNullOrEmpty(dataLeftMammaryGland))
                 {
-                    ShortFormReport.DataRightMammaryGland = "";
+                    ShortFormReport.DataRightMammaryGland = "0";// "";
                 }
                 else if (dataLeftMammaryGland.StartsWith("Ductal type") || dataLeftMammaryGland.StartsWith("导管型乳腺结构") || dataLeftMammaryGland.StartsWith("导管式结构"))
                 {
-                    ShortFormReport.DataRightMammaryGland = App.Current.FindResource("ReportContext_126").ToString();
+                    ShortFormReport.DataRightMammaryGland = "5";// App.Current.FindResource("ReportContext_126").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type with ductal component predominance") || dataLeftMammaryGland.StartsWith("混合型，导管型结构优势") || dataLeftMammaryGland.StartsWith("导管成分优先的"))
                 {
-                    ShortFormReport.DataRightMammaryGland = App.Current.FindResource("ReportContext_125").ToString();
+                    ShortFormReport.DataRightMammaryGland = "4";// App.Current.FindResource("ReportContext_125").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type of mammary gland structure") || dataLeftMammaryGland.StartsWith("Mixed type of structure") || dataLeftMammaryGland.StartsWith("混合型乳腺结构") || dataLeftMammaryGland.StartsWith("混合式结构"))
                 {
-                    ShortFormReport.DataRightMammaryGland = App.Current.FindResource("ReportContext_124").ToString();
+                    ShortFormReport.DataRightMammaryGland = "3";// App.Current.FindResource("ReportContext_124").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Mixed type with amorphous component predominance") || dataLeftMammaryGland.StartsWith("混合型，无定型结构优势") || (dataLeftMammaryGland.Contains("无") && dataLeftMammaryGland.Contains("混合")))
                 {
-                    ShortFormReport.DataRightMammaryGland = App.Current.FindResource("ReportContext_123").ToString();
+                    ShortFormReport.DataRightMammaryGland = "2";// App.Current.FindResource("ReportContext_123").ToString();
                 }
                 else if (dataLeftMammaryGland.StartsWith("Amorphous type") || dataLeftMammaryGland.StartsWith("无定型乳腺结构") || (dataLeftMammaryGland.Contains("无") && !dataLeftMammaryGland.Contains("混合")))
                 {
-                    ShortFormReport.DataRightMammaryGland = App.Current.FindResource("ReportContext_122").ToString();
+                    ShortFormReport.DataRightMammaryGland = "1";// App.Current.FindResource("ReportContext_122").ToString();
                 }
                 //ShortFormReport.DataLeftMammaryGland = doc.FormFields[60].Result;
                 string dataRightAgeRelated = doc.FormFields[65].Result;
                 if (string.IsNullOrEmpty(dataRightAgeRelated))
                 {
-                    ShortFormReport.DataRightAgeRelated = "";
+                    ShortFormReport.DataRightAgeRelated = "0";// "";
                 }
                 else if (dataRightAgeRelated.StartsWith("<5"))
                 {
-                    ShortFormReport.DataRightAgeRelated = App.Current.FindResource("ReportContext_111").ToString();
+                    ShortFormReport.DataRightAgeRelated = "1";// App.Current.FindResource("ReportContext_111").ToString();
                 }
                 else if (dataRightAgeRelated.StartsWith(">95"))
                 {
-                    ShortFormReport.DataRightAgeRelated = App.Current.FindResource("ReportContext_113").ToString();
+                    ShortFormReport.DataRightAgeRelated = "3";// App.Current.FindResource("ReportContext_113").ToString();
                 }
                 else
                 {
-                    ShortFormReport.DataRightAgeRelated = App.Current.FindResource("ReportContext_112").ToString();
+                    ShortFormReport.DataRightAgeRelated = "2";// App.Current.FindResource("ReportContext_112").ToString();
                 }
 
                 //ShortFormReport.DataRightMammaryGland = doc.FormFields[64].Result;

@@ -2643,7 +2643,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>uSWOP Technology</td><td>0</td><td/><td>-1566250269</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>NuvoMed Technology</td><td>0</td><td/><td>-1163602900</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1331403154</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1331403154</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue. Please download and install it from https://www.microsoft.com/en-us/download/details.aspx?id=30653</td><td>0</td><td/><td>-794550127</td></row>
@@ -3470,7 +3470,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331373329</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME20</td><td>1033</td><td>MEIKCountTool</td><td>0</td><td/><td>1764027524</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME21</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1708884109</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.05.exe</td><td>0</td><td/><td>-1566301437</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.06.exe</td><td>0</td><td/><td>-1163627444</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331373329</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch gxpswin32-9.18.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331414193</td></row>
@@ -3773,8 +3773,8 @@
 		<row><td>ID_STRING13</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-391874741</td></row>
 		<row><td>ID_STRING14</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1172003774</td></row>
 		<row><td>ID_STRING15</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1171997630</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.uSWOPTechnology.com</td><td>0</td><td/><td>-1566250269</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>uSWOP Technology</td><td>0</td><td/><td>-1566250269</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.nuvo-med.com</td><td>0</td><td/><td>-1163641780</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>NuvoMed Technology</td><td>0</td><td/><td>-1163602900</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331387473</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Installation MEIK Report Tools</td><td>0</td><td/><td>-1331413265</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1331398640</td></row>
@@ -4426,7 +4426,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MEIKReport.exe</td><td/></row>
 		<row><td>ProductCode</td><td>{228C02CE-95A5-4A65-B6CA-538949F991B3}</td><td/></row>
 		<row><td>ProductName</td><td>MEIK Application</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.5</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.6</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

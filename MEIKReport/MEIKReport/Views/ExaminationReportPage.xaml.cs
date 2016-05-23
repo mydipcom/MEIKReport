@@ -49,7 +49,7 @@ namespace MEIKReport.Views
                 this.person = data as Person;
                 if (this.person == null)
                 {
-                    MessageBox.Show("Please select a patient.");
+                    MessageBox.Show(this, "Please select a patient.");
                     this.Close();
                 }
                 else
@@ -60,9 +60,13 @@ namespace MEIKReport.Views
                         dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     }
                     //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
-                    if (App.strDiagnostics != "Diagnostics")
+                    if ("en-US".Equals(App.local))
                     {
-                        dataScreenDate.FormatString = "yyyy年MM月dd日";
+                        dataScreenDate.FormatString = "MMMM d, yyyy";                        
+                    }
+                    else
+                    {
+                        dataScreenDate.FormatString = "yyyy年MM月dd日";                        
                     }
 
                     if (File.Exists(dataFile))
@@ -128,16 +132,16 @@ namespace MEIKReport.Views
                         shortFormReportModel.DataUserCode = person.Code;
                         shortFormReportModel.DataName = person.SurName;
                         shortFormReportModel.DataAge = person.Age + "";
-                        shortFormReportModel.DataAddress = person.Address;                        
-
-                        if (App.strDiagnostics != "Diagnostics")
+                        shortFormReportModel.DataAddress = person.Address;
+                        if ("en-US".Equals(App.local))
                         {
-                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("yyyy年MM月dd日");
+                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("MMMM d, yyyy");                            
                         }
                         else
                         {
-                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("MMMM d, yyyy");
+                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("yyyy年MM月dd日");
                         }
+                        
 
                         bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                         if (defaultSign)
@@ -225,7 +229,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
         private void Window_Closed(object sender, EventArgs e)
@@ -263,14 +267,16 @@ namespace MEIKReport.Views
         {
             try {
                 LoadDataModel();
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, shortFormReportModel);                
+                var reportModel=CloneReportModel();
+                
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, reportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -300,7 +306,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
@@ -322,7 +328,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             }
         }        
 
@@ -345,6 +351,7 @@ namespace MEIKReport.Views
         {
             try
             {
+                //保存到患者档案目录
                 string datafile = null;
                 if (!string.IsNullOrEmpty(otherDataFolder))
                 {
@@ -352,6 +359,7 @@ namespace MEIKReport.Views
                 }
                 else
                 {
+                    //保存到程序自身的Data目录
                     if (!Directory.Exists(dataFolder))
                     {
                         Directory.CreateDirectory(dataFolder);
@@ -361,22 +369,23 @@ namespace MEIKReport.Views
                     datafile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                 }                
                 LoadDataModel();
+                
                 if (string.IsNullOrEmpty(shortFormReportModel.DataSignDate))
                 {
-                    if (App.strDiagnostics != "Diagnostics"){
-                        shortFormReportModel.DataSignDate = DateTime.Today.ToString("yyyy年MM月dd日");
+                    if ("en-US".Equals(App.local)){
+                        shortFormReportModel.DataSignDate = DateTime.Today.ToString("MMMM d, yyyy");
                     }
                     else{
-                        shortFormReportModel.DataSignDate = DateTime.Today.ToLongDateString();
+                        shortFormReportModel.DataSignDate = DateTime.Today.ToString("yyyy年MM月dd日");                        
                     }
                 }
                 SerializeUtilities.Serialize<ShortFormReport>(shortFormReportModel, datafile);
                 File.Copy(datafile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat", true);
-
+                var reportModel = CloneReportModel();
                 //Save PDF file
                 string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf";
                 string lfReportTempl = "Views/ExaminationReportDocument.xaml";
-                ExportPDF(lfReportTempl, lfPdfFile);
+                ExportPDF(lfReportTempl, lfPdfFile, reportModel);
                 File.Copy(lfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_LF.pdf", true);
                 string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf";
                 string sfReportTempl = "Views/SummaryReportDocument.xaml";                
@@ -384,16 +393,16 @@ namespace MEIKReport.Views
                 {
                     sfReportTempl = "Views/SummaryReportImageDocument.xaml";                                        
                 }
-                ExportPDF(sfReportTempl, sfPdfFile);
+                ExportPDF(sfReportTempl, sfPdfFile, reportModel);
                 File.Copy(sfPdfFile, person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_SF.pdf", true);
 
-                MessageBox.Show(App.Current.FindResource("Message_2").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_2").ToString());
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show(App.Current.FindResource("Message_3").ToString() + ex.Message);
+                MessageBox.Show(this, App.Current.FindResource("Message_3").ToString() + ex.Message);
             }
         }
 
@@ -404,16 +413,17 @@ namespace MEIKReport.Views
         {
             shortFormReportModel.DataUserCode = this.dataUserCode.Text;
             shortFormReportModel.DataAge = this.dataAge.Text;
-            shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;
+            shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.SelectedIndex.ToString();
+            shortFormReportModel.DataRecommendation = this.dataRecommendation.SelectedIndex.ToString();
             shortFormReportModel.DataComments = this.dataComments.Text;
-            shortFormReportModel.DataConclusion = this.dataConclusion.Text;
+            shortFormReportModel.DataConclusion = this.dataConclusion.SelectedIndex.ToString();
+            shortFormReportModel.DataFurtherExam = this.dataFurtherExam.SelectedIndex.ToString();
             //shortFormReportModel.DataConclusion2 = this.dataConclusion2.Text;
             if (this.dataDoctor.SelectedItem != null)
             {
                 var doctor = this.dataDoctor.SelectedItem as User;
                 shortFormReportModel.DataDoctor = doctor.Name;
-                shortFormReportModel.DataDoctorLicense = doctor.License;
-                shortFormReportModel.DataFurtherExam = this.dataFurtherExam.Text;
+                shortFormReportModel.DataDoctorLicense = doctor.License;                
             }
             if (this.dataMeikTech.SelectedItem != null)
             {
@@ -425,51 +435,50 @@ namespace MEIKReport.Views
             shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
             
             shortFormReportModel.DataName = this.dataName.Text;
-            shortFormReportModel.DataRecommendation = this.dataRecommendation.Text;
-            
+                        
             shortFormReportModel.DataRightLocation = this.dataRightLocation.Text;
             shortFormReportModel.DataRightSize = this.dataRightSize.Text;
             shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
             shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
             
             shortFormReportModel.DataAddress = this.dataAddress.Text;
-            shortFormReportModel.DataGender = this.dataGender.Text;
+            shortFormReportModel.DataGender = this.dataGender.SelectedIndex.ToString();
             shortFormReportModel.DataHealthCard = this.dataHealthCard.Text;
             shortFormReportModel.DataWeight = this.dataWeight.Text;
-            shortFormReportModel.DataWeightUnit = this.dataWeightUnit.Text;
-            shortFormReportModel.DataMenstrualCycle = this.dataMenstrualCycle.Text;
+            shortFormReportModel.DataWeightUnit = this.dataWeightUnit.SelectedIndex.ToString();
+            shortFormReportModel.DataMenstrualCycle = this.dataMenstrualCycle.SelectedIndex.ToString();
             shortFormReportModel.DataHormones = this.dataHormones.Text;
-            shortFormReportModel.DataSkinAffections = this.dataSkinAffections.Text;
-            shortFormReportModel.DataPertinentHistory = this.dataPertinentHistory.Text;
+            shortFormReportModel.DataSkinAffections = this.dataSkinAffections.SelectedIndex.ToString();
+            shortFormReportModel.DataPertinentHistory = this.dataPertinentHistory.SelectedIndex.ToString();
             shortFormReportModel.DataPertinentHistory1 = this.dataPertinentHistory1.Text;
-            shortFormReportModel.DataMotherUltra = this.dataMotherUltra.Text;
+            shortFormReportModel.DataMotherUltra = this.dataMotherUltra.SelectedIndex.ToString();
             shortFormReportModel.DataLeftBreast = this.dataLeftBreast.Text;
             shortFormReportModel.DataRightBreast = this.dataRightBreast.Text;
-            shortFormReportModel.DataLeftPalpableMass = this.dataLeftPalpableMass.Text;
-            shortFormReportModel.DataRightPalpableMass = this.dataRightPalpableMass.Text;
-            shortFormReportModel.DataLeftChangesOfElectricalConductivity = this.dataLeftChangesOfElectricalConductivity.Text;
-            shortFormReportModel.DataRightChangesOfElectricalConductivity = this.dataRightChangesOfElectricalConductivity.Text;
-            shortFormReportModel.DataLeftMammaryStruct = this.dataLeftMammaryStruct.Text;
-            shortFormReportModel.DataRightMammaryStruct = this.dataRightMammaryStruct.Text;
-            shortFormReportModel.DataLeftLactiferousSinusZone = this.dataLeftLactiferousSinusZone.Text;
-            shortFormReportModel.DataRightLactiferousSinusZone = this.dataRightLactiferousSinusZone.Text;
-            shortFormReportModel.DataLeftMammaryContour = this.dataLeftMammaryContour.Text;
-            shortFormReportModel.DataRightMammaryContour = this.dataRightMammaryContour.Text;
+            shortFormReportModel.DataLeftPalpableMass = this.dataLeftPalpableMass.SelectedIndex.ToString();
+            shortFormReportModel.DataRightPalpableMass = this.dataRightPalpableMass.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftChangesOfElectricalConductivity = this.dataLeftChangesOfElectricalConductivity.SelectedIndex.ToString();
+            shortFormReportModel.DataRightChangesOfElectricalConductivity = this.dataRightChangesOfElectricalConductivity.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftMammaryStruct = this.dataLeftMammaryStruct.SelectedIndex.ToString();
+            shortFormReportModel.DataRightMammaryStruct = this.dataRightMammaryStruct.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftLactiferousSinusZone = this.dataLeftLactiferousSinusZone.SelectedIndex.ToString();
+            shortFormReportModel.DataRightLactiferousSinusZone = this.dataRightLactiferousSinusZone.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftMammaryContour = this.dataLeftMammaryContour.SelectedIndex.ToString();
+            shortFormReportModel.DataRightMammaryContour = this.dataRightMammaryContour.SelectedIndex.ToString();
 
             shortFormReportModel.DataLeftNumber = this.dataLeftNumber.Text;
             shortFormReportModel.DataRightNumber = this.dataRightNumber.Text;
-            shortFormReportModel.DataLeftShape = this.dataLeftShape.Text;
-            shortFormReportModel.DataRightShape = this.dataRightShape.Text;
-            shortFormReportModel.DataLeftContourAroundFocus = this.dataLeftContourAroundFocus.Text;
-            shortFormReportModel.DataRightContourAroundFocus = this.dataRightContourAroundFocus.Text;
-            shortFormReportModel.DataLeftInternalElectricalStructure = this.dataLeftInternalElectricalStructure.Text;
-            shortFormReportModel.DataRightInternalElectricalStructure = this.dataRightInternalElectricalStructure.Text;
-            shortFormReportModel.DataLeftSurroundingTissues = this.dataLeftSurroundingTissues.Text;
-            shortFormReportModel.DataRightSurroundingTissues = this.dataRightSurroundingTissues.Text;
-            shortFormReportModel.DataLeftOncomarkerHighlightBenignChanges = this.dataLeftOncomarkerHighlightBenignChanges.Text;
-            shortFormReportModel.DataRightOncomarkerHighlightBenignChanges = this.dataRightOncomarkerHighlightBenignChanges.Text;
-            shortFormReportModel.DataLeftOncomarkerHighlightSuspiciousChanges = this.dataLeftOncomarkerHighlightSuspiciousChanges.Text;
-            shortFormReportModel.DataRightOncomarkerHighlightSuspiciousChanges = this.dataRightOncomarkerHighlightSuspiciousChanges.Text;
+            shortFormReportModel.DataLeftShape = this.dataLeftShape.SelectedIndex.ToString();
+            shortFormReportModel.DataRightShape = this.dataRightShape.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftContourAroundFocus = this.dataLeftContourAroundFocus.SelectedIndex.ToString();
+            shortFormReportModel.DataRightContourAroundFocus = this.dataRightContourAroundFocus.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftInternalElectricalStructure = this.dataLeftInternalElectricalStructure.SelectedIndex.ToString();
+            shortFormReportModel.DataRightInternalElectricalStructure = this.dataRightInternalElectricalStructure.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSurroundingTissues = this.dataLeftSurroundingTissues.SelectedIndex.ToString();
+            shortFormReportModel.DataRightSurroundingTissues = this.dataRightSurroundingTissues.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftOncomarkerHighlightBenignChanges = this.dataLeftOncomarkerHighlightBenignChanges.SelectedIndex.ToString();
+            shortFormReportModel.DataRightOncomarkerHighlightBenignChanges = this.dataRightOncomarkerHighlightBenignChanges.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftOncomarkerHighlightSuspiciousChanges = this.dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex.ToString();
+            shortFormReportModel.DataRightOncomarkerHighlightSuspiciousChanges = this.dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex.ToString();
             shortFormReportModel.DataLeftMeanElectricalConductivity1 = this.dataLeftMeanElectricalConductivity1.Text;
             shortFormReportModel.DataLeftMeanElectricalConductivity1N1 = this.dataLeftMeanElectricalConductivity1N1.Text;
             shortFormReportModel.DataLeftMeanElectricalConductivity1N2 = this.dataLeftMeanElectricalConductivity1N2.Text;
@@ -484,7 +493,7 @@ namespace MEIKReport.Views
             shortFormReportModel.DataRightMeanElectricalConductivity2N1 = this.dataRightMeanElectricalConductivity2N1.Text;
             shortFormReportModel.DataRightMeanElectricalConductivity2N2 = this.dataRightMeanElectricalConductivity2N2.Text;
 
-            shortFormReportModel.DataMeanElectricalConductivity3 = this.dataMeanElectricalConductivity3.Text;
+            shortFormReportModel.DataMeanElectricalConductivity3 = this.dataMeanElectricalConductivity3.SelectedIndex.ToString();
             shortFormReportModel.DataLeftMeanElectricalConductivity3 = this.dataLeftMeanElectricalConductivity3.Text;
             shortFormReportModel.DataLeftMeanElectricalConductivity3N1 = this.dataLeftMeanElectricalConductivity3N1.Text;
             shortFormReportModel.DataLeftMeanElectricalConductivity3N2 = this.dataLeftMeanElectricalConductivity3N2.Text;
@@ -498,7 +507,7 @@ namespace MEIKReport.Views
             //shortFormReportModel.DataComparativeElectricalConductivityReference2 = this.dataComparativeElectricalConductivityReference2.Text;
             shortFormReportModel.DataLeftComparativeElectricalConductivity2 = this.dataLeftComparativeElectricalConductivity2.Text;
             //shortFormReportModel.DataRightComparativeElectricalConductivity2 = this.dataRightComparativeElectricalConductivity2.Text;
-            shortFormReportModel.DataComparativeElectricalConductivity3 = this.dataComparativeElectricalConductivity3.Text;
+            shortFormReportModel.DataComparativeElectricalConductivity3 = this.dataComparativeElectricalConductivity3.SelectedIndex.ToString();
             shortFormReportModel.DataLeftComparativeElectricalConductivity3 = this.dataLeftComparativeElectricalConductivity3.Text;
             //shortFormReportModel.DataRightComparativeElectricalConductivity3 = this.dataRightComparativeElectricalConductivity3.Text;
 
@@ -508,7 +517,7 @@ namespace MEIKReport.Views
             //shortFormReportModel.DataDivergenceBetweenHistogramsReference2 = this.dataDivergenceBetweenHistogramsReference2.Text;
             shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = this.dataLeftDivergenceBetweenHistograms2.Text;
             //shortFormReportModel.DataRightDivergenceBetweenHistograms2 = this.dataRightDivergenceBetweenHistograms2.Text;
-            shortFormReportModel.DataDivergenceBetweenHistograms3 = this.dataDivergenceBetweenHistograms3.Text;
+            shortFormReportModel.DataDivergenceBetweenHistograms3 = this.dataDivergenceBetweenHistograms3.SelectedIndex.ToString();
             shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = this.dataLeftDivergenceBetweenHistograms3.Text;
             //shortFormReportModel.DataRightDivergenceBetweenHistograms3 = this.dataRightDivergenceBetweenHistograms3.Text;
 
@@ -520,25 +529,25 @@ namespace MEIKReport.Views
             shortFormReportModel.DataRightPhaseElectricalConductivity = this.dataRightPhaseElectricalConductivity.Text;
 
             shortFormReportModel.DataAgeElectricalConductivityReference = this.dataAgeElectricalConductivityReference.Text;
-            shortFormReportModel.DataLeftAgeElectricalConductivity = this.dataLeftAgeElectricalConductivity.Text;
-            shortFormReportModel.DataRightAgeElectricalConductivity = this.dataRightAgeElectricalConductivity.Text;
-            shortFormReportModel.DataAgeValueOfEC = this.dataAgeValueOfEC.Text;
+            shortFormReportModel.DataLeftAgeElectricalConductivity = this.dataLeftAgeElectricalConductivity.SelectedIndex.ToString();
+            shortFormReportModel.DataRightAgeElectricalConductivity = this.dataRightAgeElectricalConductivity.SelectedIndex.ToString();
+            shortFormReportModel.DataAgeValueOfEC = this.dataAgeValueOfEC.SelectedIndex.ToString();
 
-            shortFormReportModel.DataExamConclusion = this.dataExamConclusion.Text;
-            shortFormReportModel.DataLeftMammaryGland = this.dataLeftMammaryGland.Text;
-            shortFormReportModel.DataLeftAgeRelated = this.dataLeftAgeRelated.Text;
+            shortFormReportModel.DataExamConclusion = this.dataExamConclusion.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftMammaryGland = this.dataLeftMammaryGland.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftAgeRelated = this.dataLeftAgeRelated.SelectedIndex.ToString();
             shortFormReportModel.DataLeftMeanECOfLesion = this.dataLeftMeanECOfLesion.Text;
-            shortFormReportModel.DataLeftFindings = this.dataLeftFindings.Text;
-            shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.Text;
+            shortFormReportModel.DataLeftFindings = this.dataLeftFindings.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.SelectedIndex.ToString();
 
-            shortFormReportModel.DataRightMammaryGland = this.dataRightMammaryGland.Text;
-            shortFormReportModel.DataRightAgeRelated = this.dataRightAgeRelated.Text;
+            shortFormReportModel.DataRightMammaryGland = this.dataRightMammaryGland.SelectedIndex.ToString();
+            shortFormReportModel.DataRightAgeRelated = this.dataRightAgeRelated.SelectedIndex.ToString();
             shortFormReportModel.DataRightMeanECOfLesion = this.dataRightMeanECOfLesion.Text;
-            shortFormReportModel.DataRightFindings = this.dataRightFindings.Text;
-            shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
+            shortFormReportModel.DataRightFindings = this.dataRightFindings.SelectedIndex.ToString();
+            shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.SelectedIndex.ToString();
 
-            shortFormReportModel.DataTotalPts = this.dataTotalPts.Text;
-            shortFormReportModel.DataPoint = this.dataPoint.Text;
+            shortFormReportModel.DataTotalPts = this.dataTotalPts.SelectedIndex.ToString();
+            shortFormReportModel.DataPoint = this.dataPoint.SelectedIndex.ToString();
             
             var signImg = this.dataSignImg.Source as BitmapImage;
             if (signImg != null)
@@ -552,11 +561,72 @@ namespace MEIKReport.Views
                 shortFormReportModel.DataSignImg = buffer;
             }
             
+            
+        }
+
+        /// <summary>
+        /// 克隆数据模型对象
+        /// </summary>
+        private ShortFormReport CloneReportModel()
+        {
+            ShortFormReport reportModel = shortFormReportModel.Clone();            
+            reportModel = shortFormReportModel.Clone();
+            reportModel.DataGender = this.dataGender.Text;
+            reportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;
+            reportModel.DataRecommendation = this.dataRecommendation.Text;
+            reportModel.DataConclusion = this.dataConclusion.Text;
+            reportModel.DataFurtherExam = this.dataFurtherExam.Text;
+            reportModel.DataWeightUnit = this.dataWeightUnit.Text;
+            reportModel.DataMenstrualCycle = this.dataMenstrualCycle.Text;
+            reportModel.DataSkinAffections = this.dataSkinAffections.Text;
+            reportModel.DataPertinentHistory = this.dataPertinentHistory.Text;
+            reportModel.DataMotherUltra = this.dataMotherUltra.Text;
+            reportModel.DataLeftPalpableMass = this.dataLeftPalpableMass.Text;
+            reportModel.DataRightPalpableMass = this.dataRightPalpableMass.Text;
+            reportModel.DataLeftChangesOfElectricalConductivity = this.dataLeftChangesOfElectricalConductivity.Text;
+            reportModel.DataRightChangesOfElectricalConductivity = this.dataRightChangesOfElectricalConductivity.Text;
+            reportModel.DataLeftMammaryStruct = this.dataLeftMammaryStruct.Text;
+            reportModel.DataRightMammaryStruct = this.dataRightMammaryStruct.Text;
+            reportModel.DataLeftLactiferousSinusZone = this.dataLeftLactiferousSinusZone.Text;
+            reportModel.DataRightLactiferousSinusZone = this.dataRightLactiferousSinusZone.Text;
+            reportModel.DataLeftMammaryContour = this.dataLeftMammaryContour.Text;
+            reportModel.DataRightMammaryContour = this.dataRightMammaryContour.Text;
+            reportModel.DataLeftShape = this.dataLeftShape.Text;
+            reportModel.DataRightShape = this.dataRightShape.Text;
+            reportModel.DataLeftContourAroundFocus = this.dataLeftContourAroundFocus.Text;
+            reportModel.DataRightContourAroundFocus = this.dataRightContourAroundFocus.Text;
+            reportModel.DataLeftInternalElectricalStructure = this.dataLeftInternalElectricalStructure.Text;
+            reportModel.DataRightInternalElectricalStructure = this.dataRightInternalElectricalStructure.Text;
+            reportModel.DataLeftSurroundingTissues = this.dataLeftSurroundingTissues.Text;
+            reportModel.DataRightSurroundingTissues = this.dataRightSurroundingTissues.Text;
+            reportModel.DataLeftOncomarkerHighlightBenignChanges = this.dataLeftOncomarkerHighlightBenignChanges.Text;
+            reportModel.DataRightOncomarkerHighlightBenignChanges = this.dataRightOncomarkerHighlightBenignChanges.Text;
+            reportModel.DataLeftOncomarkerHighlightSuspiciousChanges = this.dataLeftOncomarkerHighlightSuspiciousChanges.Text;
+            reportModel.DataRightOncomarkerHighlightSuspiciousChanges = this.dataRightOncomarkerHighlightSuspiciousChanges.Text;
+            reportModel.DataMeanElectricalConductivity3 = this.dataMeanElectricalConductivity3.Text;
+            reportModel.DataComparativeElectricalConductivity3 = this.dataComparativeElectricalConductivity3.Text;
+            reportModel.DataDivergenceBetweenHistograms3 = this.dataDivergenceBetweenHistograms3.Text;
+            reportModel.DataLeftAgeElectricalConductivity = this.dataLeftAgeElectricalConductivity.Text;
+            reportModel.DataRightAgeElectricalConductivity = this.dataRightAgeElectricalConductivity.Text;
+            reportModel.DataAgeValueOfEC = this.dataAgeValueOfEC.Text;
+            reportModel.DataExamConclusion = this.dataExamConclusion.Text;
+            reportModel.DataLeftMammaryGland = this.dataLeftMammaryGland.Text;
+            reportModel.DataLeftAgeRelated = this.dataLeftAgeRelated.Text;
+            reportModel.DataLeftFindings = this.dataLeftFindings.Text;
+            reportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.Text;
+            reportModel.DataRightMammaryGland = this.dataRightMammaryGland.Text;
+            reportModel.DataRightAgeRelated = this.dataRightAgeRelated.Text;
+            reportModel.DataRightFindings = this.dataRightFindings.Text;
+            reportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
+            reportModel.DataTotalPts = this.dataTotalPts.Text;
+            reportModel.DataPoint = this.dataPoint.Text;
+
+            return reportModel;            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_4").ToString(), "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(null);
@@ -577,7 +647,7 @@ namespace MEIKReport.Views
                     FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                     FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
                 }
-                LoadDataModel();
+                LoadDataModel();                
                 string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
                 //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 //string xpsFile = userTempPath + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
@@ -585,7 +655,8 @@ namespace MEIKReport.Views
                 {
                     File.Delete(xpsFile);
                 }
-                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
+                var reportModel = CloneReportModel();
+                FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", reportModel);
                 XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
                 //将flow document写入基于内存的xps document中去
                 XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
@@ -601,18 +672,18 @@ namespace MEIKReport.Views
                     //}
                     //PDFTools.SavePDFFile(xpsFile, pdfFile);
                     PDFTools.SavePDFFile(xpsFile, dlg.FileName);
-                    MessageBox.Show(App.Current.FindResource("Message_5").ToString());
+                    MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
                 }
             }
             catch (Exception ex)
             {
                 FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
                 FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
         }
 
-        private void ExportPDF(string reportTempl,string pdfFile)
+        private void ExportPDF(string reportTempl,string pdfFile,ShortFormReport reportModel)
         {
             string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
             //string userTempPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -621,19 +692,19 @@ namespace MEIKReport.Views
             {
                 File.Delete(xpsFile);
             }
-
-            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, shortFormReportModel);
+            
+            FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, reportModel);
             
             XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
             //将flow document写入基于内存的xps document中去
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
             writer.Write(page);
-            xpsDocument.Close();            
+            xpsDocument.Close();
             if (File.Exists(pdfFile))
             {
                 File.Delete(pdfFile);
-            }            
-            PDFTools.SavePDFFile(xpsFile, pdfFile);                        
+            }
+            PDFTools.SavePDFFile(xpsFile, pdfFile);            
         }        
 
         private void saveAsBtn_Click(object sender, RoutedEventArgs e)
@@ -644,7 +715,7 @@ namespace MEIKReport.Views
             if (!string.IsNullOrEmpty(folderName))
             {
                 SaveReport(folderName);
-                MessageBox.Show(App.Current.FindResource("Message_6").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_6").ToString());
             }
 
         }
@@ -725,7 +796,7 @@ namespace MEIKReport.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("System Exception: " + ex.Message);
+                MessageBox.Show(this, "System Exception: " + ex.Message);
             } 
         }
 
@@ -785,11 +856,11 @@ namespace MEIKReport.Views
                 shortFormReportModel.DataLeftAgeRelated = shortFormReport.DataLeftAgeRelated;
                 shortFormReportModel.DataRightMammaryGland = shortFormReport.DataRightMammaryGland;
                 shortFormReportModel.DataRightAgeRelated = shortFormReport.DataRightAgeRelated;
-                MessageBox.Show(App.Current.FindResource("Message_27").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_27").ToString());
             }
             else
             {
-                MessageBox.Show(App.Current.FindResource("Message_26").ToString());
+                MessageBox.Show(this,App.Current.FindResource("Message_26").ToString());
             }
         }
 

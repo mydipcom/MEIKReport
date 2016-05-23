@@ -71,7 +71,7 @@
     <sys:String x:Key="Message_25">创建患者档案目录{0}失败{1}</sys:String>
     <sys:String x:Key="Message_26">没有在患者文件夹中找到基础报告文档, 请先在诊断窗口访问报告功能生成基础报告文档。</sys:String>
     <sys:String x:Key="Message_27">从基础报告文档更新数据到当前报告成功。</sys:String>
-    <sys:String x:Key="Message_28">请选择发送数据的技术员名称.</sys:String>
+    <sys:String x:Key="Message_28">请选择发送数据的检测员名称.</sys:String>
     <sys:String x:Key="Message_29">输入的内容不允许包含';'或'|'.</sys:String>
     
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
@@ -93,13 +93,13 @@
     <sys:String x:Key="SettingReportTabTitle">报表设置</sys:String>
     <sys:String x:Key="SettingReportNameGroupHeader">用户信息</sys:String>
     <sys:String x:Key="SettingReportDoctorNameLab">医生</sys:String>
-    <sys:String x:Key="SettingReportTechNameLab">技术员</sys:String>
+    <sys:String x:Key="SettingReportTechNameLab">检测员</sys:String>
     <sys:String x:Key="SettingReportPrintGroupHeader">默认的打印纸张</sys:String>
     <sys:String x:Key="SettingEmailTitle">默认的电子邮箱设置</sys:String>
     <sys:String x:Key="SettingEmailDesc">下面是当前的一些电子邮箱相关参数设置，您可以随时修改它们.</sys:String>
     <sys:String x:Key="SettingEmailTabTitle">Email设置</sys:String>
     <sys:String x:Key="SettingEmailHost">SMTP主机</sys:String>
-    <sys:String x:Key="SettingEmailPort">SMTP地址</sys:String>
+    <sys:String x:Key="SettingEmailPort">SMTP端口</sys:String>
     <sys:String x:Key="SettingEmailSSL">使用SSL</sys:String>
     <sys:String x:Key="SettingEmailUsername">SMTP帐号</sys:String>
     <sys:String x:Key="SettingEmailPassword">SMTP密码</sys:String>
@@ -391,5 +391,5 @@
     <sys:String x:Key="ReportContext_197">MEIK v.5.6 -乳腺成像总结报告</sys:String>
     <sys:String x:Key="ReportContext_198">乳腺电阻抗检查报告</sys:String>
     <sys:String x:Key="ReportContext_199">3D乳腺成像 – MEIK v.5.6</sys:String>
-    <sys:String x:Key="ReportContext_200">证书编号:</sys:String>
+    <sys:String x:Key="ReportContext_200">授权编号:</sys:String>
 </ResourceDictionary>

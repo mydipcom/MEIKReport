@@ -106,12 +106,12 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Mail", "Mail SSL", App.reportSettingModel.MailSsl.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
 
                 OperateIniFile.WriteIniData("Device", "Device No", App.reportSettingModel.DeviceNo.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                OperateIniFile.WriteIniData("Device", "Device Type", App.reportSettingModel.DeviceType.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                
-                MessageBox.Show(App.Current.FindResource("Message_14").ToString());
+                OperateIniFile.WriteIniData("Device", "Device Type", App.reportSettingModel.DeviceType.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                MessageBox.Show(this, App.Current.FindResource("Message_14").ToString());
             }
             catch (Exception ex)
             {
-                MessageBox.Show(App.Current.FindResource("Message_13").ToString()+" "+ex.Message);
+                MessageBox.Show(this, App.Current.FindResource("Message_13").ToString() + " " + ex.Message);
             }
         }
 
@@ -222,7 +222,7 @@ namespace MEIKReport
             }
             catch (Exception ex)
             {
-                MessageBox.Show(App.Current.FindResource("Message_9").ToString()+" " + ex.Message);
+                MessageBox.Show(this, App.Current.FindResource("Message_9").ToString() + " " + ex.Message);
             }
         }
     }
