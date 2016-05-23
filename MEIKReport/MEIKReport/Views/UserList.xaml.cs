@@ -226,16 +226,20 @@ namespace MEIKReport
                         person.Lactation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "lactation", "0", NextFile.FullName)));
                         person.OtherDesc = OperateIniFile.ReadIniData("Complaints", "other description", "", NextFile.FullName);
                         person.PregnancyTerm = OperateIniFile.ReadIniData("Complaints", "pregnancy term", "", NextFile.FullName);
-                        person.OtherDesc = person.OtherDesc.Replace(";;;;", "\r\n");
-
+                        person.OtherDesc = person.OtherDesc.Replace(";;", "\r\n");
+                        person.PregnancyTerm = person.PregnancyTerm.Replace(";;", "\r\n");
 
                         person.MenstrualCycleDisorder = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder", "0", NextFile.FullName)));
                         person.Postmenopause = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "postmenopause", "0", NextFile.FullName)));
                         person.HormonalContraceptives = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "hormonal contraceptives", "0", NextFile.FullName)));
                         person.MenstrualCycleDisorderDesc = OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder description", "", NextFile.FullName);
+                        person.MenstrualCycleDisorderDesc = person.MenstrualCycleDisorderDesc.Replace(";;", "\r\n");
                         person.PostmenopauseDesc = OperateIniFile.ReadIniData("Menses", "postmenopause description", "", NextFile.FullName);
+                        person.PostmenopauseDesc = person.PostmenopauseDesc.Replace(";;", "\r\n");
                         person.HormonalContraceptivesBrandName = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives brand name", "", NextFile.FullName);
+                        person.HormonalContraceptivesBrandName = person.HormonalContraceptivesBrandName.Replace(";;", "\r\n");
                         person.HormonalContraceptivesPeriod = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives period", "", NextFile.FullName);
+                        person.HormonalContraceptivesPeriod = person.HormonalContraceptivesPeriod.Replace(";;", "\r\n");
 
 
                         person.Adiposity = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "adiposity", "0", NextFile.FullName)));
@@ -244,9 +248,13 @@ namespace MEIKReport
                         person.ThyroidGlandDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases", "0", NextFile.FullName)));
                         person.SomaticOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "other", "0", NextFile.FullName)));
                         person.EssentialHypertensionDesc = OperateIniFile.ReadIniData("Somatic", "essential hypertension description", "", NextFile.FullName);
+                        person.EssentialHypertensionDesc = person.EssentialHypertensionDesc.Replace(";;", "\r\n");
                         person.DiabetesDesc = OperateIniFile.ReadIniData("Somatic", "diabetes description", "", NextFile.FullName);
+                        person.DiabetesDesc = person.DiabetesDesc.Replace(";;", "\r\n");
                         person.ThyroidGlandDiseasesDesc = OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases description", "", NextFile.FullName);
+                        person.ThyroidGlandDiseasesDesc = person.ThyroidGlandDiseasesDesc.Replace(";;", "\r\n");
                         person.SomaticOtherDesc = OperateIniFile.ReadIniData("Somatic", "other description", "", NextFile.FullName);
+                        person.SomaticOtherDesc = person.SomaticOtherDesc.Replace(";;", "\r\n");
 
 
                         person.Infertility = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "infertility", "0", NextFile.FullName)));
@@ -262,9 +270,13 @@ namespace MEIKReport
                         person.UterusOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus other", "0", NextFile.FullName)));
                         person.GynecologicOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "other", "0", NextFile.FullName)));
                         person.InfertilityDesc = OperateIniFile.ReadIniData("Gynecologic", "infertility-description", "", NextFile.FullName);
+                        person.InfertilityDesc = person.InfertilityDesc.Replace(";;", "\r\n");
                         person.OvaryOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "ovary other description", "", NextFile.FullName);
+                        person.OvaryOtherDesc = person.OvaryOtherDesc.Replace(";;", "\r\n");
                         person.UterusOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "uterus other description", "", NextFile.FullName);
+                        person.UterusOtherDesc = person.UterusOtherDesc.Replace(";;", "\r\n");
                         person.GynecologicOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "other description", "", NextFile.FullName);
+                        person.GynecologicOtherDesc = person.GynecologicOtherDesc.Replace(";;", "\r\n");
 
 
                         person.Abortions = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "abortions", "0", NextFile.FullName)));
@@ -273,9 +285,9 @@ namespace MEIKReport
                         person.BirthsNumber = OperateIniFile.ReadIniData("Obstetric", "births number", "", NextFile.FullName);
 
 
-                        person.Infertility = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 month", "0", NextFile.FullName)));
-                        person.OvaryDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 year", "0", NextFile.FullName)));
-                        person.OvaryCyst = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation over 1 year", "0", NextFile.FullName)));
+                        person.LactationTill1Month = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 month", "0", NextFile.FullName)));
+                        person.LactationTill1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 year", "0", NextFile.FullName)));
+                        person.LactationOver1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation over 1 year", "0", NextFile.FullName)));
 
 
                         person.Trauma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "trauma", "0", NextFile.FullName)));
@@ -285,24 +297,33 @@ namespace MEIKReport
                         person.Cancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "cancer", "0", NextFile.FullName)));
                         person.DiseasesOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "other", "0", NextFile.FullName)));
                         person.TraumaDesc = OperateIniFile.ReadIniData("Diseases", "trauma description", "", NextFile.FullName);
+                        person.TraumaDesc = person.TraumaDesc.Replace(";;", "\r\n");
                         person.MastitisDesc = OperateIniFile.ReadIniData("Diseases", "mastitis description", "", NextFile.FullName);
+                        person.MastitisDesc = person.MastitisDesc.Replace(";;", "\r\n");
                         person.FibrousCysticMastopathyDesc = OperateIniFile.ReadIniData("Diseases", "fibrous- cystic mastopathy description", "", NextFile.FullName);
+                        person.FibrousCysticMastopathyDesc = person.FibrousCysticMastopathyDesc.Replace(";;", "\r\n");
                         person.CystsDesc = OperateIniFile.ReadIniData("Diseases", "cysts descriptuin", "", NextFile.FullName);
+                        person.CystsDesc = person.CystsDesc.Replace(";;", "\r\n");
                         person.CancerDesc = OperateIniFile.ReadIniData("Diseases", "cancer description", "", NextFile.FullName);
+                        person.CancerDesc = person.CancerDesc.Replace(";;", "\r\n");
                         person.DiseasesOtherDesc = OperateIniFile.ReadIniData("Diseases", "other description", "", NextFile.FullName);
+                        person.DiseasesOtherDesc = person.DiseasesOtherDesc.Replace(";;", "\r\n");
 
 
                         person.PalpationDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "diffuse", "0", NextFile.FullName)));
                         person.PalpationFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "focal", "0", NextFile.FullName)));
                         person.PalpationDesc = OperateIniFile.ReadIniData("Palpation", "description", "", NextFile.FullName);
+                        person.PalpationDesc = person.PalpationDesc.Replace(";;", "\r\n");
 
                         person.UltrasoundDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "diffuse", "0", NextFile.FullName)));
                         person.UltrasoundFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "focal", "0", NextFile.FullName)));
                         person.UltrasoundnDesc = OperateIniFile.ReadIniData("Ultrasound", "description", "", NextFile.FullName);
+                        person.UltrasoundnDesc = person.UltrasoundnDesc.Replace(";;", "\r\n");
 
                         person.MammographyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "diffuse", "0", NextFile.FullName)));
                         person.MammographyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "focal", "0", NextFile.FullName)));
                         person.MammographyDesc = OperateIniFile.ReadIniData("Mammography", "description", "", NextFile.FullName);
+                        person.MammographyDesc = person.MammographyDesc.Replace(";;", "\r\n");
 
                         person.BiopsyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "diffuse", "0", NextFile.FullName)));
                         person.BiopsyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "focal", "0", NextFile.FullName)));
@@ -313,6 +334,7 @@ namespace MEIKReport
                         person.BiopsyFibroadenoma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "fibroadenoma", "0", NextFile.FullName)));
                         person.BiopsyOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "other", "0", NextFile.FullName)));
                         person.BiopsyOtherDesc = OperateIniFile.ReadIniData("Biopsy", "other description", "", NextFile.FullName);
+                        person.BiopsyOtherDesc = person.BiopsyOtherDesc.Replace(";;", "\r\n");
 
                         set.Add(person);
                     }
@@ -753,6 +775,251 @@ namespace MEIKReport
                 
             }
             OperateIniFile.WriteIniData("Base", "Language", local, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var person = this.CodeListBox.SelectedItem as Person;
+
+                //Personal Data
+                person.SurName = this.txtName.Text;
+                OperateIniFile.WriteIniData("Personal data", "surname", this.txtName.Text, person.CrdFilePath);
+                person.GivenName = this.txtGivenName.Text;
+                OperateIniFile.WriteIniData("Personal data", "given name", this.txtGivenName.Text, person.CrdFilePath);
+                person.OtherName = this.txtOtherName.Text;
+                OperateIniFile.WriteIniData("Personal data", "other name", this.txtOtherName.Text, person.CrdFilePath);
+                person.Address = this.txtAddress.Text;
+                OperateIniFile.WriteIniData("Personal data", "address", this.txtAddress.Text, person.CrdFilePath);
+                person.BirthDate = this.txtBirthDate.Text;
+                OperateIniFile.WriteIniData("Personal data", "birth date", this.txtBirthDate.Text, person.CrdFilePath);
+                person.BirthMonth = this.txtBirthMonth.Text;
+                OperateIniFile.WriteIniData("Personal data", "birth month", this.txtBirthMonth.Text, person.CrdFilePath);
+                person.BirthYear = this.txtBirthYear.Text;
+                OperateIniFile.WriteIniData("Personal data", "birth year", this.txtBirthYear.Text, person.CrdFilePath);
+                person.RegDate = this.txtRegDate.Text;
+                OperateIniFile.WriteIniData("Personal data", "registration date", this.txtRegDate.Text, person.CrdFilePath);
+                person.RegMonth = this.txttRegMonth.Text;
+                OperateIniFile.WriteIniData("Personal data", "registration month", this.txttRegMonth.Text, person.CrdFilePath);
+                person.RegYear = this.txttRegYear.Text;
+                OperateIniFile.WriteIniData("Personal data", "registration year", this.txttRegYear.Text, person.CrdFilePath);
+
+                person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
+                if (!string.IsNullOrEmpty(person.Birthday))
+                {
+                    int m_Y1 = DateTime.Parse(person.Birthday).Year;
+                    int m_Y2 = DateTime.Now.Year;
+                    person.Age = m_Y2 - m_Y1;
+                }
+
+                //Complaints
+                person.Pain = this.checkPain.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "pain", this.checkPain.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Colostrum = this.checkColostrum.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "colostrum", this.checkColostrum.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.SerousDischarge = this.checkSerousDischarge.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "serous discharge", this.checkSerousDischarge.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BloodDischarge = this.checkBloodDischarge.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "blood discharge", this.checkBloodDischarge.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Other = this.checkOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "other", this.checkOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Pregnancy = this.checkPregnancy.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "pregnancy", this.checkPregnancy.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Lactation = this.checkLactation.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "lactation", this.checkLactation.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+
+                person.OtherDesc = this.txtOtherDesc.Text;
+                var otherDesc = this.txtOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Complaints", "other description", otherDesc, person.CrdFilePath);
+                person.PregnancyTerm = this.txtPregnancyTerm.Text;
+                OperateIniFile.WriteIniData("Complaints", "pregnancy term", this.txtPregnancyTerm.Text, person.CrdFilePath);
+
+                //Anamnesis
+                person.MenstrualCycleDisorder = this.checkMenstrualCycleDisorder.IsChecked.Value;
+                OperateIniFile.WriteIniData("Menses", "menstrual cycle disorder", this.checkMenstrualCycleDisorder.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Postmenopause = this.checkPostmenopause.IsChecked.Value;
+                OperateIniFile.WriteIniData("Menses", "postmenopause", this.checkPostmenopause.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.HormonalContraceptives = this.checkHormonalContraceptives.IsChecked.Value;
+                OperateIniFile.WriteIniData("Menses", "hormonal contraceptives", this.checkHormonalContraceptives.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+
+                person.MenstrualCycleDisorderDesc = this.txtMenstrualCycleDisorderDesc.Text;
+                var menstrualCycleDisorderDesc = this.txtMenstrualCycleDisorderDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Menses", "menstrual cycle disorder description", menstrualCycleDisorderDesc, person.CrdFilePath);
+
+
+                person.PostmenopauseDesc = this.txtPostmenopauseDesc.Text;
+                var postmenopauseDesc = this.txtPostmenopauseDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Menses", "postmenopause description", postmenopauseDesc, person.CrdFilePath);
+                person.HormonalContraceptivesBrandName = this.txtHormonalContraceptivesBrandName.Text;
+                var hormonalContraceptivesBrandName = this.txtHormonalContraceptivesBrandName.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Menses", "hormonal contraceptives brand name", hormonalContraceptivesBrandName, person.CrdFilePath);
+                person.HormonalContraceptivesPeriod = this.txtHormonalContraceptivesPeriod.Text;
+                var hormonalContraceptivesPeriod = this.txtHormonalContraceptivesPeriod.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Menses", "hormonal contraceptives period", hormonalContraceptivesPeriod, person.CrdFilePath);
+
+                person.Adiposity = this.checkAdiposity.IsChecked.Value;
+                OperateIniFile.WriteIniData("Somatic", "adiposity", this.checkAdiposity.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.EssentialHypertension = this.checkEssentialHypertension.IsChecked.Value;
+                OperateIniFile.WriteIniData("Somatic", "essential hypertension", this.checkEssentialHypertension.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Diabetes = this.checkDiabetes.IsChecked.Value;
+                OperateIniFile.WriteIniData("Somatic", "diabetes", this.checkDiabetes.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.ThyroidGlandDiseases = this.checkThyroidGlandDiseases.IsChecked.Value;
+                OperateIniFile.WriteIniData("Somatic", "thyroid gland diseases", this.checkThyroidGlandDiseases.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.SomaticOther = this.checkSomaticOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Somatic", "other", this.checkSomaticOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.EssentialHypertensionDesc = this.txtEssentialHypertensionDesc.Text;
+                var essentialHypertensionDesc = this.txtEssentialHypertensionDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Somatic", "essential hypertension description", essentialHypertensionDesc, person.CrdFilePath);
+                person.DiabetesDesc = this.txtDiabetesDesc.Text;
+                var diabetesDesc = this.txtDiabetesDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Somatic", "diabetes description", diabetesDesc, person.CrdFilePath);
+                person.ThyroidGlandDiseasesDesc = this.txtThyroidGlandDiseasesDesc.Text;
+                var thyroidGlandDiseasesDesc = this.txtThyroidGlandDiseasesDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Somatic", "thyroid gland diseases description", thyroidGlandDiseasesDesc, person.CrdFilePath);
+                person.SomaticOtherDesc = this.txtSomaticOtherDesc.Text;
+                var somaticOtherDesc = this.txtSomaticOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Somatic", "other description", somaticOtherDesc, person.CrdFilePath);
+
+
+                person.Infertility = this.checkInfertility.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "infertility", this.checkInfertility.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.OvaryDiseases = this.checkOvaryDiseases.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "ovary diseases", this.checkOvaryDiseases.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.OvaryCyst = this.checkOvaryCyst.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "ovary cyst", this.checkOvaryCyst.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.OvaryCancer = this.checkOvaryCancer.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "ovary cancer", this.checkOvaryCancer.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.OvaryEndometriosis = this.checkOvaryEndometriosis.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "ovary endometriosis", this.checkOvaryEndometriosis.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.OvaryOther = this.checkOvaryOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "ovary other", this.checkOvaryOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UterusDiseases = this.checkUterusDiseases.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "uterus diseases", this.checkUterusDiseases.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UterusMyoma = this.checkUterusMyoma.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "uterus myoma", this.checkUterusMyoma.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UterusCancer = this.checkUterusCancer.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "uterus cancer", this.checkUterusCancer.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UterusEndometriosis = this.checkUterusEndometriosis.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "uterus endometriosis", this.checkUterusEndometriosis.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UterusOther = this.checkUterusOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "uterus other", this.checkUterusOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.GynecologicOther = this.checkGynecologicOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Gynecologic", "other", this.checkGynecologicOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.InfertilityDesc = this.txtInfertility.Text;
+                var infertilityDesc = this.txtInfertility.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Gynecologic", "infertility-description", infertilityDesc, person.CrdFilePath);
+                person.OvaryOtherDesc = this.txtOvaryOtherDesc.Text;
+                var ovaryOtherDesc = this.txtOvaryOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Gynecologic", "ovary other description", ovaryOtherDesc, person.CrdFilePath);
+                person.UterusOtherDesc = this.txtUterusOtherDesc.Text;
+                var uterusOtherDesc = this.txtUterusOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Gynecologic", "uterus other description", uterusOtherDesc, person.CrdFilePath);
+                person.GynecologicOtherDesc = this.txtGynecologicOtherDesc.Text;
+                var gynecologicOtherDesc = this.txtGynecologicOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Gynecologic", "other description", gynecologicOtherDesc, person.CrdFilePath);
+
+
+                person.Abortions = this.checkAbortions.IsChecked.Value;
+                OperateIniFile.WriteIniData("Obstetric", "abortions", this.checkAbortions.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Births = this.checkBirths.IsChecked.Value;
+                OperateIniFile.WriteIniData("Obstetric", "births", this.checkBirths.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.AbortionsNumber = this.txtAbortionsNumber.Text;
+                OperateIniFile.WriteIniData("Obstetric", "abortions number", this.txtAbortionsNumber.Text, person.CrdFilePath);
+                person.BirthsNumber = this.txtBirthsNumber.Text;
+                OperateIniFile.WriteIniData("Obstetric", "births number", this.txtBirthsNumber.Text, person.CrdFilePath);
+
+
+                person.LactationTill1Month = this.checkLactationTill1Month.IsChecked.Value;
+                OperateIniFile.WriteIniData("Lactation", "lactation till 1 month", this.checkLactationTill1Month.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.LactationTill1Year = this.checkLactationTill1Year.IsChecked.Value;
+                OperateIniFile.WriteIniData("Lactation", "lactation till 1 year", this.checkLactationTill1Year.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.LactationOver1Year = this.checkLactationOver1Year.IsChecked.Value;
+                OperateIniFile.WriteIniData("Lactation", "lactation over 1 year", this.checkLactationOver1Year.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+
+
+                person.Trauma = this.checkTrauma.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "trauma", this.checkTrauma.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Mastitis = this.checkMastitis.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "mastitis", this.checkMastitis.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FibrousCysticMastopathy = this.checkFibrousCysticMastopathy.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "fibrous- cystic mastopathy", this.checkFibrousCysticMastopathy.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Cysts = this.checkCysts.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "cysts", this.checkCysts.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Cancer = this.checkCancer.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "cancer", this.checkCancer.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.DiseasesOther = this.checkDiseasesOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Diseases", "other", this.checkDiseasesOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.TraumaDesc = this.txtTraumaDesc.Text;
+                var traumaDesc = this.txtTraumaDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "trauma description", traumaDesc, person.CrdFilePath);
+                person.MastitisDesc = this.txtMastitisDesc.Text;
+                var mastitisDesc = this.txtMastitisDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "mastitis description", mastitisDesc, person.CrdFilePath);
+                person.FibrousCysticMastopathyDesc = this.txtFibrousCysticMastopathyDesc.Text;
+                var fibrousCysticMastopathyDesc = this.txtFibrousCysticMastopathyDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "fibrous- cystic mastopathy description", fibrousCysticMastopathyDesc, person.CrdFilePath);
+                person.CystsDesc = this.txtCystsDesc.Text;
+                var cystsDesc = this.txtCystsDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "cysts descriptuin", cystsDesc, person.CrdFilePath);
+                person.CancerDesc = this.txtCancerDesc.Text;
+                var cancerDesc = this.txtCancerDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "cancer description", cancerDesc, person.CrdFilePath);
+                person.DiseasesOtherDesc = this.txtDiseasesOtherDesc.Text;
+                var diseasesOtherDesc = this.txtDiseasesOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Diseases", "other description", diseasesOtherDesc, person.CrdFilePath);
+
+
+                person.PalpationDiffuse = this.checkPalpationDiffuse.IsChecked.Value;
+                OperateIniFile.WriteIniData("Palpation", "diffuse", this.checkPalpationDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.PalpationFocal = this.checkPalpationFocal.IsChecked.Value;
+                OperateIniFile.WriteIniData("Palpation", "focal", this.checkPalpationFocal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.PalpationDesc = this.txtPalpationDesc.Text;
+                var palpationDesc = this.txtPalpationDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Palpation", "description", palpationDesc, person.CrdFilePath);
+
+                person.UltrasoundDiffuse = this.checkUltrasoundDiffuse.IsChecked.Value;
+                OperateIniFile.WriteIniData("Ultrasound", "diffuse", this.checkUltrasoundDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UltrasoundFocal = this.checkUltrasoundFocal.IsChecked.Value;
+                OperateIniFile.WriteIniData("Ultrasound", "focal", this.checkUltrasoundFocal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UltrasoundnDesc = this.txtUltrasoundnDesc.Text;
+                var ultrasoundnDesc = this.txtUltrasoundnDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Ultrasound", "description", ultrasoundnDesc, person.CrdFilePath);
+
+                person.MammographyDiffuse = this.checkMammographyDiffuse.IsChecked.Value;
+                OperateIniFile.WriteIniData("Mammography", "diffuse", this.checkMammographyDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MammographyFocal = this.checkMammographyFocal.IsChecked.Value;
+                OperateIniFile.WriteIniData("Mammography", "focal", this.checkMammographyFocal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MammographyDesc = this.txtMammographyDesc.Text;
+                var mammographyDesc = this.txtMammographyDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Mammography", "description", mammographyDesc, person.CrdFilePath);
+
+                person.BiopsyDiffuse = this.checkBiopsyDiffuse.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "diffuse", this.checkBiopsyDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyFocal = this.checkBiopsyFocal.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "focal", this.checkBiopsyFocal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyCancer = this.checkBiopsyCancer.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "cancer", this.checkBiopsyCancer.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyProliferation = this.checkBiopsyProliferation.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "proliferation", this.checkBiopsyProliferation.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyDysplasia = this.checkBiopsyDysplasia.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "dysplasia", this.checkBiopsyDysplasia.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyIntraductalPapilloma = this.checkBiopsyIntraductalPapilloma.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "intraductal papilloma", this.checkBiopsyIntraductalPapilloma.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyFibroadenoma = this.checkBiopsyFibroadenoma.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "fibroadenoma", this.checkBiopsyFibroadenoma.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyOther = this.checkBiopsyOther.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "other", this.checkBiopsyOther.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyOtherDesc = this.txtBiopsyOtherDesc.Text;
+                var biopsyOtherDesc = this.txtBiopsyOtherDesc.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Biopsy", "other description", biopsyOtherDesc, person.CrdFilePath);
+
+                MessageBox.Show(this, App.Current.FindResource("Message_30").ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_31").ToString()+ex.Message);
+            }
         }       
     }
 }

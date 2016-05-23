@@ -73,7 +73,9 @@
     <sys:String x:Key="Message_27">從基礎報告文檔更新數據到當前報告成功。</sys:String>
     <sys:String x:Key="Message_28">請選擇發送數據的檢測員名稱.</sys:String>
     <sys:String x:Key="Message_29">輸入的內容不允許包含';'或'|'字符.</sys:String>
-    
+    <sys:String x:Key="Message_30">更新病歷卡信息成功.</sys:String>
+    <sys:String x:Key="Message_31">更新病歷卡信息失敗，錯誤原因:</sys:String>
+
     <sys:String x:Key="UserListWinBrowerLab">選擇患者檔案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">瀏覽文件夾...</sys:String>
     <sys:String x:Key="UserListWinEditReportBtn">編輯報告</sys:String>

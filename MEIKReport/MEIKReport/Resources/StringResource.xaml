@@ -73,6 +73,8 @@
     <sys:String x:Key="Message_27">Update date from the protocol document to the examination report successfully.</sys:String>
     <sys:String x:Key="Message_28">Please select a technician.</sys:String>
     <sys:String x:Key="Message_29">The value not allowed to contain ';' or '|'.</sys:String>
+    <sys:String x:Key="Message_30">Updated the patient card successfully.</sys:String>
+    <sys:String x:Key="Message_31">Failed to update the patient card, Exception Message: </sys:String>
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">Browse...</sys:String>

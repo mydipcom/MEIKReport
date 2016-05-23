@@ -73,6 +73,8 @@
     <sys:String x:Key="Message_27">从基础报告文档更新数据到当前报告成功。</sys:String>
     <sys:String x:Key="Message_28">请选择发送数据的检测员名称.</sys:String>
     <sys:String x:Key="Message_29">输入的内容不允许包含';'或'|'.</sys:String>
+    <sys:String x:Key="Message_30">更新病历卡信息成功.</sys:String>
+    <sys:String x:Key="Message_31">更新病历卡信息失败，错误原因:</sys:String>
     
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">浏览文件夹...</sys:String>
