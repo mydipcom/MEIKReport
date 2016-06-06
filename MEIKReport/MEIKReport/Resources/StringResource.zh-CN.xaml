@@ -33,6 +33,8 @@
     <sys:String x:Key="Excel2">患者名称</sys:String>
     <sys:String x:Key="Excel3">扫描说明</sys:String>
     <sys:String x:Key="Excel4">扫描时间</sys:String>
+    <sys:String x:Key="Excel5">患者档案文件夹</sys:String>
+    <sys:String x:Key="Excel6">扫描时间</sys:String>
 
     <sys:String x:Key="MailSubject">扫描记录</sys:String>
 
@@ -71,10 +73,11 @@
     <sys:String x:Key="Message_25">创建患者档案目录{0}失败{1}</sys:String>
     <sys:String x:Key="Message_26">没有在患者文件夹中找到基础报告文档, 请先在诊断窗口访问报告功能生成基础报告文档。</sys:String>
     <sys:String x:Key="Message_27">从基础报告文档更新数据到当前报告成功。</sys:String>
-    <sys:String x:Key="Message_28">请选择发送数据的检测员名称.</sys:String>
+    <sys:String x:Key="Message_28">请选择发送数据的检测员名称, 如果没有可选择的检测员，请先请入程序设置功能页面添加检测员.</sys:String>
     <sys:String x:Key="Message_29">输入的内容不允许包含';'或'|'.</sys:String>
     <sys:String x:Key="Message_30">更新病历卡信息成功.</sys:String>
     <sys:String x:Key="Message_31">更新病历卡信息失败，错误原因:</sys:String>
+    <sys:String x:Key="Message_32">加载患者病历文件{0}失败，错误原因:</sys:String>
     
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">浏览文件夹...</sys:String>
@@ -93,7 +96,7 @@
     <sys:String x:Key="SettingReportTitle">默认的报表设置</sys:String>
     <sys:String x:Key="SettingReportDesc">下面是当前的一些报表相关参数设置，您可以随时修改它们.</sys:String>
     <sys:String x:Key="SettingReportTabTitle">报表设置</sys:String>
-    <sys:String x:Key="SettingReportNameGroupHeader">用户信息</sys:String>
+    <sys:String x:Key="SettingReportNameGroupHeader">程序使用者信息</sys:String>
     <sys:String x:Key="SettingReportDoctorNameLab">医生</sys:String>
     <sys:String x:Key="SettingReportTechNameLab">检测员</sys:String>
     <sys:String x:Key="SettingReportPrintGroupHeader">默认的打印纸张</sys:String>

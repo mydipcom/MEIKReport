@@ -290,7 +290,7 @@ namespace MEIKReport.Common
                                 
 
             }
-            catch(Exception ex){}
+            catch(Exception){}
             finally
             {
                 Type wordType = app.GetType();
@@ -305,7 +305,7 @@ namespace MEIKReport.Common
                         app.Quit();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     try
                     {
@@ -315,7 +315,7 @@ namespace MEIKReport.Common
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
                     }
-                    catch (Exception e) { }
+                    catch (Exception) { }
                 }
             }
             return ShortFormReport;

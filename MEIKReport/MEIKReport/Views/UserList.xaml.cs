@@ -27,19 +27,28 @@ namespace MEIKReport
     public partial class UserList : Window
     {
         private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
+        //private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
         protected MouseHook mouseHook = new MouseHook();
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
+        
         private IList<Patient> patientList = new List<Patient>();
         public UserList()
         {
+            if (!Directory.Exists(dataFolder))
+            {                
+                try
+                {
+                    Directory.CreateDirectory(dataFolder);
+                    FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+                }
+                catch (Exception) { }
+            }
             InitializeComponent();            
             listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
             if (!string.IsNullOrEmpty(App.dataFolder))
             {
                 loadArchiveFolder(App.dataFolder);                
-                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                OperateIniFile.WriteIniData("Base", "Patients base", App.dataFolder, meikiniFile);
             }
             
             LoadInitConfig();
@@ -53,7 +62,18 @@ namespace MEIKReport
             //{
             //    btnSummaryReport.Visibility = Visibility.Visible;
             //}
-            mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);            
+            mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
+
+            //加载序列化的Screening统计数据
+            try
+            {
+                string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                if (File.Exists(countFile))
+                {
+                    App.countDictionary = SerializeUtilities.Desrialize<SortedDictionary<string, List<long>>>(countFile);
+                }
+            }
+            catch (Exception) { }
         }        
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
@@ -85,47 +105,25 @@ namespace MEIKReport
         }
 
         private void Window_Closed(object sender, EventArgs e)
-        {                        
-            try
-            {
-                App.opendWin = null;
-                IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
-                //如果主窗体存在
-                if (mainWinHwnd != IntPtr.Zero)
-                {
-                    int WM_SYSCOMMAND = 0x0112;
-                    int SC_CLOSE = 0xF060;
-                    Win32Api.SendMessage(mainWinHwnd, WM_SYSCOMMAND, SC_CLOSE, 0);
-                }                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message);
-            }
-            finally
-            {
-                //this.Owner.Visibility = Visibility.Visible;                
-                var owner = this.Owner as MainWindow;
-                owner.exitMeik();
-            }
+        {                                    
+            //this.Owner.Visibility = Visibility.Visible;                
+            var owner = this.Owner as MainWindow;
+            owner.exitMeik();            
         }
 
         private void exitReport_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            //this.Owner.Show();
-            var owner = this.Owner as MainWindow;
-            owner.exitMeik();
+            this.Close();            
         }
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = txtFolderPath.Text;
             System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
             if (res == System.Windows.Forms.DialogResult.OK)
             {
-                string folderName = folderBrowserDialog.SelectedPath;
-                App.dataFolder = folderName;
+                string folderName = folderBrowserDialog.SelectedPath;                
                 loadArchiveFolder(folderName); 
             }        
         }
@@ -134,7 +132,9 @@ namespace MEIKReport
         public void loadArchiveFolder(string folderName)
         {
             try
-            {                
+            {
+                //设定系统当前选择的档案文件夹
+                App.dataFolder = folderName;          
                 txtFolderPath.Text = folderName;
                 CollectionViewSource customerSource = (CollectionViewSource)this.FindResource("CustomerSource");
                 HashSet<Person> set = new HashSet<Person>();
@@ -153,7 +153,7 @@ namespace MEIKReport
                     emailButton.Visibility = Visibility.Hidden;
                 }
 
-                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 var selectItem = this.CodeListBox.SelectedItem as Person;
                 if (selectItem != null)
                 {                                        
@@ -184,159 +184,207 @@ namespace MEIKReport
                 {
                     if (".crd".Equals(NextFile.Extension, StringComparison.OrdinalIgnoreCase))
                     {
-                        Person person = new Person();
-                        //person.ArchiveFolder = folderName;
-                        person.ArchiveFolder = theFolder.FullName;
-                        person.CrdFilePath = NextFile.FullName;
-
-                        person.Code = NextFile.Name.Substring(0, NextFile.Name.Length - 4);
-
-                        person.TechName = OperateIniFile.ReadIniData("Report", "Technician Name", "", NextFile.FullName);
-                        person.TechLicense=OperateIniFile.ReadIniData("Report", "Technician License", "", NextFile.FullName);                        
-
-                        //Personal Data
-                        person.SurName = OperateIniFile.ReadIniData("Personal data", "surname", "", NextFile.FullName);
-                        person.GivenName = OperateIniFile.ReadIniData("Personal data", "given name", "", NextFile.FullName);
-                        person.OtherName = OperateIniFile.ReadIniData("Personal data", "other name", "", NextFile.FullName);
-                        person.Address = OperateIniFile.ReadIniData("Personal data", "address", "", NextFile.FullName);
-                        person.BirthDate = OperateIniFile.ReadIniData("Personal data", "birth date", "", NextFile.FullName);
-                        person.BirthMonth = OperateIniFile.ReadIniData("Personal data", "birth month", "", NextFile.FullName);
-                        person.BirthYear = OperateIniFile.ReadIniData("Personal data", "birth year", "", NextFile.FullName);
-                        person.RegDate = OperateIniFile.ReadIniData("Personal data", "registration date", "", NextFile.FullName);
-                        person.RegMonth = OperateIniFile.ReadIniData("Personal data", "registration month", "", NextFile.FullName);
-                        person.RegYear = OperateIniFile.ReadIniData("Personal data", "registration year", "", NextFile.FullName);
-
-                        person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
-                        //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;
-                        
-                        if (!string.IsNullOrEmpty(person.Birthday))
+                        try
                         {
-                            int m_Y1 = DateTime.Parse(person.Birthday).Year;
-                            int m_Y2 = DateTime.Now.Year;
-                            person.Age = m_Y2 - m_Y1;
+                            Person person = new Person();
+                            //person.ArchiveFolder = folderName;
+                            person.ArchiveFolder = theFolder.FullName;
+                            person.CrdFilePath = NextFile.FullName;
+
+                            person.Code = NextFile.Name.Substring(0, NextFile.Name.Length - 4);                            
+
+                            //Personal Data
+                            person.SurName = OperateIniFile.ReadIniData("Personal data", "surname", "", NextFile.FullName);
+                            person.GivenName = OperateIniFile.ReadIniData("Personal data", "given name", "", NextFile.FullName);
+                            person.OtherName = OperateIniFile.ReadIniData("Personal data", "other name", "", NextFile.FullName);
+                            person.Address = OperateIniFile.ReadIniData("Personal data", "address", "", NextFile.FullName);
+                            person.BirthDate = OperateIniFile.ReadIniData("Personal data", "birth date", "", NextFile.FullName);
+                            person.BirthMonth = OperateIniFile.ReadIniData("Personal data", "birth month", "", NextFile.FullName);
+                            person.BirthYear = OperateIniFile.ReadIniData("Personal data", "birth year", "", NextFile.FullName);
+                            person.RegDate = OperateIniFile.ReadIniData("Personal data", "registration date", "", NextFile.FullName);
+                            person.RegMonth = OperateIniFile.ReadIniData("Personal data", "registration month", "", NextFile.FullName);
+                            person.RegYear = OperateIniFile.ReadIniData("Personal data", "registration year", "", NextFile.FullName);
+
+                            person.TechName = OperateIniFile.ReadIniData("Report", "Technician Name", "", NextFile.FullName);
+                            person.TechLicense = OperateIniFile.ReadIniData("Report", "Technician License", "", NextFile.FullName);
+                            try
+                            {
+                                if (!string.IsNullOrEmpty(person.BirthYear))
+                                {
+                                    person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
+                                    person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
+                                    person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
+                                    //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
+                                    if (!string.IsNullOrEmpty(person.Birthday))
+                                    {
+                                        int m_Y1 = DateTime.Parse(person.Birthday).Year;
+                                        int m_Y2 = DateTime.Now.Year;
+                                        person.Age = m_Y2 - m_Y1;
+                                    }
+                                }
+                                
+                            }
+                            catch(Exception){ }
+
+                            try { 
+                                //Complaints
+                                person.Pain = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "pain", "0", NextFile.FullName)));
+                                person.Colostrum = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "colostrum", "0", NextFile.FullName)));
+                                person.SerousDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "serous discharge", "0", NextFile.FullName)));
+                                person.BloodDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "blood discharge", "0", NextFile.FullName)));
+                                person.Other = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "other", "0", NextFile.FullName)));
+                                person.Pregnancy = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "pregnancy", "0", NextFile.FullName)));
+                                person.Lactation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "lactation", "0", NextFile.FullName)));
+                                person.OtherDesc = OperateIniFile.ReadIniData("Complaints", "other description", "", NextFile.FullName);
+                                person.PregnancyTerm = OperateIniFile.ReadIniData("Complaints", "pregnancy term", "", NextFile.FullName);
+                                person.OtherDesc = person.OtherDesc.Replace(";;", "\r\n");
+                                person.PregnancyTerm = person.PregnancyTerm.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try { 
+                                person.MenstrualCycleDisorder = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder", "0", NextFile.FullName)));
+                                person.Postmenopause = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "postmenopause", "0", NextFile.FullName)));
+                                person.HormonalContraceptives = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "hormonal contraceptives", "0", NextFile.FullName)));
+                                person.MenstrualCycleDisorderDesc = OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder description", "", NextFile.FullName);
+                                person.MenstrualCycleDisorderDesc = person.MenstrualCycleDisorderDesc.Replace(";;", "\r\n");
+                                person.PostmenopauseDesc = OperateIniFile.ReadIniData("Menses", "postmenopause description", "", NextFile.FullName);
+                                person.PostmenopauseDesc = person.PostmenopauseDesc.Replace(";;", "\r\n");
+                                person.HormonalContraceptivesBrandName = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives brand name", "", NextFile.FullName);
+                                person.HormonalContraceptivesBrandName = person.HormonalContraceptivesBrandName.Replace(";;", "\r\n");
+                                person.HormonalContraceptivesPeriod = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives period", "", NextFile.FullName);
+                                person.HormonalContraceptivesPeriod = person.HormonalContraceptivesPeriod.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try { 
+                                person.Adiposity = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "adiposity", "0", NextFile.FullName)));
+                                person.EssentialHypertension = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "essential hypertension", "0", NextFile.FullName)));
+                                person.Diabetes = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "diabetes", "0", NextFile.FullName)));
+                                person.ThyroidGlandDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases", "0", NextFile.FullName)));
+                                person.SomaticOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "other", "0", NextFile.FullName)));
+                                person.EssentialHypertensionDesc = OperateIniFile.ReadIniData("Somatic", "essential hypertension description", "", NextFile.FullName);
+                                person.EssentialHypertensionDesc = person.EssentialHypertensionDesc.Replace(";;", "\r\n");
+                                person.DiabetesDesc = OperateIniFile.ReadIniData("Somatic", "diabetes description", "", NextFile.FullName);
+                                person.DiabetesDesc = person.DiabetesDesc.Replace(";;", "\r\n");
+                                person.ThyroidGlandDiseasesDesc = OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases description", "", NextFile.FullName);
+                                person.ThyroidGlandDiseasesDesc = person.ThyroidGlandDiseasesDesc.Replace(";;", "\r\n");
+                                person.SomaticOtherDesc = OperateIniFile.ReadIniData("Somatic", "other description", "", NextFile.FullName);
+                                person.SomaticOtherDesc = person.SomaticOtherDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.Infertility = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "infertility", "0", NextFile.FullName)));
+                                person.OvaryDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary diseases", "0", NextFile.FullName)));
+                                person.OvaryCyst = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary cyst", "0", NextFile.FullName)));
+                                person.OvaryCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary cancer", "0", NextFile.FullName)));
+                                person.OvaryEndometriosis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary endometriosis", "0", NextFile.FullName)));
+                                person.OvaryOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary other", "0", NextFile.FullName)));
+                                person.UterusDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus diseases", "0", NextFile.FullName)));
+                                person.UterusMyoma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus myoma", "0", NextFile.FullName)));
+                                person.UterusCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus cancer", "0", NextFile.FullName)));
+                                person.UterusEndometriosis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus endometriosis", "0", NextFile.FullName)));
+                                person.UterusOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus other", "0", NextFile.FullName)));
+                                person.GynecologicOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "other", "0", NextFile.FullName)));
+                                person.InfertilityDesc = OperateIniFile.ReadIniData("Gynecologic", "infertility-description", "", NextFile.FullName);
+                                person.InfertilityDesc = person.InfertilityDesc.Replace(";;", "\r\n");
+                                person.OvaryOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "ovary other description", "", NextFile.FullName);
+                                person.OvaryOtherDesc = person.OvaryOtherDesc.Replace(";;", "\r\n");
+                                person.UterusOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "uterus other description", "", NextFile.FullName);
+                                person.UterusOtherDesc = person.UterusOtherDesc.Replace(";;", "\r\n");
+                                person.GynecologicOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "other description", "", NextFile.FullName);
+                                person.GynecologicOtherDesc = person.GynecologicOtherDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.Abortions = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "abortions", "0", NextFile.FullName)));
+                                person.Births = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "births", "0", NextFile.FullName)));
+                                person.AbortionsNumber = OperateIniFile.ReadIniData("Obstetric", "abortions number", "", NextFile.FullName);
+                                person.BirthsNumber = OperateIniFile.ReadIniData("Obstetric", "births number", "", NextFile.FullName);                            
+                            }
+                            catch(Exception){ }
+
+                            try { 
+                                person.LactationTill1Month = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 month", "0", NextFile.FullName)));
+                                person.LactationTill1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 year", "0", NextFile.FullName)));
+                                person.LactationOver1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation over 1 year", "0", NextFile.FullName)));
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.Trauma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "trauma", "0", NextFile.FullName)));
+                                person.Mastitis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "mastitis", "0", NextFile.FullName)));
+                                person.FibrousCysticMastopathy = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "fibrous- cystic mastopathy", "0", NextFile.FullName)));
+                                person.Cysts = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "cysts", "0", NextFile.FullName)));
+                                person.Cancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "cancer", "0", NextFile.FullName)));
+                                person.DiseasesOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "other", "0", NextFile.FullName)));
+                                person.TraumaDesc = OperateIniFile.ReadIniData("Diseases", "trauma description", "", NextFile.FullName);
+                                person.TraumaDesc = person.TraumaDesc.Replace(";;", "\r\n");
+                                person.MastitisDesc = OperateIniFile.ReadIniData("Diseases", "mastitis description", "", NextFile.FullName);
+                                person.MastitisDesc = person.MastitisDesc.Replace(";;", "\r\n");
+                                person.FibrousCysticMastopathyDesc = OperateIniFile.ReadIniData("Diseases", "fibrous- cystic mastopathy description", "", NextFile.FullName);
+                                person.FibrousCysticMastopathyDesc = person.FibrousCysticMastopathyDesc.Replace(";;", "\r\n");
+                                person.CystsDesc = OperateIniFile.ReadIniData("Diseases", "cysts descriptuin", "", NextFile.FullName);
+                                person.CystsDesc = person.CystsDesc.Replace(";;", "\r\n");
+                                person.CancerDesc = OperateIniFile.ReadIniData("Diseases", "cancer description", "", NextFile.FullName);
+                                person.CancerDesc = person.CancerDesc.Replace(";;", "\r\n");
+                                person.DiseasesOtherDesc = OperateIniFile.ReadIniData("Diseases", "other description", "", NextFile.FullName);
+                                person.DiseasesOtherDesc = person.DiseasesOtherDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try { 
+                                person.PalpationDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "diffuse", "0", NextFile.FullName)));
+                                person.PalpationFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "focal", "0", NextFile.FullName)));
+                                person.PalpationDesc = OperateIniFile.ReadIniData("Palpation", "description", "", NextFile.FullName);
+                                person.PalpationDesc = person.PalpationDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.UltrasoundDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "diffuse", "0", NextFile.FullName)));
+                                person.UltrasoundFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "focal", "0", NextFile.FullName)));
+                                person.UltrasoundnDesc = OperateIniFile.ReadIniData("Ultrasound", "description", "", NextFile.FullName);
+                                person.UltrasoundnDesc = person.UltrasoundnDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.MammographyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "diffuse", "0", NextFile.FullName)));
+                                person.MammographyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "focal", "0", NextFile.FullName)));
+                                person.MammographyDesc = OperateIniFile.ReadIniData("Mammography", "description", "", NextFile.FullName);
+                                person.MammographyDesc = person.MammographyDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            try
+                            {
+                                person.BiopsyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "diffuse", "0", NextFile.FullName)));
+                                person.BiopsyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "focal", "0", NextFile.FullName)));
+                                person.BiopsyCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "cancer", "0", NextFile.FullName)));
+                                person.BiopsyProliferation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "proliferation", "0", NextFile.FullName)));
+                                person.BiopsyDysplasia = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "dysplasia", "0", NextFile.FullName)));
+                                person.BiopsyIntraductalPapilloma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "intraductal papilloma", "0", NextFile.FullName)));
+                                person.BiopsyFibroadenoma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "fibroadenoma", "0", NextFile.FullName)));
+                                person.BiopsyOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "other", "0", NextFile.FullName)));
+                                person.BiopsyOtherDesc = OperateIniFile.ReadIniData("Biopsy", "other description", "", NextFile.FullName);
+                                person.BiopsyOtherDesc = person.BiopsyOtherDesc.Replace(";;", "\r\n");
+                            }
+                            catch (Exception) { }
+
+                            set.Add(person);
                         }
-
-                        //Complaints
-                        person.Pain = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "pain", "0", NextFile.FullName)));
-                        person.Colostrum = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "colostrum", "0", NextFile.FullName)));
-                        person.SerousDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "serous discharge", "0", NextFile.FullName)));
-                        person.BloodDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "blood discharge", "0", NextFile.FullName)));
-                        person.Other = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "other", "0", NextFile.FullName)));
-                        person.Pregnancy = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "pregnancy", "0", NextFile.FullName)));
-                        person.Lactation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "lactation", "0", NextFile.FullName)));
-                        person.OtherDesc = OperateIniFile.ReadIniData("Complaints", "other description", "", NextFile.FullName);
-                        person.PregnancyTerm = OperateIniFile.ReadIniData("Complaints", "pregnancy term", "", NextFile.FullName);
-                        person.OtherDesc = person.OtherDesc.Replace(";;", "\r\n");
-                        person.PregnancyTerm = person.PregnancyTerm.Replace(";;", "\r\n");
-
-                        person.MenstrualCycleDisorder = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder", "0", NextFile.FullName)));
-                        person.Postmenopause = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "postmenopause", "0", NextFile.FullName)));
-                        person.HormonalContraceptives = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "hormonal contraceptives", "0", NextFile.FullName)));
-                        person.MenstrualCycleDisorderDesc = OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder description", "", NextFile.FullName);
-                        person.MenstrualCycleDisorderDesc = person.MenstrualCycleDisorderDesc.Replace(";;", "\r\n");
-                        person.PostmenopauseDesc = OperateIniFile.ReadIniData("Menses", "postmenopause description", "", NextFile.FullName);
-                        person.PostmenopauseDesc = person.PostmenopauseDesc.Replace(";;", "\r\n");
-                        person.HormonalContraceptivesBrandName = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives brand name", "", NextFile.FullName);
-                        person.HormonalContraceptivesBrandName = person.HormonalContraceptivesBrandName.Replace(";;", "\r\n");
-                        person.HormonalContraceptivesPeriod = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives period", "", NextFile.FullName);
-                        person.HormonalContraceptivesPeriod = person.HormonalContraceptivesPeriod.Replace(";;", "\r\n");
-
-
-                        person.Adiposity = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "adiposity", "0", NextFile.FullName)));
-                        person.EssentialHypertension = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "essential hypertension", "0", NextFile.FullName)));
-                        person.Diabetes = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "diabetes", "0", NextFile.FullName)));
-                        person.ThyroidGlandDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases", "0", NextFile.FullName)));
-                        person.SomaticOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Somatic", "other", "0", NextFile.FullName)));
-                        person.EssentialHypertensionDesc = OperateIniFile.ReadIniData("Somatic", "essential hypertension description", "", NextFile.FullName);
-                        person.EssentialHypertensionDesc = person.EssentialHypertensionDesc.Replace(";;", "\r\n");
-                        person.DiabetesDesc = OperateIniFile.ReadIniData("Somatic", "diabetes description", "", NextFile.FullName);
-                        person.DiabetesDesc = person.DiabetesDesc.Replace(";;", "\r\n");
-                        person.ThyroidGlandDiseasesDesc = OperateIniFile.ReadIniData("Somatic", "thyroid gland diseases description", "", NextFile.FullName);
-                        person.ThyroidGlandDiseasesDesc = person.ThyroidGlandDiseasesDesc.Replace(";;", "\r\n");
-                        person.SomaticOtherDesc = OperateIniFile.ReadIniData("Somatic", "other description", "", NextFile.FullName);
-                        person.SomaticOtherDesc = person.SomaticOtherDesc.Replace(";;", "\r\n");
-
-
-                        person.Infertility = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "infertility", "0", NextFile.FullName)));
-                        person.OvaryDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary diseases", "0", NextFile.FullName)));
-                        person.OvaryCyst = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary cyst", "0", NextFile.FullName)));
-                        person.OvaryCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary cancer", "0", NextFile.FullName)));
-                        person.OvaryEndometriosis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary endometriosis", "0", NextFile.FullName)));
-                        person.OvaryOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "ovary other", "0", NextFile.FullName)));
-                        person.UterusDiseases = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus diseases", "0", NextFile.FullName)));
-                        person.UterusMyoma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus myoma", "0", NextFile.FullName)));
-                        person.UterusCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus cancer", "0", NextFile.FullName)));
-                        person.UterusEndometriosis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus endometriosis", "0", NextFile.FullName)));
-                        person.UterusOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "uterus other", "0", NextFile.FullName)));
-                        person.GynecologicOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Gynecologic", "other", "0", NextFile.FullName)));
-                        person.InfertilityDesc = OperateIniFile.ReadIniData("Gynecologic", "infertility-description", "", NextFile.FullName);
-                        person.InfertilityDesc = person.InfertilityDesc.Replace(";;", "\r\n");
-                        person.OvaryOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "ovary other description", "", NextFile.FullName);
-                        person.OvaryOtherDesc = person.OvaryOtherDesc.Replace(";;", "\r\n");
-                        person.UterusOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "uterus other description", "", NextFile.FullName);
-                        person.UterusOtherDesc = person.UterusOtherDesc.Replace(";;", "\r\n");
-                        person.GynecologicOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "other description", "", NextFile.FullName);
-                        person.GynecologicOtherDesc = person.GynecologicOtherDesc.Replace(";;", "\r\n");
-
-
-                        person.Abortions = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "abortions", "0", NextFile.FullName)));
-                        person.Births = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "births", "0", NextFile.FullName)));
-                        person.AbortionsNumber = OperateIniFile.ReadIniData("Obstetric", "abortions number", "", NextFile.FullName);
-                        person.BirthsNumber = OperateIniFile.ReadIniData("Obstetric", "births number", "", NextFile.FullName);
-
-
-                        person.LactationTill1Month = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 month", "0", NextFile.FullName)));
-                        person.LactationTill1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation till 1 year", "0", NextFile.FullName)));
-                        person.LactationOver1Year = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Lactation", "lactation over 1 year", "0", NextFile.FullName)));
-
-
-                        person.Trauma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "trauma", "0", NextFile.FullName)));
-                        person.Mastitis = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "mastitis", "0", NextFile.FullName)));
-                        person.FibrousCysticMastopathy = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "fibrous- cystic mastopathy", "0", NextFile.FullName)));
-                        person.Cysts = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "cysts", "0", NextFile.FullName)));
-                        person.Cancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "cancer", "0", NextFile.FullName)));
-                        person.DiseasesOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Diseases", "other", "0", NextFile.FullName)));
-                        person.TraumaDesc = OperateIniFile.ReadIniData("Diseases", "trauma description", "", NextFile.FullName);
-                        person.TraumaDesc = person.TraumaDesc.Replace(";;", "\r\n");
-                        person.MastitisDesc = OperateIniFile.ReadIniData("Diseases", "mastitis description", "", NextFile.FullName);
-                        person.MastitisDesc = person.MastitisDesc.Replace(";;", "\r\n");
-                        person.FibrousCysticMastopathyDesc = OperateIniFile.ReadIniData("Diseases", "fibrous- cystic mastopathy description", "", NextFile.FullName);
-                        person.FibrousCysticMastopathyDesc = person.FibrousCysticMastopathyDesc.Replace(";;", "\r\n");
-                        person.CystsDesc = OperateIniFile.ReadIniData("Diseases", "cysts descriptuin", "", NextFile.FullName);
-                        person.CystsDesc = person.CystsDesc.Replace(";;", "\r\n");
-                        person.CancerDesc = OperateIniFile.ReadIniData("Diseases", "cancer description", "", NextFile.FullName);
-                        person.CancerDesc = person.CancerDesc.Replace(";;", "\r\n");
-                        person.DiseasesOtherDesc = OperateIniFile.ReadIniData("Diseases", "other description", "", NextFile.FullName);
-                        person.DiseasesOtherDesc = person.DiseasesOtherDesc.Replace(";;", "\r\n");
-
-
-                        person.PalpationDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "diffuse", "0", NextFile.FullName)));
-                        person.PalpationFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "focal", "0", NextFile.FullName)));
-                        person.PalpationDesc = OperateIniFile.ReadIniData("Palpation", "description", "", NextFile.FullName);
-                        person.PalpationDesc = person.PalpationDesc.Replace(";;", "\r\n");
-
-                        person.UltrasoundDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "diffuse", "0", NextFile.FullName)));
-                        person.UltrasoundFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "focal", "0", NextFile.FullName)));
-                        person.UltrasoundnDesc = OperateIniFile.ReadIniData("Ultrasound", "description", "", NextFile.FullName);
-                        person.UltrasoundnDesc = person.UltrasoundnDesc.Replace(";;", "\r\n");
-
-                        person.MammographyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "diffuse", "0", NextFile.FullName)));
-                        person.MammographyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "focal", "0", NextFile.FullName)));
-                        person.MammographyDesc = OperateIniFile.ReadIniData("Mammography", "description", "", NextFile.FullName);
-                        person.MammographyDesc = person.MammographyDesc.Replace(";;", "\r\n");
-
-                        person.BiopsyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "diffuse", "0", NextFile.FullName)));
-                        person.BiopsyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "focal", "0", NextFile.FullName)));
-                        person.BiopsyCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "cancer", "0", NextFile.FullName)));
-                        person.BiopsyProliferation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "proliferation", "0", NextFile.FullName)));
-                        person.BiopsyDysplasia = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "dysplasia", "0", NextFile.FullName)));
-                        person.BiopsyIntraductalPapilloma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "intraductal papilloma", "0", NextFile.FullName)));
-                        person.BiopsyFibroadenoma = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "fibroadenoma", "0", NextFile.FullName)));
-                        person.BiopsyOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "other", "0", NextFile.FullName)));
-                        person.BiopsyOtherDesc = OperateIniFile.ReadIniData("Biopsy", "other description", "", NextFile.FullName);
-                        person.BiopsyOtherDesc = person.BiopsyOtherDesc.Replace(";;", "\r\n");
-
-                        set.Add(person);
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(this, string.Format(App.Current.FindResource("Message_32").ToString() + ex.Message, NextFile.FullName));
+                        }
                     }
                 }
             }
@@ -388,7 +436,7 @@ namespace MEIKReport
                             OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.CrdFilePath);
                             OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.CrdFilePath);
                         }
-                        catch (Exception exec)
+                        catch (Exception)
                         {
                             //如果不能写入ini文件
                             FileHelper.SetFolderPower(selectedUser.ArchiveFolder, "Everyone", "FullControl");
@@ -402,10 +450,28 @@ namespace MEIKReport
                 }
                 try
                 {
-                    string zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "_" + deviceNo + ".zip";
+                    string zipFile = "";
+                    if (deviceType == 2)
+                    {
+                        zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + "R_" + selectedUser.Code + "-" + selectedUser.SurName;
+                    }
+                    else
+                    {
+                        zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "-" + selectedUser.SurName;
+                    }                    
+                    if (!string.IsNullOrEmpty(selectedUser.GivenName))
+                    {
+                        zipFile = zipFile + "," + selectedUser.GivenName;
+                    }
+                    if (!string.IsNullOrEmpty(selectedUser.OtherName))
+                    {
+                        zipFile = zipFile + " " + selectedUser.OtherName;
+                    }
+                    zipFile = zipFile + ".zip";
+                    
                     ZipTools ZipTools = new ZipTools(selectedUser.ArchiveFolder);
                     try
-                    {
+                    {                        
                         ZipTools.ZipFolder(zipFile);
                     }
                     catch (Exception ex1)
@@ -416,7 +482,7 @@ namespace MEIKReport
                     string senderServerIp = App.reportSettingModel.MailHost;
                     string toMailAddress = toMail;
                     string fromMailAddress = App.reportSettingModel.MailAddress;
-                    string subjectInfo = App.reportSettingModel.MailSubject + " (" + selectedUser.SurName + ")";
+                    string subjectInfo = App.reportSettingModel.MailSubject + " (" + selectedUser.Code+"-"+ selectedUser.SurName + ")";
                     string bodyInfo = App.reportSettingModel.MailBody;
                     string mailUsername = App.reportSettingModel.MailUsername;
                     string mailPassword = App.reportSettingModel.MailPwd;
@@ -431,7 +497,7 @@ namespace MEIKReport
                     email.Send();
 
                     //Send email with screening count records
-                    if (deviceType == 1)
+                    if (App.countDictionary.Count>0)
                     {
                         string excelFile = dataFolder + System.IO.Path.DirectorySeparatorChar + deviceNo + "_Count.xls";
                         try
@@ -442,16 +508,29 @@ namespace MEIKReport
                                 {
                                     File.Delete(excelFile);
                                 }
-                                catch (Exception ex2) { }
+                                catch (Exception) { }
                             }
-                            exportExcel(excelFile);
+                            try
+                            {
+                                exportExcel(excelFile);
+                            }
+                            catch (Exception) { }
                             subjectInfo = App.Current.FindResource("MailSubject").ToString() + " (" + deviceNo + ")";
-                            bodyInfo = "";
+
+                            StringBuilder bodyContent = new StringBuilder();
+                            bodyContent.Append("Screening records for the device " + deviceNo+"<br/>");
+                            bodyContent.Append("---------------------------------------------------------------------<br/>");
+                            foreach (KeyValuePair<string, List<long>> item in App.countDictionary)
+                            {                                
+                                bodyContent.Append(item.Key + " : " + item.Value.Count + "<br/>");                                
+                            }
+
+                            bodyInfo = bodyContent.ToString();
                             EmailHelper emailCount = new EmailHelper(senderServerIp, toMailAddress, fromMailAddress, subjectInfo, bodyInfo, mailUsername, mailPassword, mailPort, isSsl, false);
                             emailCount.AddAttachments(excelFile);
                             emailCount.Send();
                         }
-                        catch (Exception ex1) { }                        
+                        catch (Exception) { }                        
                     }
                     MessageBox.Show(this, App.Current.FindResource("Message_18").ToString());                    
                     
@@ -533,8 +612,8 @@ namespace MEIKReport
             if (e.AddedItems.Count > 0)
             {
                 var selectItem = (Person)e.AddedItems[0];
-                selectItem.Icon = "/Images/id_card_ok.png";                
-                string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                selectItem.Icon = "/Images/id_card_ok.png";
+                string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
             }
             if (e.RemovedItems.Count > 0)
@@ -552,10 +631,21 @@ namespace MEIKReport
             var book = (Microsoft.Office.Interop.Excel._Workbook)(books.Add(System.Type.Missing));
             var sheets = (Microsoft.Office.Interop.Excel.Sheets)book.Worksheets;
             var sheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(1));
-                        
-            ListFiles(new DirectoryInfo(meikFolder));
+            sheet.Name = "TDB Records";
+            Microsoft.Office.Interop.Excel._Worksheet screensheet;
+            if (sheets.Count > 1)
+            {
+                screensheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(2));
+            }
+            else
+            {
+                screensheet = sheets.Add(System.Type.Missing, sheet, System.Type.Missing, System.Type.Missing);                
+            }
+            screensheet.Name = "Screening Records";
+            patientList.Clear();
+            ListFiles(new DirectoryInfo(App.meikFolder));
             
-
+            //tdb文件統計數據
             Microsoft.Office.Interop.Excel.Range range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("A1", "A100");
             range.ColumnWidth = 15;
             range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("B1", "B100");
@@ -576,10 +666,31 @@ namespace MEIKReport
                 sheet.Cells[i + 2, 3] = item.ScreenDate;
                 sheet.Cells[i + 2, 4] = item.Desc;
             }
+
+            //启动MEIK设备次数
+            Microsoft.Office.Interop.Excel.Range range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("A1", "A100");
+            range1.ColumnWidth = 100;
+            range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("B1", "B100");
+            range1.ColumnWidth = 30;
+            
+            screensheet.Cells[1, 1] = App.Current.FindResource("Excel5").ToString();
+            screensheet.Cells[1, 2] = App.Current.FindResource("Excel6").ToString();
+            int row = 1;
+            foreach (KeyValuePair<string, List<long>> item in App.countDictionary)                            
+            {
+                screensheet.Cells[row + 1, 1] = item.Key;                
+                foreach (var tick in item.Value)
+                {
+                    DateTime screeningTime = new DateTime(tick);
+                    screensheet.Cells[row + 1, 2] = screeningTime.ToString("yyyy-MM-dd HH:mm:ss");                    
+                    row++; 
+                }                            
+            }
+
             book.SaveAs(excelFile, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             book.Close();
             excelApp.Quit();
-
+            
         }
 
         private void ListFiles(FileSystemInfo info)
@@ -598,12 +709,11 @@ namespace MEIKReport
                     //是文件 
                     if (file != null)
                     {
+                        DateTime beginDate = DateTime.Now;
                         if (".tdb".Equals(file.Extension, StringComparison.OrdinalIgnoreCase))
                         {
                             DateTime fileTime=file.LastWriteTime;
-                            fileTime = fileTime.AddMonths(-1);
-                            string dateStr = fileTime.Month+"/1/"+fileTime.Year;
-                            DateTime beginDate = DateTime.Parse(dateStr,culture, System.Globalization.DateTimeStyles.NoCurrentDateDefault);
+                            beginDate = beginDate.AddMonths(-1);                            
                             if (beginDate < fileTime)
                             {
 
@@ -627,7 +737,7 @@ namespace MEIKReport
                                 patient.Code = code;
                                 patient.Name = name;
                                 patient.Desc = desc;
-                                patient.ScreenDate = fileTime.ToString();
+                                patient.ScreenDate = fileTime.ToString("yyyy-MM-dd HH:mm:ss");
 
                                 patientList.Add(patient);
                             }
@@ -646,7 +756,7 @@ namespace MEIKReport
         private void btnScreening_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {                
                 IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strScreening);
                 Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);                
                 StartMouseHook();
@@ -673,6 +783,11 @@ namespace MEIKReport
             }
         }
 
+        /// <summary>
+        /// 统计按钮点击处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRecords_Click(object sender, RoutedEventArgs e)
         {
             RecordsWindow recordsWindow = new RecordsWindow();
@@ -680,6 +795,11 @@ namespace MEIKReport
             recordsWindow.ShowDialog();
         }
 
+        /// <summary>
+        /// 系统设置按钮点击处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSetup_Click(object sender, RoutedEventArgs e)
         {            
             ReportSettingPage reportSettingPage = new ReportSettingPage();
@@ -712,13 +832,13 @@ namespace MEIKReport
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                IntPtr exitButtonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
-                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);
+                IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                IntPtr winHandle = Win32Api.GetParent(buttonHandle);
                 var owner = this.Owner as MainWindow;
                 if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
                 {
                     StringBuilder winText = new StringBuilder(512);
-                    Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
+                    Win32Api.GetWindowText(buttonHandle, winText, winText.Capacity);
                     if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         if (App.opendWin != null)
@@ -732,16 +852,36 @@ namespace MEIKReport
                         }
                         this.StopMouseHook();
 
-                        string meikiniFile = meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                        App.dataFolder=OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
-                        txtFolderPath.Text = App.dataFolder;
+                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";                        
+                        txtFolderPath.Text = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile); 
                         loadArchiveFolder(txtFolderPath.Text);
+                    }
+                    else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                        var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                        if(App.countDictionary.ContainsKey(screenFolderPath)){
+                            List<long> ticks=App.countDictionary[screenFolderPath];
+                            ticks.Add(DateTime.Now.Ticks);
+                        }
+                        else{
+                            List<long> ticks=new List<long>();
+                            ticks.Add(DateTime.Now.Ticks);
+                            App.countDictionary.Add(screenFolderPath,ticks);
+                        }                        
+                        //序列化统计字典到文件
+                        string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                        SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
                     }
                 }
             }
         }
         
-
+        /// <summary>
+        /// 添加新的档案文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNewArchive_Click(object sender, RoutedEventArgs e)
         {
             AddFolderPage folderPage = new AddFolderPage();
@@ -749,6 +889,11 @@ namespace MEIKReport
             folderPage.ShowDialog();
         }
 
+        /// <summary>
+        /// 选择语言
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listLang_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var eleObj = listLang.SelectedItem as XmlElement;
@@ -777,6 +922,11 @@ namespace MEIKReport
             OperateIniFile.WriteIniData("Base", "Language", local, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
         }
 
+        /// <summary>
+        /// 保存患者病历卡
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -805,13 +955,24 @@ namespace MEIKReport
                 person.RegYear = this.txttRegYear.Text;
                 OperateIniFile.WriteIniData("Personal data", "registration year", this.txttRegYear.Text, person.CrdFilePath);
 
-                person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
-                if (!string.IsNullOrEmpty(person.Birthday))
+                try
                 {
-                    int m_Y1 = DateTime.Parse(person.Birthday).Year;
-                    int m_Y2 = DateTime.Now.Year;
-                    person.Age = m_Y2 - m_Y1;
+                    if (!string.IsNullOrEmpty(person.BirthYear))
+                    {
+                        person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
+                        person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
+                        person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
+                        //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
+                        if (!string.IsNullOrEmpty(person.Birthday))
+                        {
+                            int m_Y1 = DateTime.Parse(person.Birthday).Year;
+                            int m_Y2 = DateTime.Now.Year;
+                            person.Age = m_Y2 - m_Y1;
+                        }
+                    }
+
                 }
+                catch (Exception) { }                
 
                 //Complaints
                 person.Pain = this.checkPain.IsChecked.Value;

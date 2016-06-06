@@ -26,7 +26,7 @@ namespace MEIKReport
     /// </summary>
     public partial class SignatureBox : Window
     {
-        public DelegateHelper.commonDelgateMethod callbackMethod;
+        //public DelegateHelper.commonDelgateMethod callbackMethod;
         private bool defaultSign = false;
         private string signFolder = AppDomain.CurrentDomain.BaseDirectory + "/Signature";
         public SignatureBox()
@@ -69,7 +69,7 @@ namespace MEIKReport
         private void btnClearSignBox_Click(object sender, RoutedEventArgs e)
         {
             this.inkCanvas.Strokes.Clear();
-            this.inkCanvas.Background = null;
+            //this.inkCanvas.Background = null;
         }
 
         private void btnLoadSign_Click(object sender, RoutedEventArgs e)
@@ -134,15 +134,15 @@ namespace MEIKReport
                     FileHelper.SetFolderPower(signFolder, "Users", "FullControl");
                 }
                 if (this.cbDefault.IsChecked == true)
-                {
-                    using (var stream = System.IO.File.OpenWrite(AppDomain.CurrentDomain.BaseDirectory + "/Signature/default.strokes"))
+                {                                 
+                    using (var stream = System.IO.File.OpenWrite(AppDomain.CurrentDomain.BaseDirectory + "Signature"+System.IO.Path.DirectorySeparatorChar+"default.strokes"))
                     {
                         this.inkCanvas.Strokes.Save(stream);
                     }
                 }
                 else
                 {
-                    using (var stream = System.IO.File.OpenWrite(AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.strokes"))
+                    using (var stream = System.IO.File.OpenWrite(AppDomain.CurrentDomain.BaseDirectory + "Signature" + System.IO.Path.DirectorySeparatorChar + "temp.strokes"))
                     {
                         this.inkCanvas.Strokes.Save(stream);
                     }
@@ -150,12 +150,14 @@ namespace MEIKReport
                 SaveBitmap();
                 if (defaultSign != this.cbDefault.IsChecked)
                 {
-                    OperateIniFile.WriteIniData("Report", "Use Default Signature", this.cbDefault.IsChecked.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    OperateIniFile.WriteIniData("Report", "Use Default Signature", this.cbDefault.IsChecked.Value.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 }
-                if (this.callbackMethod != null)
-                {                    
-                    this.callbackMethod(this.inkCanvas.Strokes);
-                }
+                ExaminationReportPage reportPage = this.Owner as ExaminationReportPage;
+                reportPage.ShowSignature(null);
+                //if (this.callbackMethod != null)
+                //{                    
+                //    this.callbackMethod(this.inkCanvas.Strokes);
+                //}
             }
             catch (Exception ex)
             {

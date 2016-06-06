@@ -36,21 +36,17 @@ namespace MEIKReport
         protected MouseHook mouseHook = new MouseHook();
         protected KeyboardHook keyboardHook = new KeyboardHook();  
         //private WindowListen windowListen = new WindowListen();               
-        private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        //private string strScreening = "Screening";
-        //private string strDiagnostics = "Diagnostics";
-        //private string strExit = "Exit";
-
-
+        //private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        
         public MainWindow()
         {
             string local = OperateIniFile.ReadIniData("Base", "Language", "en-US", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-            if (File.Exists(meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
+            if (File.Exists(App.meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
             {                
                 App.strScreening = "筛选";
                 App.strDiagnostics = "诊断";
                 App.strExit = "退出";
+                App.strStart = "开始";
                 if (string.IsNullOrEmpty(local))
                 {
                     local = "zh-CN";
@@ -82,7 +78,7 @@ namespace MEIKReport
             InitializeComponent();
             //labDeviceNo.Content = deviceNo;
             this.Visibility = Visibility.Collapsed;
-            string monthFolder = meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy");
+            string monthFolder = App.meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
             if (!Directory.Exists(monthFolder))
             {
                 Directory.CreateDirectory(monthFolder);
@@ -137,11 +133,28 @@ namespace MEIKReport
         }
 
         private void StartMeik()
-        {
-            //string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-            string meikPath = meikFolder+"\\MEIK.exe";
-            if (File.Exists(meikPath))
+        {            
+            string meikPath = App.meikFolder + "\\MEIK.exe";
+            string newMeikPath = App.meikFolder + "\\App.dll";
+            bool meikExists = File.Exists(meikPath);
+            bool newMeikExists = File.Exists(newMeikPath);
+            if (meikExists || newMeikExists)
             {
+                //if (meikExists)
+                //{
+                //    File.SetAttributes(meikPath, FileAttributes.Hidden);
+                //}
+                if (!meikExists && newMeikExists)
+                {
+                    try
+                    {
+                        FileInfo fi = new FileInfo(newMeikPath);
+                        fi.MoveTo(meikPath);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
                 try
                 {
                     //启动外部程序
@@ -174,14 +187,29 @@ namespace MEIKReport
                         //Window wnd = hwndSource.RootVisual as Window;
                     }
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(App.Current.FindResource("Message_1").ToString() +" "+ ex.Message);
+                }
+                finally
+                {
+                    try
+                    {
+                        if (File.Exists(newMeikPath))
+                        {
+                            File.Delete(newMeikPath);
+                        }
+                        FileInfo fi = new FileInfo(meikPath);
+                        fi.MoveTo(newMeikPath);
+                    }
+                    catch (Exception)
+                    {                        
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("The file " + meikPath + "\\MEIK.exe is not exist.");
+                MessageBox.Show("Failed to run MEIK program, file is missing or corrupt.");
             }
         }
 
@@ -238,23 +266,8 @@ namespace MEIKReport
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
-                Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
-                if (App.splashWinHwnd != IntPtr.Zero)
-                {
-                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
-                    Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                this.Close();
-            }
+        {            
+            exitMeik();
         }
 
         public void exitMeik()
@@ -263,15 +276,15 @@ namespace MEIKReport
             {
                 IntPtr exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
                 Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                App.splashWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmSplash", null);
+                App.splashWinHwnd = Win32Api.FindWindowEx(meikPanel.Handle, IntPtr.Zero, "TfmSplash", null);
                 if (App.splashWinHwnd != IntPtr.Zero)
                 {
-                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit);
+                    exitBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strExit); 
                     Win32Api.SendMessage(exitBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Close();
             }

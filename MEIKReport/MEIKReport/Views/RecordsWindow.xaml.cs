@@ -25,8 +25,7 @@ namespace MEIKReport
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class RecordsWindow : Window
-    {
-        private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+    {        
         private ObservableCollection<Patient> patientCollection;
         private Dictionary<string, int> countDict = new Dictionary<string, int>();
         private IList<Patient> patientList=new List<Patient>();
@@ -61,29 +60,18 @@ namespace MEIKReport
         }
 
         private void CountScreeningTimes(DateTime fromDate, DateTime toDate)
-        {
-            //string meikPath = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-            //string meikPath = @"C:\Users\CampRay\Desktop\15010700103 - Silverio, Katherine V";
-            //string meikPath = @"C:\Users\CampRay\Desktop\14102500104 - Pangilinan, Grace L";
-            if (string.IsNullOrEmpty(meikFolder))
+        {            
+            if (string.IsNullOrEmpty(App.meikFolder))
             {
-                meikFolder = @"C:\Program Files (x86)\MEIK 5.6";
+                App.meikFolder = @"C:\Program Files (x86)\MEIK 5.6";
             }
             //string meikPath = @"C:\Program Files (x86)\MEIK 5.6";
             
             try
             {
-                ListFiles(new DirectoryInfo(meikFolder), fromDate, toDate); 
-                
-                //List<Patient> patientList = new List<Patient>();
-                //foreach (KeyValuePair<string, int> kvp in countDict)
-                //{
-                //    Patient patient = new Patient();
-                //    patient.Code = kvp.Key.Split(";".ToCharArray())[0];
-                //    patient.Name = kvp.Key.Split(";".ToCharArray())[1];
-                //    patient.Times = kvp.Value;
-                //    patientList.Add(patient);                    
-                //}
+                patientList.Clear();
+                ListFiles(new DirectoryInfo(App.meikFolder), fromDate, toDate); 
+                                
                 patientCollection = new ObservableCollection<Patient>(patientList);
                 this.patientGrid.ItemsSource = patientCollection;
                 this.txtTimes.Text = patientList.Count + "";
@@ -134,7 +122,7 @@ namespace MEIKReport
                                 patient.Code = code;
                                 patient.Name = name;
                                 patient.Desc = desc;
-                                patient.ScreenDate = file.LastWriteTime.ToString();
+                                patient.ScreenDate = file.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
                                 patientList.Add(patient);
                                 var key = code + ";" + name;
                                 if (countDict.ContainsKey(key))

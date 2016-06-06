@@ -340,8 +340,9 @@ namespace MEIKReport.Views
         private void btnSignature_Click(object sender, RoutedEventArgs e)
         {
             SignatureBox signBox = new SignatureBox();
-            signBox.callbackMethod = ShowSignature;
-            signBox.Show();
+            signBox.Owner = this;
+            //signBox.callbackMethod = ShowSignature;
+            signBox.ShowDialog();
         }
 
         /// <summary>
@@ -633,9 +634,9 @@ namespace MEIKReport.Views
             }
         }
 
-        private void ShowSignature(Object obj)
-        {                     
-            dataSignImg.Source = ImageTools.GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "/Signature/temp.jpg");
+        public void ShowSignature(Object obj)
+        {
+            dataSignImg.Source = ImageTools.GetBitmapImage(AppDomain.CurrentDomain.BaseDirectory + "Signature" + System.IO.Path.DirectorySeparatorChar + "temp.jpg");
         }
 
         private void savePdfBtn_Click(object sender, RoutedEventArgs e)
@@ -939,13 +940,13 @@ namespace MEIKReport.Views
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                IntPtr exitButtonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
-                IntPtr winHandle = Win32Api.GetParent(exitButtonHandle);
+                IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                IntPtr winHandle = Win32Api.GetParent(buttonHandle);
                 var owner = this.Owner.Owner as MainWindow;
                 if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
                 {
                     StringBuilder winText = new StringBuilder(512);
-                    Win32Api.GetWindowText(exitButtonHandle, winText, winText.Capacity);
+                    Win32Api.GetWindowText(buttonHandle, winText, winText.Capacity);
                     if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
@@ -959,6 +960,25 @@ namespace MEIKReport.Views
                         //this.Visibility = Visibility.Visible;
                         this.WindowState = WindowState.Normal;
                         //this.StopMouseHook();
+                    }
+                    else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))//点击开始设备按钮
+                    {
+                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                        var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                        if (App.countDictionary.ContainsKey(screenFolderPath))
+                        {
+                            List<long> ticks = App.countDictionary[screenFolderPath];
+                            ticks.Add(DateTime.Now.Ticks);
+                        }
+                        else
+                        {
+                            List<long> ticks = new List<long>();
+                            ticks.Add(DateTime.Now.Ticks);
+                            App.countDictionary.Add(screenFolderPath, ticks);
+                        } 
+                        //序列化统计字典到文件
+                        string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                        SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
                     }
                 }
             }

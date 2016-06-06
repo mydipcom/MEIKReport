@@ -1,4 +1,5 @@
-﻿using MEIKReport.Model;
+﻿using MEIKReport.Common;
+using MEIKReport.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,10 +23,17 @@ namespace MEIKReport
         public static Window opendWin = null;
         public static string dataFolder = null;
         public static ReportSettingModel reportSettingModel = null;
+        //原始MIEK程序的根目录
+        public static string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"); 
+        //统计扫描次数的字典
+        public static SortedDictionary<string, List<long>> countDictionary = new SortedDictionary<string, List<long>>();
+
         public static string local = "en-US";
         public static string strScreening = "Screening";
         public static string strDiagnostics = "Diagnostics";
         public static string strExit = "Exit";
+        //public static string strMeasurement = "Measurement";
+        public static string strStart = "Start";
 
 
         protected override void OnStartup(StartupEventArgs e)

@@ -14,6 +14,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="470"/>
             <RowDefinition Height="*"/>            
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -48,7 +49,7 @@
         
         <StackPanel Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,2,10,10">
             <!--<TextBlock Name="screeningTimes" FontSize="46" FontWeight="Bold">5</TextBlock>-->
-            <DataGrid Name="patientGrid" Grid.Column="1" Grid.Row="2" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" AutoGenerateColumns="False" RowHeaderWidth="0" FontSize="16" >
+            <DataGrid Name="patientGrid" Grid.Column="1" Grid.Row="2" Height="450" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" AutoGenerateColumns="False" RowHeaderWidth="0" FontSize="16" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="" Width="1.2*" IsReadOnly="True" Binding="{Binding Path=Code}">
                         <DataGridTextColumn.ElementStyle>
@@ -68,7 +69,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{StaticResource Excel3}" Width="2*" IsReadOnly="True" Binding="{Binding Path=ScreenDate}" >
+                    <DataGridTextColumn Header="{StaticResource Excel4}" Width="2*" IsReadOnly="True" Binding="{Binding Path=ScreenDate}" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -77,7 +78,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{StaticResource Excel4}" Width="4*" IsReadOnly="True" Binding="{Binding Path=Desc}">
+                    <DataGridTextColumn Header="{StaticResource Excel3}" Width="4*" IsReadOnly="True" Binding="{Binding Path=Desc}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextWrapping" Value="Wrap"/>

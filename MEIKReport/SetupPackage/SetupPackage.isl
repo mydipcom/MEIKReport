@@ -3470,7 +3470,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331373329</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME20</td><td>1033</td><td>MEIKCountTool</td><td>0</td><td/><td>1764027524</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME21</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1708884109</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.07</td><td>0</td><td/><td>-1163648941</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.11</td><td>0</td><td/><td>858002607</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331373329</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch gxpswin32-9.18.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331414193</td></row>
@@ -4426,7 +4426,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MEIKReport.exe</td><td/></row>
 		<row><td>ProductCode</td><td>{228C02CE-95A5-4A65-B6CA-538949F991B3}</td><td/></row>
 		<row><td>ProductName</td><td>MEIK Application</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.7</td><td/></row>
+		<row><td>ProductVersion</td><td>1.1.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

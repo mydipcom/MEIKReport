@@ -27,7 +27,8 @@ namespace MEIKReport
     /// </summary>
     public partial class AddFolderPage : Window
     {
-        private string lastCode = OperateIniFile.ReadIniData("Data", "Last Code", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
+        private string lastCode = OperateIniFile.ReadIniData("Data", "Last Code", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        
         public AddFolderPage()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace MEIKReport
                 {
                     num = Convert.ToInt32(lastCode.Substring(lastCode.Length - 2, 2));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     num = 50;
                 }
@@ -59,10 +60,16 @@ namespace MEIKReport
             }              
             else
             {
+                string dayFolder = App.meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+                if (!Directory.Exists(dayFolder))
+                {
+                    Directory.CreateDirectory(dayFolder);                    
+                }
+                
                 string patientFolder = null;
                 try
                 {
-                    patientFolder = App.dataFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + "-" + this.txtLastName.Text;
+                    patientFolder = dayFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + "-" + this.txtLastName.Text;
                     if (!string.IsNullOrEmpty(this.txtFirstName.Text))
                     {
                         patientFolder = patientFolder + "," + this.txtFirstName.Text;
@@ -74,24 +81,21 @@ namespace MEIKReport
                     if (!Directory.Exists(patientFolder))
                     {                        
                         Directory.CreateDirectory(patientFolder);                        
-                        OperateIniFile.WriteIniData("Data", "Last Code", this.txtPatientCode.Text, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                        UserList userlistWin = this.Owner as UserList;
-                        userlistWin.loadArchiveFolder(patientFolder);
-                                               
-                        FileHelper.SetFolderPower(patientFolder, "Everyone", "FullControl");
-                        FileHelper.SetFolderPower(patientFolder, "Users", "FullControl");
-                        MessageBox.Show(this, App.Current.FindResource("Message_23").ToString());
+                        OperateIniFile.WriteIniData("Data", "Last Code", this.txtPatientCode.Text, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                                                                                              
                     }
                     else
                     {
-                        MessageBox.Show(this, string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));
-                        UserList userlistWin = this.Owner as UserList;
-                        userlistWin.loadArchiveFolder(patientFolder);
+                        MessageBox.Show(this, string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));                       
                     }
+                    UserList userlistWin = this.Owner as UserList;
+                    userlistWin.loadArchiveFolder(patientFolder); 
                     
                 }
                 catch (Exception ex)
                 {
+                    FileHelper.SetFolderPower(patientFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(patientFolder, "Users", "FullControl");
+                    MessageBox.Show(this, App.Current.FindResource("Message_23").ToString());
                     MessageBox.Show(this, string.Format(App.Current.FindResource("Message_25").ToString(), patientFolder, ", Error: " + ex.Message));
                 }
                 finally

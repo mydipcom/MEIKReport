@@ -292,8 +292,9 @@ namespace MEIKReport.Views
         private void btnSignature_Click(object sender, RoutedEventArgs e)
         {
             SignatureBox signBox = new SignatureBox();
-            signBox.callbackMethod = ShowSignature;
-            signBox.Show();
+            signBox.Owner = this;
+            //signBox.callbackMethod = ShowSignature;
+            signBox.ShowDialog();
         }
 
         /// <summary>
