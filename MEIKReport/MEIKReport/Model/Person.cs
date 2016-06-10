@@ -23,6 +23,7 @@ namespace MEIKReport.Model
         private string regDate;
         private string regMonth;
         private string regYear;
+        private string remark;
 
         private bool pain;
 
@@ -245,6 +246,16 @@ namespace MEIKReport.Model
             {
                 this.regYear = value;
                 OnPropertyChanged("RegYear");
+            }
+        }
+
+        public string Remark
+        {
+            get { return this.remark; }
+            set
+            {
+                this.remark = value;
+                OnPropertyChanged("Remark");
             }
         }
 

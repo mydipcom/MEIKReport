@@ -20,7 +20,7 @@
     <sys:String x:Key="CommonAddBtn">Add</sys:String>
     <sys:String x:Key="CommonDeleteBtn">Delete</sys:String>
     <sys:String x:Key="CommonCloseBtn">Close</sys:String>
-    <sys:String x:Key="CommonUpdateBtn">Update Protocal</sys:String>
+    <sys:String x:Key="CommonUpdateBtn">Update Protocol</sys:String>
     <sys:String x:Key="CommonCancelBtn">Cancel</sys:String>
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">Patient Count: </sys:String>
@@ -126,7 +126,8 @@
     <sys:String x:Key="UserDataPersonal7">day</sys:String>
     <sys:String x:Key="UserDataPersonal8">month</sys:String>
     <sys:String x:Key="UserDataPersonal9">year</sys:String>
-
+    <sys:String x:Key="UserDataPersona20">Remark:</sys:String>
+    
     <sys:String x:Key="UserDataComplaintsTab">Complaints</sys:String>
     <sys:String x:Key="UserDataComplaints1">Pain</sys:String>
     <sys:String x:Key="UserDataComplaints2">Colostrum</sys:String>
@@ -361,7 +362,8 @@
     <sys:String x:Key="ReportContext_161" xml:space="preserve">Further Examination: </sys:String>
     <sys:String x:Key="ReportContext_162">Breast Ultrasound</sys:String>
     <sys:String x:Key="ReportContext_163">Standard Mammogram</sys:String>
-    <sys:String x:Key="ReportContext_164">Biopsy</sys:String>
+    <sys:String x:Key="ReportContext_164">Breast Ultrasound and Standard Mammogram</sys:String>
+    <!--<sys:String x:Key="ReportContext_164">Biopsy</sys:String>-->
     <sys:String x:Key="ReportContext_165" xml:space="preserve">Comments 01: </sys:String>
     <sys:String x:Key="ReportContext_166">No suspicious lesions detected at the time of exam.</sys:String>
     <sys:String x:Key="ReportContext_167">Benign lesion detected.</sys:String>
@@ -398,5 +400,5 @@
     <sys:String x:Key="ReportContext_198">Mammary Glands Electrical Impedance Examination Report</sys:String>
     <sys:String x:Key="ReportContext_199">3D-Electro-Mammograph – MEIK v.5.6</sys:String>
     <sys:String x:Key="ReportContext_200">License No: </sys:String>
-
+    <sys:String x:Key="ReportContext_201">BI-RADS category:  0 Category - Poor Image - Re-Screen; 1 Category - No findings detected; 2 Category - Benign lesion; 3 Category - Probably benign findings; 4 Category - Suspicious abnormality; 5 Category - Highly suggestive malignancy;</sys:String>
 </ResourceDictionary>

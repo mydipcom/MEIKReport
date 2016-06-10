@@ -19,7 +19,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3.2*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height=".3*"/>
                 <RowDefinition Height=".2*"/>
                 <RowDefinition Height="*"/>
@@ -30,19 +30,19 @@
                 <RowDefinition Height="1.2*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="0"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="1.3*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -58,19 +58,17 @@
                     <ColumnDefinition/>
                     <!--<ColumnDefinition Width="100"/>-->
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <!--<RowDefinition Height="1.5*"/>
-                    <RowDefinition Height="1.5*"/>-->
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                <Grid.RowDefinitions>                    
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                   
                 </Grid.RowDefinitions>
-                <Image Source="/Images/NuvoMED_Logo.png" Grid.Row="0" Grid.Column="0"></Image>
+                <!--<Image Source="/Images/NuvoMED_Logo.png" Grid.Row="0" Grid.Column="0"></Image>-->
                 <!--<Image Source="/Images/logo.jpg" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"></Image>
                 <TextBlock Text="PATIENT'S MEIK RESULT" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
                 <TextBlock Text="MEIK v.5.6 - Digital Mammograph Summary Report" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>-->
-                <TextBlock Text="{StaticResource ReportContext_196}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
-                <TextBlock Text="{StaticResource ReportContext_197}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Text="{StaticResource ReportContext_196}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Text="{StaticResource ReportContext_197}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
             </Grid>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,3"></Border>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -115,19 +113,26 @@
                 <TextBlock Name="dataLeftSize" Text="{Binding DataLeftSize}" Width="220" FontWeight="Bold" Margin="0,0,10,0"/>
                 <TextBlock Name="dataRightSize" Text="{Binding DataRightSize}" Width="300" FontWeight="Bold"/>
             </StackPanel>
-            <!--<StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
+            <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold"/>
+                <TextBlock Text="{StaticResource ReportContext_142}" Width="60" FontWeight="Bold"/>
+                <TextBlock Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="150" Margin="0,0,1,0"/>
+                <TextBlock Text="{StaticResource ReportContext_143}" Width="100" FontWeight="Bold"/>
+                <TextBlock Name="dataPoint" Text="{Binding DataPoint}" Width="200" Margin="0,0,1,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_150}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataBiRadsCategory" Text="{Binding DataBiRadsCategory}" Width="560" FontWeight="Bold" />
-            </StackPanel>-->
-            <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
+            </StackPanel>
+            <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_157}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}" Width="560" FontWeight="Bold" />
             </StackPanel>
-            <StackPanel Grid.Row="13" Orientation="Horizontal" HorizontalAlignment="Left" >
+            <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_189}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}" Width="560" FontWeight="Bold" />
             </StackPanel>
-            <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Left" >
+            <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_165}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}" Width="560"/>
             </StackPanel>
@@ -135,7 +140,7 @@
                 <TextBlock Text="" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataConclusion2" Text="{Binding DataConclusion2}" Width="600"/>
             </StackPanel>-->
-            <StackPanel Grid.Row="15" Orientation="Horizontal" HorizontalAlignment="Left" Grid.RowSpan="2">
+            <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Left">
                 <TextBlock Text="{StaticResource ReportContext_169}" Width="150" FontWeight="Bold"/>
                 <TextBlock Name="dataComments" Text="{Binding DataComments}" Width="560" TextWrapping="Wrap"/>
             </StackPanel>
@@ -179,10 +184,9 @@
                 <TextBlock Text="{StaticResource ReportContext_200}" Width="80"  VerticalAlignment="Center"/>
                 <TextBlock Name="dataDoctorLicenseNo" Text="{Binding DataDoctorLicense}" Width="250"  VerticalAlignment="Center"/>
             </StackPanel>
-            <!--<StackPanel Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Text="BI – RADS Categories: " Width="120"/>
-                <TextBlock Text="BI – RADS 0 poor image   BI – RADS 1 lesion is not defined	BI – RADS 2 benign tumours – routine mammography   BI – RADS 3 probably benign findings	BI – RADS 4 suspicious abnormality – biopsy" Width="600" TextWrapping="Wrap" />
-            </StackPanel>-->
+            <StackPanel Grid.Row="23" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >                    
+                <TextBlock FontWeight="Bold" Text="{StaticResource ReportContext_201}" Width="700" TextWrapping="Wrap"/>                
+            </StackPanel>
             <StackPanel Grid.Row="24" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_193}" Width="700" TextWrapping="Wrap"/>
             </StackPanel>
@@ -194,7 +198,7 @@
                 <!--<TextBlock Text="Revised by NUM 11/21/14" Width="150"/>-->
             </StackPanel>
             <Grid Grid.Row="28" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Name="dataScreenShotImg" Height="300" Width="780" VerticalAlignment="Center"/>
+                <Image Name="dataScreenShotImg" Height="300" Width="700"/>
             </Grid>
             <!--<StackPanel Grid.Row="30" Orientation="Horizontal" HorizontalAlignment="Center" >
                 <TextBlock Text="Nuvotek, Inc.  1155 Quirino Highway, Novaliches, Quezon City, Metro Manila, Philippines 1124"/>

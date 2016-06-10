@@ -3,6 +3,7 @@ using MEIKReport.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -132,14 +133,14 @@ namespace MEIKReport.Views
                         shortFormReportModel.DataUserCode = person.Code;
                         shortFormReportModel.DataName = person.SurName;
                         shortFormReportModel.DataAge = person.Age + "";
-                        shortFormReportModel.DataAddress = person.Address;
+                        shortFormReportModel.DataAddress = person.Address;                        
                         if ("en-US".Equals(App.local))
                         {
-                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("MMMM d, yyyy");                            
+                            shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("MMMM d, yyyy");                            
                         }
                         else
                         {
-                            shortFormReportModel.DataScreenDate = DateTime.Parse(person.RegMonth + "/" + person.RegDate + "/" + person.RegYear).ToString("yyyy年MM月dd日");
+                            shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy年MM月dd日");
                         }
                         
 

@@ -126,6 +126,8 @@
                             <RowDefinition Height="26"/>
                             <RowDefinition Height="15"/>
                             <RowDefinition Height="26"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="180"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
@@ -145,7 +147,7 @@
                         <Label Grid.Row="4" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal4}"></Label>
                         <Label Grid.Row="5" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal5}"></Label>
                         <Label Grid.Row="7" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersonal6}"></Label>
-
+                        <Label Grid.Row="9" Grid.Column="0" Width="Auto" HorizontalContentAlignment="Right" Content="{DynamicResource UserDataPersona20}"></Label>
                         <TextBox Grid.Row="0" Grid.Column="1" Name="txtName" Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Text="{Binding Path=SurName}"></TextBox>
                         <TextBox Grid.Row="1" Grid.Column="1" Name="txtGivenName" Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Text="{Binding Path=GivenName}"></TextBox>
                         <TextBox Grid.Row="2" Grid.Column="1" Name="txtOtherName" Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Text="{Binding Path=OtherName}"></TextBox>
@@ -164,7 +166,8 @@
                             <TextBox Name="txttRegYear" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=RegYear}"></TextBox>
                         </WrapPanel>
                         <TextBox Grid.Row="7" Grid.Column="1" Name="txtAddress" Width="Auto" HorizontalContentAlignment="Left" Text="{Binding Path=Address}" Margin="0,0,20,0"></TextBox>
-                        <Button  Grid.Row="9" Grid.Column="1" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
+                        <Button  Grid.Row="11" Grid.Column="1" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
+                        <TextBox Grid.Row="9" Grid.Column="1" Name="txtRemark" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="180" Text="{Binding Path=Remark}" Margin="0,0,20,0"></TextBox>
                     </Grid>
                 </TabItem>
                 <TabItem Name="tabComplaints" Header="{DynamicResource UserDataComplaintsTab}" Height="Auto">

@@ -40,6 +40,10 @@ namespace MEIKReport.Common
         [DllImport("user32.dll", EntryPoint = "EnumWindows",SetLastError=true)]
         public static extern bool EnumWindows(WNDENUMPROC lpEnumFunc,uint LParam);
 
+        //枚举指定窗体的所有子窗体,
+        [DllImport("user32.dll", EntryPoint = "EnumChildWindows", SetLastError = true)]
+        public static extern bool EnumChildWindows(IntPtr hWnd, WNDENUMPROC lpEnumFunc, uint LParam);
+
         //获取指定窗体所在进程的ID
         [DllImport("user32.dll", EntryPoint = "GetWindowThreadProcessId")]
         public static extern bool GetWindowThreadProcessId(IntPtr hWnd, ref uint LpdwProcessId);

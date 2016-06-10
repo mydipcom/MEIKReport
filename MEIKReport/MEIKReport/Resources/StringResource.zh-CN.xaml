@@ -359,7 +359,8 @@
     <sys:String x:Key="ReportContext_161" xml:space="preserve">建议: </sys:String>
     <sys:String x:Key="ReportContext_162">乳房超声波检测</sys:String>
     <sys:String x:Key="ReportContext_163">乳房X光照检测</sys:String>
-    <sys:String x:Key="ReportContext_164">乳房活组织检测</sys:String>
+    <!--<sys:String x:Key="ReportContext_164">乳房活组织检测</sys:String>-->
+    <sys:String x:Key="ReportContext_164">乳房超声波检测和乳房X光照检测</sys:String>
     <sys:String x:Key="ReportContext_165" xml:space="preserve">结论: </sys:String>
     <sys:String x:Key="ReportContext_166">无发现肿瘤症状, 建议定期检测.</sys:String>
     <sys:String x:Key="ReportContext_167">发现良性病灶， 建议后续检查 .</sys:String>
@@ -397,4 +398,5 @@
     <sys:String x:Key="ReportContext_198">乳腺电阻抗检查报告</sys:String>
     <sys:String x:Key="ReportContext_199">3D乳腺成像 – MEIK v.5.6</sys:String>
     <sys:String x:Key="ReportContext_200">授权编号:</sys:String>
+    <sys:String x:Key="ReportContext_201">BI-RADS分類: 0 类 - 照片影像模糊 - 需重新扫描; 1 类 - 未发现病理性改变; 2 类 - 良性组织损伤; 3 类 - 疑似良性发现; 4 类 - 疑似恶性发现; 5 类 - 高度可能为恶性;</sys:String>
 </ResourceDictionary>

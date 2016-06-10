@@ -64,7 +64,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1.2*"/>
+                            <RowDefinition Height="1*"/>
                             <RowDefinition Height="1.2*"/>
                             <RowDefinition Height="0.1*"/>
                             <RowDefinition Height="*"/>
@@ -162,7 +162,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_9}" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="150" FontSize="10"/>
+                            <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}" Width="150" FontSize="10" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_10}" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
                             <TextBox Name="dataAge" Text="{Binding DataAge}" Width="55" Margin="0,0,5,0" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <!--<TextBlock Name="dataAge" Text="{Binding DataAge}" Width="60" FontSize="10"/>-->
@@ -763,7 +763,7 @@
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_162}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_163}"></ComboBoxItem>
-                                <!--<ComboBoxItem Content="{StaticResource ReportContext_164}"></ComboBoxItem>-->                                
+                                <ComboBoxItem Content="{StaticResource ReportContext_164}"></ComboBoxItem>                                
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >

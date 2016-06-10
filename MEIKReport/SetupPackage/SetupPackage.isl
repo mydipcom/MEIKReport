@@ -1186,7 +1186,9 @@
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>meik_application</td><td>uswopt_1_uswop_technology</td><td>MEIKAP~1|meik application</td><td/><td>1</td><td/></row>
+		<row><td>meik_application1</td><td>nuvome_1_nuvomed_technology</td><td>MEIKAP~1|meik application</td><td/><td>1</td><td/></row>
 		<row><td>meikre_1_meik_report_tools</td><td>ProgramMenuFolder</td><td>MEIKAP~1|MEIK Application</td><td/><td>1</td><td/></row>
+		<row><td>nuvome_1_nuvomed_technology</td><td>ProgramMenuFolder</td><td>nuvome~1|nuvomed technology</td><td/><td>1</td><td/></row>
 		<row><td>uswopt_1_uswop_technology</td><td>ProgramMenuFolder</td><td>uswopt~1|uswop technology</td><td/><td>1</td><td/></row>
 	</table>
 

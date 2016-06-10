@@ -88,8 +88,12 @@ namespace MEIKReport
                         MessageBox.Show(this, string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));                       
                     }
                     UserList userlistWin = this.Owner as UserList;
-                    userlistWin.loadArchiveFolder(patientFolder); 
-                    
+                    userlistWin.loadArchiveFolder(patientFolder);
+                    try
+                    {
+                        Clipboard.SetText(this.txtPatientCode.Text);
+                    }
+                    catch (Exception) { }
                 }
                 catch (Exception ex)
                 {

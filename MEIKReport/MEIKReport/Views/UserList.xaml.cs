@@ -204,6 +204,8 @@ namespace MEIKReport
                             person.RegDate = OperateIniFile.ReadIniData("Personal data", "registration date", "", NextFile.FullName);
                             person.RegMonth = OperateIniFile.ReadIniData("Personal data", "registration month", "", NextFile.FullName);
                             person.RegYear = OperateIniFile.ReadIniData("Personal data", "registration year", "", NextFile.FullName);
+                            person.Remark = OperateIniFile.ReadIniData("Personal data", "remark", "", NextFile.FullName);
+                            person.Remark = person.Remark.Replace(";;", "\r\n");                            
 
                             person.TechName = OperateIniFile.ReadIniData("Report", "Technician Name", "", NextFile.FullName);
                             person.TechLicense = OperateIniFile.ReadIniData("Report", "Technician License", "", NextFile.FullName);
@@ -832,7 +834,7 @@ namespace MEIKReport
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);                
                 IntPtr winHandle = Win32Api.GetParent(buttonHandle);
                 var owner = this.Owner as MainWindow;
                 if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
@@ -898,6 +900,7 @@ namespace MEIKReport
         {
             var eleObj = listLang.SelectedItem as XmlElement;
             var local = eleObj.GetAttribute("Flag");
+            App.local = local;
             if ("zh-HK".Equals(local))
             {
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
@@ -954,7 +957,9 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Personal data", "registration month", this.txttRegMonth.Text, person.CrdFilePath);
                 person.RegYear = this.txttRegYear.Text;
                 OperateIniFile.WriteIniData("Personal data", "registration year", this.txttRegYear.Text, person.CrdFilePath);
-
+                person.Remark = this.txtRemark.Text;
+                string remark = this.txtRemark.Text.Replace("\r\n", ";;");
+                OperateIniFile.WriteIniData("Personal data", "remark", remark, person.CrdFilePath);
                 try
                 {
                     if (!string.IsNullOrEmpty(person.BirthYear))
