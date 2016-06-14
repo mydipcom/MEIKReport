@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid>        
         <!--<Grid.Background>
-            <SolidColorBrush Color="Black"></SolidColorBrush>
+            <ImageBrush ImageSource="../Images/bg.jpg"  />
         </Grid.Background>-->
         <Grid.Resources>            
             <XmlDataProvider x:Key="LanguageDataSource" XPath="Locals">
@@ -248,6 +248,7 @@
                             <TabItem Name="tabMenses" Header="{DynamicResource UserDataAnamnesis1}" Height="Auto">
                                 <Grid Grid.Row="1">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
                                         <RowDefinition Height="26"/>
                                         <RowDefinition Height="70"/>
                                         <RowDefinition Height="26"/>
@@ -261,32 +262,38 @@
                                         <ColumnDefinition Width="150"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
+                                    <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                                        <CheckBox Name="checkMensesNorm" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=MenstrualCycleDisorder}"></CheckBox>
+                                        <Label Content="{DynamicResource UserDataAnamnesis31}" Margin="0,0,10,0"></Label>
+                                        <CheckBox Name="checkMensesDeviations" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=MenstrualCycleDisorder}"></CheckBox>
+                                        <Label Content="{DynamicResource UserDataAnamnesis32}"></Label>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1" Grid.ColumnSpan="2">
                                         <CheckBox Name="checkMenstrualCycleDisorder" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=MenstrualCycleDisorder}"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis2}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
                                         <TextBox Name="txtMenstrualCycleDisorderDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Text="{Binding Path=MenstrualCycleDisorderDesc}"></TextBox>
                                     </StackPanel>
-                                    <WrapPanel Grid.Row="2" Grid.ColumnSpan="2">
+                                    <WrapPanel Grid.Row="3" Grid.ColumnSpan="2">
                                         <CheckBox Name="checkPostmenopause" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Postmenopause}"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis3}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
                                         <TextBox Name="txtPostmenopauseDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Text="{Binding Path=PostmenopauseDesc}"></TextBox>
                                     </StackPanel>
-                                    <WrapPanel Grid.Row="4" Grid.ColumnSpan="2">
+                                    <WrapPanel Grid.Row="5" Grid.ColumnSpan="2">
                                         <CheckBox Name="checkHormonalContraceptives" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=HormonalContraceptives}"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis4}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="5">
+                                    <StackPanel Grid.Row="6">
                                         <Label Width="150" Content="{DynamicResource UserDataAnamnesis5}"></Label>
                                     </StackPanel>
-                                    <TextBox Name="txtHormonalContraceptivesBrandName" Grid.Row="5" Grid.Column="1" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesBrandName}"></TextBox>
-                                    <WrapPanel Grid.Row="6">
+                                    <TextBox Name="txtHormonalContraceptivesBrandName" Grid.Row="6" Grid.Column="1" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesBrandName}"></TextBox>
+                                    <WrapPanel Grid.Row="7">
                                         <Label Width="150" Content="{DynamicResource UserDataAnamnesis6}"></Label>
                                     </WrapPanel>
-                                    <TextBox  Name="txtHormonalContraceptivesPeriod" Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesPeriod}"></TextBox>                                    
+                                    <TextBox  Name="txtHormonalContraceptivesPeriod" Grid.Row="7" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesPeriod}"></TextBox>                                    
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabSomatic" Header="{DynamicResource UserDataAnamnesis7}" Height="Auto">

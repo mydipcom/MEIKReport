@@ -170,10 +170,12 @@
     <sys:String x:Key="UserDataAnamnesis28">Under 1 month</sys:String>
     <sys:String x:Key="UserDataAnamnesis29">Under 1 year</sys:String>
     <sys:String x:Key="UserDataAnamnesis30">Over 1 year</sys:String>
+    <sys:String x:Key="UserDataAnamnesis31">Norm</sys:String>
+    <sys:String x:Key="UserDataAnamnesis32">Deviations</sys:String>
 
     <sys:String x:Key="UserDataDiseaseTab">Disease</sys:String>
     <sys:String x:Key="UserDataDisease1">Trauma</sys:String>
-    <sys:String x:Key="UserDataDisease2">Cannot Remove System Shell Notification Icon</sys:String>
+    <sys:String x:Key="UserDataDisease2">Mastitis</sys:String>
     <sys:String x:Key="UserDataDisease3">Fibrous-cystic mastopathy</sys:String>
     <sys:String x:Key="UserDataDisease4">Cysts</sys:String>
     <sys:String x:Key="UserDataDisease5">Cancer</sys:String>

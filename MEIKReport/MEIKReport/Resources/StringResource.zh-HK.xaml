@@ -168,6 +168,8 @@
     <sys:String x:Key="UserDataAnamnesis28">一個月之內</sys:String>
     <sys:String x:Key="UserDataAnamnesis29">一年之內</sys:String>
     <sys:String x:Key="UserDataAnamnesis30">一年以上</sys:String>
+    <sys:String x:Key="UserDataAnamnesis31">正常</sys:String>
+    <sys:String x:Key="UserDataAnamnesis32">異常</sys:String>
 
     <sys:String x:Key="UserDataDiseaseTab">乳腺疾病</sys:String>
     <sys:String x:Key="UserDataDisease1">外傷</sys:String>
