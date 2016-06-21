@@ -34,7 +34,7 @@ namespace MEIKReport
         public static string strExit = "Exit";
         //public static string strMeasurement = "Measurement";
         public static string strStart = "Start";
-
+        public static List<string> uploadedCodeList = new List<string>();
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -60,7 +60,15 @@ namespace MEIKReport
             //splash.Close(TimeSpan.FromMilliseconds(SPLASH_FADE_TIME));
             //main.Show();
 
-            //RunAsAdministrator();            
+            //RunAsAdministrator(); 
+ 
+
+            //if (e.Args != null && e.Args.Count() > 0)
+            //{
+            //    this.Properties["startexe"] = e.Args[0];
+            //    this.Properties["version"] = e.Args[1];
+            //}
+            //base.OnStartup(e); 
 
         }
 

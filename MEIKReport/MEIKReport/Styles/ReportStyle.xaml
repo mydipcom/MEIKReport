@@ -7,9 +7,33 @@
     <Style TargetType="{x:Type TextBlock  }">
         <Setter Property="FontFamily" Value="Arial,Microsoft YaHei" />
     </Style>
-    <Style TargetType="{x:Type Button }">
+    
+    <!--默认的按钮样式-->
+    <Style TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property = "Foreground" Value="White"/>
+                <Setter Property="Background" Value="#FF6BA5B6"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property = "Foreground" Value="Gray"/>
+                <Setter Property="Background" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Label Margin="0" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </Label>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="#FF3E6E8F"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="Arial,Microsoft YaHei" />
-    </Style>
+    </Style>    
+
     <!-- Header text style -->
     <Style x:Key="headerTextStyle">
         <Setter Property="Label.VerticalAlignment" Value="Center"></Setter>
@@ -131,6 +155,8 @@
         <Setter Property="Foreground" Value="Black"/>
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>-->
     </Style>
+    
+    
     <Style TargetType="{x:Type Button}" x:Key="NewButtonStyle1">
         <Style.Triggers>
             <Trigger Property="IsPressed" Value="true">
@@ -189,5 +215,77 @@
         <Setter Property="Background" Value="LightGray"/>
         <Setter Property="Foreground" Value="Black"/>
         <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>-->
+    </Style>
+
+    
+
+    <Style TargetType="{x:Type TabItem}" x:Key="NewTabButtonStyle">
+        <Setter Property="Background" Value="#FF768795"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <StackPanel Height="{TemplateBinding Height}" Background="{x:Null}" Margin="0,0,5,0">
+                        <Border Name="tabBorder" BorderThickness="4,4,4,0" BorderBrush="{TemplateBinding Background}"  CornerRadius="6,6,0,0">
+                            <StackPanel Name="tabBg" Background="{TemplateBinding Background}">
+                                <Label Name="btnTxt" Margin="0,-4,0,0" Content="{TemplateBinding Header}" Background="{x:Null}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabItem.IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="#FF3E6E8F" TargetName="tabBorder"/>
+                            <Setter Property="Background" Value="#FF3E6E8F" TargetName="tabBg"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBox}" x:Key="NewComboBoxStyle">                
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid Height="{TemplateBinding Height}">
+                        <!-- ToggleButton 已数据绑定到 ComboBox 本身以切换 IsDropDownOpen -->
+                        <ToggleButton x:Name="ToggleButton" Focusable="false" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="26" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" />
+                                        <Border Grid.Column="1" Background="{TemplateBinding BorderBrush}" Cursor="Hand"/>
+                                        <Path x:Name="Arrow"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="8" Stretch="Fill" Fill="White" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter HorizontalAlignment="Left" Margin="3,2,26,2" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+                        <!-- 必须将 TextBox 命名为 PART_EditableTextBox，否则 ComboBox 将无法识别它 -->
+                        <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" HorizontalAlignment="Left" Margin="3,2,26,2" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Background="Transparent" IsReadOnly="{TemplateBinding IsReadOnly}">
+                            <TextBox.Template>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+                                </ControlTemplate>
+                            </TextBox.Template>
+                        </TextBox>
+                        <!-- Popup 可显示 ComboBox 中的项列表。IsOpen 已数据绑定到通过 ComboBoxToggleButton 来切换的 IsDropDownOpen -->
+                        <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                <Border x:Name="DropDownBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"/>
+                                <ScrollViewer Margin="4,6,4,6"  SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                    <!-- StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True -->
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="{TemplateBinding Background}"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

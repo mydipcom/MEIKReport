@@ -102,7 +102,9 @@
     </ApplicationDefinition>
     <Compile Include="Common\DelegateHelper.cs" />
     <Compile Include="Common\EmailHelper.cs" />
+    <Compile Include="Common\EnumBooleanConverter.cs" />
     <Compile Include="Common\FileHelper.cs" />
+    <Compile Include="Common\FtpHelper.cs" />
     <Compile Include="Common\GlobalHook.cs" />
     <Compile Include="Common\GlobalMouseHandler.cs" />
     <Compile Include="Common\ImageTools.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Common\MouseSimulator.cs" />
     <Compile Include="Common\OperateIniFile.cs" />
     <Compile Include="Common\PDFTools.cs" />
+    <Compile Include="Common\ReverseTypeConverter.cs" />
     <Compile Include="Common\ScreenCapture.cs" />
     <Compile Include="Common\SecurityTools.cs" />
     <Compile Include="Common\SerializeUtilities.cs" />
@@ -122,8 +125,10 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\CommonEnum.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\ReportSettingModel.cs" />
+    <Compile Include="Model\ShortFormReportNew.cs" />
     <Compile Include="Model\ShortFormReport.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="PrintPreviewWindow.xaml.cs">
@@ -131,6 +136,12 @@
     </Compile>
     <Compile Include="ReportModel\ExaminationReportModel.cs" />
     <Compile Include="ReportModel\SummaryReportModel.cs" />
+    <Compile Include="Views\PasswordPage.xaml.cs">
+      <DependentUpon>PasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenFolderPage.xaml.cs">
+      <DependentUpon>OpenFolderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddFolderPage.xaml.cs">
       <DependentUpon>AddFolderPage.xaml</DependentUpon>
     </Compile>
@@ -205,6 +216,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PasswordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OpenFolderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AddFolderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -230,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNamePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SummaryReportNuvoTekDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -354,9 +377,35 @@
     <Resource Include="Images\MEIK-ICON.PNG" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="foot.png" />
     <Content Include="gxpswin32.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\bg.jpg" />
+    <Resource Include="Images\browse.png" />
+    <Resource Include="Images\new.png" />
+    <Resource Include="Images\diagnostics.png" />
+    <Resource Include="Images\records.png" />
+    <Resource Include="Images\screening.png" />
+    <Resource Include="Images\setting.png" />
+    <Resource Include="Images\browse_hover.png" />
+    <Resource Include="Images\diagnostics_hover.png" />
+    <Resource Include="Images\new_hover.png" />
+    <Resource Include="Images\records_hover.png" />
+    <Resource Include="Images\screening_hover.png" />
+    <Resource Include="Images\setting_hover.png" />
+    <Resource Include="Images\edit.png" />
+    <Resource Include="Images\edit_hover.png" />
+    <Resource Include="Images\send.png" />
+    <Resource Include="Images\send_hover.png" />
+    <Resource Include="Images\App_Icon.png" />
+    <Resource Include="Images\sended.png" />
+    <Resource Include="Images\multiple_choice.png" />
+    <Resource Include="Images\single_choice.png" />
+    <Resource Include="Images\receive.png" />
+    <Resource Include="Images\receive_hover.png" />
+    <Resource Include="Images\folder-open.png" />
+    <Resource Include="logo.png" />
     <Resource Include="Images\NuvoMED_Logo.png" />
     <Resource Include="Images\id_card_ok.png" />
     <Resource Include="Images\id_card.png" />

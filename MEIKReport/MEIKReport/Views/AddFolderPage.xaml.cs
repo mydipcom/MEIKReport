@@ -60,7 +60,7 @@ namespace MEIKReport
             }              
             else
             {
-                string dayFolder = App.meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+                string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
                 if (!Directory.Exists(dayFolder))
                 {
                     Directory.CreateDirectory(dayFolder);                    

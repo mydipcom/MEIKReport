@@ -41,16 +41,17 @@ namespace MEIKReport
         public MainWindow()
         {
             string local = OperateIniFile.ReadIniData("Base", "Language", "en-US", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            if (string.IsNullOrEmpty(local))
+            {
+                local = "en-US";
+            }
             if (File.Exists(App.meikFolder +System.IO.Path.DirectorySeparatorChar+ "Language.CHN"))
             {                
                 App.strScreening = "筛选";
                 App.strDiagnostics = "诊断";
                 App.strExit = "退出";
                 App.strStart = "开始";
-                if (string.IsNullOrEmpty(local))
-                {
-                    local = "zh-CN";
-                }
+                local = "zh-CN";
             }            
             //else
             //{
@@ -78,12 +79,13 @@ namespace MEIKReport
             InitializeComponent();
             //labDeviceNo.Content = deviceNo;
             this.Visibility = Visibility.Collapsed;
-            string monthFolder = App.meikFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
-            if (!Directory.Exists(monthFolder))
-            {
-                Directory.CreateDirectory(monthFolder);
-            }
-            App.dataFolder = monthFolder;
+            //string MeikDataBaseFolder = OperateIniFile.ReadIniData("Base", "Data base", "C:\MEIKData", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            //string dayFolder = MeikDataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+            //if (!Directory.Exists(dayFolder))
+            //{
+            //    Directory.CreateDirectory(dayFolder);
+            //}
+            //App.dataFolder = dayFolder;
         }
         
                

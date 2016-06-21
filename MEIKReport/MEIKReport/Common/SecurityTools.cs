@@ -24,11 +24,12 @@ namespace MEIKReport.Common
             try
             {
                 TripleDESCryptoServiceProvider tDESalg = new TripleDESCryptoServiceProvider();
-                if (!string.IsNullOrEmpty(encryptionPrivateKey))
-                {
-                    tDESalg.Key = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(0, 16));
-                    tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8));
-                }
+                if (String.IsNullOrEmpty(encryptionPrivateKey))
+                    encryptionPrivateKey = "CampRay@20140416";
+                
+                tDESalg.Key = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(0, 16));
+                tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8)); 
+
                 // Create or open the specified file.
                 FileStream fStream = File.Open(fileName, FileMode.OpenOrCreate);
 
@@ -73,11 +74,11 @@ namespace MEIKReport.Common
             try
             {
                 TripleDESCryptoServiceProvider tDESalg = new TripleDESCryptoServiceProvider();
-                if (!string.IsNullOrEmpty(encryptionPrivateKey))
-                {
-                    tDESalg.Key = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(0, 16));
-                    tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8));
-                }
+                if (String.IsNullOrEmpty(encryptionPrivateKey))
+                    encryptionPrivateKey = "CampRay@20140416";
+
+                tDESalg.Key = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(0, 16));
+                tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8)); 
                 // Create or open the specified file. 
                 FileStream fStream = File.Open(fileName, FileMode.OpenOrCreate);
 

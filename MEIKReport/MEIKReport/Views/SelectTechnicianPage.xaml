@@ -1,6 +1,7 @@
 ﻿<Window x:Class="MEIKReport.SelectTechnicianPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/MEIKReport;component/Images/App_Icon.png"
         Title="Select Technician" Height="140" Width="350" ShowInTaskbar="False" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterOwner">    
     <Grid>       
         <Grid.RowDefinitions>

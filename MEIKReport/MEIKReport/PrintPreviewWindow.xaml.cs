@@ -41,12 +41,12 @@ namespace MEIKReport
         public static FixedPage LoadFixedDocumentAndRender(string strTmplName, Object data)
         {
             FixedPage doc = (FixedPage)Application.LoadComponent(new Uri(strTmplName, UriKind.RelativeOrAbsolute));
-            if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+            if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 doc.Width = 96 * 8.5;
                 doc.Height = 96 * 11;
             }
-            else if ("A4".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+            else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 doc.Width = 96 * 8.27;
                 doc.Height = 96 * 11.69;                
@@ -68,6 +68,19 @@ namespace MEIKReport
                     {
                         screenShotImg.Source = ImageTools.GetBitmapImage(shortFormReport.DataScreenShotImg);
                     }
+                    if (App.reportSettingModel.NoShowTechSignature)
+                    {
+                        var techSignPanel = doc.FindName("techSignPanel") as Panel;
+                        techSignPanel.Visibility = Visibility.Collapsed;
+                    }
+                    if (App.reportSettingModel.NoShowDoctorSignature)
+                    {
+                        var doctorSignPanel = doc.FindName("doctorSignPanel") as Panel;
+                        doctorSignPanel.Visibility = Visibility.Collapsed;
+                        var doctorSignGrid = doc.FindName("doctorSignGrid") as Panel;
+                        doctorSignGrid.Visibility = Visibility.Collapsed;
+                    }
+
                 }
             }            
             return doc;

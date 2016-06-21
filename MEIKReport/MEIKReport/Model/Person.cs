@@ -7,7 +7,7 @@ namespace MEIKReport.Model
         private string crdFilePath;
         private int id;        
         private string code;
-        private string surName;
+        private string surName="";
         private string givenName;
         private string otherName;
 
@@ -28,6 +28,12 @@ namespace MEIKReport.Model
         private bool pain;
 
         private string icon = "/Images/id_card.png";
+        private string uploaded;
+        public string Uploaded
+        {
+            get { return uploaded; }
+            set { uploaded = value; OnPropertyChanged("Uploaded"); }
+        }
 
         public bool Pain
         {
@@ -259,6 +265,14 @@ namespace MEIKReport.Model
             }
         }
 
+        private bool mensesStatus;
+
+        public bool MensesStatus
+        {
+            get { return mensesStatus; }
+            set { mensesStatus = value; OnPropertyChanged("MensesStatus"); }
+        }
+
         private bool menstrualCycleDisorder;
 
         public bool MenstrualCycleDisorder
@@ -310,6 +324,13 @@ namespace MEIKReport.Model
         }
 
 
+        private bool somaticStatus;
+
+        public bool SomaticStatus
+        {
+            get { return somaticStatus; }
+            set { somaticStatus = value; OnPropertyChanged("SomaticStatus"); }
+        }
 
         private bool adiposity;
 
@@ -376,6 +397,14 @@ namespace MEIKReport.Model
         }
 
 
+
+        private bool gynecologicStatus;
+
+        public bool GynecologicStatus
+        {
+            get { return gynecologicStatus; }
+            set { gynecologicStatus = value; OnPropertyChanged("GynecologicStatus"); }
+        }
         private bool infertility;
 
         public bool Infertility
@@ -491,6 +520,13 @@ namespace MEIKReport.Model
         }
 
 
+        private bool obstetricStatus;
+
+        public bool ObstetricStatus
+        {
+            get { return obstetricStatus; }
+            set { obstetricStatus = value; OnPropertyChanged("ObstetricStatus"); }
+        }
         private bool abortions;
 
         public bool Abortions
@@ -545,6 +581,13 @@ namespace MEIKReport.Model
 
 
 
+        private bool diseasesStatus;
+
+        public bool DiseasesStatus
+        {
+            get { return diseasesStatus; }
+            set { diseasesStatus = value; OnPropertyChanged("DiseasesStatus"); }
+        }
         private bool trauma;
 
         public bool Trauma
@@ -631,7 +674,13 @@ namespace MEIKReport.Model
         }
 
 
+        private bool palpationStatus;
 
+        public bool PalpationStatus
+        {
+            get { return palpationStatus; }
+            set { palpationStatus = value; OnPropertyChanged("PalpationStatus"); }
+        }
         private bool palpationDiffuse;
 
         public bool PalpationDiffuse
@@ -648,6 +697,13 @@ namespace MEIKReport.Model
         }
         private bool ultrasoundDiffuse;
 
+        private bool ultrasoundStatus;
+
+        public bool UltrasoundStatus
+        {
+            get { return ultrasoundStatus; }
+            set { ultrasoundStatus = value; OnPropertyChanged("UltrasoundStatus"); }
+        }
         public bool UltrasoundDiffuse
         {
             get { return ultrasoundDiffuse; }
@@ -659,6 +715,14 @@ namespace MEIKReport.Model
         {
             get { return ultrasoundFocal; }
             set { ultrasoundFocal = value; }
+        }
+
+        private bool mammographyStatus;
+
+        public bool MammographyStatus
+        {
+            get { return mammographyStatus; }
+            set { mammographyStatus = value; OnPropertyChanged("MammographyStatus"); }
         }
         private bool mammographyDiffuse;
 
@@ -673,6 +737,14 @@ namespace MEIKReport.Model
         {
             get { return mammographyFocal; }
             set { mammographyFocal = value; }
+        }
+
+        private bool biopsyStatus;
+
+        public bool BiopsyStatus
+        {
+            get { return biopsyStatus; }
+            set { biopsyStatus = value; OnPropertyChanged("BiopsyStatus"); }
         }
         private bool biopsyDiffuse;
 

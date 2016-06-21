@@ -2,11 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:wfi ="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
-        xmlns:wf ="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"        
+        xmlns:wf ="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"      
+        Icon="/MEIKReport;component/Images/App_Icon.png"
         Title="MEIK Report" Height="1" Width="1" WindowStyle="None"  ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Loaded="Window_Loaded" 
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed" Visibility="Collapsed">
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed" Visibility="Collapsed">
     <!--<Window.TaskbarItemInfo>
-        <TaskbarItemInfo Description="My Application" Overlay="/MEIKReport;component/Images/ProgressIcon.jpg" ProgressState="Normal"  ProgressValue="10" />
+        <TaskbarItemInfo Description="MEIKReport" Overlay="/MEIKReport;component/Images/logo.jpg" ProgressState="Normal"  ProgressValue="10" />
     </Window.TaskbarItemInfo>-->
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="ButtonFocusVisual">                        

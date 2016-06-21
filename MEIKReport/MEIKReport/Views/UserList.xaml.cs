@@ -26,6 +26,8 @@ namespace MEIKReport
     /// </summary>
     public partial class UserList : Window
     {
+        private delegate void UpdateProgressBarDelegate(DependencyProperty dp, Object value);
+        private delegate void ProgressBarGridDelegate(DependencyProperty dp, Object value);  
         private string deviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
         //private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
         protected MouseHook mouseHook = new MouseHook();
@@ -44,24 +46,67 @@ namespace MEIKReport
                 }
                 catch (Exception) { }
             }
-            InitializeComponent();            
-            listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
+            InitializeComponent();
+            languageUS.Foreground = App.local.Equals("en-US") ? new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4)) : Brushes.White;
+            languageHK.Foreground = App.local.Equals("zh-CN") ? new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4)) : Brushes.White; 
+            //listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
+            
+            //加载初始化配置
+            LoadInitConfig();  
+            //建立当天文件夹          
+            string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+            if (!Directory.Exists(dayFolder))
+            {
+                Directory.CreateDirectory(dayFolder);
+            }
+            App.dataFolder = dayFolder;
+            //加载当前档案目录数据
             if (!string.IsNullOrEmpty(App.dataFolder))
             {
-                loadArchiveFolder(App.dataFolder);                
+                loadArchiveFolder(App.dataFolder);
+            }
+            //显示设备编号
+            labDeviceNo.Content = App.reportSettingModel.DeviceNo;
+            //根据设备类型显示功能模式
+            if (App.reportSettingModel.DeviceType == 1 )
+            {
+                btnScreening.Visibility = Visibility.Visible;
+                btnDiagnostics.Visibility = Visibility.Collapsed;
+                btnRecords.Visibility = Visibility.Visible;
+                btnReceivePdf.Visibility = Visibility.Visible;
+                btnReceive.Visibility = Visibility.Collapsed;
+                btnNewArchive.Visibility = Visibility.Visible;
+                btnExaminationReport.Visibility = Visibility.Collapsed;
+                sendDataButton.Visibility = Visibility.Visible;
+                sendReportButton.Visibility = Visibility.Collapsed;
+                
+            }            
+            else if (App.reportSettingModel.DeviceType == 3)
+            {
+                btnScreening.Visibility = Visibility.Visible;
+                btnDiagnostics.Visibility = Visibility.Visible;
+                btnRecords.Visibility = Visibility.Visible;
+                btnReceive.Visibility = Visibility.Visible;
+                btnReceivePdf.Visibility = Visibility.Visible;
+                btnNewArchive.Visibility = Visibility.Visible;
+                btnExaminationReport.Visibility = Visibility.Visible;
+                sendDataButton.Visibility = Visibility.Visible;
+                sendReportButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnScreening.Visibility = Visibility.Collapsed;
+                btnDiagnostics.Visibility = Visibility.Collapsed;
+                btnRecords.Visibility = Visibility.Collapsed;
+                btnReceive.Visibility = Visibility.Visible;
+                btnReceivePdf.Visibility = Visibility.Collapsed;
+                btnNewArchive.Visibility = Visibility.Collapsed;
+                btnExaminationReport.Visibility = Visibility.Visible;
+                sendDataButton.Visibility = Visibility.Collapsed;
+                sendReportButton.Visibility = Visibility.Visible;
+
             }
             
-            LoadInitConfig();
-            labDeviceNo.Content = App.reportSettingModel.DeviceNo;
-
-            if (App.reportSettingModel.DeviceType == 1 || App.reportSettingModel.DeviceType == 3)
-            {
-                btnRecords.Visibility = Visibility.Visible;
-            }
-            //if (App.reportSettingModel.DeviceType == 3)
-            //{
-            //    btnSummaryReport.Visibility = Visibility.Visible;
-            //}
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
 
             //加载序列化的Screening统计数据
@@ -74,12 +119,15 @@ namespace MEIKReport
                 }
             }
             catch (Exception) { }
+            
+            this.progressBarGrid.DataContext = App.reportSettingModel;
         }        
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Hidden;
             var selectedUser = this.CodeListBox.SelectedItem as Person;
+            
             //var name=selectedUser.GetAttribute("Name");
             // View Examination Report
             ExaminationReportPage examinationReportPage = new ExaminationReportPage(selectedUser);
@@ -118,14 +166,18 @@ namespace MEIKReport
 
         private void btnSelectFolder_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            folderBrowserDialog.SelectedPath = txtFolderPath.Text;
-            System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
-            if (res == System.Windows.Forms.DialogResult.OK)
-            {
-                string folderName = folderBrowserDialog.SelectedPath;                
-                loadArchiveFolder(folderName); 
-            }        
+            //System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            //folderBrowserDialog.SelectedPath = txtFolderPath.Text;
+            //System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
+            //if (res == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    string folderName = folderBrowserDialog.SelectedPath;
+            //    loadArchiveFolder(folderName);
+            //}   
+            OpenFolderPage ofp = new OpenFolderPage();
+            ofp.SelectedPath = txtFolderPath.Text;
+            ofp.Owner = this;
+            ofp.ShowDialog();
         }
 
 
@@ -144,13 +196,11 @@ namespace MEIKReport
                 customerSource.Source = set;
                 if (set.Count > 0)
                 {
-                    reportButtonPanel.Visibility = Visibility.Visible;
-                    emailButton.Visibility = Visibility.Visible;
+                    reportButtonPanel.Visibility = Visibility.Visible;                    
                 }
                 else
                 {
-                    reportButtonPanel.Visibility = Visibility.Hidden;
-                    emailButton.Visibility = Visibility.Hidden;
+                    reportButtonPanel.Visibility = Visibility.Hidden;                    
                 }
 
                 string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
@@ -191,8 +241,15 @@ namespace MEIKReport
                             person.ArchiveFolder = theFolder.FullName;
                             person.CrdFilePath = NextFile.FullName;
 
-                            person.Code = NextFile.Name.Substring(0, NextFile.Name.Length - 4);                            
-
+                            person.Code = NextFile.Name.Substring(0, NextFile.Name.Length - 4);
+                            if (App.uploadedCodeList.Contains(person.Code))
+                            {
+                                person.Uploaded = Visibility.Visible.ToString();
+                            }
+                            else
+                            {
+                                person.Uploaded = Visibility.Collapsed.ToString();
+                            }
                             //Personal Data
                             person.SurName = OperateIniFile.ReadIniData("Personal data", "surname", "", NextFile.FullName);
                             person.GivenName = OperateIniFile.ReadIniData("Personal data", "given name", "", NextFile.FullName);
@@ -256,6 +313,7 @@ namespace MEIKReport
                                 person.HormonalContraceptivesBrandName = person.HormonalContraceptivesBrandName.Replace(";;", "\r\n");
                                 person.HormonalContraceptivesPeriod = OperateIniFile.ReadIniData("Menses", "hormonal contraceptives period", "", NextFile.FullName);
                                 person.HormonalContraceptivesPeriod = person.HormonalContraceptivesPeriod.Replace(";;", "\r\n");
+                                person.MensesStatus = person.MenstrualCycleDisorder || person.Postmenopause || person.HormonalContraceptives ? true : false;
                             }
                             catch (Exception) { }
 
@@ -273,6 +331,7 @@ namespace MEIKReport
                                 person.ThyroidGlandDiseasesDesc = person.ThyroidGlandDiseasesDesc.Replace(";;", "\r\n");
                                 person.SomaticOtherDesc = OperateIniFile.ReadIniData("Somatic", "other description", "", NextFile.FullName);
                                 person.SomaticOtherDesc = person.SomaticOtherDesc.Replace(";;", "\r\n");
+                                person.SomaticStatus = person.Adiposity || person.EssentialHypertension || person.Diabetes || person.ThyroidGlandDiseases || person.SomaticOther ? true : false;
                             }
                             catch (Exception) { }
 
@@ -298,6 +357,9 @@ namespace MEIKReport
                                 person.UterusOtherDesc = person.UterusOtherDesc.Replace(";;", "\r\n");
                                 person.GynecologicOtherDesc = OperateIniFile.ReadIniData("Gynecologic", "other description", "", NextFile.FullName);
                                 person.GynecologicOtherDesc = person.GynecologicOtherDesc.Replace(";;", "\r\n");
+                                person.GynecologicStatus = person.Infertility || person.OvaryDiseases || person.OvaryCyst || person.OvaryCancer 
+                                    || person.OvaryEndometriosis || person.OvaryOther || person.UterusDiseases || person.UterusMyoma
+                                    || person.UterusCancer || person.UterusEndometriosis || person.UterusOther || person.GynecologicOther ? true : false;
                             }
                             catch (Exception) { }
 
@@ -306,7 +368,9 @@ namespace MEIKReport
                                 person.Abortions = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "abortions", "0", NextFile.FullName)));
                                 person.Births = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Obstetric", "births", "0", NextFile.FullName)));
                                 person.AbortionsNumber = OperateIniFile.ReadIniData("Obstetric", "abortions number", "", NextFile.FullName);
-                                person.BirthsNumber = OperateIniFile.ReadIniData("Obstetric", "births number", "", NextFile.FullName);                            
+                                person.BirthsNumber = OperateIniFile.ReadIniData("Obstetric", "births number", "", NextFile.FullName);
+                                person.ObstetricStatus = person.Abortions || person.Births ? true : false;
+                        
                             }
                             catch(Exception){ }
 
@@ -337,6 +401,7 @@ namespace MEIKReport
                                 person.CancerDesc = person.CancerDesc.Replace(";;", "\r\n");
                                 person.DiseasesOtherDesc = OperateIniFile.ReadIniData("Diseases", "other description", "", NextFile.FullName);
                                 person.DiseasesOtherDesc = person.DiseasesOtherDesc.Replace(";;", "\r\n");
+                                person.DiseasesStatus = person.Trauma || person.Mastitis || person.FibrousCysticMastopathy || person.Cysts || person.Cancer || person.DiseasesOther ? true : false;
                             }
                             catch (Exception) { }
 
@@ -345,6 +410,7 @@ namespace MEIKReport
                                 person.PalpationFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "focal", "0", NextFile.FullName)));
                                 person.PalpationDesc = OperateIniFile.ReadIniData("Palpation", "description", "", NextFile.FullName);
                                 person.PalpationDesc = person.PalpationDesc.Replace(";;", "\r\n");
+                                person.PalpationStatus = person.PalpationDiffuse || person.PalpationFocal ? true : false;
                             }
                             catch (Exception) { }
 
@@ -354,6 +420,7 @@ namespace MEIKReport
                                 person.UltrasoundFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "focal", "0", NextFile.FullName)));
                                 person.UltrasoundnDesc = OperateIniFile.ReadIniData("Ultrasound", "description", "", NextFile.FullName);
                                 person.UltrasoundnDesc = person.UltrasoundnDesc.Replace(";;", "\r\n");
+                                person.UltrasoundStatus = person.UltrasoundDiffuse || person.UltrasoundFocal ? true : false;
                             }
                             catch (Exception) { }
 
@@ -363,6 +430,7 @@ namespace MEIKReport
                                 person.MammographyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "focal", "0", NextFile.FullName)));
                                 person.MammographyDesc = OperateIniFile.ReadIniData("Mammography", "description", "", NextFile.FullName);
                                 person.MammographyDesc = person.MammographyDesc.Replace(";;", "\r\n");
+                                person.MammographyStatus = person.MammographyDiffuse || person.MammographyFocal ? true : false;
                             }
                             catch (Exception) { }
 
@@ -378,6 +446,8 @@ namespace MEIKReport
                                 person.BiopsyOther = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "other", "0", NextFile.FullName)));
                                 person.BiopsyOtherDesc = OperateIniFile.ReadIniData("Biopsy", "other description", "", NextFile.FullName);
                                 person.BiopsyOtherDesc = person.BiopsyOtherDesc.Replace(";;", "\r\n");
+                                person.BiopsyStatus = person.BiopsyDiffuse || person.BiopsyFocal || person.BiopsyCancer || person.BiopsyProliferation
+                                    || person.BiopsyDysplasia || person.BiopsyIntraductalPapilloma || person.BiopsyFibroadenoma || person.BiopsyOther ? true : false;
                             }
                             catch (Exception) { }
 
@@ -398,9 +468,14 @@ namespace MEIKReport
             {
                 HandleFolder(subFolder.FullName, ref set);
             }
-        }        
+        }
 
-        private void EmailButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Technician发送数据事件处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SendDataButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(App.reportSettingModel.MailAddress) || string.IsNullOrEmpty(App.reportSettingModel.MailHost)
                 || string.IsNullOrEmpty(App.reportSettingModel.MailUsername) || string.IsNullOrEmpty(App.reportSettingModel.MailPwd)
@@ -411,136 +486,316 @@ namespace MEIKReport
             }
             string deviceNo = App.reportSettingModel.DeviceNo;
             int deviceType = App.reportSettingModel.DeviceType;
-            var selectedUser = this.CodeListBox.SelectedItem as Person;
-            //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
-            string dataFile=selectedUser.ArchiveFolder+ System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
-
-            if (!File.Exists(dataFile) && deviceType == 2)
+            var selectedUserList = this.CodeListBox.SelectedItems;
+            if (selectedUserList == null || selectedUserList.Count == 0)
             {
-                MessageBox.Show(this, App.Current.FindResource("Message_16").ToString());
+                MessageBox.Show(this, App.Current.FindResource("Message_35").ToString());
                 return;
             }
-                        
-            string toMail = App.reportSettingModel.ToMailAddress;
-            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_17").ToString(), "Email Reports", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_17").ToString(), "Send Data", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {
-                //如果是Technician那么判断报告是否已经填写Techinican名称
-                if (deviceType == 1)
+                //判断报告是否已经填写Techinican名称
+                SelectTechnicianPage SelectTechnicianPage = new SelectTechnicianPage(App.reportSettingModel.TechNames);
+                SelectTechnicianPage.Owner = this;
+                SelectTechnicianPage.ShowDialog();
+                if (string.IsNullOrEmpty(App.reportSettingModel.ReportTechName))
                 {
-                    SelectTechnicianPage SelectTechnicianPage = new SelectTechnicianPage(App.reportSettingModel.TechNames, selectedUser);
-                    SelectTechnicianPage.Owner=this;
-                    SelectTechnicianPage.ShowDialog();
-                    if (!string.IsNullOrEmpty(selectedUser.TechName))
+                    return;
+                }
+
+                //隐藏已MRN区域显示的上传过的图标
+                foreach (Person selectedUser in selectedUserList)
+                {
+                    selectedUser.Uploaded = Visibility.Collapsed.ToString();
+                }
+                //定义委托代理
+                ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+                UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+                //使用系统代理方式显示进度条面板
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+                try
+                {
+                    List<string> errMsg = new List<string>();
+                    int n = 0;
+                    double groupValue = 100 / selectedUserList.Count;
+                    double sizeValue = groupValue / 10;
+                    //循环处理选择的每一个患者档案
+                    foreach (Person selectedUser in selectedUserList)
                     {
+                        //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
+                        string dataFile = selectedUser.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
+                        //如果是医生模式但当前的患者档案中却没有报告数据，则不能发送数据
+                        if (!File.Exists(dataFile) && deviceType == 2)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_16").ToString());
+                            continue;
+                        }
+
+                        //把检测员名称和证书写入.crd文件
                         try
                         {
                             OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.CrdFilePath);
                             OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.CrdFilePath);
                         }
-                        catch (Exception)
+                        catch (Exception exe)
                         {
                             //如果不能写入ini文件
                             FileHelper.SetFolderPower(selectedUser.ArchiveFolder, "Everyone", "FullControl");
                             FileHelper.SetFolderPower(selectedUser.ArchiveFolder, "Users", "FullControl");
                         }
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                try
-                {
-                    string zipFile = "";
-                    if (deviceType == 2)
-                    {
-                        zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + "R_" + selectedUser.Code + "-" + selectedUser.SurName;
-                    }
-                    else
-                    {
-                        zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "-" + selectedUser.SurName;
-                    }                    
-                    if (!string.IsNullOrEmpty(selectedUser.GivenName))
-                    {
-                        zipFile = zipFile + "," + selectedUser.GivenName;
-                    }
-                    if (!string.IsNullOrEmpty(selectedUser.OtherName))
-                    {
-                        zipFile = zipFile + " " + selectedUser.OtherName;
-                    }
-                    zipFile = zipFile + ".zip";
-                    
-                    ZipTools ZipTools = new ZipTools(selectedUser.ArchiveFolder);
-                    try
-                    {                        
-                        ZipTools.ZipFolder(zipFile);
-                    }
-                    catch (Exception ex1)
-                    {
-                        MessageBox.Show(this, string.Format(App.Current.FindResource("Message_21").ToString() + " " + ex1.Message, selectedUser.ArchiveFolder));
-                        return;
-                    }
-                    string senderServerIp = App.reportSettingModel.MailHost;
-                    string toMailAddress = toMail;
-                    string fromMailAddress = App.reportSettingModel.MailAddress;
-                    string subjectInfo = App.reportSettingModel.MailSubject + " (" + selectedUser.Code+"-"+ selectedUser.SurName + ")";
-                    string bodyInfo = App.reportSettingModel.MailBody;
-                    string mailUsername = App.reportSettingModel.MailUsername;
-                    string mailPassword = App.reportSettingModel.MailPwd;
-                    string mailPort = App.reportSettingModel.MailPort + "";
-                    //string lfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "_LF.pdf";
-                    //string sfPdfFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "_SF.pdf";                    
-                    //string attachPath = dataFile + ";" + lfPdfFile + ";" + sfPdfFile;
-                    string attachPath = zipFile;
-                    bool isSsl = App.reportSettingModel.MailSsl;
-                    EmailHelper email = new EmailHelper(senderServerIp, toMailAddress, fromMailAddress, subjectInfo, bodyInfo, mailUsername, mailPassword, mailPort, isSsl, false);
-                    email.AddAttachments(attachPath);                    
-                    email.Send();
 
-                    //Send email with screening count records
-                    if (App.countDictionary.Count>0)
-                    {
-                        string excelFile = dataFolder + System.IO.Path.DirectorySeparatorChar + deviceNo + "_Count.xls";
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue) });
+
+                        //打包数据文件，并上传到FPT服务
+                        string zipFile = zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "-" + selectedUser.SurName;
+                        zipFile = zipFile + (string.IsNullOrEmpty(selectedUser.GivenName) ? "" : "," + selectedUser.GivenName) + (string.IsNullOrEmpty(selectedUser.OtherName) ? "" : " " + selectedUser.OtherName) + ".zip";
+
                         try
                         {
-                            if (File.Exists(excelFile))
+                            ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, 1);
+                            Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 5) });
+                        }
+                        catch (Exception ex1)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + string.Format(App.Current.FindResource("Message_21").ToString() + " " + ex1.Message, selectedUser.ArchiveFolder));
+                            continue;
+                        }
+
+                        //上传到FTP服务器
+                        try
+                        {
+                            FtpHelper.Instance.Upload(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Send/", zipFile);
+                            //上传成功后保存上传状态，以便让用户知道这个患者今天已经成功提交过数据
+                            if (!App.uploadedCodeList.Contains(selectedUser.Code))
                             {
+                                App.uploadedCodeList.Add(selectedUser.Code);
+                            }
+                            selectedUser.Uploaded = Visibility.Visible.ToString();
+                            try
+                            {
+                                File.Delete(zipFile);
+                            }
+                            catch { }
+                        }
+                        catch (Exception ex2)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_19").ToString() + " " + ex2.Message);
+                            continue;
+                        }
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 9) });
+
+                        //如果是检测员模式，则每天要上传一次扫描记录
+                        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
+                        if (App.countDictionary.Count > 0 && !currentDate.Equals(App.reportSettingModel.RecordDate))
+                        {
+                            string excelFile = dataFolder + System.IO.Path.DirectorySeparatorChar + deviceNo + "_Count.xls";
+                            try
+                            {
+                                if (File.Exists(excelFile))
+                                {
+                                    try
+                                    {
+                                        File.Delete(excelFile);
+                                    }
+                                    catch { }
+                                }
+                                exportExcel(excelFile);
+                                if (!FtpHelper.Instance.FolderExist(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords"))
+                                {
+                                    FtpHelper.Instance.MakeDir(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords");
+                                }
+                                FtpHelper.Instance.Upload(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "/ScreeningRecords/", excelFile);
+                                App.reportSettingModel.RecordDate = currentDate;
+                                OperateIniFile.WriteIniData("Data", "Record Date", currentDate, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                                 try
                                 {
                                     File.Delete(excelFile);
                                 }
-                                catch (Exception) { }
+                                catch { }
                             }
+                            catch { }
+                        }
+                        n++;
+                    }
+
+                    //发送通知邮件    
+                    SendEmail(selectedUserList.Count - errMsg.Count);
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                    //显示没有成功发送数据的错误消息
+                    if (errMsg.Count > 0)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(string.Format(App.Current.FindResource("Message_36").ToString(), errMsg.Count));
+                        foreach (var err in errMsg)
+                        {
+                            sb.Append("\r\n" + err);
+                        }
+                        MessageBox.Show(this, sb.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_18").ToString());
+                    }
+                }
+                finally
+                {
+                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                }
+            }
+        }
+
+        private void SendReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(App.reportSettingModel.MailAddress) || string.IsNullOrEmpty(App.reportSettingModel.MailHost)
+                || string.IsNullOrEmpty(App.reportSettingModel.MailUsername) || string.IsNullOrEmpty(App.reportSettingModel.MailPwd)
+                || string.IsNullOrEmpty(App.reportSettingModel.ToMailAddress))
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_15").ToString());
+                return;
+            }
+            string deviceNo = App.reportSettingModel.DeviceNo;
+            int deviceType = App.reportSettingModel.DeviceType;
+            var selectedUserList = this.CodeListBox.SelectedItems;
+            if (selectedUserList == null || selectedUserList.Count==0)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_35").ToString());
+                return;
+            }
+            
+                                    
+            MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_17").ToString(), "Send Report", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (result == MessageBoxResult.Yes)
+            {                
+                foreach (Person selectedUser in selectedUserList)
+                {
+                    selectedUser.Uploaded = Visibility.Collapsed.ToString();
+                }
+                ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+                UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+                //使用系统代理方式显示进度条面板
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+                try
+                {
+                    List<string> errMsg = new List<string>();
+                    int n = 0;
+                    double groupValue = 100 / selectedUserList.Count;
+                    double sizeValue = groupValue / 10;
+                    //循环处理选择的每一个患者档案
+                    foreach (Person selectedUser in selectedUserList)
+                    {                        
+                        string dataFile = selectedUser.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + ".dat";
+                        //如果是医生模式但当前的患者档案中却没有报告数据，则不能发送数据
+                        if (!File.Exists(dataFile) && deviceType == 2)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_16").ToString());
+                            continue;
+                        }                        
+
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue) });
+
+                        //打包数据文件，并上传到FPT服务
+                        string zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + "R_" + selectedUser.Code + "-" + selectedUser.SurName;                        
+                        zipFile = zipFile + (string.IsNullOrEmpty(selectedUser.GivenName) ? "" : "," + selectedUser.GivenName) + (string.IsNullOrEmpty(selectedUser.OtherName) ? "" : " " + selectedUser.OtherName) + ".zip";                        
+
+                        try
+                        {
+                            ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, deviceType);
+                            Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 5) });
+                        }
+                        catch (Exception ex1)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + string.Format(App.Current.FindResource("Message_21").ToString() + " " + ex1.Message, selectedUser.ArchiveFolder));
+                            continue;
+                        }
+
+                        //上传到FTP服务器
+                        try
+                        {
+                            FtpHelper.Instance.Upload(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath+"Send/", zipFile);
+                            //上传成功后保存上传状态，以便让用户知道这个患者今天已经成功提交过数据
+                            if (!App.uploadedCodeList.Contains(selectedUser.Code))
+                            {
+                                App.uploadedCodeList.Add(selectedUser.Code);
+                            }
+                            selectedUser.Uploaded = Visibility.Visible.ToString();
                             try
                             {
-                                exportExcel(excelFile);
+                                File.Delete(zipFile);
                             }
-                            catch (Exception) { }
-                            subjectInfo = App.Current.FindResource("MailSubject").ToString() + " (" + deviceNo + ")";
-
-                            StringBuilder bodyContent = new StringBuilder();
-                            bodyContent.Append("Screening records for the device " + deviceNo+"<br/>");
-                            bodyContent.Append("---------------------------------------------------------------------<br/>");
-                            foreach (KeyValuePair<string, List<long>> item in App.countDictionary)
-                            {                                
-                                bodyContent.Append(item.Key + " : " + item.Value.Count + "<br/>");                                
-                            }
-
-                            bodyInfo = bodyContent.ToString();
-                            EmailHelper emailCount = new EmailHelper(senderServerIp, toMailAddress, fromMailAddress, subjectInfo, bodyInfo, mailUsername, mailPassword, mailPort, isSsl, false);
-                            emailCount.AddAttachments(excelFile);
-                            emailCount.Send();
+                            catch { }
                         }
-                        catch (Exception) { }                        
+                        catch (Exception ex2)
+                        {
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_19").ToString() + " " + ex2.Message);
+                            continue;
+                        }
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 9) });
+                        
+                        n++;
                     }
-                    MessageBox.Show(this, App.Current.FindResource("Message_18").ToString());                    
-                    
+
+                    //发送通知邮件  
+                    SendEmail((selectedUserList.Count - errMsg.Count), true);
+
+                    //完成进度条
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+
+                    //显示没有成功发送数据的错误消息
+                    if (errMsg.Count > 0)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(string.Format(App.Current.FindResource("Message_36").ToString(), errMsg.Count));
+                        foreach (var err in errMsg)
+                        {
+                            sb.Append("\r\n" + err);
+                        }
+                        MessageBox.Show(this, sb.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_18").ToString());
+                    }
                 }
-                catch (Exception ex)
+                finally
                 {
-                    MessageBox.Show(this, App.Current.FindResource("Message_19").ToString() + " " + ex.Message);
+                    //关闭进度条蒙板
+                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
                 }
+                
+            }
+        }
+
+        /// <summary>
+        /// 上传数据成功后发送的通知邮件
+        /// </summary>
+        /// <param name="patientNum"></param>
+        /// <param name="isReport"></param>
+        private void SendEmail(int patientNum,bool isReport=false)
+        {
+            //发送通知邮件                
+            try
+            {
+                if (patientNum > 0)
+                {
+                    string senderServerIp = App.reportSettingModel.MailHost;
+                    string toMailAddress = App.reportSettingModel.ToMailAddress;
+                    string fromMailAddress = App.reportSettingModel.MailAddress;
+                    string subjectInfo = isReport ? (App.reportSettingModel.MailSubject + " (" + App.reportSettingModel.FtpUser + ")") : (App.reportSettingModel.MailSubject + " (" + App.reportSettingModel.DeviceNo + ")");
+                    string bodyInfo = string.Format(App.reportSettingModel.MailBody, patientNum);
+                    string mailUsername = App.reportSettingModel.MailUsername;
+                    string mailPassword = App.reportSettingModel.MailPwd;
+                    string mailPort = App.reportSettingModel.MailPort + "";                    
+                    bool isSsl = App.reportSettingModel.MailSsl;
+                    EmailHelper email = new EmailHelper(senderServerIp, toMailAddress, fromMailAddress, subjectInfo, bodyInfo, mailUsername, mailPassword, mailPort, isSsl, false);                    
+                    email.Send();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_19").ToString() + " " + ex.Message);
             }
         }
 
@@ -548,9 +803,24 @@ namespace MEIKReport
         {
             try
             {
+                if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini"))
+                {
+                    try
+                    {
+                        File.Copy(System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini", true);
+                        File.Delete(System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini");
+                    }
+                    catch { }
+                }
+
                 if (App.reportSettingModel == null)
                 {
                     App.reportSettingModel = new ReportSettingModel();
+                    App.reportSettingModel.DataBaseFolder = OperateIniFile.ReadIniData("Base", "Data base", "C:\\MEIKData", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.Version = OperateIniFile.ReadIniData("Base", "Version", "1.0.0", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string newer=OperateIniFile.ReadIniData("Base", "Newer", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    bool hasNewer = string.IsNullOrEmpty(newer) ? false : Convert.ToBoolean(newer);
+                    App.reportSettingModel.HasNewer = hasNewer;
                     App.reportSettingModel.UseDefaultSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     if (!string.IsNullOrEmpty(doctorNames))
@@ -580,7 +850,19 @@ namespace MEIKReport
                             App.reportSettingModel.TechNames.Add(techUser);
                         }
                     }
-                    App.reportSettingModel.PrintPaper = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.NoShowDoctorSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Hide Doctor Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                    App.reportSettingModel.NoShowTechSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Hide Technician Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                    App.reportSettingModel.FtpPath = OperateIniFile.ReadIniData("FTP", "FTP Path", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    App.reportSettingModel.FtpUser = OperateIniFile.ReadIniData("FTP", "FTP User", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string ftpPwd = OperateIniFile.ReadIniData("FTP", "FTP Password", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    if (!string.IsNullOrEmpty(ftpPwd))
+                    {
+                        App.reportSettingModel.FtpPwd = SecurityTools.DecryptText(ftpPwd);
+                    }
+
+                    string pagesize = OperateIniFile.ReadIniData("Report", "Print Paper", "Letter", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    pagesize = string.IsNullOrEmpty(pagesize) ? "Letter" : pagesize;
+                    App.reportSettingModel.PrintPaper = (PageSize)Enum.Parse(typeof(PageSize), pagesize,true);
                     App.reportSettingModel.MailAddress = OperateIniFile.ReadIniData("Mail", "My Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.ToMailAddress = OperateIniFile.ReadIniData("Mail", "To Mail Address", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.MailSubject = OperateIniFile.ReadIniData("Mail", "Mail Subject", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -595,7 +877,43 @@ namespace MEIKReport
                     }   
                     App.reportSettingModel.MailSsl = Convert.ToBoolean(OperateIniFile.ReadIniData("Mail", "Mail SSL", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.DeviceNo = OperateIniFile.ReadIniData("Device", "Device No", "000", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    App.reportSettingModel.DeviceType = Convert.ToInt32(OperateIniFile.ReadIniData("Device", "Device Type", "1", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
+                    //加载操作模式
+                    string filePath = System.AppDomain.CurrentDomain.BaseDirectory + "mode.dat";
+                    if (File.Exists(filePath))
+                    {
+                        string modeStr = SecurityTools.DecryptTextFromFile(filePath);
+                        if (string.IsNullOrEmpty(modeStr))
+                        {
+                            modeStr = "Technician";
+                        }
+                        App.reportSettingModel.DeviceType = (int)Enum.Parse(typeof(DeviceType), modeStr, true);
+                    }
+                    else
+                    {
+                        string deviceType = OperateIniFile.ReadIniData("Device", "Device Type", "1", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                        if (string.IsNullOrEmpty(deviceType))
+                        {
+                            App.reportSettingModel.DeviceType = 1;
+                        }
+                        else
+                        {
+                            App.reportSettingModel.DeviceType = Convert.ToInt32(deviceType);
+                        }
+                        if (App.reportSettingModel.DeviceType == 1)
+                        {
+                            SecurityTools.EncryptTextToFile("Technician", filePath);
+                        }
+                        else if (App.reportSettingModel.DeviceType == 3)
+                        {
+                            SecurityTools.EncryptTextToFile("Admin", filePath);
+                        }
+                        else
+                        {
+                            SecurityTools.EncryptTextToFile("Doctor", filePath);
+                        }
+                    }
+                    App.reportSettingModel.RecordDate = OperateIniFile.ReadIniData("Data", "Record Date", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    
                 }
             }
             catch (Exception ex)
@@ -613,15 +931,20 @@ namespace MEIKReport
         {
             if (e.AddedItems.Count > 0)
             {
-                var selectItem = (Person)e.AddedItems[0];
-                selectItem.Icon = "/Images/id_card_ok.png";
-                string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
+                var selectItems = e.AddedItems;
+                foreach (Person item in selectItems)
+                {
+                    item.Icon = "/Images/id_card_ok.png";
+                }
+                var selectItem=e.AddedItems[0] as Person;                
             }
             if (e.RemovedItems.Count > 0)
             {
-                var lostItem = (Person)e.RemovedItems[0];
-                lostItem.Icon = "/Images/id_card.png";
+                var lostItem = e.RemovedItems;
+                foreach (Person item in lostItem)
+                {
+                    item.Icon = "/Images/id_card.png";
+                }                
             }
         }
 
@@ -645,7 +968,7 @@ namespace MEIKReport
             }
             screensheet.Name = "Screening Records";
             patientList.Clear();
-            ListFiles(new DirectoryInfo(App.meikFolder));
+            ListFiles(new DirectoryInfo(App.reportSettingModel.DataBaseFolder));
             
             //tdb文件統計數據
             Microsoft.Office.Interop.Excel.Range range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("A1", "A100");
@@ -810,6 +1133,222 @@ namespace MEIKReport
         }
 
         /// <summary>
+        /// 医生模式接收服务中心分配的数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReceive_Click(object sender, RoutedEventArgs e)
+        {
+            ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+            UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+            //使用系统代理方式显示进度条面板
+            Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(0) });
+            Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+            
+            List<string> errMsg = new List<string>();
+            try
+            {
+                string targetFolder = "Receive/";                
+                //查询FTP上要下载的文件列表
+                var fileArr = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + targetFolder);
+                //判断是否存在已下载的目录IsDownloaded
+                if (!FtpHelper.Instance.FolderExist(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "IsDownloaded"))
+                {
+                    FtpHelper.Instance.MakeDir(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "IsDownloaded");
+                }                               
+                
+                int n = 0;
+                double groupValue = 100 / (fileArr.Count + 1);
+                double sizeValue = groupValue / 2;
+
+                foreach (var file in fileArr)
+                {                                        
+                    if (file.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) && !file.StartsWith("R_"))
+                    {
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n) });
+                        n++;
+                        //创建下载目录路径
+                        string folderpath = "";
+                        try
+                        {
+                            string monthfolder = file.Substring(2, 2) + "_20" + file.Substring(0, 2);
+                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            if (!Directory.Exists(folderpath))
+                            {
+                                Directory.CreateDirectory(folderpath);
+                            }
+                        }
+                        catch (Exception e1)
+                        {
+                            //MessageBox.Show(this, e1.Message);
+                            errMsg.Add(file + " :: " + App.Current.FindResource("Message_39").ToString() + e1.Message);
+                            continue;
+                        }
+                        //从FTP下载zip包
+                        try
+                        {
+                            FtpHelper.Instance.Download(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + targetFolder, folderpath, file);
+                            FtpHelper.Instance.MovieFile(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + targetFolder, file, "/home/IsDownloaded/" + file);
+                        }
+                        catch (Exception e2)
+                        {
+                            //MessageBox.Show(this, e2.Message);
+                            errMsg.Add(file + " :: " + App.Current.FindResource("Message_40").ToString() + e2.Message);
+                            continue;
+                        }
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue) });
+                        //解压缩档案Zip包
+                        try
+                        {
+                            //获取档案目录路径
+                            string archiveFolder = folderpath + System.IO.Path.DirectorySeparatorChar + file.Replace(".zip", "");
+                            if (!Directory.Exists(archiveFolder))
+                            {
+                                //创建患者档案目录
+                                Directory.CreateDirectory(archiveFolder);
+                            }
+                            ZipTools.Instance.UnzipToFolder(folderpath + System.IO.Path.DirectorySeparatorChar + file, archiveFolder);
+                        }
+                        catch (Exception e3)
+                        {
+                            //MessageBox.Show(this, e3.Message);
+                            errMsg.Add(file + " :: " + App.Current.FindResource("Message_41").ToString() + e3.Message);
+                            continue;
+                        }
+                    }
+                }
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                if (errMsg.Count == 0)
+                {
+                    if (n == 0)
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_43").ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_37").ToString());                        
+                    }
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(App.Current.FindResource("Message_38").ToString());
+                    foreach (var err in errMsg)
+                    {
+                        sb.Append("\r\n" + err);
+                    }
+                    MessageBox.Show(this, sb.ToString());
+                }
+                loadArchiveFolder(txtFolderPath.Text);
+            }
+            catch (Exception exe)
+            {
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                MessageBox.Show(this, App.Current.FindResource("Message_42").ToString() + exe.Message);                
+            }                                    
+        }
+
+        /// <summary>
+        /// Technician模式接收PDF報告
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReceivePdf_Click(object sender, RoutedEventArgs e)
+        {
+            ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+            UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+            //使用系统代理方式显示进度条面板
+            Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(0) });
+            Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+            
+            List<string> errMsg = new List<string>();
+            try
+            {
+                //查询FTP上要下载的文件列表
+                var fileArr = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Receive/");
+                //判断是否存在已下载的目录IsDownloaded
+                if (!FtpHelper.Instance.FolderExist(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "IsDownloaded"))
+                {
+                    FtpHelper.Instance.MakeDir(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "IsDownloaded");
+                }
+
+                int n = 0;
+                double groupValue = 100 / (fileArr.Count + 1);                
+
+                foreach (var file in fileArr)
+                {
+                    if (file.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n) });
+                        n++;
+                        //创建下载目录路径
+                        string folderpath = "";
+                        try
+                        {
+                            string monthfolder = file.Substring(2, 2) + "_20" + file.Substring(0, 2);
+                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            if (!Directory.Exists(folderpath))
+                            {
+                                Directory.CreateDirectory(folderpath);
+                            }
+                        }
+                        catch (Exception e1)
+                        {
+                            //MessageBox.Show(this, e1.Message);
+                            errMsg.Add(file + " :: " + App.Current.FindResource("Message_39").ToString() + e1.Message);
+                            continue;
+                        }
+                        //从FTP下载PDF文件
+                        try
+                        {
+                            FtpHelper.Instance.Download(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Receive/", folderpath, file);
+                            Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + groupValue/2) });
+                            FtpHelper.Instance.MovieFile(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Receive/", file, "/home/IsDownloaded/" + file);
+                        }
+                        catch (Exception e2)
+                        {
+                            //MessageBox.Show(this, e2.Message);
+                            errMsg.Add(file + " :: " + App.Current.FindResource("Message_40").ToString() + e2.Message);
+                            continue;
+                        }                        
+                        
+                    }
+                }
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                if (errMsg.Count == 0)
+                {
+                    if (n == 0)
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_43").ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_37").ToString());
+                    }
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(App.Current.FindResource("Message_38").ToString());
+                    foreach (var err in errMsg)
+                    {
+                        sb.Append("\r\n" + err);
+                    }
+                    MessageBox.Show(this, sb.ToString());
+                }
+            }
+            catch (Exception exe)
+            {
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                MessageBox.Show(this, App.Current.FindResource("Message_45").ToString() + exe.Message);
+            }
+        }
+
+        /// <summary>
         /// 启用鼠标钩子
         /// </summary>
         public void StartMouseHook()
@@ -843,6 +1382,7 @@ namespace MEIKReport
                     Win32Api.GetWindowText(buttonHandle, winText, winText.Capacity);
                     if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
+                        this.StopMouseHook();
                         if (App.opendWin != null)
                         {
                             App.opendWin.Visibility = Visibility.Visible;
@@ -852,8 +1392,7 @@ namespace MEIKReport
                         {
                             this.Visibility = Visibility.Visible;
                         }
-                        this.StopMouseHook();
-
+                        
                         string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";                        
                         txtFolderPath.Text = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile); 
                         loadArchiveFolder(txtFolderPath.Text);
@@ -891,39 +1430,90 @@ namespace MEIKReport
             folderPage.ShowDialog();
         }
 
+        ///// <summary>
+        ///// 选择语言(下拉列表方式)
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void listLang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var eleObj = listLang.SelectedItem as XmlElement;
+        //    var local = eleObj.GetAttribute("Flag");
+        //    App.local = local;
+        //    if ("zh-HK".Equals(local))
+        //    {
+        //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+
+        //    }
+        //    else if ("zh-CN".Equals(local))
+        //    {
+        //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+
+        //    }
+        //    else
+        //    {
+        //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+        //        App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+
+        //    }
+        //    OperateIniFile.WriteIniData("Base", "Language", local, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        //}
+
         /// <summary>
         /// 选择语言
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void listLang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Language_Click(object sender, RoutedEventArgs e)
         {
-            var eleObj = listLang.SelectedItem as XmlElement;
-            var local = eleObj.GetAttribute("Flag");
+            Button button = (Button)sender;            
+            string local = "en-US";
+            if ("languageHK".Equals(button.Name))
+            {
+                local = "zh-HK";
+                this.languageHK.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
+                this.languageUS.Foreground = Brushes.White;
+            }
+            else if ("languageCN".Equals(button.Name))
+            {
+                local = "zh-CN";
+                this.languageHK.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
+                this.languageUS.Foreground = Brushes.White;
+            }
+            else
+            {
+                this.languageUS.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
+                this.languageHK.Foreground = Brushes.White;
+            }
             App.local = local;
             if ("zh-HK".Equals(local))
             {
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
-                
+
             }
             else if ("zh-CN".Equals(local))
             {
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
-                
+
             }
             else
             {
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
-                
+
             }
             OperateIniFile.WriteIniData("Base", "Language", local, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-        }
+        }  
 
         /// <summary>
         /// 保存患者病历卡
@@ -1187,5 +1777,180 @@ namespace MEIKReport
                 MessageBox.Show(this, App.Current.FindResource("Message_31").ToString()+ex.Message);
             }
         }       
+
+        private void checkMenses_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if(person!=null){
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.MensesStatus = true;
+                }
+                else
+                {
+                    person.MensesStatus = this.checkMenstrualCycleDisorder.IsChecked.Value || this.checkPostmenopause.IsChecked.Value || this.checkHormonalContraceptives.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkSomatic_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.SomaticStatus = true;
+                }
+                else
+                {
+                    person.SomaticStatus = this.checkAdiposity.IsChecked.Value || this.checkEssentialHypertension.IsChecked.Value || this.checkDiabetes.IsChecked.Value || this.checkThyroidGlandDiseases.IsChecked.Value || this.checkSomaticOther.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkGynecologic_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.GynecologicStatus = true;
+                }
+                else
+                {
+                    person.GynecologicStatus = this.checkInfertility.IsChecked.Value || this.checkOvaryDiseases.IsChecked.Value || this.checkOvaryCyst.IsChecked.Value
+                        || this.checkOvaryCancer.IsChecked.Value || this.checkOvaryEndometriosis.IsChecked.Value
+                        || this.checkOvaryOther.IsChecked.Value || this.checkUterusDiseases.IsChecked.Value
+                        || this.checkUterusMyoma.IsChecked.Value || this.checkUterusCancer.IsChecked.Value
+                        || this.checkUterusEndometriosis.IsChecked.Value || this.checkUterusOther.IsChecked.Value
+                        || this.checkGynecologicOther.IsChecked.Value ? true : false;
+                }
+            }
+        } 
+
+        private void checkObstetric_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if(person!=null){
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.ObstetricStatus = true;
+                }
+                else
+                {
+                    person.ObstetricStatus = this.checkAbortions.IsChecked.Value || this.checkBirths.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkDiseases_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if(person!=null){
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.DiseasesStatus = true;
+                }
+                else
+                {
+                    person.DiseasesStatus = this.checkTrauma.IsChecked.Value || this.checkMastitis.IsChecked.Value
+                        || this.checkFibrousCysticMastopathy.IsChecked.Value || this.checkCysts.IsChecked.Value
+                        || this.checkCancer.IsChecked.Value || this.checkDiseasesOther.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkPalpation_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.PalpationStatus = true;
+                }
+                else
+                {
+                    person.PalpationStatus = this.checkPalpationDiffuse.IsChecked.Value || this.checkPalpationFocal.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkUltrasound_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.UltrasoundStatus = true;
+                }
+                else
+                {
+                    person.UltrasoundStatus = this.checkUltrasoundDiffuse.IsChecked.Value || this.checkUltrasoundFocal.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkMammography_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.MammographyStatus = true;
+                }
+                else
+                {
+                    person.MammographyStatus = this.checkMammographyDiffuse.IsChecked.Value || this.checkMammographyFocal.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void checkBiopsy_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                {
+                    person.BiopsyStatus = true;
+                }
+                else
+                {
+                    person.BiopsyStatus = this.checkBiopsyDiffuse.IsChecked.Value || this.checkBiopsyFocal.IsChecked.Value
+                        || this.checkBiopsyCancer.IsChecked.Value || this.checkBiopsyProliferation.IsChecked.Value
+                        || this.checkBiopsyDysplasia.IsChecked.Value || this.checkBiopsyIntraductalPapilloma.IsChecked.Value
+                        || this.checkBiopsyFibroadenoma.IsChecked.Value || this.checkBiopsyOther.IsChecked.Value ? true : false;
+                }
+            }
+        }
+
+        private void imgChoice_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (CodeListBox.SelectionMode.Equals(SelectionMode.Single))
+            {
+                CodeListBox.SelectionMode = SelectionMode.Extended;
+                this.imgChoice.Source = new BitmapImage(new Uri("/Images/multiple_choice.png",UriKind.Relative)); 
+            }
+            else if (CodeListBox.SelectionMode.Equals(SelectionMode.Extended))
+            {
+                CodeListBox.SelectionMode = SelectionMode.Single;
+                this.imgChoice.Source = new BitmapImage(new Uri("/Images/single_choice.png", UriKind.Relative));
+            }                        
+        }        
+        
     }
 }

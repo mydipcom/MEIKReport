@@ -258,11 +258,11 @@ namespace MEIKReport.Views
                     var reportModel = CloneReportModel();
                     FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender(reportTempl, reportModel);
                     FixedDocument fixedDoc = new FixedDocument();//创建一个文档
-                    if ("Letter".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+                    if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
                     }
-                    else if ("A4".Equals(App.reportSettingModel.PrintPaper, StringComparison.OrdinalIgnoreCase))
+                    else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
                         fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.27, 96 * 11.69);
                     }

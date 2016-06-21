@@ -27,14 +27,12 @@ namespace MEIKReport
     /// </summary>
     public partial class SelectTechnicianPage : Window
     {
-        private ObservableCollection<User> _userList;
-        private Person _selectUser;
-        public SelectTechnicianPage(ObservableCollection<User> userList,Person selectUser)
+        private ObservableCollection<User> _userList;        
+        public SelectTechnicianPage(ObservableCollection<User> userList)
         {
             InitializeComponent();
             this.listTechnicianName.Focus();
-            this._userList = userList;
-            this._selectUser = selectUser;
+            this._userList = userList;            
             this.listTechnicianName.ItemsSource = userList;
         }                        
 
@@ -49,8 +47,8 @@ namespace MEIKReport
             else
             {
                 var user = this.listTechnicianName.SelectedItem as User;
-                _selectUser.TechName = user.Name;
-                _selectUser.TechLicense = this.technicianLicense.Text;
+                App.reportSettingModel.ReportTechName = user.Name;
+                App.reportSettingModel.ReportTechLicense = this.technicianLicense.Text;
                 this.Close();
             }            
 

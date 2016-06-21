@@ -436,8 +436,10 @@
                 <TextBlock Name="dataTotalPts" Text="{Binding DataTotalPts}" Width="108" Margin="0,0,1,0"/>
                 <TextBlock Text="{StaticResource ReportContext_143}" Width="100" FontWeight="Bold"/>
                 <TextBlock Name="dataPoint" Text="{Binding DataPoint}" Width="120" Margin="0,0,1,0"/>
-                <TextBlock Text="{StaticResource ReportContext_149}" Width="70"/>
-                <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" Background="{x:Null}"></TextBlock>
+                <StackPanel Orientation="Horizontal" Name="techSignPanel">
+                    <TextBlock Text="{StaticResource ReportContext_149}" Width="70"/>
+                    <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}" Width="250" Height="18" Background="{x:Null}"></TextBlock>
+                </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Text="{StaticResource ReportContext_150}" Width="110" FontWeight="Bold"/>
@@ -476,12 +478,12 @@
                     <TextBlock Text="" Width="100"/>
                     <TextBlock Text="    Refer to Surgeon – Follow up Biopsy" Width="500"/>
                 </StackPanel>-->
-                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
+                <StackPanel Name="doctorSignPanel" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
                     <TextBlock Text="{StaticResource ReportContext_173}" Width="70" FontWeight="Bold"/>
                     <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Width="280" Height="18"></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                    <Grid>
+                    <Grid Name="doctorSignGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />

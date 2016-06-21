@@ -6,9 +6,10 @@
     <sys:String x:Key="MainWinMenuDiagnostics">诊断</sys:String>
     <sys:String x:Key="MainWinMenuReport">报告</sys:String>
     <sys:String x:Key="MainWinMenuPerferences">设置</sys:String>
-    <sys:String x:Key="MainWinMenuRecords">统计</sys:String>
+    <sys:String x:Key="MainWinMenuRecords">记录</sys:String>
     <sys:String x:Key="MainWinMenuExit">退出</sys:String>
     <sys:String x:Key="MainWinDeviceNo">设备编号: </sys:String>
+    <sys:String x:Key="MainWinMenuReceive">接收数据</sys:String>
     
     <sys:String x:Key="CommonExitBtn">退出</sys:String>
     <sys:String x:Key="CommonPreviewBtn">打印预览</sys:String>
@@ -22,6 +23,8 @@
     <sys:String x:Key="CommonCloseBtn">关闭</sys:String>
     <sys:String x:Key="CommonUpdateBtn">引入报告数据</sys:String>
     <sys:String x:Key="CommonCancelBtn">取消</sys:String>
+    <sys:String x:Key="CommonArchiveBtn">打开</sys:String>
+    <sys:String x:Key="CommonOKBtn">确定</sys:String>
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">患者总人数: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">设备扫描总次数: </sys:String>
@@ -62,8 +65,8 @@
     <sys:String x:Key="Message_14">保存配置参数成功!</sys:String>
     <sys:String x:Key="Message_15">您没有配置邮箱帐户或者配置的邮箱帐户不正确。</sys:String>
     <sys:String x:Key="Message_16">还没有创建当前患者的检查报告，请先填写并保存报告。</sys:String>
-    <sys:String x:Key="Message_17">您确定要把当前患者的所有数据发送给数据中心?</sys:String>
-    <sys:String x:Key="Message_18">发送邮件成功!</sys:String>
+    <sys:String x:Key="Message_17">您确定要把所选患者的数据发送给数据中心?</sys:String>
+    <sys:String x:Key="Message_18">发送数据成功!</sys:String>
     <sys:String x:Key="Message_19">发送邮件失败，错误原因:</sys:String>
     <sys:String x:Key="Message_20">加载报告配置参数失败. 异常信息:</sys:String>
     <sys:String x:Key="Message_21">目录 {0} 不能被打包成ZIP文件，错误原因:</sys:String>
@@ -78,15 +81,35 @@
     <sys:String x:Key="Message_30">更新病历卡信息成功.</sys:String>
     <sys:String x:Key="Message_31">更新病历卡信息失败，错误原因:</sys:String>
     <sys:String x:Key="Message_32">加载患者病历文件{0}失败，错误原因:</sys:String>
-    
+    <sys:String x:Key="Message_33">不能从基础诊断分析文档({0})中读取数据, 文档正在被使用或被锁定, 请先关闭已打开的Word文档.</sys:String>
+    <sys:String x:Key="Message_34">还没有截取图像！</sys:String>
+    <sys:String x:Key="Message_35">请至少选择一个患者的MRN</sys:String>
+    <sys:String x:Key="Message_36">有{0}个患者的数据没有发送成功,错误原因如下：</sys:String>
+    <sys:String x:Key="Message_37">接收患者数据成功.</sys:String>
+    <sys:String x:Key="Message_38">数据接收处理完成, 但是接收处理数据时出现以下错误:</sys:String>
+    <sys:String x:Key="Message_39">创建患者档案目录失败, 错误原因:</sys:String>
+    <sys:String x:Key="Message_40">下载zip文件失败, 错误原因:</sys:String>
+    <sys:String x:Key="Message_41">解包数据文件到本地目录失败, 错误原因:</sys:String>
+    <sys:String x:Key="Message_42">接收患者数据失败，错误原因:</sys:String>
+    <sys:String x:Key="Message_43">没有需要接收的新数据.</sys:String>
+    <sys:String x:Key="Message_44">下载PDF报告文件失败，错误原因：</sys:String>
+    <sys:String x:Key="Message_45">接收PDF数据失败，错误原因:</sys:String>
+    <sys:String x:Key="Message_46">您确定要立即升级当前软件吗? 这将会关闭当前的软件, 请注意先保存您的数据，以免丢失.</sys:String>
+    <sys:String x:Key="Message_47">从中心服务器获取版本数据失败， 错误原因:</sys:String>
+    <sys:String x:Key="Message_48">从服务中心获取版本数据成功</sys:String>
+    <sys:String x:Key="Message_49">密码错误</sys:String>
+    <sys:String x:Key="Message_50">您确定要删除选择的文件夹及其下所有内容吗?</sys:String>
+    <sys:String x:Key="Message_51">启动升级安装包程序失败，错误原因：</sys:String>
+
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
-    <sys:String x:Key="UserListWinBrowerBtn">浏览文件夹...</sys:String>
+    <sys:String x:Key="UserListWinBrowerBtn">浏览...</sys:String>
     <sys:String x:Key="UserListWinEditReportBtn">编辑报告</sys:String>
     <sys:String x:Key="UserListWinExaminationReportBtn">检查报告</sys:String>
     <sys:String x:Key="UserListWinSummaryReportBtn">总结报告</sys:String>
-    <sys:String x:Key="UserListWinEmailReportBtn">发送数据</sys:String>
+    <sys:String x:Key="UserListWinEmailReportBtn">发送报告</sys:String>
     <sys:String x:Key="UserListWinPatientCardTitle">患者病历</sys:String>
     <sys:String x:Key="UserListWinNewBtn">新建</sys:String>
+    <sys:String x:Key="UserListWinEmailDataBtn">发送数据</sys:String>
     
     <sys:String x:Key="SignaureWinLab">设置为默认签名</sys:String>
     <sys:String x:Key="SignaureWinLoadBtn">加载签名</sys:String>
@@ -99,6 +122,8 @@
     <sys:String x:Key="SettingReportNameGroupHeader">程序使用者信息</sys:String>
     <sys:String x:Key="SettingReportDoctorNameLab">医生</sys:String>
     <sys:String x:Key="SettingReportTechNameLab">检测员</sys:String>
+    <sys:String x:Key="SettingReportHideDoctor">在报告中不显示医生签名</sys:String>
+    <sys:String x:Key="SettingReportHideTech">在报告中不显示检测员签名</sys:String>
     <sys:String x:Key="SettingReportPrintGroupHeader">默认的打印纸张</sys:String>
     <sys:String x:Key="SettingEmailTitle">默认的电子邮箱设置</sys:String>
     <sys:String x:Key="SettingEmailDesc">下面是当前的一些电子邮箱相关参数设置，您可以随时修改它们.</sys:String>
@@ -114,6 +139,16 @@
     <sys:String x:Key="SettingEmailBody">邮件内容</sys:String>
     <sys:String x:Key="SettingReportFullName">全名</sys:String>
     <sys:String x:Key="SettingReportLicense">授权编号</sys:String>
+    <sys:String x:Key="SettingVersionTitle">系统信息</sys:String>
+    <sys:String x:Key="SettingVersionLab">版本:</sys:String>
+    <sys:String x:Key="SettingOperModelLab">程序工作模式:</sys:String>
+    <sys:String x:Key="SettingTechModel">检测模式</sys:String>
+    <sys:String x:Key="SettingDoctorModel">医生模式</sys:String>
+    <sys:String x:Key="SettingAdminModel">管理员模式</sys:String>
+    <sys:String x:Key="SettingVersionCheckLab">程序版本更新:</sys:String>
+    <sys:String x:Key="SettingVersionCheckInfo1">您的程序已经是最新版本. 当前没有可更新的程序版本.</sys:String>
+    <sys:String x:Key="SettingVersionCheckInfo2">有最新的程序版本可供更新.</sys:String>
+    <sys:String x:Key="SettingVersionUpdate">立即更新</sys:String>
 
     <sys:String x:Key="UserDataPersonalTab">个人信息</sys:String>
     <sys:String x:Key="UserDataPersonal1">姓:</sys:String>
@@ -125,6 +160,9 @@
     <sys:String x:Key="UserDataPersonal7">日</sys:String>
     <sys:String x:Key="UserDataPersonal8">月</sys:String>
     <sys:String x:Key="UserDataPersonal9">年</sys:String>
+    <sys:String x:Key="UserDataPersona20">备注:</sys:String>
+    <sys:String x:Key="UserDataPersona21">无</sys:String>
+    <sys:String x:Key="UserDataPersona22">有</sys:String>
 
     <sys:String x:Key="UserDataComplaintsTab">病情描述</sys:String>
     <sys:String x:Key="UserDataComplaints1">疼痛</sys:String>
@@ -214,7 +252,7 @@
     <sys:String x:Key="ReportContext_16">第二阶段</sys:String>
     <sys:String x:Key="ReportContext_17">一，二阶段</sys:String>
     <sys:String x:Key="ReportContext_18">痛经</sys:String>
-    <sys:String x:Key="ReportContext_19">月经不调</sys:String>
+    <sys:String x:Key="ReportContext_19">绝经期</sys:String>
     <sys:String x:Key="ReportContext_20">妊娠期</sys:String>
     <sys:String x:Key="ReportContext_21">哺乳期</sys:String>
     <sys:String x:Key="ReportContext_22" xml:space="preserve">荷尔蒙: </sys:String>
@@ -300,7 +338,7 @@
     <sys:String x:Key="ReportContext_100">平均电导率</sys:String>
     <sys:String x:Key="ReportContext_101">第一阶段</sys:String>
     <sys:String x:Key="ReportContext_102">第二阶段</sys:String>
-    <sys:String x:Key="ReportContext_103">绝经后期</sys:String>
+    <sys:String x:Key="ReportContext_103">绝经期</sys:String>
     <sys:String x:Key="ReportContext_104">妊娠期</sys:String>
     <sys:String x:Key="ReportContext_105">哺乳期</sys:String>
     <sys:String x:Key="ReportContext_106">相对电导率</sys:String>

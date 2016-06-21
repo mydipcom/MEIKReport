@@ -6,22 +6,27 @@
     <sys:String x:Key="MainWinMenuDiagnostics">Diagnostics</sys:String>
     <sys:String x:Key="MainWinMenuReport">Report</sys:String>
     <sys:String x:Key="MainWinMenuPerferences">System Setup</sys:String>
-    <sys:String x:Key="MainWinMenuRecords">Records</sys:String>
+    <sys:String x:Key="MainWinMenuRecords">Data Log</sys:String>
     <sys:String x:Key="MainWinMenuExit">Exit</sys:String>
     <sys:String x:Key="MainWinDeviceNo">Device Number: </sys:String>
+    <sys:String x:Key="MainWinMenuReceive">Receive Data</sys:String>
+    <sys:String x:Key="MainWinMenuReceiveReport">Receive Report</sys:String>
 
     <sys:String x:Key="CommonExitBtn">Exit</sys:String>
-    <sys:String x:Key="CommonPreviewBtn">Print Preview</sys:String>
+    <sys:String x:Key="CommonPreviewBtn">Preview</sys:String>
     <sys:String x:Key="CommonPrintBtn">Print</sys:String>
     <sys:String x:Key="CommonExportBtn">Export to PDF</sys:String>
     <sys:String x:Key="CommonSaveBtn">Save</sys:String>
     <sys:String x:Key="CommonSaveAsBtn">Save as...</sys:String>
-    <sys:String x:Key="CommonOpenBtn">Diagnostics Window</sys:String>
+    <sys:String x:Key="CommonOpenBtn">Diagnostics</sys:String>
     <sys:String x:Key="CommonAddBtn">Add</sys:String>
     <sys:String x:Key="CommonDeleteBtn">Delete</sys:String>
     <sys:String x:Key="CommonCloseBtn">Close</sys:String>
     <sys:String x:Key="CommonUpdateBtn">Update Protocol</sys:String>
     <sys:String x:Key="CommonCancelBtn">Cancel</sys:String>
+    <sys:String x:Key="CommonArchiveBtn">Open</sys:String>
+    <sys:String x:Key="CommonPwdLab">Password</sys:String>
+    <sys:String x:Key="CommonOKBtn">OK</sys:String>
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">Patient Count: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">Total # of Screening Sessions: </sys:String>
@@ -62,8 +67,8 @@
     <sys:String x:Key="Message_14">Saved the report setting successfully.</sys:String>
     <sys:String x:Key="Message_15">You don't configure the mail account or configured the mail account incorrectly.</sys:String>
     <sys:String x:Key="Message_16">The user's report has not been created, please fill and save the report first.</sys:String>
-    <sys:String x:Key="Message_17">Are you sure to email all of the data to Data Center?</sys:String>
-    <sys:String x:Key="Message_18">Sent the emial successfully.</sys:String>
+    <sys:String x:Key="Message_17">Are you sure to send all of the data to Data Center?</sys:String>
+    <sys:String x:Key="Message_18">Sent the data successfully.</sys:String>
     <sys:String x:Key="Message_19">Failed to send email, Exception:</sys:String>
     <sys:String x:Key="Message_20">Failed to load the report setting. Exception:</sys:String>
     <sys:String x:Key="Message_21">The {0} directory Cannot be packaged up  as a ZIP file. Exception:</sys:String>
@@ -78,15 +83,36 @@
     <sys:String x:Key="Message_30">Updated the patient card successfully.</sys:String>
     <sys:String x:Key="Message_31">Failed to update the patient card, Exception Message: </sys:String>
     <sys:String x:Key="Message_32">Failed to load the patient card {0}, Error Message:</sys:String>
+    <sys:String x:Key="Message_33">Could not update date from the protocol document {0}, the document is being used, please close the document first.</sys:String>
+    <sys:String x:Key="Message_34">No captured image</sys:String>
+    <sys:String x:Key="Message_35">Please select at least one MRN</sys:String>
+    <sys:String x:Key="Message_36">{0} patient's data upload failed, Error Messages as follow：</sys:String>
+    <sys:String x:Key="Message_37">Received data successfully.</sys:String>
+    <sys:String x:Key="Message_38">The data reception is complete, but there are some error: </sys:String>
+    <sys:String x:Key="Message_39">Failed to create the patient folder, Error Message: </sys:String>
+    <sys:String x:Key="Message_40">Failed to download the ZIP file, Error Message: </sys:String>
+    <sys:String x:Key="Message_41">Failed to upzip the file to local folder, Error Message:</sys:String>
+    <sys:String x:Key="Message_42">Failed to receive the patient's data, Error Messages：</sys:String>
+    <sys:String x:Key="Message_43">There is no data need to receive.</sys:String>
+    <sys:String x:Key="Message_44">Failed to download the PDF file, Error Message:</sys:String>
+    <sys:String x:Key="Message_45">Failed to receive the PDF data, Error Messages：</sys:String>
+    <sys:String x:Key="Message_46">Are you sure to update the software now? That will close the software, please save you data first.</sys:String>
+    <sys:String x:Key="Message_47">Failed to query the version information from server, Error Message:</sys:String>
+    <sys:String x:Key="Message_48">Got the newer version successfully.</sys:String>
+    <sys:String x:Key="Message_49">Password incorrect</sys:String>
+    <sys:String x:Key="Message_50">Are you sure to delete the selected folder?</sys:String>
+    <sys:String x:Key="Message_51">Failed to start up the setup package, Error Message:</sys:String>
+
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">Browse...</sys:String>
     <sys:String x:Key="UserListWinEditReportBtn">Edit Report</sys:String>
     <sys:String x:Key="UserListWinExaminationReportBtn">Examination Report</sys:String>
     <sys:String x:Key="UserListWinSummaryReportBtn">Summary Report</sys:String>
-    <sys:String x:Key="UserListWinEmailReportBtn">Send Data</sys:String>
+    <sys:String x:Key="UserListWinEmailReportBtn">Send Report</sys:String>
     <sys:String x:Key="UserListWinPatientCardTitle">Patient's Card</sys:String>
     <sys:String x:Key="UserListWinNewBtn">New</sys:String>
+    <sys:String x:Key="UserListWinEmailDataBtn">Send Data</sys:String>
 
     <sys:String x:Key="SignaureWinLab">Set as default signature</sys:String>
     <sys:String x:Key="SignaureWinLoadBtn">Load Signature</sys:String>
@@ -100,6 +126,8 @@
     <sys:String x:Key="SettingReportNameGroupHeader">User Profile</sys:String>
     <sys:String x:Key="SettingReportDoctorNameLab">Doctors</sys:String>
     <sys:String x:Key="SettingReportTechNameLab">Technicians</sys:String>
+    <sys:String x:Key="SettingReportHideDoctor">No doctor signature on report</sys:String>
+    <sys:String x:Key="SettingReportHideTech">No technician signature on report</sys:String>
     <sys:String x:Key="SettingReportPrintGroupHeader">Default Printer Paper Size</sys:String>
     <sys:String x:Key="SettingEmailTitle">Default Mail Setting</sys:String>
     <sys:String x:Key="SettingEmailDesc">There are some initial mail parameters, you can change that at any time.</sys:String>
@@ -115,6 +143,22 @@
     <sys:String x:Key="SettingEmailBody">Mail Body</sys:String>
     <sys:String x:Key="SettingReportFullName">Full Name</sys:String>
     <sys:String x:Key="SettingReportLicense">License No</sys:String>
+    <sys:String x:Key="SettingVersionTitle">System Info</sys:String>
+    <sys:String x:Key="SettingVersionLab">Version:</sys:String>
+    <sys:String x:Key="SettingOperModelLab">Operation Mode:</sys:String>
+    <sys:String x:Key="SettingTechModel">Technician Mode</sys:String>
+    <sys:String x:Key="SettingDoctorModel">Doctor Mode</sys:String>
+    <sys:String x:Key="SettingAdminModel">Admin Mode</sys:String>
+    <sys:String x:Key="SettingVersionCheckLab">Software Updater:</sys:String>
+    <sys:String x:Key="SettingVersionCheckInfo1">Your version is up-to-date.</sys:String>
+    <sys:String x:Key="SettingVersionCheckInfo2">A new version is available, you can update this software now.</sys:String>
+    <sys:String x:Key="SettingVersionUpdate">Update Now</sys:String>
+    <sys:String x:Key="SettingFTPTabTitle">FTP Setting</sys:String>
+    <sys:String x:Key="SettingFTPUrl">FTP URL</sys:String>
+    <sys:String x:Key="SettingFTPUsername">FTP Username</sys:String>
+    <sys:String x:Key="SettingFTPPassword">FTP Password</sys:String>
+
+
 
     <sys:String x:Key="UserDataPersonalTab">Personal Data</sys:String>
     <sys:String x:Key="UserDataPersonal1">Surname:</sys:String>
@@ -127,6 +171,8 @@
     <sys:String x:Key="UserDataPersonal8">month</sys:String>
     <sys:String x:Key="UserDataPersonal9">year</sys:String>
     <sys:String x:Key="UserDataPersona20">Remark:</sys:String>
+    <sys:String x:Key="UserDataPersona21">NO</sys:String>
+    <sys:String x:Key="UserDataPersona22">YES</sys:String>
     
     <sys:String x:Key="UserDataComplaintsTab">Complaints</sys:String>
     <sys:String x:Key="UserDataComplaints1">Pain</sys:String>
@@ -371,12 +417,12 @@
     <sys:String x:Key="ReportContext_167">Benign lesion detected.</sys:String>
     <sys:String x:Key="ReportContext_168">Suspicious lesion detected. Suggest further evaluation and management.</sys:String>
     <sys:String x:Key="ReportContext_169" xml:space="preserve">Comments 02: </sys:String>
-    <sys:String x:Key="ReportContext_170">View Screenshot</sys:String>
+    <sys:String x:Key="ReportContext_170">View Image</sys:String>
     <sys:String x:Key="ReportContext_171">For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</sys:String>
     <sys:String x:Key="ReportContext_172">Refer to Surgeon – Follow up Biopsy</sys:String>
     <sys:String x:Key="ReportContext_173" xml:space="preserve">Doctor: </sys:String>
     <sys:String x:Key="ReportContext_174" xml:space="preserve">Doctor's Signature: </sys:String>
-    <sys:String x:Key="ReportContext_175">Capture Screen</sys:String>
+    <sys:String x:Key="ReportContext_175">Capture Image</sys:String>
     <sys:String x:Key="ReportContext_176">Remove Image</sys:String>
     <sys:String x:Key="ReportContext_177" xml:space="preserve">Date of Screening: </sys:String>
     <sys:String x:Key="ReportContext_178" xml:space="preserve">Medical Record No. (MRN): </sys:String>

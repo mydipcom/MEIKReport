@@ -130,6 +130,25 @@ namespace MEIKReport.Common
             }
             dirinfo.SetAccessControl(dirsecurity);
         }
+
+        /// <summary>
+        /// 判断文件是否已被锁定
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static bool FileInUsed(string filePath)
+        {
+            bool inUse = true;
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None);
+                inUse = false;
+            }
+            catch { }
+            finally { if (fs != null)fs.Close(); }
+            return inUse;
+        }
         
     }
 }

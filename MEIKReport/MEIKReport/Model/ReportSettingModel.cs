@@ -4,11 +4,55 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MEIKReport.Model
 {
     public class ReportSettingModel : ViewModelBase
     {
+        private string version = null;
+        public string Version
+        {
+            get { return version; }
+            set { version = value; OnPropertyChanged("Version"); }
+        }
+
+        private bool hasNewer;
+
+        public bool HasNewer
+        {
+            get { return hasNewer; }
+            set { hasNewer = value; OnPropertyChanged("HasNewer"); }
+        }
+
+        private string dataBaseFolder = null;
+        public string DataBaseFolder
+        {
+            get { return dataBaseFolder; }
+            set { dataBaseFolder = value; OnPropertyChanged("DataBaseFolder"); }
+        }
+
+        private string ftpPath = null;
+        public string FtpPath
+        {
+            get { return ftpPath; }
+            set { ftpPath = value; OnPropertyChanged("FtpPath"); }
+        }
+
+        private string ftpUser = null;
+        public string FtpUser
+        {
+            get { return ftpUser; }
+            set { ftpUser = value; OnPropertyChanged("FtpUser"); }
+        }
+
+        private string ftpPwd = null;
+        public string FtpPwd
+        {
+            get { return ftpPwd; }
+            set { ftpPwd = value; OnPropertyChanged("FtpPwd"); }
+        }
+
         private ObservableCollection<User> doctorNames = new ObservableCollection<User>();
 
         public ObservableCollection<User> DoctorNames
@@ -22,6 +66,22 @@ namespace MEIKReport.Model
         {
             get { return techNames; }
             set { techNames = value; OnPropertyChanged("TechNames"); }
+        }
+
+        private bool noShowDoctorSignature;
+
+        public bool NoShowDoctorSignature
+        {
+            get { return noShowDoctorSignature; }
+            set { noShowDoctorSignature = value; OnPropertyChanged("NoShowDoctorSignature"); }
+        }
+
+        private bool noShowTechSignature;
+
+        public bool NoShowTechSignature
+        {
+            get { return noShowTechSignature; }
+            set { noShowTechSignature = value; OnPropertyChanged("NoShowTechSignature"); }
         }
 
         private string meikBase = @"C:\Program Files (x86)\MEIK 5.6";
@@ -40,9 +100,9 @@ namespace MEIKReport.Model
             set { useDefaultSignature = value; OnPropertyChanged("UseDefaultSignature"); }
         }
 
-        private string printPaper = "Letter";
+        private PageSize printPaper;
 
-        public string PrintPaper
+        public PageSize PrintPaper
         {
             get { return printPaper; }
             set { printPaper = value; OnPropertyChanged("PrintPaper"); }
@@ -132,5 +192,34 @@ namespace MEIKReport.Model
             get { return deviceType; }
             set { deviceType = value; OnPropertyChanged("DeviceType"); }
         }
+
+        private string recordDate;
+        public string RecordDate
+        {
+            get { return recordDate; }
+            set { recordDate = value; OnPropertyChanged("RecordDate"); }
+        }
+
+
+        /// <summary>
+        /// 临时变量，保存提供当前数据的检测员名称
+        /// </summary>
+        private string reportTechName = "";
+        public string ReportTechName
+        {
+            get { return reportTechName; }
+            set { reportTechName = value; OnPropertyChanged("ReportTechName"); }
+        }
+
+        /// <summary>
+        /// 临时变量，保存提供当前数据的检测员证书
+        /// </summary>
+        private string reportTechLicense = "";
+        public string ReportTechLicense
+        {
+            get { return reportTechLicense; }
+            set { reportTechLicense = value; OnPropertyChanged("ReportTechLicense"); }
+        }       
+
     }
 }

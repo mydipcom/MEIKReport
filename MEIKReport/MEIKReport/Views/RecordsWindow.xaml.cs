@@ -60,17 +60,11 @@ namespace MEIKReport
         }
 
         private void CountScreeningTimes(DateTime fromDate, DateTime toDate)
-        {            
-            if (string.IsNullOrEmpty(App.meikFolder))
-            {
-                App.meikFolder = @"C:\Program Files (x86)\MEIK 5.6";
-            }
-            //string meikPath = @"C:\Program Files (x86)\MEIK 5.6";
-            
+        {                        
             try
             {
                 patientList.Clear();
-                ListFiles(new DirectoryInfo(App.meikFolder), fromDate, toDate); 
+                ListFiles(new DirectoryInfo(App.reportSettingModel.DataBaseFolder), fromDate, toDate); 
                                 
                 patientCollection = new ObservableCollection<Patient>(patientList);
                 this.patientGrid.ItemsSource = patientCollection;
