@@ -2640,7 +2640,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>nuvomed</td><td>0</td><td/><td>-1557904490</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>nuvomed</td><td>0</td><td/><td>-1289434911</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1331403154</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1331403154</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue. Please download and install it from https://www.microsoft.com/en-us/download/details.aspx?id=30653</td><td>0</td><td/><td>-794550127</td></row>
@@ -3469,7 +3469,16 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME21</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1708884109</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME22</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1557880331</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.1.3</td><td>0</td><td/><td>-1557919018</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME24</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289440960</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME25</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289449056</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME26</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289484640</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME27</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289479935</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME28</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289428447</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME29</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289478879</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331373329</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME30</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1155221687</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME31</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1155233494</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME32</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1155265813</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch gxpswin32-9.18.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331414193</td></row>
@@ -3771,8 +3780,8 @@
 		<row><td>ID_STRING13</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-391874741</td></row>
 		<row><td>ID_STRING14</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1172003774</td></row>
 		<row><td>ID_STRING15</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1171997630</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.nuvomed.com</td><td>0</td><td/><td>-1557904490</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>nuvomed</td><td>0</td><td/><td>-1557904490</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.nuvomed.com</td><td>0</td><td/><td>-1289434911</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>nuvomed</td><td>0</td><td/><td>-1289434911</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331387473</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Installation MEIK Application</td><td>0</td><td/><td>-1557912523</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1331398640</td></row>
@@ -3910,7 +3919,7 @@
 		<row><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._4AC7B27DC24D43F58F79A0989C531056.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._921A93303EDF44198AED9424A387D844.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_M_15393296EA7C4F50AE145F8A116758D0.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_M_99DEF11BE6414C139889989D6640DD9A.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 		<row><td>_Built1_1A91FD199E2448249A648ABBB6E24D16.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>_Built_83A6700512F646F2AE773A4749AF7F83.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>gxpswin32_9.18.exe_6E8A6916FD5240BD93847524EAEABF61.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4425,9 +4434,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MEIKReport.exe</td><td/></row>
-		<row><td>ProductCode</td><td>{0E538F6D-DDF9-43FF-A765-6056030AE39F}</td><td/></row>
+		<row><td>ProductCode</td><td>{39FFEF08-AD82-4C29-B355-739EF8057E75}</td><td/></row>
 		<row><td>ProductName</td><td>MEIK Application</td><td/></row>
-		<row><td>ProductVersion</td><td>1.1.3</td><td/></row>
+		<row><td>ProductVersion</td><td>1.1.33</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4593,7 +4602,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I4">ISAttributes</col>
 		<row><td>MEIKReport.exe</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>MEIKReport.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe1_EF9039C2F6504AFCAF39444187D4DC79.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>UNINST_Uninstall_MEIK_Application</td><td>meikre_1_meik_report_tools</td><td>UNINST|Uninstall MEIK Application</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {0E538F6D-DDF9-43FF-A765-6056030AE39F}</td><td/><td/><td>UNINST_Uninstall_M_15393296EA7C4F50AE145F8A116758D0.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_MEIK_Application</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME32##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {39FFEF08-AD82-4C29-B355-739EF8057E75}</td><td/><td/><td>UNINST_Uninstall_M_99DEF11BE6414C139889989D6640DD9A.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

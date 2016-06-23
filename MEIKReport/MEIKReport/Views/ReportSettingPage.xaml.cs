@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -244,81 +245,7 @@ namespace MEIKReport
         //    }
                         
         //}
-
-        private void tabVersion_GotFocus(object sender, RoutedEventArgs e)
-        {            
-            if (this.radradDeviceType1.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
-            {
-                this.radradDeviceType1.IsChecked = true;
-            }
-            else if (this.radradDeviceType2.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
-            {
-                this.radradDeviceType2.IsChecked = true;
-            }
-            else
-            {
-                this.radradDeviceType3.IsChecked = true;
-            }
-
-            if (!App.reportSettingModel.HasNewer)
-            {
-                //定义委托代理
-                ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
-                UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
-                //使用系统代理方式显示进度条面板
-                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(5) });
-                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
-                
-                List<string> fileList = new List<string>();
-                try
-                {
-                    //查询FTP上所有版本文件列表要下载的文件列表
-                    fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Setup");
-                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(80) });
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, App.Current.FindResource("Message_47").ToString() + " " + ex.Message);
-                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
-                    return;
-                }
-                try
-                {
-                    fileList.Reverse();
-                    foreach (var setupFileName in fileList)
-                    {
-                        if (setupFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var verStr = setupFileName.ToLower().Replace(".exe", "").Replace("meiksetup.", "");
-                            string currentVer = App.reportSettingModel.Version;
-                            if (string.Compare(verStr, currentVer,StringComparison.OrdinalIgnoreCase) > 0)
-                            {                                
-                                App.reportSettingModel.HasNewer = true;
-                                labVerCheckInfo.Content = App.Current.FindResource("SettingVersionCheckInfo2").ToString();
-                                btnUpdateNow.IsEnabled = true;
-                                OperateIniFile.WriteIniData("Base", "Newer", App.reportSettingModel.HasNewer.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                                
-                            }
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                catch (Exception ex1)
-                {
-                    MessageBox.Show(this, ex1.Message);
-                }
-                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
-                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
-            }
-            else
-            {
-                labVerCheckInfo.Content = App.Current.FindResource("SettingVersionCheckInfo2").ToString();
-                btnUpdateNow.IsEnabled = true;
-            }
-        }
+        
 
         /// <summary>
         /// 立即进行版本更新
@@ -339,9 +266,9 @@ namespace MEIKReport
                 
                 try
                 {
+                    string ftpPath = App.reportSettingModel.FtpPath.Replace("home", "MeikUpdate");
                     //查询FTP上所有版本文件列表要下载的文件列表
-                    var fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Setup/");
-                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(20) });
+                    var fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, ftpPath);                    
                     fileList.Reverse();
                     foreach (var setupFileName in fileList)
                     {
@@ -351,8 +278,42 @@ namespace MEIKReport
                             string currentVer=App.reportSettingModel.Version;
                             if (string.Compare(verStr, currentVer,StringComparison.OrdinalIgnoreCase) > 0)
                             {
-                                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(25) });
-                                FtpHelper.Instance.Download(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "Setup/", App.reportSettingModel.DataBaseFolder, setupFileName);
+                                //下載新的升級安裝包
+                                FtpWebRequest reqFTP;
+                                try
+                                {
+                                    FileStream outputStream = new FileStream(App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + setupFileName, FileMode.Create);
+                                    reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpPath + setupFileName));
+                                    reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
+                                    reqFTP.UseBinary = true;
+                                    reqFTP.Credentials = new NetworkCredential(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd);
+                                    reqFTP.UsePassive = false;
+                                    FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                                    Stream ftpStream = response.GetResponseStream();
+                                    long cl = response.ContentLength;
+                                    int bufferSize = 2048;
+                                    double moveSize = 100d / (cl / 2048);
+                                    int x = 1;
+                                    int readCount;
+                                    byte[] buffer = new byte[bufferSize];
+                                    readCount = ftpStream.Read(buffer, 0, bufferSize);
+                                    while (readCount > 0)
+                                    {
+                                        outputStream.Write(buffer, 0, readCount);
+                                        readCount = ftpStream.Read(buffer, 0, bufferSize);
+                                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(moveSize * x) });
+                                        x++;
+                                    }
+                                    ftpStream.Close();
+                                    outputStream.Close();
+                                    response.Close();
+                                }
+                                catch (Exception ex2)
+                                {
+                                    throw ex2;
+                                }
+
+                                //FtpHelper.Instance.Download(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, ftpPath, App.reportSettingModel.DataBaseFolder, setupFileName);
                                 Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
                                 Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
                                 MessageBox.Show(this, App.Current.FindResource("Message_48").ToString());
@@ -364,9 +325,9 @@ namespace MEIKReport
                                     if (setupProc != null)
                                     {                                       
                                         //proc.WaitForExit();//等待外部程序退出后才能往下执行
-                                        setupProc.WaitForInputIdle();
-
-                                        File.Copy(System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini", System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini", true);
+                                        setupProc.WaitForInputIdle();                                        
+                                        File.Copy(System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini", System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini", true);                                        
+                                        OperateIniFile.WriteIniData("Base", "Version", verStr, System.AppDomain.CurrentDomain.BaseDirectory + "Config_bak.ini");                                                                       
                                         //关闭当前程序
                                         App.Current.Shutdown();
                                     }
@@ -474,6 +435,77 @@ namespace MEIKReport
                         userList.sendReportButton.Visibility = Visibility.Visible;
                     }
                 }
+            }
+        }
+
+        private void tabSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {            
+            var tabItem=e.AddedItems[0] as TabItem;
+            if ("tabVersion".Equals(tabItem.Name))
+            {
+                if (this.radradDeviceType1.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
+                {
+                    this.radradDeviceType1.IsChecked = true;
+                }
+                else if (this.radradDeviceType2.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
+                {
+                    this.radradDeviceType2.IsChecked = true;
+                }
+                else
+                {
+                    this.radradDeviceType3.IsChecked = true;
+                }
+            
+                //定义委托代理
+                ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+                UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+                //使用系统代理方式显示进度条面板
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(10) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(20) });
+                List<string> fileList = new List<string>();
+                try
+                {
+                    string ftpPath = App.reportSettingModel.FtpPath.Replace("home", "MeikUpdate");
+                    //查询FTP上所有版本文件列表要下载的文件列表
+                    fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, ftpPath);
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(90) });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_47").ToString() + " " + ex.Message);
+                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                    return;
+                }
+                try
+                {
+                    fileList.Reverse();
+                    foreach (var setupFileName in fileList)
+                    {
+                        if (setupFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var verStr = setupFileName.ToLower().Replace(".exe", "").Replace("meiksetup.", "");
+                            string currentVer = App.reportSettingModel.Version;
+                            if (string.Compare(verStr, currentVer,StringComparison.OrdinalIgnoreCase) > 0)
+                            {                                                                
+                                labVerCheckInfo.Content = App.Current.FindResource("SettingVersionCheckInfo2").ToString();
+                                btnUpdateNow.IsEnabled = true;                            
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                catch (Exception ex1)
+                {
+                    MessageBox.Show(this, ex1.Message);
+                }
+                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+            
             }
         }
     }

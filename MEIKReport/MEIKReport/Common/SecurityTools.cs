@@ -31,7 +31,7 @@ namespace MEIKReport.Common
                 tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8)); 
 
                 // Create or open the specified file.
-                FileStream fStream = File.Open(fileName, FileMode.OpenOrCreate);
+                FileStream fStream = File.Open(fileName, FileMode.Create);
 
                 // Create a CryptoStream using the FileStream 
                 // and the passed key and initialization vector (IV).
@@ -80,7 +80,7 @@ namespace MEIKReport.Common
                 tDESalg.Key = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(0, 16));
                 tDESalg.IV = new ASCIIEncoding().GetBytes(encryptionPrivateKey.Substring(8, 8)); 
                 // Create or open the specified file. 
-                FileStream fStream = File.Open(fileName, FileMode.OpenOrCreate);
+                FileStream fStream = File.Open(fileName, FileMode.Open);
 
                 // Create a CryptoStream using the FileStream 
                 // and the passed key and initialization vector (IV).

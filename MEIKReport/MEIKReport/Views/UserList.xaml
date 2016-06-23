@@ -215,7 +215,7 @@
         <Grid Grid.Row="2" Margin="10,5,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="415"/>                
+                <ColumnDefinition Width="505"/>                
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
@@ -240,8 +240,6 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </WrapPanel>            
-            <WrapPanel Name="reportButtonPanel" Grid.Column="2" HorizontalAlignment="left" VerticalAlignment="Center">
                 <Button Name="btnNewArchive" Width="90" Height="42" Content="{DynamicResource  UserListWinNewBtn}" FontSize="13" FontWeight="Bold" FontFamily="Arial,Microsoft YaHei" Click="btnNewArchive_Click" Background="{x:Null}" Foreground="White" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -260,6 +258,9 @@
                     </Button.Template>
                 </Button>
 
+            </WrapPanel>            
+            <WrapPanel Name="reportButtonPanel" Grid.Column="2" HorizontalAlignment="left" VerticalAlignment="Center">
+                
                 <Button Name="btnExaminationReport" Click="ExaminationReport_Click" Width="126" Height="42" FontSize="13" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="{DynamicResource UserListWinEditReportBtn}" Background="{x:Null}" Foreground="White" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">

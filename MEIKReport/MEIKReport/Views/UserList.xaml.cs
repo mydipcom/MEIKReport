@@ -818,9 +818,7 @@ namespace MEIKReport
                     App.reportSettingModel = new ReportSettingModel();
                     App.reportSettingModel.DataBaseFolder = OperateIniFile.ReadIniData("Base", "Data base", "C:\\MEIKData", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.Version = OperateIniFile.ReadIniData("Base", "Version", "1.0.0", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    string newer=OperateIniFile.ReadIniData("Base", "Newer", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                    bool hasNewer = string.IsNullOrEmpty(newer) ? false : Convert.ToBoolean(newer);
-                    App.reportSettingModel.HasNewer = hasNewer;
+                    
                     App.reportSettingModel.UseDefaultSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     string doctorNames = OperateIniFile.ReadIniData("Report", "Doctor Names List", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     if (!string.IsNullOrEmpty(doctorNames))
@@ -936,7 +934,9 @@ namespace MEIKReport
                 {
                     item.Icon = "/Images/id_card_ok.png";
                 }
-                var selectItem=e.AddedItems[0] as Person;                
+                var selectItem=e.AddedItems[0] as Person;
+                string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
             }
             if (e.RemovedItems.Count > 0)
             {
@@ -1525,7 +1525,11 @@ namespace MEIKReport
             try
             {
                 var person = this.CodeListBox.SelectedItem as Person;
-
+                if (person == null)
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_35").ToString());
+                    return;
+                }
                 //Personal Data
                 person.SurName = this.txtName.Text;
                 OperateIniFile.WriteIniData("Personal data", "surname", this.txtName.Text, person.CrdFilePath);

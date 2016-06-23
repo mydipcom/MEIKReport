@@ -15,15 +15,7 @@ namespace MEIKReport.Model
         {
             get { return version; }
             set { version = value; OnPropertyChanged("Version"); }
-        }
-
-        private bool hasNewer;
-
-        public bool HasNewer
-        {
-            get { return hasNewer; }
-            set { hasNewer = value; OnPropertyChanged("HasNewer"); }
-        }
+        }        
 
         private string dataBaseFolder = null;
         public string DataBaseFolder

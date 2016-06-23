@@ -40,7 +40,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="10">
-                <TabControl Name="tabSetting" SelectedIndex="0" Background="{x:Null}" BorderBrush="#FF3E6E8F">
+                <TabControl Name="tabSetting" SelectedIndex="0" Background="{x:Null}" BorderBrush="#FF3E6E8F" SelectionChanged="tabSetting_SelectionChanged">
                     <TabItem Name="tabReport" Header="{StaticResource SettingReportTabTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -228,7 +228,7 @@
                             
                         </Grid>
                     </TabItem>
-                    <TabItem Name="tabVersion" Header="{StaticResource SettingVersionTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White" GotFocus="tabVersion_GotFocus">
+                    <TabItem Name="tabVersion" Header="{StaticResource SettingVersionTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
