@@ -71,7 +71,7 @@ namespace MEIKReport
             if (App.reportSettingModel.DeviceType == 1 )
             {
                 btnScreening.Visibility = Visibility.Visible;
-                btnDiagnostics.Visibility = Visibility.Collapsed;
+                btnDiagnostics.Visibility = Visibility.Visible;
                 btnRecords.Visibility = Visibility.Visible;
                 btnReceivePdf.Visibility = Visibility.Visible;
                 btnReceive.Visibility = Visibility.Collapsed;
@@ -549,12 +549,13 @@ namespace MEIKReport
                         Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue) });
 
                         //打包数据文件，并上传到FPT服务
-                        string zipFile = zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "-" + selectedUser.SurName;
+                        string zipFile = dataFolder + System.IO.Path.DirectorySeparatorChar + selectedUser.Code + "-" + selectedUser.SurName;
                         zipFile = zipFile + (string.IsNullOrEmpty(selectedUser.GivenName) ? "" : "," + selectedUser.GivenName) + (string.IsNullOrEmpty(selectedUser.OtherName) ? "" : " " + selectedUser.OtherName) + ".zip";
 
                         try
                         {
-                            ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, 1);
+                            //ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, 1);
+                            ZipTools.Instance.ZipFiles(selectedUser.ArchiveFolder, zipFile, 1);
                             Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 5) });
                         }
                         catch (Exception ex1)
@@ -581,7 +582,7 @@ namespace MEIKReport
                         }
                         catch (Exception ex2)
                         {
-                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_19").ToString() + " " + ex2.Message);
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_52").ToString() + " " + ex2.Message);
                             continue;
                         }
                         Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 9) });
@@ -620,8 +621,16 @@ namespace MEIKReport
                         n++;
                     }
 
-                    //发送通知邮件    
-                    SendEmail(selectedUserList.Count - errMsg.Count);
+                    try
+                    {
+                        //发送通知邮件  
+                        SendEmail((selectedUserList.Count - errMsg.Count), true);
+                    }
+                    catch (Exception ex3)
+                    {
+                        errMsg.Add(App.Current.FindResource("Message_19").ToString() + " " + ex3.Message);
+                    }
+
                     Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
                     //显示没有成功发送数据的错误消息
                     if (errMsg.Count > 0)
@@ -663,8 +672,7 @@ namespace MEIKReport
                 MessageBox.Show(this, App.Current.FindResource("Message_35").ToString());
                 return;
             }
-            
-                                    
+                                                
             MessageBoxResult result = MessageBox.Show(this, App.Current.FindResource("Message_17").ToString(), "Send Report", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {                
@@ -701,7 +709,8 @@ namespace MEIKReport
 
                         try
                         {
-                            ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, deviceType);
+                            //ZipTools.Instance.ZipFolder(selectedUser.ArchiveFolder, zipFile, deviceType);
+                            ZipTools.Instance.ZipFiles(selectedUser.ArchiveFolder, zipFile,2);
                             Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 5) });
                         }
                         catch (Exception ex1)
@@ -728,7 +737,7 @@ namespace MEIKReport
                         }
                         catch (Exception ex2)
                         {
-                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_19").ToString() + " " + ex2.Message);
+                            errMsg.Add(selectedUser.Code + " :: " + App.Current.FindResource("Message_52").ToString() + " " + ex2.Message);
                             continue;
                         }
                         Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 9) });
@@ -736,9 +745,15 @@ namespace MEIKReport
                         n++;
                     }
 
-                    //发送通知邮件  
-                    SendEmail((selectedUserList.Count - errMsg.Count), true);
-
+                    try
+                    {
+                        //发送通知邮件  
+                        SendEmail((selectedUserList.Count - errMsg.Count), true);
+                    }
+                    catch (Exception ex3)
+                    {
+                        errMsg.Add(App.Current.FindResource("Message_19").ToString() + " " + ex3.Message);                        
+                    }
                     //完成进度条
                     Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
 
@@ -1207,7 +1222,8 @@ namespace MEIKReport
                                 //创建患者档案目录
                                 Directory.CreateDirectory(archiveFolder);
                             }
-                            ZipTools.Instance.UnzipToFolder(folderpath + System.IO.Path.DirectorySeparatorChar + file, archiveFolder);
+                            //ZipTools.Instance.UnzipToFolder(folderpath + System.IO.Path.DirectorySeparatorChar + file, archiveFolder);
+                            ZipTools.Instance.UnZip(folderpath + System.IO.Path.DirectorySeparatorChar + file, archiveFolder);
                         }
                         catch (Exception e3)
                         {

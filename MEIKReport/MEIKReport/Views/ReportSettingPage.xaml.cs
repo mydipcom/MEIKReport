@@ -361,7 +361,7 @@ namespace MEIKReport
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             var radioButton = sender as RadioButton;
-            if (!radioButton.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
+            if (radioButton!=null&&!radioButton.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
             {
                 int targetDeviceType = Convert.ToInt32(radioButton.DataContext);
                 int deviceType = App.reportSettingModel.DeviceType;
@@ -401,7 +401,7 @@ namespace MEIKReport
                     if (App.reportSettingModel.DeviceType==1)
                     {
                         userList.btnScreening.Visibility = Visibility.Visible;
-                        userList.btnDiagnostics.Visibility = Visibility.Collapsed;
+                        userList.btnDiagnostics.Visibility = Visibility.Visible;
                         userList.btnRecords.Visibility = Visibility.Visible;
                         userList.btnReceivePdf.Visibility = Visibility.Visible;
                         userList.btnReceive.Visibility = Visibility.Collapsed;
@@ -439,73 +439,76 @@ namespace MEIKReport
         }
 
         private void tabSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            var tabItem=e.AddedItems[0] as TabItem;
-            if ("tabVersion".Equals(tabItem.Name))
+        {
+            if (e.AddedItems!=null&&e.AddedItems.Count > 0)
             {
-                if (this.radradDeviceType1.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
+                var tabItem=e.AddedItems[0] as TabItem;
+                if (tabItem!=null&&"tabVersion".Equals(tabItem.Name))
                 {
-                    this.radradDeviceType1.IsChecked = true;
-                }
-                else if (this.radradDeviceType2.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
-                {
-                    this.radradDeviceType2.IsChecked = true;
-                }
-                else
-                {
-                    this.radradDeviceType3.IsChecked = true;
-                }
-            
-                //定义委托代理
-                ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
-                UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
-                //使用系统代理方式显示进度条面板
-                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(10) });
-                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
-                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(20) });
-                List<string> fileList = new List<string>();
-                try
-                {
-                    string ftpPath = App.reportSettingModel.FtpPath.Replace("home", "MeikUpdate");
-                    //查询FTP上所有版本文件列表要下载的文件列表
-                    fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, ftpPath);
-                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(90) });
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, App.Current.FindResource("Message_47").ToString() + " " + ex.Message);
-                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
-                    return;
-                }
-                try
-                {
-                    fileList.Reverse();
-                    foreach (var setupFileName in fileList)
+                    if (this.radradDeviceType1.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
                     {
-                        if (setupFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                        this.radradDeviceType1.IsChecked = true;
+                    }
+                    else if (this.radradDeviceType2.DataContext.Equals(App.reportSettingModel.DeviceType.ToString()))
+                    {
+                        this.radradDeviceType2.IsChecked = true;
+                    }
+                    else
+                    {
+                        this.radradDeviceType3.IsChecked = true;
+                    }
+            
+                    //定义委托代理
+                    ProgressBarGridDelegate progressBarGridDelegate = new ProgressBarGridDelegate(progressBarGrid.SetValue);
+                    UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(uploadProgressBar.SetValue);
+                    //使用系统代理方式显示进度条面板
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(10) });
+                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Visible });
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(20) });
+                    List<string> fileList = new List<string>();
+                    try
+                    {
+                        string ftpPath = App.reportSettingModel.FtpPath.Replace("home", "MeikUpdate");
+                        //查询FTP上所有版本文件列表要下载的文件列表
+                        fileList = FtpHelper.Instance.GetFileList(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, ftpPath);
+                        Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(90) });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(this, App.Current.FindResource("Message_47").ToString() + " " + ex.Message);
+                        Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                        return;
+                    }
+                    try
+                    {
+                        fileList.Reverse();
+                        foreach (var setupFileName in fileList)
                         {
-                            var verStr = setupFileName.ToLower().Replace(".exe", "").Replace("meiksetup.", "");
-                            string currentVer = App.reportSettingModel.Version;
-                            if (string.Compare(verStr, currentVer,StringComparison.OrdinalIgnoreCase) > 0)
-                            {                                                                
-                                labVerCheckInfo.Content = App.Current.FindResource("SettingVersionCheckInfo2").ToString();
-                                btnUpdateNow.IsEnabled = true;                            
+                            if (setupFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                            {
+                                var verStr = setupFileName.ToLower().Replace(".exe", "").Replace("meiksetup.", "");
+                                string currentVer = App.reportSettingModel.Version;
+                                if (string.Compare(verStr, currentVer,StringComparison.OrdinalIgnoreCase) > 0)
+                                {                                                                
+                                    labVerCheckInfo.Content = App.Current.FindResource("SettingVersionCheckInfo2").ToString();
+                                    btnUpdateNow.IsEnabled = true;                            
+                                }
+                                break;
                             }
-                            break;
-                        }
-                        else
-                        {
-                            continue;
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                }
-                catch (Exception ex1)
-                {
-                    MessageBox.Show(this, ex1.Message);
-                }
-                Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
-                Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
+                    catch (Exception ex1)
+                    {
+                        MessageBox.Show(this, ex1.Message);
+                    }
+                    Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(100) });
+                    Dispatcher.Invoke(progressBarGridDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.Grid.VisibilityProperty, Visibility.Collapsed });
             
+                }
             }
         }
     }

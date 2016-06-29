@@ -100,6 +100,7 @@
     <sys:String x:Key="Message_49">密码错误</sys:String>
     <sys:String x:Key="Message_50">您确定要删除选择的文件夹及其下所有内容吗?</sys:String>
     <sys:String x:Key="Message_51">启动升级安装包程序失败，错误原因：</sys:String>
+    <sys:String x:Key="Message_52">上传数据文件失败，错误原因：</sys:String>
 
     <sys:String x:Key="UserListWinBrowerLab">选择病人档案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">浏览...</sys:String>

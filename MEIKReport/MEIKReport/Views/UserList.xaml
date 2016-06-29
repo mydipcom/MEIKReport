@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cvt="clr-namespace:MEIKReport.Common"
-        Title="MEIK Application" Height="800" Width="1084"
+        Title="MEIK Application" Height="700" Width="1084"
         Icon="/MEIKReport;component/Images/App_Icon.png"
         ShowInTaskbar="True" ResizeMode="CanResize"  Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized">    
     <!--<Window.TaskbarItemInfo>
@@ -364,7 +364,7 @@
                             <RowDefinition Height="15"/>
                             <RowDefinition Height="26"/>
                             <RowDefinition Height="10"/>
-                            <RowDefinition Height="180"/>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
@@ -404,7 +404,7 @@
                         </WrapPanel>
                         <TextBox Grid.Row="7" Grid.Column="1" Name="txtAddress" Width="Auto" HorizontalContentAlignment="Left" Text="{Binding Path=Address}" Margin="0,0,20,0"></TextBox>
                         <Button  Grid.Row="11" Grid.Column="1" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
-                        <TextBox Grid.Row="9" Grid.Column="1" Name="txtRemark" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="180" Text="{Binding Path=Remark}" Margin="0,0,20,0"></TextBox>
+                        <TextBox Grid.Row="9" Grid.Column="1" Name="txtRemark" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="100" Text="{Binding Path=Remark}" Margin="0,0,20,0"></TextBox>
                     </Grid>
                 </TabItem>
                 <TabItem Name="tabComplaints" Header="{DynamicResource UserDataComplaintsTab}" Height="Auto">
@@ -415,7 +415,7 @@
                             <RowDefinition Height="26"/>
                             <RowDefinition Height="26"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="200"/>                            
+                            <RowDefinition Height="160"/>                            
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
@@ -444,7 +444,7 @@
                             <Label Content="{DynamicResource UserDataComplaints5}"></Label>
                         </WrapPanel>
                         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-                            <TextBox Name="txtOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="190" Text="{Binding Path=OtherDesc}"></TextBox>
+                            <TextBox Name="txtOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="160" Text="{Binding Path=OtherDesc}"></TextBox>
                         </StackPanel>                        
                         <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Header="{DynamicResource UserDataComplaints6}">
                             <Grid Margin="8">
@@ -487,12 +487,13 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="70"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="70"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="50"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="2"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="*"/>                                        
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
@@ -536,16 +537,16 @@
                                         <CheckBox Name="checkMenstrualCycleDisorder" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=MenstrualCycleDisorder}" Click="checkMenses_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis2}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-                                        <TextBox Name="txtMenstrualCycleDisorderDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Text="{Binding Path=MenstrualCycleDisorderDesc}"></TextBox>
-                                    </StackPanel>
+                                    <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,1,0,1">                                        
+                                        <TextBox Name="txtMenstrualCycleDisorderDesc"  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Text="{Binding Path=MenstrualCycleDisorderDesc}"></TextBox>                                        
+                                    </DockPanel>
                                     <WrapPanel Grid.Row="3" Grid.ColumnSpan="2">
                                         <CheckBox Name="checkPostmenopause" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Postmenopause}" Click="checkMenses_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis3}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
-                                        <TextBox Name="txtPostmenopauseDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Text="{Binding Path=PostmenopauseDesc}"></TextBox>
-                                    </StackPanel>
+                                    <DockPanel Grid.Row="4" Grid.ColumnSpan="2">
+                                        <TextBox Name="txtPostmenopauseDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=PostmenopauseDesc}"></TextBox>
+                                    </DockPanel>
                                     <WrapPanel Grid.Row="5" Grid.ColumnSpan="2">
                                         <CheckBox Name="checkHormonalContraceptives" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=HormonalContraceptives}" Click="checkMenses_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis4}"></Label>
@@ -553,11 +554,15 @@
                                     <StackPanel Grid.Row="6">
                                         <Label Width="150" Content="{DynamicResource UserDataAnamnesis5}"></Label>
                                     </StackPanel>
-                                    <TextBox Name="txtHormonalContraceptivesBrandName" Grid.Row="6" Grid.Column="1" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesBrandName}"></TextBox>
-                                    <WrapPanel Grid.Row="7">
+                                    <DockPanel Grid.Row="6" Grid.Column="1">
+                                        <TextBox Name="txtHormonalContraceptivesBrandName" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=HormonalContraceptivesBrandName}"></TextBox>
+                                    </DockPanel>
+                                    <WrapPanel Grid.Row="8">
                                         <Label Width="150" Content="{DynamicResource UserDataAnamnesis6}"></Label>
                                     </WrapPanel>
-                                    <TextBox  Name="txtHormonalContraceptivesPeriod" Grid.Row="7" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Text="{Binding Path=HormonalContraceptivesPeriod}"></TextBox>                                    
+                                    <DockPanel Grid.Row="8" Grid.Column="1">
+                                        <TextBox  Name="txtHormonalContraceptivesPeriod" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=HormonalContraceptivesPeriod}"></TextBox>
+                                    </DockPanel>
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabSomatic" Header="{DynamicResource UserDataAnamnesis7}" Height="Auto">
@@ -566,13 +571,13 @@
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="26"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50*"/>
                                         <RowDefinition Height="*"/>                                        
                                     </Grid.RowDefinitions>
                                     <WrapPanel Grid.Row="0" VerticalAlignment="Center">
@@ -616,39 +621,41 @@
                                         <CheckBox Name="checkEssentialHypertension" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=EssentialHypertension}" Click="checkSomatic_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis9}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="3">
-                                        <TextBox Name="txtEssentialHypertensionDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=EssentialHypertensionDesc}"></TextBox>
-                                    </StackPanel>
+                                    <DockPanel Grid.Row="3">
+                                        <TextBox Name="txtEssentialHypertensionDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=EssentialHypertensionDesc}"></TextBox>
+                                    </DockPanel>
                                     <WrapPanel Grid.Row="4">
                                         <CheckBox Name="checkDiabetes" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Diabetes}" Click="checkSomatic_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis10}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="5">
-                                        <TextBox Name="txtDiabetesDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=DiabetesDesc}"></TextBox>
-                                    </StackPanel>
+                                    <DockPanel Grid.Row="5">
+                                        <TextBox Name="txtDiabetesDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=DiabetesDesc}"></TextBox>
+                                    </DockPanel>
                                     <WrapPanel Grid.Row="6">
                                         <CheckBox Name="checkThyroidGlandDiseases" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=ThyroidGlandDiseases}" Click="checkSomatic_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis11}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="7">
-                                        <TextBox Name="txtThyroidGlandDiseasesDesc" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="48" Text="{Binding Path=ThyroidGlandDiseasesDesc}"></TextBox>
-                                    </StackPanel>
+                                    <DockPanel Grid.Row="7">
+                                        <TextBox Name="txtThyroidGlandDiseasesDesc" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Path=ThyroidGlandDiseasesDesc}"></TextBox>
+                                    </DockPanel>
                                     <WrapPanel Grid.Row="8">
                                         <CheckBox Name="checkSomaticOther" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=SomaticOther}" Click="checkSomatic_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis12}"></Label>
                                     </WrapPanel>
-                                    <TextBox Name="txtSomaticOtherDesc" Grid.Row="9" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=SomaticOtherDesc}"></TextBox>                                    
+                                    <DockPanel Grid.Row="9">
+                                        <TextBox Name="txtSomaticOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=SomaticOtherDesc}"></TextBox>
+                                    </DockPanel>
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabGynecologic" Header="{DynamicResource UserDataAnamnesis13}" Height="Auto">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"/>
-                                        <RowDefinition Height="60"/>
-                                        <RowDefinition Height="96"/>
-                                        <RowDefinition Height="96"/>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="96*"/>
+                                        <RowDefinition Height="96*"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="70"/>
+                                        <RowDefinition Height="40*"/>
                                         <RowDefinition Height="*"/>                                        
                                     </Grid.RowDefinitions>
                                     <WrapPanel Grid.Row="0" VerticalAlignment="Center">
@@ -692,10 +699,8 @@
                                         <WrapPanel Grid.Row="0">
                                             <CheckBox Name="checkInfertility" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Infertility}" Click="checkGynecologic_Click"></CheckBox>
                                             <Label Content="{DynamicResource UserDataAnamnesis14}"></Label>
-                                        </WrapPanel>
-                                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                                            <TextBox Name="txtInfertility" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=InfertilityDesc}"></TextBox>
-                                        </StackPanel>
+                                        </WrapPanel>                                        
+                                        <TextBox Grid.Row="0" Grid.Column="1" Name="txtInfertility" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=InfertilityDesc}"></TextBox>                                        
                                     </Grid>
                                     <GroupBox Grid.Row="2" Header="{DynamicResource UserDataAnamnesis15}">
                                         <Grid>
@@ -715,9 +720,7 @@
                                                 <CheckBox Name="checkOvaryOther" Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=OvaryOther}" Click="checkGynecologic_Click"></CheckBox>
                                                 <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                             </WrapPanel>
-                                            <StackPanel Grid.Row="2" VerticalAlignment="Center">
-                                                <TextBox Name="txtOvaryOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=OvaryOtherDesc}"></TextBox>
-                                            </StackPanel>
+                                            <TextBox Name="txtOvaryOtherDesc" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=OvaryOtherDesc}"></TextBox>
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox Grid.Row="3" Header="{DynamicResource UserDataAnamnesis21}">
@@ -738,18 +741,16 @@
                                                 <CheckBox Name="checkUterusOther" Width="Auto" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=UterusOther}" Click="checkGynecologic_Click"></CheckBox>
                                                 <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                             </WrapPanel>
-                                            <StackPanel Grid.Row="2" VerticalAlignment="Center">
-                                                <TextBox Name="txtUterusOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="48" Text="{Binding Path=UterusOtherDesc}"></TextBox>
-                                            </StackPanel>
+                                            <TextBox Name="txtUterusOtherDesc" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=UterusOtherDesc}"></TextBox>
                                         </Grid>
                                     </GroupBox>
                                     <WrapPanel Grid.Row="4">
                                         <CheckBox Name="checkGynecologicOther" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=GynecologicOther}" Click="checkGynecologic_Click"></CheckBox>
                                         <Label Content="{DynamicResource UserDataAnamnesis20}"></Label>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="5">
-                                        <TextBox Name="txtGynecologicOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="60" Text="{Binding Path=GynecologicOtherDesc}"></TextBox>
-                                    </StackPanel>                                    
+                                    <DockPanel Grid.Row="5">
+                                        <TextBox Name="txtGynecologicOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=GynecologicOtherDesc}"></TextBox>
+                                    </DockPanel>                                    
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabObstetric" Header="{DynamicResource UserDataAnamnesis23}" Height="Auto">
@@ -840,17 +841,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="26"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
@@ -891,42 +892,42 @@
                             <CheckBox Name="checkTrauma" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Trauma}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease1}"></Label>
                         </WrapPanel>
-                        <StackPanel Grid.Row="2">
-                            <TextBox Name="txtTraumaDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="38" Text="{Binding Path=TraumaDesc}"></TextBox>
-                        </StackPanel>
+                        <DockPanel Grid.Row="2">
+                            <TextBox Name="txtTraumaDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=TraumaDesc}"></TextBox>
+                        </DockPanel>
                         <WrapPanel Grid.Row="3">
                             <CheckBox Name="checkMastitis" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Mastitis}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease2}"></Label>
                         </WrapPanel>
-                        <StackPanel Grid.Row="4">
-                            <TextBox Name="txtMastitisDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="38" Text="{Binding Path=MastitisDesc}"></TextBox>
-                        </StackPanel>
+                        <DockPanel Grid.Row="4">
+                            <TextBox Name="txtMastitisDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=MastitisDesc}"></TextBox>
+                        </DockPanel>
                         <WrapPanel Grid.Row="5">
                             <CheckBox Name="checkFibrousCysticMastopathy" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=FibrousCysticMastopathy}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease3}"></Label>
                         </WrapPanel>
-                        <StackPanel Grid.Row="6">
-                            <TextBox Name="txtFibrousCysticMastopathyDesc" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="38" Text="{Binding Path=FibrousCysticMastopathyDesc}"></TextBox>
-                        </StackPanel>
+                        <DockPanel Grid.Row="6">
+                            <TextBox Name="txtFibrousCysticMastopathyDesc" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Path=FibrousCysticMastopathyDesc}"></TextBox>
+                        </DockPanel>
                         <WrapPanel Grid.Row="7">
                             <CheckBox Name="checkCysts" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Cysts}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease4}"></Label>
                         </WrapPanel>
-                        <TextBox Name="txtCystsDesc" Grid.Row="8" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="38" Text="{Binding Path=CystsDesc}"></TextBox>
+                        <TextBox Name="txtCystsDesc" Grid.Row="8" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=CystsDesc}"></TextBox>
                         <WrapPanel Grid.Row="9">
                             <CheckBox Name="checkCancer" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Cancer}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease5}"></Label>
                         </WrapPanel>
-                        <StackPanel Grid.Row="10">
-                            <TextBox Name="txtCancerDesc" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="38" Text="{Binding Path=CancerDesc}"></TextBox>
-                        </StackPanel>
+                        <DockPanel Grid.Row="10">
+                            <TextBox Name="txtCancerDesc" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=CancerDesc}"></TextBox>
+                        </DockPanel>
                         <WrapPanel Grid.Row="11">
                             <CheckBox Name="checkDiseasesOther" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=DiseasesOther}" Click="checkDiseases_Click"></CheckBox>
                             <Label Content="{DynamicResource UserDataDisease6}"></Label>
                         </WrapPanel>
-                        <StackPanel Grid.Row="12">
-                            <TextBox Name="txtDiseasesOtherDesc" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="38" Text="{Binding Path=DiseasesOtherDesc}"></TextBox>
-                        </StackPanel>
+                        <DockPanel Grid.Row="12">
+                            <TextBox Name="txtDiseasesOtherDesc" Width="Auto" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=DiseasesOtherDesc}"></TextBox>
+                        </DockPanel>
                         <Button  Grid.Row="14" Grid.Column="2" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
                     </Grid>
                 </TabItem>
@@ -942,8 +943,8 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="60"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="250"/>
-                                        <RowDefinition Height="*"/>                                        
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="5"/>                                        
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                         <WrapPanel VerticalAlignment="Center">
@@ -986,9 +987,9 @@
                                     <StackPanel Grid.Row="1">
                                         <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2">
-                                        <TextBox Name="txtPalpationDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="240" Text="{Binding Path=PalpationDesc}"></TextBox>
-                                    </StackPanel>                                    
+                                    <DockPanel Grid.Row="2">
+                                        <TextBox Name="txtPalpationDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=PalpationDesc}"></TextBox>
+                                    </DockPanel>                                    
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabUltrasound" Header="{DynamicResource UserDataExaminations6}" Height="Auto">
@@ -996,8 +997,8 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="60"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="250"/>
-                                        <RowDefinition Height="*"/>                                        
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="5"/>                                        
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                         <WrapPanel VerticalAlignment="Center">
@@ -1040,9 +1041,9 @@
                                     <StackPanel Grid.Row="1">
                                         <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2">
-                                        <TextBox Name="txtUltrasoundnDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="240" Text="{Binding Path=UltrasoundnDesc}"></TextBox>
-                                    </StackPanel>                                    
+                                    <DockPanel Grid.Row="2">
+                                        <TextBox Name="txtUltrasoundnDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=UltrasoundnDesc}"></TextBox>
+                                    </DockPanel>                                    
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabMammography" Header="{DynamicResource UserDataExaminations7}" Height="Auto">
@@ -1050,8 +1051,8 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="60"/>
                                         <RowDefinition Height="26"/>
-                                        <RowDefinition Height="250"/>
-                                        <RowDefinition Height="*"/>                                        
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="5"/>                                        
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                         <WrapPanel VerticalAlignment="Center">
@@ -1094,17 +1095,17 @@
                                     <StackPanel Grid.Row="1">
                                         <Label Content="{DynamicResource UserDataExaminations5}"></Label>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2">
-                                        <TextBox Name="txtMammographyDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="240" Text="{Binding Path=MammographyDesc}"></TextBox>
-                                    </StackPanel>                                    
+                                    <DockPanel Grid.Row="2">
+                                        <TextBox Name="txtMammographyDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=MammographyDesc}"></TextBox>
+                                    </DockPanel>                                    
                                 </Grid>
                             </TabItem>
                             <TabItem Name="tabBiopsy" Header="{DynamicResource UserDataExaminations8}" Height="Auto">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="60"/>
-                                        <RowDefinition Height="350"/>
                                         <RowDefinition Height="*"/>
+                                        <RowDefinition Height="5"/>
                                     </Grid.RowDefinitions>
                                     <GroupBox Header="{DynamicResource UserDataExaminations2}" Grid.Row="0">
                                         <WrapPanel VerticalAlignment="Center">
@@ -1154,8 +1155,8 @@
                                                 <RowDefinition Height="26"/>
                                                 <RowDefinition Height="26"/>
                                                 <RowDefinition Height="26"/>
-                                                <RowDefinition Height="120"/>
-                                                <RowDefinition Height="*"/>                                                
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="2"/>                                                
                                             </Grid.RowDefinitions>
                                             <WrapPanel Grid.Row="0">
                                                 <CheckBox Name="checkBiopsyCancer" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=BiopsyCancer}" Click="checkBiopsy_Click"></CheckBox>
@@ -1181,9 +1182,7 @@
                                                 <CheckBox Name="checkBiopsyOther" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=BiopsyOther}" Click="checkBiopsy_Click"></CheckBox>
                                                 <Label Content="{DynamicResource UserDataExaminations15}"></Label>
                                             </WrapPanel>
-                                            <StackPanel Grid.Row="6">
-                                                <TextBox Name="txtBiopsyOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="120" Text="{Binding Path=BiopsyOtherDesc}" ></TextBox>
-                                            </StackPanel>                                            
+                                            <TextBox Name="txtBiopsyOtherDesc" Grid.Row="6" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=BiopsyOtherDesc}" ></TextBox>
                                         </Grid>
                                     </GroupBox>
                                 </Grid>

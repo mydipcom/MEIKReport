@@ -32,6 +32,7 @@ namespace MEIKReport
         {
             InitializeComponent();
             this._deviceType = deviceType;
+            this.txtPwd.Focus();
         }                        
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
@@ -98,5 +99,56 @@ namespace MEIKReport.Common
                 target.Write(buf, 0, bytesRead);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SourceFolderPath"></param>
+        /// <param name="zipFile"></param>
+        /// <param name="deviceType"></param>
+        public void ZipFiles(string SourceFolderPath, string zipFile, int deviceType)
+        {
+            string fileFilter = "";
+            if (deviceType == 1)
+            {
+                fileFilter = @".+(\.crd)|(\.tdb)";
+            }
+            if (deviceType == 2)
+            {
+                fileFilter = @".+(\.crd)|(\.dat)|(\.doc)";
+            }
+            (new FastZip()).CreateZip(zipFile, SourceFolderPath, true, fileFilter);
+            //using (ZipFile zip = ZipFile.Create(zipFile))
+            //{
+            //    DirectoryInfo dir = new DirectoryInfo(SourceFolderPath);
+            //    FileInfo[] files = dir.GetFiles();
+            //    foreach (FileInfo fi in files)
+            //    {
+            //        zip.BeginUpdate();
+            //        if ((".tdb".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase) && deviceType == 1) || (".dat".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase) && deviceType == 2)
+            //        || (".doc".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase) && deviceType == 2) || ".crd".Equals(fi.Extension, StringComparison.OrdinalIgnoreCase) || deviceType == 3)
+            //        {
+            //            zip.Add(fi.FullName,fi.Name); 
+            //        }
+            //    }                
+            //    zip.CommitUpdate();
+            //}
+        }
+
+        public void UnZip(string zipFile, string targetFolderPath)
+        {
+            (new FastZip()).ExtractZip(zipFile, targetFolderPath, "");
+            //using (ZipFile zip = new ZipFile(zipFile))
+            //{
+            //    foreach (ZipEntry z in zip)
+            //    {
+            //        Console.WriteLine(z);
+            //    }
+            //    ZipEntry z1 = zip[0];
+            //    Console.WriteLine(z1.Name);
+            //}
+        }
+
+        
     }
 }

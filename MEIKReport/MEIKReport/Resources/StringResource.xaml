@@ -102,6 +102,7 @@
     <sys:String x:Key="Message_49">Password incorrect</sys:String>
     <sys:String x:Key="Message_50">Are you sure to delete the selected folder?</sys:String>
     <sys:String x:Key="Message_51">Failed to start up the setup package, Error Message:</sys:String>
+    <sys:String x:Key="Message_52">Failed to upload the data, Error Message:</sys:String>
 
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
