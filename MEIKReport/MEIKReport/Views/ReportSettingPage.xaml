@@ -44,15 +44,16 @@
                     <TabItem Name="tabReport" Header="{StaticResource SettingReportTabTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="180"/>
-                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="160"/>
+                                <RowDefinition Height="80"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
                             <GroupBox Name="grpUserProfile" Grid.Row="0" Margin="10" Header="{StaticResource SettingReportNameGroupHeader}" BorderBrush="#FF3E6E8F" Foreground="#FF3E6E8F">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="28"/>
+                                        <RowDefinition Height="25"/>
                                         <RowDefinition Height="32"/>
                                         <RowDefinition Height="32"/>
                                         <RowDefinition Height="*"/>
@@ -99,22 +100,23 @@
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Margin="10" Header="{StaticResource SettingReportPrintGroupHeader}" BorderBrush="#FF3E6E8F" Foreground="#FF3E6E8F">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                                <Grid>                                    
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Row="0" Grid.Column="0" Margin="15,10,0,0" HorizontalAlignment="Left">
-                                        <RadioButton GroupName="radPrintPaper" FontSize="14" Height="28" Width="300" IsChecked="{Binding PrintPaper, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Letter}" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1">Letter (8.5" x 11.0")</RadioButton>
+                                        <RadioButton GroupName="radPrintPaper" FontSize="14" Height="22" Width="300" IsChecked="{Binding PrintPaper, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Letter}" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1">Letter (8.5" x 11.0")</RadioButton>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="15,5,0,0" HorizontalAlignment="Left">
-                                        <RadioButton GroupName="radPrintPaper" FontSize="14" Height="28" Width="300" IsChecked="{Binding PrintPaper, Converter={StaticResource enumBooleanConverter}, ConverterParameter=A4}" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1">A4 (8.27" x 11.69")</RadioButton>
+                                    <StackPanel  Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Left">
+                                        <RadioButton GroupName="radPrintPaper" FontSize="14" Height="22" Width="300" IsChecked="{Binding PrintPaper, Converter={StaticResource enumBooleanConverter}, ConverterParameter=A4}" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1">A4 (8.27" x 11.69")</RadioButton>
                                     </StackPanel>
                                 </Grid>
                             </GroupBox>
+                            <WrapPanel Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0">
+                                <Label Height="28" Width="Auto" FontSize="14" HorizontalContentAlignment="Right" Content="{StaticResource SettingScreenVenue}" Foreground="#FF3E6E8F"></Label>
+                                <TextBox Name="txtScreenVenue" Text="{Binding ScreenVenue}" FontSize="14" Width="400" Height="28"></TextBox>
+                            </WrapPanel>
                         </Grid>
                     </TabItem>
                     <TabItem Name="tabMail" Visibility="Collapsed" Header="{StaticResource SettingEmailTabTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">

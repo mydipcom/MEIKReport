@@ -95,11 +95,11 @@ namespace MEIKReport
                     techArr.Add(item.Name + "|" + item.License);
                 }
                 OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", techArr.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                //OperateIniFile.WriteIniData("Report", "Doctor Names List", string.Join(";", App.reportSettingModel.DoctorNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                //OperateIniFile.WriteIniData("Report", "Technician Names List", string.Join(";", App.reportSettingModel.TechNames.ToArray()), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
 
                 OperateIniFile.WriteIniData("Report", "Hide Doctor Signature", App.reportSettingModel.NoShowDoctorSignature.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("Report", "Hide Technician Signature", App.reportSettingModel.NoShowTechSignature.ToString(), System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                
 
                 OperateIniFile.WriteIniData("FTP", "FTP Path", App.reportSettingModel.FtpPath, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                 OperateIniFile.WriteIniData("FTP", "FTP User", App.reportSettingModel.FtpUser, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -409,6 +409,13 @@ namespace MEIKReport
                         userList.btnExaminationReport.Visibility = Visibility.Collapsed;
                         userList.sendDataButton.Visibility = Visibility.Visible;
                         userList.sendReportButton.Visibility = Visibility.Collapsed;
+                        userList.btnPersonal.IsEnabled = true;
+                        userList.btnFamily.IsEnabled = true;
+                        userList.btnComplaints.IsEnabled = true;
+                        userList.btnMestrual.IsEnabled = true;
+                        userList.btnObstetric.IsEnabled = true;
+                        userList.btnAnamnesis.IsEnabled = true;
+                        userList.btnExaminations.IsEnabled = true;
                     }
                     else if (App.reportSettingModel.DeviceType == 2)
                     {
@@ -421,6 +428,14 @@ namespace MEIKReport
                         userList.btnExaminationReport.Visibility = Visibility.Visible;
                         userList.sendDataButton.Visibility = Visibility.Collapsed;
                         userList.sendReportButton.Visibility = Visibility.Visible;
+
+                        userList.btnPersonal.IsEnabled = false;
+                        userList.btnFamily.IsEnabled = false;
+                        userList.btnComplaints.IsEnabled = false;
+                        userList.btnMestrual.IsEnabled = false;
+                        userList.btnObstetric.IsEnabled = false;
+                        userList.btnAnamnesis.IsEnabled = false;
+                        userList.btnExaminations.IsEnabled = false;
                     }
                     else
                     {
@@ -433,6 +448,13 @@ namespace MEIKReport
                         userList.btnExaminationReport.Visibility = Visibility.Visible;
                         userList.sendDataButton.Visibility = Visibility.Visible;
                         userList.sendReportButton.Visibility = Visibility.Visible;
+                        userList.btnPersonal.IsEnabled = true;
+                        userList.btnFamily.IsEnabled = true;
+                        userList.btnComplaints.IsEnabled = true;
+                        userList.btnMestrual.IsEnabled = true;
+                        userList.btnObstetric.IsEnabled = true;
+                        userList.btnAnamnesis.IsEnabled = true;
+                        userList.btnExaminations.IsEnabled = true;
                     }
                 }
             }

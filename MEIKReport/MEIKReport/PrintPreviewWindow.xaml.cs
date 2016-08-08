@@ -58,6 +58,62 @@ namespace MEIKReport
                 var shortFormReport = data as ShortFormReport;
                 if (shortFormReport != null)
                 {
+                    string leftLocation="";
+                    string leftSize="";
+                    string rightLocation = "";
+                    string rightSize = "";
+                    //获取三个定位图片中左右乳最大的部位数据
+                    if("L1".Equals(shortFormReport.DataLeftMaxFlag)){
+                        leftLocation=shortFormReport.DataLeftLocation;
+                        leftSize=shortFormReport.DataLeftSize;
+                    }
+                    else if ("L2".Equals(shortFormReport.DataLeftMaxFlag))
+                    {
+                        leftLocation = shortFormReport.DataLeftLocation2;
+                        leftSize = shortFormReport.DataLeftSize2;
+                    }
+                    else if ("L3".Equals(shortFormReport.DataLeftMaxFlag))
+                    {
+                        leftLocation = shortFormReport.DataLeftLocation3;
+                        leftSize = shortFormReport.DataLeftSize3;
+                    }
+
+                    if ("R1".Equals(shortFormReport.DataRightMaxFlag))
+                    {
+                        rightLocation = shortFormReport.DataRightLocation;
+                        rightSize = shortFormReport.DataRightSize;
+                    }
+                    else if ("R2".Equals(shortFormReport.DataRightMaxFlag))
+                    {
+                        rightLocation = shortFormReport.DataRightLocation2;
+                        rightSize = shortFormReport.DataRightSize2;
+                    }
+                    else if ("R3".Equals(shortFormReport.DataRightMaxFlag))
+                    {
+                        rightLocation = shortFormReport.DataRightLocation3;
+                        rightSize = shortFormReport.DataRightSize3;
+                    }
+                    var textBlock = doc.FindName("dataLeftLocation") as TextBlock;
+                    if (textBlock != null)
+                    {
+                        textBlock.Text = leftLocation;
+                    }
+                    textBlock = doc.FindName("dataRightLocation") as TextBlock;
+                    if (textBlock != null)
+                    {
+                        textBlock.Text = rightLocation;
+                    }
+                    textBlock = doc.FindName("dataLeftSize") as TextBlock;
+                    if (textBlock != null)
+                    {
+                        textBlock.Text = leftSize;
+                    }
+                    textBlock = doc.FindName("dataRightSize") as TextBlock;
+                    if (textBlock != null)
+                    {
+                        textBlock.Text = rightSize;
+                    }
+
                     var signImage = doc.FindName("dataSignImg") as Image;
                     if (signImage != null && shortFormReport.DataSignImg!=null)
                     {
@@ -94,8 +150,49 @@ namespace MEIKReport
         public static FlowDocument LoadFlowDocumentAndRender(string strTmplName, Object data)
         {
             FlowDocument doc = (FlowDocument)Application.LoadComponent(new Uri(strTmplName, UriKind.RelativeOrAbsolute));
-            doc.PagePadding = new Thickness(20);
-            doc.DataContext = data;
+            if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                //doc.PagePadding = new Thickness(20);
+                doc.PageWidth = 96 * 8.5;
+                doc.PageHeight = 96 * 11;
+                doc.ColumnWidth = 734;
+            }
+            else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                //doc.PagePadding = new Thickness(20);
+                doc.PageWidth = 96 * 8.27;
+                doc.PageHeight = 96 * 11.69;
+                doc.ColumnWidth = 734;
+            }            
+            doc.DataContext = data;            
+
+            var shortFormReport = data as ShortFormReport;
+            if (shortFormReport != null)
+            {                
+                var signImage = doc.FindName("dataSignImg") as Image;
+                if (signImage != null && shortFormReport.DataSignImg != null)
+                {
+                    signImage.Source = ImageTools.GetBitmapImage(shortFormReport.DataSignImg);
+                }
+                var screenShotImg = doc.FindName("dataScreenShotImg") as Image;
+                if (screenShotImg != null && shortFormReport.DataScreenShotImg != null)
+                {
+                    screenShotImg.Source = ImageTools.GetBitmapImage(shortFormReport.DataScreenShotImg);
+                }
+                if (App.reportSettingModel.NoShowTechSignature)
+                {
+                    var techSignPanel = doc.FindName("techSignPanel") as Panel;
+                    techSignPanel.Visibility = Visibility.Collapsed;
+                }
+                if (App.reportSettingModel.NoShowDoctorSignature)
+                {
+                    var doctorSignPanel = doc.FindName("doctorSignPanel") as Panel;
+                    doctorSignPanel.Visibility = Visibility.Collapsed;
+                    var doctorSignGrid = doc.FindName("doctorSignGrid") as Panel;
+                    doctorSignGrid.Visibility = Visibility.Collapsed;
+                }
+
+            }
             return doc;
         }
         public PrintPreviewWindow()

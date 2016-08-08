@@ -60,15 +60,7 @@ namespace MEIKReport.Views
                     {
                         dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
                     }
-                    //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";
-                    if ("en-US".Equals(App.local))
-                    {
-                        dataScreenDate.FormatString = "MMMM d, yyyy";                        
-                    }
-                    else
-                    {
-                        dataScreenDate.FormatString = "yyyy年MM月dd日";                        
-                    }
+                    //string dataFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".dat";                    
 
                     if (File.Exists(dataFile))
                     {
@@ -77,47 +69,7 @@ namespace MEIKReport.Views
                             this.shortFormReportModel = SerializeUtilities.Desrialize<ShortFormReport>(dataFile);
                         }
                         catch (Exception exec1) {                                                        
-                        }
-                        //判断是否已经从MEIK生成的DOC文档中导入检查数据，如果之前没有，则查找是否已在本地生成DOC文档，导入数据
-                        if (string.IsNullOrEmpty(shortFormReportModel.DataLeftAgeRelated) && string.IsNullOrEmpty(shortFormReportModel.DataRightAgeRelated))
-                        {
-                            string docFile = FindUserReportWord(person.ArchiveFolder);
-                            if (!string.IsNullOrEmpty(docFile) &&File.Exists(docFile))
-                            {                                
-                                ShortFormReport shortFormReport = WordTools.ReadWordFile(docFile);
-                                if (shortFormReport == null)
-                                {
-                                    MessageBox.Show(this, "");
-                                }
-                                else
-                                {
-                                    shortFormReportModel.DataMenstrualCycle = shortFormReport.DataMenstrualCycle;
-                                    shortFormReportModel.DataLeftMeanElectricalConductivity1 = shortFormReport.DataLeftMeanElectricalConductivity1;
-                                    shortFormReportModel.DataRightMeanElectricalConductivity1 = shortFormReport.DataRightMeanElectricalConductivity1;
-                                    shortFormReportModel.DataLeftMeanElectricalConductivity2 = shortFormReport.DataLeftMeanElectricalConductivity2;
-                                    shortFormReportModel.DataRightMeanElectricalConductivity2 = shortFormReport.DataRightMeanElectricalConductivity2;
-                                    shortFormReportModel.DataMeanElectricalConductivity3 = shortFormReport.DataMeanElectricalConductivity3;
-                                    shortFormReportModel.DataLeftMeanElectricalConductivity3 = shortFormReport.DataLeftMeanElectricalConductivity3;
-                                    shortFormReportModel.DataRightMeanElectricalConductivity3 = shortFormReport.DataRightMeanElectricalConductivity3;
-                                    shortFormReportModel.DataLeftComparativeElectricalConductivity1 = shortFormReport.DataLeftComparativeElectricalConductivity1;
-                                    shortFormReportModel.DataLeftComparativeElectricalConductivity2 = shortFormReport.DataLeftComparativeElectricalConductivity2;
-                                    shortFormReportModel.DataLeftComparativeElectricalConductivity3 = shortFormReport.DataLeftComparativeElectricalConductivity3;
-                                    shortFormReportModel.DataLeftDivergenceBetweenHistograms1 = shortFormReport.DataLeftDivergenceBetweenHistograms1;
-                                    shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = shortFormReport.DataLeftDivergenceBetweenHistograms2;
-                                    shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = shortFormReport.DataLeftDivergenceBetweenHistograms3;
-                                    shortFormReportModel.DataLeftPhaseElectricalConductivity = shortFormReport.DataLeftPhaseElectricalConductivity;
-                                    shortFormReportModel.DataRightPhaseElectricalConductivity = shortFormReport.DataRightPhaseElectricalConductivity;
-                                    shortFormReportModel.DataAgeElectricalConductivityReference = shortFormReport.DataAgeElectricalConductivityReference;
-                                    shortFormReportModel.DataLeftAgeElectricalConductivity = shortFormReport.DataLeftAgeElectricalConductivity;
-                                    shortFormReportModel.DataRightAgeElectricalConductivity = shortFormReport.DataRightAgeElectricalConductivity;
-                                    shortFormReportModel.DataExamConclusion = shortFormReport.DataExamConclusion;
-                                    shortFormReportModel.DataLeftMammaryGland = shortFormReport.DataLeftMammaryGland;
-                                    shortFormReportModel.DataLeftAgeRelated = shortFormReport.DataLeftAgeRelated;
-                                    shortFormReportModel.DataRightMammaryGland = shortFormReport.DataRightMammaryGland;
-                                    shortFormReportModel.DataRightAgeRelated = shortFormReport.DataRightAgeRelated;
-                                }
-                            }
-                        }
+                        }                        
                                                                   
                         if (shortFormReportModel.DataSignImg != null)
                         {
@@ -126,31 +78,8 @@ namespace MEIKReport.Views
                         
                     }
                     else
-                    {
-                        string docFile = FindUserReportWord(person.ArchiveFolder);
-                        if (!string.IsNullOrEmpty(docFile) && File.Exists(docFile))
-                        {
-                            shortFormReportModel = WordTools.ReadWordFile(docFile);
-                            if (shortFormReportModel == null)
-                            {
-                                MessageBox.Show(this, string.Format(App.Current.FindResource("Message_33").ToString(), docFile));
-                                shortFormReportModel = new ShortFormReport();
-                            }
-                        }
-                        shortFormReportModel.DataUserCode = person.Code;
-                        shortFormReportModel.DataName = person.SurName;
-                        shortFormReportModel.DataAge = person.Age + "";
-                        shortFormReportModel.DataAddress = person.Address;                        
-                        if ("en-US".Equals(App.local))
-                        {
-                            shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("MMMM d, yyyy");                            
-                        }
-                        else
-                        {
-                            shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy年MM月dd日");
-                        }
-                        
-
+                    {                        
+                        shortFormReportModel.DataUserCode = person.Code;                                                                        
                         bool defaultSign = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Use Default Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                         if (defaultSign)
                         {
@@ -162,6 +91,23 @@ namespace MEIKReport.Views
                             }
                         }
                     }
+                    if ("en-US".Equals(App.local))
+                    {
+                        shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("MM/dd/yyyy");
+                    }
+                    else
+                    {
+                        shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy年MM月dd日");
+                    }
+                    shortFormReportModel.DataClientNum = person.ClientNumber;
+                    shortFormReportModel.DataName = person.SurName;
+                    shortFormReportModel.DataAge = person.Age + "";
+                    shortFormReportModel.DataAddress = person.Address;
+                    shortFormReportModel.DataHeight = person.Height;
+                    shortFormReportModel.DataWeight = person.Weight;
+                    shortFormReportModel.DataMobile = person.Mobile;
+                    shortFormReportModel.DataEmail = person.Email;
+                    shortFormReportModel.DataScreenLocation = person.ScreenVenue;
                     this.reportDataGrid.DataContext = this.shortFormReportModel;
                     //以下是添加处理操作员和医生的名字的选择项                    
                     User doctorUser = new User();
@@ -196,7 +142,7 @@ namespace MEIKReport.Views
                             App.reportSettingModel.DoctorNames.Add(doctorUser);
                             this.dataDoctor.SelectedIndex = App.reportSettingModel.DoctorNames.Count - 1;
                         }
-                    }                                        
+                    }                                      
 
                     User techUser = new User();
                     if (!string.IsNullOrEmpty(shortFormReportModel.DataMeikTech))
@@ -276,8 +222,8 @@ namespace MEIKReport.Views
             try {
                 LoadDataModel();
                 var reportModel=CloneReportModel();
-                
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportDocument.xaml", true, reportModel);                
+
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportFlow.xaml", false, reportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
@@ -292,24 +238,26 @@ namespace MEIKReport.Views
         {
             try {
                 LoadDataModel();
-                PrintDialog pdlg = new PrintDialog();
+                PrintDialog pdlg = new PrintDialog();                
                 if (pdlg.ShowDialog() == true)
                 {
-                    FixedPage page = (FixedPage)PrintPreviewWindow.LoadFixedDocumentAndRender("Views/ExaminationReportDocument.xaml", shortFormReportModel);
-                    FixedDocument fixedDoc = new FixedDocument();//创建一个文档
-                    if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
-                    {                        
-                        fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
-                    }
-                    else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
-                    {
-                        fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.27, 96 * 11.69);
-                    }
-
-                    PageContent pageContent = new PageContent();
-                    ((IAddChild)pageContent).AddChild(page);
-                    fixedDoc.Pages.Add(pageContent);//将对象加入到当前文档中
-                    Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, fixedDoc.DocumentPaginator);
+                    FlowDocument page = (FlowDocument)PrintPreviewWindow.LoadFlowDocumentAndRender("Views/ExaminationReportFlow.xaml", shortFormReportModel);
+                    //FixedDocument fixedDoc = new FixedDocument();//创建一个文档
+                    //if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+                    //{
+                    //    fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.5, 96 * 11);
+                    //}
+                    //else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+                    //{
+                    //    fixedDoc.DocumentPaginator.PageSize = new Size(96 * 8.27, 96 * 11.69);
+                    //}
+                    
+                    //PageContent pageContent = new PageContent(); 
+                    //((IAddChild)pageContent).AddChild(page);
+                    //fixedDoc.Pages.Add(pageContent);//将对象加入到当前文档中
+                    //Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, fixedDoc.DocumentPaginator);
+                    Dispatcher.BeginInvoke(new DoPrintMethod(DoPrint), DispatcherPriority.ApplicationIdle, pdlg, ((IDocumentPaginatorSource)page).DocumentPaginator);
+                    
                 }
             }
             catch (Exception ex)
@@ -341,8 +289,139 @@ namespace MEIKReport.Views
         }        
 
         private void save_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             SaveReport(null);
+        }
+
+        private void generatePoints()
+        {
+            //計算診斷分數
+            int leftBreast1 = 0;
+            int leftBreast2 = 0;
+            int leftBreast3 = 0;
+            int rightBreast1 = 0;
+            int rightBreast2 = 0;
+            int rightBreast3 = 0;
+            bool isEmpty = false;
+            int divergenceBetweenHistograms = 0;
+            if (!string.IsNullOrEmpty(dataLeftDivergenceBetweenHistograms1.Text))
+            {
+                double val = Convert.ToDouble(dataLeftDivergenceBetweenHistograms1.Text);
+                divergenceBetweenHistograms = val < 20 ? 0 : val < 30 ? 1 : val < 40 ? 2 : 3;
+            }
+            else if (!string.IsNullOrEmpty(dataLeftDivergenceBetweenHistograms2.Text))
+            {
+                double val = Convert.ToDouble(dataLeftDivergenceBetweenHistograms2.Text);
+                divergenceBetweenHistograms = val < 20 ? 0 : val < 30 ? 1 : val < 40 ? 2 : 3;
+            }
+            else if (!string.IsNullOrEmpty(dataLeftDivergenceBetweenHistograms3.Text))
+            {
+                double val = Convert.ToDouble(dataLeftDivergenceBetweenHistograms3.Text);
+                divergenceBetweenHistograms = val < 20 ? 0 : val < 30 ? 1 : val < 40 ? 2 : 3;
+            }
+            else
+            {
+                isEmpty = true;
+            }
+
+            if (dataLeftLocation.SelectedIndex > 0)
+            {
+                leftBreast1 += dataLeftShape.SelectedIndex > 2 ? 2 : 1;
+                leftBreast1 += dataLeftInternalElectricalStructure.SelectedIndex > 1 ? dataLeftInternalElectricalStructure.SelectedIndex - 1 : 0;
+                leftBreast1 += dataLeftSurroundingTissues.SelectedIndex > 1 ? (dataLeftSurroundingTissues.SelectedIndex > 3 ? 2 : 1) : 0;
+                leftBreast1 += divergenceBetweenHistograms;
+            }
+            if (dataRightLocation.SelectedIndex > 0)
+            {
+                rightBreast1 += dataRightShape.SelectedIndex > 2 ? 2 : 1;
+                rightBreast1 += dataRightInternalElectricalStructure.SelectedIndex > 1 ? dataRightInternalElectricalStructure.SelectedIndex - 1 : 0;
+                rightBreast1 += dataRightSurroundingTissues.SelectedIndex > 1 ? (dataRightSurroundingTissues.SelectedIndex > 3 ? 2 : 1) : 0;
+                rightBreast1 += divergenceBetweenHistograms;
+            }
+
+            if (dataLeftLocation2.SelectedIndex > 0)
+            {
+                leftBreast2 += dataLeftShape2.SelectedIndex > 2 ? 2 : 1;
+                leftBreast2 += dataLeftInternalElectricalStructure2.SelectedIndex > 1 ? dataLeftInternalElectricalStructure2.SelectedIndex - 1 : 0;
+                leftBreast2 += dataLeftSurroundingTissues2.SelectedIndex > 1 ? (dataLeftSurroundingTissues2.SelectedIndex > 3 ? 2 : 1) : 0;
+                leftBreast2 += divergenceBetweenHistograms;
+            }
+            if (dataRightLocation2.SelectedIndex > 0)
+            {
+                rightBreast2 += dataRightShape2.SelectedIndex > 2 ? 2 : 1;
+                rightBreast2 += dataRightInternalElectricalStructure2.SelectedIndex > 1 ? dataRightInternalElectricalStructure2.SelectedIndex - 1 : 0;
+                rightBreast2 += dataRightSurroundingTissues2.SelectedIndex > 1 ? (dataRightSurroundingTissues2.SelectedIndex > 3 ? 2 : 1) : 0;
+                rightBreast2 += divergenceBetweenHistograms;
+            }
+
+            if (dataLeftLocation3.SelectedIndex > 0)
+            {
+                leftBreast3 += dataLeftShape3.SelectedIndex > 2 ? 2 : 1;
+                leftBreast3 += dataLeftInternalElectricalStructure3.SelectedIndex > 1 ? dataLeftInternalElectricalStructure3.SelectedIndex - 1 : 0;
+                leftBreast3 += dataLeftSurroundingTissues3.SelectedIndex > 1 ? (dataLeftSurroundingTissues3.SelectedIndex > 3 ? 2 : 1) : 0;
+                leftBreast3 += divergenceBetweenHistograms;
+            }
+            if (dataRightLocation3.SelectedIndex > 0)
+            {
+                rightBreast3 += dataRightShape3.SelectedIndex > 2 ? 2 : 1;
+                rightBreast3 += dataRightInternalElectricalStructure3.SelectedIndex > 1 ? dataRightInternalElectricalStructure3.SelectedIndex - 1 : 0;
+                rightBreast3 += dataRightSurroundingTissues3.SelectedIndex > 1 ? (dataRightSurroundingTissues3.SelectedIndex > 3 ? 2 : 1) : 0;
+                rightBreast3 += divergenceBetweenHistograms;
+            }
+
+            List<int> list = new List<int>();
+            list.Add(leftBreast1);
+            list.Add(leftBreast2);
+            list.Add(leftBreast3);
+            list.Add(rightBreast1);
+            list.Add(rightBreast2);
+            list.Add(rightBreast3);
+            list.Sort();
+            string leftFlag = "";            
+            if (leftBreast1 >= leftBreast2 && leftBreast1 >= leftBreast3)
+            {
+                leftFlag = "L1";
+            }
+            else if (leftBreast2 >= leftBreast1 && leftBreast2 >= leftBreast3)
+            {
+                leftFlag = "L2";
+            }
+            else if (leftBreast3 >= leftBreast1 && leftBreast3 >= leftBreast2)
+            {
+                leftFlag = "L3";
+            }             
+
+            string rightFlag = "";
+            if (rightBreast1 >= rightBreast2 && rightBreast1 >= rightBreast3)
+            {
+                rightFlag = "R1";
+            }
+            else if (rightBreast2 >= rightBreast1 && rightBreast2 >= rightBreast3)
+            {
+                rightFlag = "R2";
+            }
+            else if (leftBreast3 >= rightBreast1 && rightBreast3 >= rightBreast2)
+            {
+                rightFlag = "R3";
+            }
+             
+            shortFormReportModel.DataLeftMaxFlag = leftFlag;
+            shortFormReportModel.DataRightMaxFlag = rightFlag;
+            int maxPoints = list[5];
+            if (!isEmpty)
+            {
+                shortFormReportModel.DataTotalPts = maxPoints > 8 ? "8" : maxPoints == 0 ? "1" : maxPoints.ToString();
+                this.dataTotalPts.SelectedIndex=Convert.ToInt32(shortFormReportModel.DataTotalPts);
+                shortFormReportModel.DataPoint = maxPoints < 2 ? "1" : maxPoints < 4 ? "2" : maxPoints < 5 ? "3" : maxPoints < 8 ? "4" : "5";
+                this.dataPoint.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataPoint);
+                shortFormReportModel.DataBiRadsCategory = maxPoints < 2 ? "2" : maxPoints < 4 ? "3" : maxPoints < 5 ? "4" : maxPoints < 8 ? "5" : "6";
+                this.dataBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataBiRadsCategory);
+            }
+            else
+            {
+                shortFormReportModel.DataBiRadsCategory = "1";
+                this.dataBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataBiRadsCategory);
+            }
         }
 
         private void btnSignature_Click(object sender, RoutedEventArgs e)
@@ -360,6 +439,7 @@ namespace MEIKReport.Views
         {
             try
             {
+                generatePoints();
                 //保存到患者档案目录
                 string datafile = null;
                 if (!string.IsNullOrEmpty(otherDataFolder))
@@ -422,7 +502,8 @@ namespace MEIKReport.Views
         /// </summary>
         private void LoadDataModel()
         {
-            shortFormReportModel.DataUserCode = this.dataUserCode.Text;
+            //shortFormReportModel.DataClientNum = this.dataClientNum.Text;
+            //shortFormReportModel.DataUserCode = this.dataUserCode.Text;
             shortFormReportModel.DataAge = this.dataAge.Text;
             shortFormReportModel.DataBiRadsCategory = this.dataBiRadsCategory.SelectedIndex.ToString();
             shortFormReportModel.DataRecommendation = this.dataRecommendation.SelectedIndex.ToString();
@@ -442,17 +523,15 @@ namespace MEIKReport.Views
                 shortFormReportModel.DataMeikTech = technician.Name;
                 shortFormReportModel.DataTechLicense = technician.License;
             }
-            shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
-            shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
+                                    
+            //shortFormReportModel.DataName = this.dataName.Text;
             
-            shortFormReportModel.DataName = this.dataName.Text;
-                        
-            shortFormReportModel.DataRightLocation = this.dataRightLocation.Text;
-            shortFormReportModel.DataRightSize = this.dataRightSize.Text;
             shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
-            shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
-            
-            shortFormReportModel.DataAddress = this.dataAddress.Text;
+            //shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
+            shortFormReportModel.DataScreenLocation = person.ScreenVenue;
+            //shortFormReportModel.DataAddress = this.dataAddress.Text;
+            shortFormReportModel.DataAddress = person.Address;
+
             shortFormReportModel.DataGender = this.dataGender.SelectedIndex.ToString();
             shortFormReportModel.DataHealthCard = this.dataHealthCard.Text;
             shortFormReportModel.DataWeight = this.dataWeight.Text;
@@ -476,8 +555,22 @@ namespace MEIKReport.Views
             shortFormReportModel.DataLeftMammaryContour = this.dataLeftMammaryContour.SelectedIndex.ToString();
             shortFormReportModel.DataRightMammaryContour = this.dataRightMammaryContour.SelectedIndex.ToString();
 
-            shortFormReportModel.DataLeftNumber = this.dataLeftNumber.Text;
-            shortFormReportModel.DataRightNumber = this.dataRightNumber.Text;
+            shortFormReportModel.DataLeftNumber = this.dataLeftNumber.SelectedIndex.ToString();
+            shortFormReportModel.DataRightNumber = this.dataRightNumber.SelectedIndex.ToString();
+
+            shortFormReportModel.DataLeftLocation = this.dataLeftLocation.SelectedIndex.ToString();
+            shortFormReportModel.DataRightLocation = this.dataRightLocation.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSizeLong = this.dataLeftSizeLong.Text;
+            shortFormReportModel.DataLeftSizeWidth = this.dataLeftSizeWidth.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeLong) || !string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeWidth)) {
+                shortFormReportModel.DataLeftSize = shortFormReportModel.DataLeftSizeLong + "x" + shortFormReportModel.DataLeftSizeWidth + App.Current.FindResource("ReportContext_225").ToString();
+            }
+            shortFormReportModel.DataRightSizeLong = this.dataRightSizeLong.Text;
+            shortFormReportModel.DataRightSizeWidth = this.dataRightSizeWidth.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataRightSizeLong) || !string.IsNullOrEmpty(shortFormReportModel.DataRightSizeWidth))
+            {
+                shortFormReportModel.DataRightSize = shortFormReportModel.DataRightSizeLong + "x" + shortFormReportModel.DataRightSizeWidth + App.Current.FindResource("ReportContext_225").ToString();
+            }
             shortFormReportModel.DataLeftShape = this.dataLeftShape.SelectedIndex.ToString();
             shortFormReportModel.DataRightShape = this.dataRightShape.SelectedIndex.ToString();
             shortFormReportModel.DataLeftContourAroundFocus = this.dataLeftContourAroundFocus.SelectedIndex.ToString();
@@ -486,6 +579,53 @@ namespace MEIKReport.Views
             shortFormReportModel.DataRightInternalElectricalStructure = this.dataRightInternalElectricalStructure.SelectedIndex.ToString();
             shortFormReportModel.DataLeftSurroundingTissues = this.dataLeftSurroundingTissues.SelectedIndex.ToString();
             shortFormReportModel.DataRightSurroundingTissues = this.dataRightSurroundingTissues.SelectedIndex.ToString();
+
+            shortFormReportModel.DataLeftLocation2 = this.dataLeftLocation2.SelectedIndex.ToString();
+            shortFormReportModel.DataRightLocation2 = this.dataRightLocation2.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSizeLong2 = this.dataLeftSizeLong2.Text;
+            shortFormReportModel.DataLeftSizeWidth2 = this.dataLeftSizeWidth2.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeLong2) || !string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeWidth2))
+            {
+                shortFormReportModel.DataLeftSize2 = shortFormReportModel.DataLeftSizeLong2 + "x" + shortFormReportModel.DataLeftSizeWidth2 + App.Current.FindResource("ReportContext_225").ToString();
+            }
+            shortFormReportModel.DataRightSizeLong2 = this.dataRightSizeLong2.Text;
+            shortFormReportModel.DataRightSizeWidth2 = this.dataRightSizeWidth2.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataRightSizeLong2) || !string.IsNullOrEmpty(shortFormReportModel.DataRightSizeWidth2))
+            {
+                shortFormReportModel.DataRightSize2 = shortFormReportModel.DataRightSizeLong2 + "x" + shortFormReportModel.DataRightSizeWidth2 + App.Current.FindResource("ReportContext_225").ToString();
+            }
+            shortFormReportModel.DataLeftShape2 = this.dataLeftShape2.SelectedIndex.ToString();
+            shortFormReportModel.DataRightShape2 = this.dataRightShape2.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftContourAroundFocus2 = this.dataLeftContourAroundFocus2.SelectedIndex.ToString();
+            shortFormReportModel.DataRightContourAroundFocus2 = this.dataRightContourAroundFocus2.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftInternalElectricalStructure2 = this.dataLeftInternalElectricalStructure2.SelectedIndex.ToString();
+            shortFormReportModel.DataRightInternalElectricalStructure2 = this.dataRightInternalElectricalStructure2.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSurroundingTissues2 = this.dataLeftSurroundingTissues2.SelectedIndex.ToString();
+            shortFormReportModel.DataRightSurroundingTissues2 = this.dataRightSurroundingTissues2.SelectedIndex.ToString();
+
+            shortFormReportModel.DataLeftLocation3 = this.dataLeftLocation3.SelectedIndex.ToString();
+            shortFormReportModel.DataRightLocation3 = this.dataRightLocation3.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSizeLong3 = this.dataLeftSizeLong3.Text;
+            shortFormReportModel.DataLeftSizeWidth3 = this.dataLeftSizeWidth3.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeLong3) || !string.IsNullOrEmpty(shortFormReportModel.DataLeftSizeWidth3))
+            {
+                shortFormReportModel.DataLeftSize3 = shortFormReportModel.DataLeftSizeLong3 + "x" + shortFormReportModel.DataLeftSizeWidth3 + App.Current.FindResource("ReportContext_225").ToString();
+            }
+            shortFormReportModel.DataRightSizeLong3 = this.dataRightSizeLong3.Text;
+            shortFormReportModel.DataRightSizeWidth3 = this.dataRightSizeWidth3.Text;
+            if (!string.IsNullOrEmpty(shortFormReportModel.DataRightSizeLong3) || !string.IsNullOrEmpty(shortFormReportModel.DataRightSizeWidth3))
+            {
+                shortFormReportModel.DataRightSize3 = shortFormReportModel.DataRightSizeLong3 + "x" + shortFormReportModel.DataRightSizeWidth3 + App.Current.FindResource("ReportContext_225").ToString();
+            }
+            shortFormReportModel.DataLeftShape3 = this.dataLeftShape3.SelectedIndex.ToString();
+            shortFormReportModel.DataRightShape3 = this.dataRightShape3.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftContourAroundFocus3 = this.dataLeftContourAroundFocus3.SelectedIndex.ToString();
+            shortFormReportModel.DataRightContourAroundFocus3 = this.dataRightContourAroundFocus3.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftInternalElectricalStructure3 = this.dataLeftInternalElectricalStructure3.SelectedIndex.ToString();
+            shortFormReportModel.DataRightInternalElectricalStructure3 = this.dataRightInternalElectricalStructure3.SelectedIndex.ToString();
+            shortFormReportModel.DataLeftSurroundingTissues3 = this.dataLeftSurroundingTissues3.SelectedIndex.ToString();
+            shortFormReportModel.DataRightSurroundingTissues3 = this.dataRightSurroundingTissues3.SelectedIndex.ToString();
+
             shortFormReportModel.DataLeftOncomarkerHighlightBenignChanges = this.dataLeftOncomarkerHighlightBenignChanges.SelectedIndex.ToString();
             shortFormReportModel.DataRightOncomarkerHighlightBenignChanges = this.dataRightOncomarkerHighlightBenignChanges.SelectedIndex.ToString();
             shortFormReportModel.DataLeftOncomarkerHighlightSuspiciousChanges = this.dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex.ToString();
@@ -571,8 +711,7 @@ namespace MEIKReport.Views
                 //stream.Close();
                 shortFormReportModel.DataSignImg = buffer;
             }
-            
-            
+                        
         }
 
         /// <summary>
@@ -602,6 +741,11 @@ namespace MEIKReport.Views
             reportModel.DataRightLactiferousSinusZone = this.dataRightLactiferousSinusZone.Text;
             reportModel.DataLeftMammaryContour = this.dataLeftMammaryContour.Text;
             reportModel.DataRightMammaryContour = this.dataRightMammaryContour.Text;
+            reportModel.DataLeftNumber = this.dataLeftNumber.Text;
+            reportModel.DataRightNumber = this.dataRightNumber.Text;
+
+            reportModel.DataLeftLocation = this.dataLeftLocation.Text;
+            reportModel.DataRightLocation = this.dataRightLocation.Text;
             reportModel.DataLeftShape = this.dataLeftShape.Text;
             reportModel.DataRightShape = this.dataRightShape.Text;
             reportModel.DataLeftContourAroundFocus = this.dataLeftContourAroundFocus.Text;
@@ -610,6 +754,27 @@ namespace MEIKReport.Views
             reportModel.DataRightInternalElectricalStructure = this.dataRightInternalElectricalStructure.Text;
             reportModel.DataLeftSurroundingTissues = this.dataLeftSurroundingTissues.Text;
             reportModel.DataRightSurroundingTissues = this.dataRightSurroundingTissues.Text;
+            reportModel.DataLeftLocation2 = this.dataLeftLocation2.Text;
+            reportModel.DataRightLocation2 = this.dataRightLocation2.Text;
+            reportModel.DataLeftShape2 = this.dataLeftShape2.Text;
+            reportModel.DataRightShape2 = this.dataRightShape2.Text;
+            reportModel.DataLeftContourAroundFocus2 = this.dataLeftContourAroundFocus2.Text;
+            reportModel.DataRightContourAroundFocus2 = this.dataRightContourAroundFocus2.Text;
+            reportModel.DataLeftInternalElectricalStructure2 = this.dataLeftInternalElectricalStructure2.Text;
+            reportModel.DataRightInternalElectricalStructure2 = this.dataRightInternalElectricalStructure2.Text;
+            reportModel.DataLeftSurroundingTissues2 = this.dataLeftSurroundingTissues2.Text;
+            reportModel.DataRightSurroundingTissues2 = this.dataRightSurroundingTissues2.Text;
+            reportModel.DataLeftLocation3 = this.dataLeftLocation3.Text;
+            reportModel.DataRightLocation3 = this.dataRightLocation3.Text;
+            reportModel.DataLeftShape3 = this.dataLeftShape3.Text;
+            reportModel.DataRightShape3 = this.dataRightShape3.Text;
+            reportModel.DataLeftContourAroundFocus3 = this.dataLeftContourAroundFocus3.Text;
+            reportModel.DataRightContourAroundFocus3 = this.dataRightContourAroundFocus3.Text;
+            reportModel.DataLeftInternalElectricalStructure3 = this.dataLeftInternalElectricalStructure3.Text;
+            reportModel.DataRightInternalElectricalStructure3 = this.dataRightInternalElectricalStructure3.Text;
+            reportModel.DataLeftSurroundingTissues3 = this.dataLeftSurroundingTissues3.Text;
+            reportModel.DataRightSurroundingTissues3 = this.dataRightSurroundingTissues3.Text;
+
             reportModel.DataLeftOncomarkerHighlightBenignChanges = this.dataLeftOncomarkerHighlightBenignChanges.Text;
             reportModel.DataRightOncomarkerHighlightBenignChanges = this.dataRightOncomarkerHighlightBenignChanges.Text;
             reportModel.DataLeftOncomarkerHighlightSuspiciousChanges = this.dataLeftOncomarkerHighlightSuspiciousChanges.Text;
@@ -630,7 +795,7 @@ namespace MEIKReport.Views
             reportModel.DataRightFindings = this.dataRightFindings.Text;
             reportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
             reportModel.DataTotalPts = this.dataTotalPts.Text;
-            reportModel.DataPoint = this.dataPoint.Text;
+            reportModel.DataPoint = this.dataPoint.Text;            
 
             return reportModel;            
         }
@@ -672,8 +837,8 @@ namespace MEIKReport.Views
                     string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName)+".pdf";  
                     //生成Examination报告的PDF文件
                     string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
-                    string lfReportTempl = "Views/ExaminationReportDocument.xaml";
-                    ExportPDF(lfReportTempl, lfPdfFile, reportModel);
+                    string lfReportTempl = "Views/ExaminationReportFlow.xaml";
+                    ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
 
                     //生成Summary报告的PDF文件
                     string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
@@ -695,6 +860,12 @@ namespace MEIKReport.Views
             }
         }
 
+        /// <summary>
+        ///针对FixedPage对象生成PDF 
+        /// </summary>
+        /// <param name="reportTempl"></param>
+        /// <param name="pdfFile"></param>
+        /// <param name="reportModel"></param>
         private void ExportPDF(string reportTempl,string pdfFile,ShortFormReport reportModel)
         {
             string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
@@ -717,7 +888,567 @@ namespace MEIKReport.Views
                 File.Delete(pdfFile);
             }
             PDFTools.SavePDFFile(xpsFile, pdfFile);            
-        }        
+        }
+
+        /// <summary>
+        /// 针对FLowDocument对象生成PDF文件
+        /// </summary>
+        /// <param name="reportTempl"></param>
+        /// <param name="pdfFile"></param>
+        /// <param name="reportModel"></param>
+        private void ExportFlowDocumentPDF(string reportTempl, string pdfFile, ShortFormReport reportModel)
+        {
+            string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
+            if (File.Exists(xpsFile))
+            {
+                File.Delete(xpsFile);
+            }
+
+            FlowDocument page = (FlowDocument)PrintPreviewWindow.LoadFlowDocumentAndRender(reportTempl, reportModel);
+            LoadDataForFlowDocument(page, reportModel);
+            XpsDocument xpsDocument = new XpsDocument(xpsFile, FileAccess.ReadWrite);
+            //将flow document写入基于内存的xps document中去
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
+            writer.Write(((IDocumentPaginatorSource)page).DocumentPaginator);
+            xpsDocument.Close();
+            if (File.Exists(pdfFile))
+            {
+                File.Delete(pdfFile);
+            }
+            PDFTools.SavePDFFile(xpsFile, pdfFile);
+        }
+
+        private void LoadDataForFlowDocument(FlowDocument page, ShortFormReport reportModel)
+        {
+            if (reportModel != null)
+            {
+                var textBlock1 = page.FindName("dataClientNum") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataClientNum;
+                }
+                textBlock1 = page.FindName("dataUserCode") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataUserCode;
+                }
+                textBlock1 = page.FindName("dataScreenDate") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataScreenDate;
+                }
+                textBlock1 = page.FindName("dataName") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataName;
+                }
+                textBlock1 = page.FindName("dataAge") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataAge;
+                }
+                textBlock1 = page.FindName("dataWeight") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataWeight;
+                }
+                textBlock1 = page.FindName("dataScreenLocation") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataScreenLocation;
+                }
+                textBlock1 = page.FindName("dataMenstrualCycle") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataMenstrualCycle;
+                }
+                textBlock1 = page.FindName("dataSkinAffections") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataSkinAffections;
+                }
+                textBlock1 = page.FindName("dataLeftBreast") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftBreast;
+                }
+                textBlock1 = page.FindName("dataRightBreast") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightBreast;
+                }
+                textBlock1 = page.FindName("dataLeftPalpableMass") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftPalpableMass;
+                }
+                textBlock1 = page.FindName("dataRightPalpableMass") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightPalpableMass;
+                }
+                textBlock1 = page.FindName("dataLeftChangesOfElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftChangesOfElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataRightChangesOfElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightChangesOfElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataLeftMammaryStruct") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMammaryStruct;
+                }
+                textBlock1 = page.FindName("dataRightMammaryStruct") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMammaryStruct;
+                }
+                textBlock1 = page.FindName("dataLeftLactiferousSinusZone") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftLactiferousSinusZone;
+                }
+                textBlock1 = page.FindName("dataRightLactiferousSinusZone") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightLactiferousSinusZone;
+                }
+                textBlock1 = page.FindName("dataLeftMammaryContour") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMammaryContour;
+                }
+                textBlock1 = page.FindName("dataRightMammaryContour") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMammaryContour;
+                }
+                textBlock1 = page.FindName("dataLeftNumber") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftNumber;
+                }
+                textBlock1 = page.FindName("dataRightNumber") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightNumber;
+                }
+                textBlock1 = page.FindName("dataLeftLocation") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftLocation;
+                }
+                textBlock1 = page.FindName("dataRightLocation") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightLocation;
+                }
+                textBlock1 = page.FindName("dataLeftSize") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSize;
+                }
+                textBlock1 = page.FindName("dataRightSize") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSize;
+                }
+                textBlock1 = page.FindName("dataLeftShape") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftShape;
+                }
+                textBlock1 = page.FindName("dataRightShape") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightShape;
+                }
+                textBlock1 = page.FindName("dataLeftContourAroundFocus") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftContourAroundFocus;
+                }
+                textBlock1 = page.FindName("dataRightContourAroundFocus") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightContourAroundFocus;
+                }
+                textBlock1 = page.FindName("dataLeftInternalElectricalStructure") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftInternalElectricalStructure;
+                }
+                textBlock1 = page.FindName("dataRightInternalElectricalStructure") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightInternalElectricalStructure;
+                }
+                textBlock1 = page.FindName("dataLeftSurroundingTissues") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSurroundingTissues;
+                }
+                textBlock1 = page.FindName("dataRightSurroundingTissues") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSurroundingTissues;
+                }
+                textBlock1 = page.FindName("dataLeftLocation2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftLocation2;
+                }
+                textBlock1 = page.FindName("dataRightLocation2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightLocation2;
+                }
+                textBlock1 = page.FindName("dataLeftSize2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSize2;
+                }
+                textBlock1 = page.FindName("dataRightSize2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSize2;
+                }
+                textBlock1 = page.FindName("dataLeftShape2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftShape2;
+                }
+                textBlock1 = page.FindName("dataRightShape2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightShape2;
+                }
+                textBlock1 = page.FindName("dataLeftContourAroundFocus2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftContourAroundFocus2;
+                }
+                textBlock1 = page.FindName("dataRightContourAroundFocus2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightContourAroundFocus2;
+                }
+                textBlock1 = page.FindName("dataLeftInternalElectricalStructure2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftInternalElectricalStructure2;
+                }
+                textBlock1 = page.FindName("dataRightInternalElectricalStructure2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightInternalElectricalStructure2;
+                }
+                textBlock1 = page.FindName("dataLeftSurroundingTissues2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSurroundingTissues2;
+                }
+                textBlock1 = page.FindName("dataRightSurroundingTissues2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSurroundingTissues2;
+                }
+                textBlock1 = page.FindName("dataLeftLocation3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftLocation3;
+                }
+                textBlock1 = page.FindName("dataRightLocation3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightLocation3;
+                }
+                textBlock1 = page.FindName("dataLeftSize3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSize3;
+                }
+                textBlock1 = page.FindName("dataRightSize3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSize3;
+                }
+                textBlock1 = page.FindName("dataLeftShape3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftShape3;
+                }
+                textBlock1 = page.FindName("dataRightShape3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightShape3;
+                }
+                textBlock1 = page.FindName("dataLeftContourAroundFocus3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftContourAroundFocus3;
+                }
+                textBlock1 = page.FindName("dataRightContourAroundFocus3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightContourAroundFocus3;
+                }
+                textBlock1 = page.FindName("dataLeftInternalElectricalStructure3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftInternalElectricalStructure3;
+                }
+                textBlock1 = page.FindName("dataRightInternalElectricalStructure3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightInternalElectricalStructure3;
+                }
+                textBlock1 = page.FindName("dataLeftSurroundingTissues3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftSurroundingTissues3;
+                }
+                textBlock1 = page.FindName("dataRightSurroundingTissues3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightSurroundingTissues3;
+                }
+                textBlock1 = page.FindName("dataLeftOncomarkerHighlightBenignChanges") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftOncomarkerHighlightBenignChanges;
+                }
+                textBlock1 = page.FindName("dataRightOncomarkerHighlightBenignChanges") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightOncomarkerHighlightBenignChanges;
+                }
+                textBlock1 = page.FindName("dataLeftOncomarkerHighlightSuspiciousChanges") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftOncomarkerHighlightSuspiciousChanges;
+                }
+                textBlock1 = page.FindName("dataRightOncomarkerHighlightSuspiciousChanges") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightOncomarkerHighlightSuspiciousChanges;
+                }
+                textBlock1 = page.FindName("dataLeftMeanElectricalConductivity1") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMeanElectricalConductivity1;
+                }
+                textBlock1 = page.FindName("dataRightMeanElectricalConductivity1") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMeanElectricalConductivity1;
+                }
+                textBlock1 = page.FindName("dataLeftMeanElectricalConductivity2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMeanElectricalConductivity2;
+                }
+                textBlock1 = page.FindName("dataRightMeanElectricalConductivity2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMeanElectricalConductivity2;
+                }
+                textBlock1 = page.FindName("dataMeanElectricalConductivity3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataMeanElectricalConductivity3;
+                }
+                textBlock1 = page.FindName("dataLeftMeanElectricalConductivity3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMeanElectricalConductivity3;
+                }
+                textBlock1 = page.FindName("dataRightMeanElectricalConductivity3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMeanElectricalConductivity3;
+                }
+                textBlock1 = page.FindName("dataLeftComparativeElectricalConductivity1") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftComparativeElectricalConductivity1;
+                }
+                textBlock1 = page.FindName("dataLeftComparativeElectricalConductivity2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftComparativeElectricalConductivity2;
+                }
+                textBlock1 = page.FindName("dataComparativeElectricalConductivity3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataComparativeElectricalConductivity3;
+                }
+                textBlock1 = page.FindName("dataLeftComparativeElectricalConductivity3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftComparativeElectricalConductivity3;
+                }
+                textBlock1 = page.FindName("dataLeftDivergenceBetweenHistograms1") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftDivergenceBetweenHistograms1;
+                }
+                textBlock1 = page.FindName("dataLeftDivergenceBetweenHistograms2") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftDivergenceBetweenHistograms2;
+                }
+                textBlock1 = page.FindName("dataDivergenceBetweenHistograms3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataDivergenceBetweenHistograms3;
+                }
+                textBlock1 = page.FindName("dataLeftDivergenceBetweenHistograms3") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftDivergenceBetweenHistograms3;
+                }
+                textBlock1 = page.FindName("dataLeftComparisonWithNorm") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftComparisonWithNorm;
+                }
+                textBlock1 = page.FindName("dataRightComparisonWithNorm") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightComparisonWithNorm;
+                }
+                textBlock1 = page.FindName("dataLeftPhaseElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftPhaseElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataRightPhaseElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightPhaseElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataAgeElectricalConductivityReference") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataAgeElectricalConductivityReference;
+                }
+                textBlock1 = page.FindName("dataLeftAgeElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftAgeElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataRightAgeElectricalConductivity") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightAgeElectricalConductivity;
+                }
+                textBlock1 = page.FindName("dataExamConclusion") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataExamConclusion;
+                }
+                textBlock1 = page.FindName("dataLeftMammaryGland") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMammaryGland;
+                }
+                textBlock1 = page.FindName("dataLeftMeanECOfLesion") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMeanECOfLesion;
+                }
+                textBlock1 = page.FindName("dataLeftAgeRelated") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftAgeRelated;
+                }
+                textBlock1 = page.FindName("dataLeftFindings") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftFindings;
+                }
+                textBlock1 = page.FindName("dataLeftMammaryGlandResult") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftMammaryGlandResult;
+                }
+                textBlock1 = page.FindName("dataRightMammaryGland") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMammaryGland;
+                }
+                textBlock1 = page.FindName("dataRightMeanECOfLesion") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMeanECOfLesion;
+                }
+                textBlock1 = page.FindName("dataRightAgeRelated") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightAgeRelated;
+                }
+                textBlock1 = page.FindName("dataRightFindings") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightFindings;
+                }
+                textBlock1 = page.FindName("dataRightMammaryGlandResult") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightMammaryGlandResult;
+                }
+                textBlock1 = page.FindName("dataTotalPts") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataTotalPts;
+                }
+                textBlock1 = page.FindName("dataPoint") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataPoint;
+                }
+                textBlock1 = page.FindName("dataBiRadsCategory") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataBiRadsCategory;
+                }
+                textBlock1 = page.FindName("dataRecommendation") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRecommendation;
+                }
+                textBlock1 = page.FindName("dataFurtherExam") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataFurtherExam;
+                }
+                textBlock1 = page.FindName("dataConclusion") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataConclusion;
+                }
+                textBlock1 = page.FindName("dataComments") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataComments;
+                }
+                textBlock1 = page.FindName("dataMeikTech") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataMeikTech;
+                }
+                textBlock1 = page.FindName("dataDoctor") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataDoctor;
+                }                
+            }
+        }
 
         private void saveAsBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -899,11 +1630,11 @@ namespace MEIKReport.Views
                             this.dataDivergenceBetweenHistograms3.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataDivergenceBetweenHistograms3);
                         }
 
-                        shortFormReportModel.DataLeftDivergenceBetweenHistograms1 = shortFormReport.DataLeftDivergenceBetweenHistograms1;
+                        shortFormReportModel.DataLeftDivergenceBetweenHistograms1 = shortFormReport.DataLeftDivergenceBetweenHistograms1.Replace("%","");
                         this.dataLeftDivergenceBetweenHistograms1.Text = shortFormReportModel.DataLeftDivergenceBetweenHistograms1;
-                        shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = shortFormReport.DataLeftDivergenceBetweenHistograms2;
+                        shortFormReportModel.DataLeftDivergenceBetweenHistograms2 = shortFormReport.DataLeftDivergenceBetweenHistograms2.Replace("%", ""); 
                         this.dataLeftDivergenceBetweenHistograms2.Text = shortFormReportModel.DataLeftDivergenceBetweenHistograms2;
-                        shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = shortFormReport.DataLeftDivergenceBetweenHistograms3;
+                        shortFormReportModel.DataLeftDivergenceBetweenHistograms3 = shortFormReport.DataLeftDivergenceBetweenHistograms3.Replace("%", ""); 
                         this.dataLeftDivergenceBetweenHistograms3.Text = shortFormReportModel.DataLeftDivergenceBetweenHistograms3;
 
                         shortFormReportModel.DataLeftPhaseElectricalConductivity = shortFormReport.DataLeftPhaseElectricalConductivity;
@@ -948,6 +1679,12 @@ namespace MEIKReport.Views
                             this.dataRightAgeRelated.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataRightAgeRelated);
                         }
                         MessageBox.Show(this, App.Current.FindResource("Message_27").ToString());
+                        if (File.Exists(person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_protocal.doc"))
+                        {
+                            File.Delete(person.ArchiveFolder + System.IO.Path.DirectorySeparatorChar + person.Code + "_protocal.doc");
+                        }
+                        //改名原始的Protocal文件名，解決不能重新生成一個新的Protocal文件的問題
+                        File.Move(docFile, person.ArchiveFolder+System.IO.Path.DirectorySeparatorChar +person.Code+"_protocal.doc");
                     }
                     catch (Exception ex) {
                         MessageBox.Show(this, ex.Message);
@@ -1060,25 +1797,25 @@ namespace MEIKReport.Views
                         this.WindowState = WindowState.Normal;
                         //this.StopMouseHook();
                     }
-                    else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))//点击开始设备按钮
-                    {
-                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                        var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
-                        if (App.countDictionary.ContainsKey(screenFolderPath))
-                        {
-                            List<long> ticks = App.countDictionary[screenFolderPath];
-                            ticks.Add(DateTime.Now.Ticks);
-                        }
-                        else
-                        {
-                            List<long> ticks = new List<long>();
-                            ticks.Add(DateTime.Now.Ticks);
-                            App.countDictionary.Add(screenFolderPath, ticks);
-                        } 
-                        //序列化统计字典到文件
-                        string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
-                        SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
-                    }
+                    //else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))//点击开始设备按钮
+                    //{
+                    //    string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                    //    var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                    //    if (App.countDictionary.ContainsKey(screenFolderPath))
+                    //    {
+                    //        List<long> ticks = App.countDictionary[screenFolderPath];
+                    //        ticks.Add(DateTime.Now.Ticks);
+                    //    }
+                    //    else
+                    //    {
+                    //        List<long> ticks = new List<long>();
+                    //        ticks.Add(DateTime.Now.Ticks);
+                    //        App.countDictionary.Add(screenFolderPath, ticks);
+                    //    } 
+                    //    //序列化统计字典到文件
+                    //    string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                    //    SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
+                    //}
                 }
             }
         }

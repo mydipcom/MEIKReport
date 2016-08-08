@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 namespace MEIKReport.Model
 {
     [Serializable]
-    public class ShortFormReport:ICloneable
+    public class ShortFormReport:ICloneable 
     {
+        private string dataClientNum;
+
+        public string DataClientNum
+        {
+            get { return dataClientNum; }
+            set { dataClientNum = value; }
+        }
+
         private string dataScreenDate;
 
         public string DataScreenDate
@@ -44,6 +52,32 @@ namespace MEIKReport.Model
             get { return dataAge; }
             set { dataAge = value; }
         }
+
+        private string dataHeight;
+
+        public string DataHeight
+        {
+            get { return dataHeight; }
+            set { dataHeight = value; }
+        }
+
+        private string dataMobile;
+
+        public string DataMobile
+        {
+            get { return dataMobile; }
+            set { dataMobile = value; }
+        }
+
+        private string dataEmail;
+
+        public string DataEmail
+        {
+            get { return dataEmail; }
+            set { dataEmail = value; }
+        }
+
+
         private string dataLeftFinding;
 
         public string DataLeftFinding
@@ -72,21 +106,157 @@ namespace MEIKReport.Model
             get { return dataRightLocation; }
             set { dataRightLocation = value; }
         }
+        private string dataLeftLocation2;
+
+        public string DataLeftLocation2
+        {
+            get { return dataLeftLocation2; }
+            set { dataLeftLocation2 = value; }
+        }
+        private string dataRightLocation2;
+
+        public string DataRightLocation2
+        {
+            get { return dataRightLocation2; }
+            set { dataRightLocation2 = value; }
+        }
+        private string dataLeftLocation3;
+
+        public string DataLeftLocation3
+        {
+            get { return dataLeftLocation3; }
+            set { dataLeftLocation3 = value; }
+        }
+        private string dataRightLocation3;
+
+        public string DataRightLocation3
+        {
+            get { return dataRightLocation3; }
+            set { dataRightLocation3 = value; }
+        }
 
         private string dataLeftSize;
-
         public string DataLeftSize
         {
             get { return dataLeftSize; }
             set { dataLeftSize = value; }
         }
         private string dataRightSize;
-
         public string DataRightSize
         {
             get { return dataRightSize; }
             set { dataRightSize = value; }
         }
+
+        private string dataLeftSizeLong;
+        public string DataLeftSizeLong
+        {
+            get { return dataLeftSizeLong; }
+            set { dataLeftSizeLong = value; }
+        }
+        private string dataLeftSizeWidth;
+        public string DataLeftSizeWidth
+        {
+            get { return dataLeftSizeWidth; }
+            set { dataLeftSizeWidth = value; }
+        }
+        
+
+        private string dataRightSizeLong;
+
+        public string DataRightSizeLong
+        {
+            get { return dataRightSizeLong; }
+            set { dataRightSizeLong = value; }
+        }
+        private string dataRightSizeWidth;
+        public string DataRightSizeWidth
+        {
+            get { return dataRightSizeWidth; }
+            set { dataRightSizeWidth = value; }
+        }
+
+
+        private string dataLeftSize2;
+        public string DataLeftSize2
+        {
+            get { return dataLeftSize2; }
+            set { dataLeftSize2 = value; }
+        }
+        private string dataRightSize2;
+        public string DataRightSize2
+        {
+            get { return dataRightSize2; }
+            set { dataRightSize2 = value; }
+        }
+
+        private string dataLeftSizeLong2;
+
+        public string DataLeftSizeLong2
+        {
+            get { return dataLeftSizeLong2; }
+            set { dataLeftSizeLong2 = value; }
+        }
+        private string dataLeftSizeWidth2;
+        public string DataLeftSizeWidth2
+        {
+            get { return dataLeftSizeWidth2; }
+            set { dataLeftSizeWidth2 = value; }
+        }
+
+
+        private string dataRightSizeLong2;
+        public string DataRightSizeLong2
+        {
+            get { return dataRightSizeLong2; }
+            set { dataRightSizeLong2 = value; }
+        }
+        private string dataRightSizeWidth2;
+        public string DataRightSizeWidth2
+        {
+            get { return dataRightSizeWidth2; }
+            set { dataRightSizeWidth2 = value; }
+        }
+
+        private string dataLeftSize3;
+        public string DataLeftSize3
+        {
+            get { return dataLeftSize3; }
+            set { dataLeftSize3 = value; }
+        }
+        private string dataRightSize3;
+        public string DataRightSize3
+        {
+            get { return dataRightSize3; }
+            set { dataRightSize3 = value; }
+        }
+
+        private string dataLeftSizeLong3;
+        public string DataLeftSizeLong3
+        {
+            get { return dataLeftSizeLong3; }
+            set { dataLeftSizeLong3 = value; }
+        }
+        private string dataLeftSizeWidth3;
+        public string DataLeftSizeWidth3
+        {
+            get { return dataLeftSizeWidth3; }
+            set { dataLeftSizeWidth3 = value; }
+        }
+
+        private string dataRightSizeLong3;
+        public string DataRightSizeLong3
+        {
+            get { return dataRightSizeLong3; }
+            set { dataRightSizeLong3 = value; }
+        }
+        private string dataRightSizeWidth3;
+        public string DataRightSizeWidth3
+        {
+            get { return dataRightSizeWidth3; }
+            set { dataRightSizeWidth3 = value; }
+        }
+
         private string dataBiRadsCategory;
 
         public string DataBiRadsCategory
@@ -406,6 +576,37 @@ namespace MEIKReport.Model
             set { dataRightShape = value; }
         }
 
+        private string dataLeftShape2;
+
+        public string DataLeftShape2
+        {
+            get { return dataLeftShape2; }
+            set { dataLeftShape2 = value; }
+        }
+
+        private string dataRightShape2;
+
+        public string DataRightShape2
+        {
+            get { return dataRightShape2; }
+            set { dataRightShape2 = value; }
+        }
+        private string dataLeftShape3;
+
+        public string DataLeftShape3
+        {
+            get { return dataLeftShape3; }
+            set { dataLeftShape3 = value; }
+        }
+
+        private string dataRightShape3;
+
+        public string DataRightShape3
+        {
+            get { return dataRightShape3; }
+            set { dataRightShape3 = value; }
+        }
+
         private string dataLeftContourAroundFocus;
 
         public string DataLeftContourAroundFocus
@@ -421,6 +622,39 @@ namespace MEIKReport.Model
             get { return dataRightContourAroundFocus; }
             set { dataRightContourAroundFocus = value; }
         }
+
+
+        private string dataLeftContourAroundFocus2;
+
+        public string DataLeftContourAroundFocus2
+        {
+            get { return dataLeftContourAroundFocus2; }
+            set { dataLeftContourAroundFocus2 = value; }
+        }
+
+        private string dataRightContourAroundFocus2;
+
+        public string DataRightContourAroundFocus2
+        {
+            get { return dataRightContourAroundFocus2; }
+            set { dataRightContourAroundFocus2 = value; }
+        }
+        private string dataLeftContourAroundFocus3;
+
+        public string DataLeftContourAroundFocus3
+        {
+            get { return dataLeftContourAroundFocus3; }
+            set { dataLeftContourAroundFocus3 = value; }
+        }
+
+        private string dataRightContourAroundFocus3;
+
+        public string DataRightContourAroundFocus3
+        {
+            get { return dataRightContourAroundFocus3; }
+            set { dataRightContourAroundFocus3 = value; }
+        }
+
 
         private string dataLeftInternalElectricalStructure;
 
@@ -438,6 +672,38 @@ namespace MEIKReport.Model
             set { dataRightInternalElectricalStructure = value; }
         }
 
+        private string dataLeftInternalElectricalStructure2;
+
+        public string DataLeftInternalElectricalStructure2
+        {
+            get { return dataLeftInternalElectricalStructure2; }
+            set { dataLeftInternalElectricalStructure2 = value; }
+        }
+
+        private string dataRightInternalElectricalStructure2;
+
+        public string DataRightInternalElectricalStructure2
+        {
+            get { return dataRightInternalElectricalStructure2; }
+            set { dataRightInternalElectricalStructure2 = value; }
+        }
+
+        private string dataLeftInternalElectricalStructure3;
+
+        public string DataLeftInternalElectricalStructure3
+        {
+            get { return dataLeftInternalElectricalStructure3; }
+            set { dataLeftInternalElectricalStructure3 = value; }
+        }
+
+        private string dataRightInternalElectricalStructure3;
+
+        public string DataRightInternalElectricalStructure3
+        {
+            get { return dataRightInternalElectricalStructure3; }
+            set { dataRightInternalElectricalStructure3 = value; }
+        }
+
         private string dataLeftSurroundingTissues;
 
         public string DataLeftSurroundingTissues
@@ -452,6 +718,37 @@ namespace MEIKReport.Model
         {
             get { return dataRightSurroundingTissues; }
             set { dataRightSurroundingTissues = value; }
+        }
+
+        private string dataLeftSurroundingTissues2;
+
+        public string DataLeftSurroundingTissues2
+        {
+            get { return dataLeftSurroundingTissues2; }
+            set { dataLeftSurroundingTissues2 = value; }
+        }
+
+        private string dataRightSurroundingTissues2;
+
+        public string DataRightSurroundingTissues2
+        {
+            get { return dataRightSurroundingTissues2; }
+            set { dataRightSurroundingTissues2 = value; }
+        }
+        private string dataLeftSurroundingTissues3;
+
+        public string DataLeftSurroundingTissues3
+        {
+            get { return dataLeftSurroundingTissues3; }
+            set { dataLeftSurroundingTissues3 = value; }
+        }
+
+        private string dataRightSurroundingTissues3;
+
+        public string DataRightSurroundingTissues3
+        {
+            get { return dataRightSurroundingTissues3; }
+            set { dataRightSurroundingTissues3 = value; }
         }
 
         private string dataLeftOncomarkerHighlightBenignChanges;
@@ -942,8 +1239,21 @@ namespace MEIKReport.Model
             set { dataRightMammaryGlandResult = value; }
         }
 
-        private string dataTotalPts;
+        private string dataLeftMaxFlag;
+        public string DataLeftMaxFlag
+        {
+            get { return dataLeftMaxFlag; }
+            set { dataLeftMaxFlag = value; }
+        }
+        private string dataRightMaxFlag;
+        public string DataRightMaxFlag
+        {
+            get { return dataRightMaxFlag; }
+            set { dataRightMaxFlag = value; }
+        }
 
+
+        private string dataTotalPts;
         public string DataTotalPts
         {
             get { return dataTotalPts; }

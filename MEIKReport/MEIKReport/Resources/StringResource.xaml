@@ -147,9 +147,9 @@
     <sys:String x:Key="SettingVersionTitle">System Info</sys:String>
     <sys:String x:Key="SettingVersionLab">Version:</sys:String>
     <sys:String x:Key="SettingOperModelLab">Operation Mode:</sys:String>
-    <sys:String x:Key="SettingTechModel">Technician Mode</sys:String>
-    <sys:String x:Key="SettingDoctorModel">Doctor Mode</sys:String>
-    <sys:String x:Key="SettingAdminModel">Admin Mode</sys:String>
+    <sys:String x:Key="SettingTechModel">Technician</sys:String>
+    <sys:String x:Key="SettingDoctorModel">Doctor</sys:String>
+    <sys:String x:Key="SettingAdminModel">Administrator</sys:String>
     <sys:String x:Key="SettingVersionCheckLab">Software Updater:</sys:String>
     <sys:String x:Key="SettingVersionCheckInfo1">Your version is up-to-date.</sys:String>
     <sys:String x:Key="SettingVersionCheckInfo2">A new version is available, you can update this software now.</sys:String>
@@ -158,15 +158,15 @@
     <sys:String x:Key="SettingFTPUrl">FTP URL</sys:String>
     <sys:String x:Key="SettingFTPUsername">FTP Username</sys:String>
     <sys:String x:Key="SettingFTPPassword">FTP Password</sys:String>
-
+    <sys:String x:Key="SettingScreenVenue">Screen Venue</sys:String>
 
 
     <sys:String x:Key="UserDataPersonalTab">Personal Data</sys:String>
-    <sys:String x:Key="UserDataPersonal1">Surname:</sys:String>
-    <sys:String x:Key="UserDataPersonal2">Given name:</sys:String>
-    <sys:String x:Key="UserDataPersonal3">Other names:</sys:String>
-    <sys:String x:Key="UserDataPersonal4">DOB:</sys:String>
-    <sys:String x:Key="UserDataPersonal5">Registration date:</sys:String>
+    <sys:String x:Key="UserDataPersonal1">Last name:</sys:String>
+    <sys:String x:Key="UserDataPersonal2">First name:</sys:String>
+    <sys:String x:Key="UserDataPersonal3">Middle names:</sys:String>
+    <sys:String x:Key="UserDataPersonal4">Date of birth:</sys:String>
+    <sys:String x:Key="UserDataPersonal5">Date of screening:</sys:String>
     <sys:String x:Key="UserDataPersonal6">Address:</sys:String>
     <sys:String x:Key="UserDataPersonal7">day</sys:String>
     <sys:String x:Key="UserDataPersonal8">month</sys:String>
@@ -174,25 +174,61 @@
     <sys:String x:Key="UserDataPersona20">Remark:</sys:String>
     <sys:String x:Key="UserDataPersona21">NO</sys:String>
     <sys:String x:Key="UserDataPersona22">YES</sys:String>
+    <sys:String x:Key="UserDataPersona23">Height(cm):</sys:String>
+    <sys:String x:Key="UserDataPersona24">Weight(kg):</sys:String>
+    <sys:String x:Key="UserDataPersona25">Mobile number:</sys:String>
+    <sys:String x:Key="UserDataPersona26">Email:</sys:String>
+    <sys:String x:Key="UserDataPersona27">Language used for report:</sys:String>
+    <sys:String x:Key="UserDataPersona28">Chinese</sys:String>
+    <sys:String x:Key="UserDataPersona29">English</sys:String>
+    <sys:String x:Key="UserDataPersona30">Client Number:</sys:String>
+
+    <sys:String x:Key="UserDataFamilyTab">Family History</sys:String>
+    <sys:String x:Key="UserDataFamily1">Breast Cancer:</sys:String>
+    <sys:String x:Key="UserDataFamily2">Uterine Cancer:</sys:String>
+    <sys:String x:Key="UserDataFamily3">Cervical Cancer:</sys:String>
+    <sys:String x:Key="UserDataFamily4">Ovarian Cancer:</sys:String>
+    <sys:String x:Key="UserDataFamily5">Mother,sister</sys:String>
+    <sys:String x:Key="UserDataFamily6">Aunt,cousin</sys:String>
+    <sys:String x:Key="UserDataFamily7">Grand mother,grand aunt</sys:String>
+    
     
     <sys:String x:Key="UserDataComplaintsTab">Complaints</sys:String>
     <sys:String x:Key="UserDataComplaints1">Pain</sys:String>
-    <sys:String x:Key="UserDataComplaints2">Colostrum</sys:String>
-    <sys:String x:Key="UserDataComplaints3">Serous discharge</sys:String>
+    <sys:String x:Key="UserDataComplaints2">Colostrum (within 5 days after delivery)</sys:String>
+    <sys:String x:Key="UserDataComplaints3">Serous discharge (yellowish)</sys:String>
     <sys:String x:Key="UserDataComplaints4">Blood discharge</sys:String>
     <sys:String x:Key="UserDataComplaints5">Other</sys:String>
     <sys:String x:Key="UserDataComplaints6">Special conditions</sys:String>
-    <sys:String x:Key="UserDataComplaints7">Pregnancy</sys:String>
-    <sys:String x:Key="UserDataComplaints8">Lactation</sys:String>
+    <sys:String x:Key="UserDataComplaints7">Pregnancy:</sys:String>
+    <sys:String x:Key="UserDataComplaints8">Lactation:</sys:String>
     <sys:String x:Key="UserDataComplaints9">Duration (weeks)</sys:String>
+    <sys:String x:Key="UserDataComplaints10">Breast Implants:</sys:String>
+    <sys:String x:Key="UserDataComplaints11">Left Breast</sys:String>
+    <sys:String x:Key="UserDataComplaints12">, Year</sys:String>
+    <sys:String x:Key="UserDataComplaints13">Right Breast</sys:String>
+    <sys:String x:Key="UserDataComplaints14">Materials:</sys:String>
+    <sys:String x:Key="UserDataComplaints15">Cohesive Silicon Gel</sys:String>
+    <sys:String x:Key="UserDataComplaints16">Autologous fat transfer</sys:String>
+    <sys:String x:Key="UserDataComplaints17">Others</sys:String>
+    <sys:String x:Key="UserDataComplaints18">Duration (weeks)</sys:String>
+    <sys:String x:Key="UserDataComplaints19">Palpable lumps</sys:String>
+    <sys:String x:Key="UserDataComplaints20">If any, mark position with red</sys:String>
+    <sys:String x:Key="UserDataComplaints21">Degree:</sys:String>
+    <sys:String x:Key="UserDataComplaints22">[Mild]</sys:String>
+    <sys:String x:Key="UserDataComplaints23">[Severe]</sys:String>
+
+    <sys:String x:Key="UserDataMenstrualTab">Menses Condition</sys:String>
+    <sys:String x:Key="UserDataMenstrual1">First day of last menstruation period (d/m):</sys:String>
+    <sys:String x:Key="UserDataMenstrual2">(months)</sys:String>
 
     <sys:String x:Key="UserDataAnamnesisTab">Anamnesis</sys:String>
     <sys:String x:Key="UserDataAnamnesis1">Menses</sys:String>
     <sys:String x:Key="UserDataAnamnesis2">Menstrual cycle disorder</sys:String>
     <sys:String x:Key="UserDataAnamnesis3">Postmenopause</sys:String>
     <sys:String x:Key="UserDataAnamnesis4">Hormonal contraceptives</sys:String>
-    <sys:String x:Key="UserDataAnamnesis5">Brand name</sys:String>
-    <sys:String x:Key="UserDataAnamnesis6">Administration period</sys:String>
+    <sys:String x:Key="UserDataAnamnesis5">Brand name:</sys:String>
+    <sys:String x:Key="UserDataAnamnesis6">Administration period:</sys:String>
     <sys:String x:Key="UserDataAnamnesis7">Somatic</sys:String>
     <sys:String x:Key="UserDataAnamnesis8">Adiposity</sys:String>
     <sys:String x:Key="UserDataAnamnesis9">Essential hypertension</sys:String>
@@ -206,14 +242,14 @@
     <sys:String x:Key="UserDataAnamnesis17">Cyst</sys:String>
     <sys:String x:Key="UserDataAnamnesis18">Cancer</sys:String>
     <sys:String x:Key="UserDataAnamnesis19">Endometriosis</sys:String>
-    <sys:String x:Key="UserDataAnamnesis20">Other (description)</sys:String>
+    <sys:String x:Key="UserDataAnamnesis20">Other</sys:String>
     <sys:String x:Key="UserDataAnamnesis21">Uterus diseases</sys:String>
     <sys:String x:Key="UserDataAnamnesis22">Myoma</sys:String>
     <sys:String x:Key="UserDataAnamnesis23">Obstetric</sys:String>
-    <sys:String x:Key="UserDataAnamnesis24">number</sys:String>
-    <sys:String x:Key="UserDataAnamnesis25">Abortions</sys:String>
-    <sys:String x:Key="UserDataAnamnesis26">Births</sys:String>
-    <sys:String x:Key="UserDataAnamnesis27">Lactation</sys:String>
+    <sys:String x:Key="UserDataAnamnesis24">Times:</sys:String>
+    <sys:String x:Key="UserDataAnamnesis25">Abortions/Miscarriage(s)</sys:String>
+    <sys:String x:Key="UserDataAnamnesis26">Birth(s)</sys:String>
+    <sys:String x:Key="UserDataAnamnesis27">Lactation (Past History)</sys:String>
     <sys:String x:Key="UserDataAnamnesis28">Under 1 month</sys:String>
     <sys:String x:Key="UserDataAnamnesis29">Under 1 year</sys:String>
     <sys:String x:Key="UserDataAnamnesis30">Over 1 year</sys:String>
@@ -226,7 +262,7 @@
     <sys:String x:Key="UserDataDisease3">Fibrous-cystic mastopathy</sys:String>
     <sys:String x:Key="UserDataDisease4">Cysts</sys:String>
     <sys:String x:Key="UserDataDisease5">Cancer</sys:String>
-    <sys:String x:Key="UserDataDisease6">Other (description)</sys:String>
+    <sys:String x:Key="UserDataDisease6">Other</sys:String>
 
     <sys:String x:Key="UserDataExaminationsTab">Examinations</sys:String>
     <sys:String x:Key="UserDataExaminations1">Palpation</sys:String>
@@ -244,17 +280,22 @@
     <sys:String x:Key="UserDataExaminations13">Intraductal papilloma</sys:String>
     <sys:String x:Key="UserDataExaminations14">Fibroadenoma</sys:String>
     <sys:String x:Key="UserDataExaminations15">Other (description)</sys:String>
+    <sys:String x:Key="UserDataExaminations16">Year</sys:String>
+    <sys:String x:Key="UserDataExaminations17">Normal</sys:String>
+    <sys:String x:Key="UserDataExaminations18">Abnormal:</sys:String>
+    <sys:String x:Key="UserDataExaminations19">Result:</sys:String>
+    <sys:String x:Key="UserDataExaminations20">Diagnosis:</sys:String>
 
 
     <sys:String x:Key="ReportContext_1" xml:space="preserve">Full name: </sys:String>
-    <sys:String x:Key="ReportContext_2" xml:space="preserve">Screening Date: </sys:String>
+    <sys:String x:Key="ReportContext_2" xml:space="preserve">Screen Date: </sys:String>
     <sys:String x:Key="ReportContext_3" xml:space="preserve">Gender: </sys:String>
     <sys:String x:Key="ReportContext_4">Female</sys:String>
     <sys:String x:Key="ReportContext_5">Male</sys:String>
-    <sys:String x:Key="ReportContext_6" xml:space="preserve">Screening Location: </sys:String>
+    <sys:String x:Key="ReportContext_6" xml:space="preserve">Screen Venue: </sys:String>
     <sys:String x:Key="ReportContext_7" xml:space="preserve">Address: </sys:String>
     <sys:String x:Key="ReportContext_8" xml:space="preserve">Health insurance card: </sys:String>
-    <sys:String x:Key="ReportContext_9" xml:space="preserve">MRN# (Code): </sys:String>
+    <sys:String x:Key="ReportContext_9" xml:space="preserve">Screen Code: </sys:String>
     <sys:String x:Key="ReportContext_10" xml:space="preserve">Age: </sys:String>
     <sys:String x:Key="ReportContext_11" xml:space="preserve">Weight: </sys:String>
     <sys:String x:Key="ReportContext_12">Lbs</sys:String>
@@ -287,7 +328,7 @@
     <sys:String x:Key="ReportContext_37">Negative</sys:String>
     <sys:String x:Key="ReportContext_38">Benign</sys:String>
     <sys:String x:Key="ReportContext_39">Suspicious</sys:String>
-    <sys:String x:Key="ReportContext_40">Images Chosen:</sys:String>
+    <sys:String x:Key="ReportContext_40">Screen Images Chosen:</sys:String>
     <sys:String x:Key="ReportContext_41" xml:space="preserve">Left Breast: </sys:String>
     <sys:String x:Key="ReportContext_42" xml:space="preserve">Right Breast: </sys:String>
     <sys:String x:Key="ReportContext_43">VISUAL CHARACTERISTIC OF THE IMAGE</sys:String>
@@ -375,11 +416,11 @@
     <sys:String x:Key="ReportContext_125">0.22-0.29 Mixed type with ductal component predominance</sys:String>
     <sys:String x:Key="ReportContext_126">0.22 Ductal type of mammary gland structure</sys:String>
     <sys:String x:Key="ReportContext_127" xml:space="preserve">Age-related electrical conductivity: </sys:String>
-    <sys:String x:Key="ReportContext_128" xml:space="preserve">  Mean EC of  lesion:</sys:String>
+    <sys:String x:Key="ReportContext_128">Mean EC of  lesion:</sys:String>
     <sys:String x:Key="ReportContext_129">Findings:</sys:String>
     <sys:String x:Key="ReportContext_130">No Focal changes of electroconductivity detected</sys:String>
     <sys:String x:Key="ReportContext_131">Focal changes of electroconductivity detected </sys:String>
-    <sys:String x:Key="ReportContext_132" xml:space="preserve">  Result:</sys:String>
+    <sys:String x:Key="ReportContext_132">Result:</sys:String>
     <sys:String x:Key="ReportContext_133">Left mammary gland:</sys:String>
     <sys:String x:Key="ReportContext_134">No findings Detected</sys:String>
     <sys:String x:Key="ReportContext_135">Benign Lesion</sys:String>
@@ -396,7 +437,7 @@
     <sys:String x:Key="ReportContext_146">4 pt - 3 Category</sys:String>
     <sys:String x:Key="ReportContext_147">5-7 pts - 4 Category</sys:String>
     <sys:String x:Key="ReportContext_148">8 pt - 5 Category</sys:String>
-    <sys:String x:Key="ReportContext_149" xml:space="preserve">Technician: </sys:String>
+    <sys:String x:Key="ReportContext_149" xml:space="preserve">Technician Name: </sys:String>
     <sys:String x:Key="ReportContext_150" xml:space="preserve">BI-RADS category: </sys:String>
     <sys:String x:Key="ReportContext_151">0 Category - Poor Image - Re-Screen</sys:String>
     <sys:String x:Key="ReportContext_152">1 Category - No findings detected</sys:String>
@@ -450,4 +491,30 @@
     <sys:String x:Key="ReportContext_199">3D-Electro-Mammograph – MEIK v.5.6</sys:String>
     <sys:String x:Key="ReportContext_200">License No: </sys:String>
     <sys:String x:Key="ReportContext_201">BI-RADS category:  0 Category - Poor Image - Re-Screen; 1 Category - No findings detected; 2 Category - Benign lesion; 3 Category - Probably benign findings; 4 Category - Suspicious abnormality; 5 Category - Highly suggestive malignancy;</sys:String>
+    <sys:String x:Key="ReportContext_202">Client Number:</sys:String>
+    <sys:String x:Key="ReportContext_203">Height(cm):</sys:String>
+    <sys:String x:Key="ReportContext_204">Mobile Number:</sys:String>
+    <sys:String x:Key="ReportContext_205">Email:</sys:String>
+
+    <sys:String x:Key="ReportContext_206">1</sys:String>
+    <sys:String x:Key="ReportContext_207">2</sys:String>
+    <sys:String x:Key="ReportContext_208">3</sys:String>
+    <sys:String x:Key="ReportContext_209">Numerous</sys:String>
+    <sys:String x:Key="ReportContext_210">4 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_211">5 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_212">6 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_213">7 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_214">8 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_215">9 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_216">10 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_217">11 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_218">12 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_219">1 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_220">1-</sys:String>
+    <sys:String x:Key="ReportContext_221">2-</sys:String>
+    <sys:String x:Key="ReportContext_222">3-</sys:String>
+    <sys:String x:Key="ReportContext_223">2 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_224">3 o'clock</sys:String>
+    <sys:String x:Key="ReportContext_225">mm</sys:String>
+    
 </ResourceDictionary>

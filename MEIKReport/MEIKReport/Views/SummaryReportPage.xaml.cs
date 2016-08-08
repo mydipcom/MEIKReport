@@ -375,15 +375,16 @@ namespace MEIKReport.Views
                 shortFormReportModel.DataTechLicense = technician.License;
             }            
             //shortFormReportModel.DataLeftFinding = this.dataLeftFinding.Text;
-            shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;
-            shortFormReportModel.DataLeftSize = this.dataLeftSize.Text;
-            
+
+            shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
             shortFormReportModel.DataName = this.dataName.Text;
             
             //shortFormReportModel.DataRightFinding = this.dataRightFinding.Text;
+            shortFormReportModel.DataLeftLocation = this.dataLeftLocation.Text;            
             shortFormReportModel.DataRightLocation = this.dataRightLocation.Text;
-            shortFormReportModel.DataRightSize = this.dataRightSize.Text;
-            shortFormReportModel.DataScreenDate = this.dataScreenDate.Text;
+            shortFormReportModel.DataLeftSizeLong = this.dataLeftSize.Text;
+            shortFormReportModel.DataRightSizeLong = this.dataRightSize.Text;
+            
             shortFormReportModel.DataScreenLocation = this.dataScreenLocation.Text;
             shortFormReportModel.DataLeftMammaryGlandResult = this.dataLeftMammaryGlandResult.SelectedIndex.ToString();
             shortFormReportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.SelectedIndex.ToString();

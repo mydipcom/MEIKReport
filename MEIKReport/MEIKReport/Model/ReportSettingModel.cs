@@ -211,7 +211,15 @@ namespace MEIKReport.Model
         {
             get { return reportTechLicense; }
             set { reportTechLicense = value; OnPropertyChanged("ReportTechLicense"); }
-        }       
+        }
+
+        //檢查地點
+        private string screenVenue;
+        public string ScreenVenue
+        {
+            get { return screenVenue; }
+            set { screenVenue = value; OnPropertyChanged("ScreenVenue"); }
+        }
 
     }
 }

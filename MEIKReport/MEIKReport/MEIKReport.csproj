@@ -132,7 +132,6 @@
     <Compile Include="Model\CommonEnum.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\ReportSettingModel.cs" />
-    <Compile Include="Model\ShortFormReportNew.cs" />
     <Compile Include="Model\ShortFormReport.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="PrintPreviewWindow.xaml.cs">
@@ -219,6 +218,10 @@
     <Page Include="Styles\ReportStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExaminationReportFlow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PasswordPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -382,6 +385,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ICSharpCode.SharpZipLib.dll" />
+    <Resource Include="Images\breast.png" />
     <Resource Include="foot.png" />
     <Content Include="gxpswin32.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

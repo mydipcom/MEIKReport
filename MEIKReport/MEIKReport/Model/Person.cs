@@ -3,6 +3,13 @@ namespace MEIKReport.Model
 {
     public class Person : ViewModelBase
     {
+        private string clientNumber;
+        public string ClientNumber
+        {
+            get { return clientNumber; }
+            set { clientNumber = value; OnPropertyChanged("ClientNumber"); }
+        }
+
         private string archiveFolder;
         private string crdFilePath;
         private int id;        
@@ -13,20 +20,24 @@ namespace MEIKReport.Model
 
         private string gender;
         private int age;
+        private string height;
+        private string weight;
         private string address;
+        private string mobile;
+        private string email;
         private string birthday;
         private string birthDate;
         private string birthMonth;
         private string birthYear;
-
+        //true: is English, false: isnot English
+        private bool reportLanguage=true;
 
         private string regDate;
         private string regMonth;
         private string regYear;
         private string remark;
 
-        private bool pain;
-
+       
         private string icon = "/Images/id_card.png";
         private string uploaded;
         public string Uploaded
@@ -34,70 +45,7 @@ namespace MEIKReport.Model
             get { return uploaded; }
             set { uploaded = value; OnPropertyChanged("Uploaded"); }
         }
-
-        public bool Pain
-        {
-            get { return pain; }
-            set { pain = value; OnPropertyChanged("Pain"); }
-        }
-        private bool colostrum;
-
-        public bool Colostrum
-        {
-            get { return colostrum; }
-            set { colostrum = value; OnPropertyChanged("Colostrum"); }
-        }
-        private bool serousDischarge;
-
-        public bool SerousDischarge
-        {
-            get { return serousDischarge; }
-            set { serousDischarge = value; OnPropertyChanged("SerousDischarge"); }
-        }
-        private bool bloodDischarge;
-
-        public bool BloodDischarge
-        {
-            get { return bloodDischarge; }
-            set { bloodDischarge = value; OnPropertyChanged("BloodDischarge"); }
-        }
-        private bool other;
-
-        public bool Other
-        {
-            get { return other; }
-            set { other = value; OnPropertyChanged("Other"); }
-        }
-        private bool pregnancy;
-
-        public bool Pregnancy
-        {
-            get { return pregnancy; }
-            set { pregnancy = value; OnPropertyChanged("Pregnancy"); }
-        }
-        private bool lactation;
-
-        public bool Lactation
-        {
-            get { return lactation; }
-            set { lactation = value; OnPropertyChanged("Lactation"); }
-        }
-        private string pregnancyTerm;
-
-        public string PregnancyTerm
-        {
-            get { return pregnancyTerm; }
-            set { pregnancyTerm = value; OnPropertyChanged("PregnancyTerm"); }
-        }
-
-        private string otherDesc;
-
-        public string OtherDesc
-        {
-            get { return otherDesc; }
-            set { otherDesc = value; OnPropertyChanged("OtherDesc"); }
-        }
-        
+                        
         public string ArchiveFolder
         {
             get { return archiveFolder; }
@@ -179,6 +127,42 @@ namespace MEIKReport.Model
                 OnPropertyChanged("Age");
             }
         }
+        public string Height
+        {
+            get { return this.height; }
+            set
+            {
+                this.height = value;
+                OnPropertyChanged("Height");
+            }
+        }
+        public string Weight
+        {
+            get { return this.weight; }
+            set
+            {
+                this.weight = value;
+                OnPropertyChanged("Weight");
+            }
+        }
+        public string Mobile
+        {
+            get { return this.mobile; }
+            set
+            {
+                this.mobile = value;
+                OnPropertyChanged("Mobile");
+            }
+        }
+        public string Email
+        {
+            get { return this.email; }
+            set
+            {
+                this.email = value;
+                OnPropertyChanged("Email");
+            }
+        }
         public string Address
         {
             get { return this.address; }
@@ -255,6 +239,16 @@ namespace MEIKReport.Model
             }
         }
 
+        public bool ReportLanguage
+        {
+            get { return this.reportLanguage; }
+            set
+            {
+                this.reportLanguage = value;
+                OnPropertyChanged("ReportLanguage");
+            }
+        }
+
         public string Remark
         {
             get { return this.remark; }
@@ -264,6 +258,13 @@ namespace MEIKReport.Model
                 OnPropertyChanged("Remark");
             }
         }
+
+        private string dateLastMenstruation;
+        public string DateLastMenstruation
+        {
+            get { return dateLastMenstruation; }
+            set { dateLastMenstruation = value; OnPropertyChanged("DateLastMenstruation"); }
+        }       
 
         private bool mensesStatus;
 
@@ -686,14 +687,14 @@ namespace MEIKReport.Model
         public bool PalpationDiffuse
         {
             get { return palpationDiffuse; }
-            set { palpationDiffuse = value; }
+            set { palpationDiffuse = value; OnPropertyChanged("PalpationDiffuse"); }
         }
         private bool palpationFocal;
 
         public bool PalpationFocal
         {
             get { return palpationFocal; }
-            set { palpationFocal = value; }
+            set { palpationFocal = value; OnPropertyChanged("PalpationFocal"); }
         }
         private bool ultrasoundDiffuse;
 
@@ -707,14 +708,14 @@ namespace MEIKReport.Model
         public bool UltrasoundDiffuse
         {
             get { return ultrasoundDiffuse; }
-            set { ultrasoundDiffuse = value; }
+            set { ultrasoundDiffuse = value; OnPropertyChanged("UltrasoundDiffuse"); }
         }
         private bool ultrasoundFocal;
 
         public bool UltrasoundFocal
         {
             get { return ultrasoundFocal; }
-            set { ultrasoundFocal = value; }
+            set { ultrasoundFocal = value; OnPropertyChanged("ultrasoundFocal"); }
         }
 
         private bool mammographyStatus;
@@ -729,14 +730,14 @@ namespace MEIKReport.Model
         public bool MammographyDiffuse
         {
             get { return mammographyDiffuse; }
-            set { mammographyDiffuse = value; }
+            set { mammographyDiffuse = value; OnPropertyChanged("MammographyDiffuse"); }
         }
         private bool mammographyFocal;
 
         public bool MammographyFocal
         {
             get { return mammographyFocal; }
-            set { mammographyFocal = value; }
+            set { mammographyFocal = value; OnPropertyChanged("MammographyFocal"); }
         }
 
         private bool biopsyStatus;
@@ -751,56 +752,56 @@ namespace MEIKReport.Model
         public bool BiopsyDiffuse
         {
             get { return biopsyDiffuse; }
-            set { biopsyDiffuse = value; }
+            set { biopsyDiffuse = value; OnPropertyChanged("BiopsyDiffuse"); }
         }
         private bool biopsyFocal;
 
         public bool BiopsyFocal
         {
             get { return biopsyFocal; }
-            set { biopsyFocal = value; }
+            set { biopsyFocal = value; OnPropertyChanged("BiopsyFocal"); }
         }
         private bool biopsyCancer;
         
         public bool BiopsyCancer
         {
             get { return biopsyCancer; }
-            set { biopsyCancer = value; }
+            set { biopsyCancer = value; OnPropertyChanged("BiopsyCancer"); }
         }
         private bool biopsyProliferation;
 
         public bool BiopsyProliferation
         {
             get { return biopsyProliferation; }
-            set { biopsyProliferation = value; }
+            set { biopsyProliferation = value; OnPropertyChanged("BiopsyProliferation"); }
         }
         private bool biopsyDysplasia;
 
         public bool BiopsyDysplasia
         {
             get { return biopsyDysplasia; }
-            set { biopsyDysplasia = value; }
+            set { biopsyDysplasia = value; OnPropertyChanged("BiopsyDysplasia"); }
         }
         private bool biopsyIntraductalPapilloma;
 
         public bool BiopsyIntraductalPapilloma
         {
             get { return biopsyIntraductalPapilloma; }
-            set { biopsyIntraductalPapilloma = value; }
+            set { biopsyIntraductalPapilloma = value; OnPropertyChanged("BiopsyIntraductalPapilloma"); }
         }
         private bool biopsyFibroadenoma;
 
         public bool BiopsyFibroadenoma
         {
             get { return biopsyFibroadenoma; }
-            set { biopsyFibroadenoma = value; }
+            set { biopsyFibroadenoma = value; OnPropertyChanged("BiopsyFibroadenoma"); }
         }
         private bool biopsyOther;
 
         public bool BiopsyOther
         {
             get { return biopsyOther; }
-            set { biopsyOther = value; }
+            set { biopsyOther = value; OnPropertyChanged("BiopsyOther"); }
         }
         private string palpationDesc;
 
@@ -821,14 +822,14 @@ namespace MEIKReport.Model
         public string MammographyDesc
         {
             get { return mammographyDesc; }
-            set { mammographyDesc = value; }
+            set { mammographyDesc = value;  }
         }
         private string biopsyOtherDesc;
 
         public string BiopsyOtherDesc
         {
             get { return biopsyOtherDesc; }
-            set { biopsyOtherDesc = value; }
+            set { biopsyOtherDesc = value;  }
         }
 
         private string techName;
@@ -857,12 +858,332 @@ namespace MEIKReport.Model
             set { doctorLicense = value; }
         }
 
+        private string screenVenue;
+        public string ScreenVenue
+        {
+            get { return screenVenue; }
+            set { screenVenue = value; OnPropertyChanged("ScreenVenue"); }
+        }
+
         public string CrdFilePath
         {
             get { return crdFilePath; }
             set { crdFilePath = value; }
         }
 
+        #endregion
+
+
+        #region Family
+
+        private bool familyBreastCancer1;
+        public bool FamilyBreastCancer1
+        {
+            get { return familyBreastCancer1; }
+            set { familyBreastCancer1 = value; OnPropertyChanged("FamilyBreastCancer1"); }
+        }
+
+        private bool familyBreastCancer2;
+        public bool FamilyBreastCancer2
+        {
+            get { return familyBreastCancer2; }
+            set { familyBreastCancer2 = value; OnPropertyChanged("FamilyBreastCancer2"); }
+        }
+
+        private bool familyBreastCancer3;
+        public bool FamilyBreastCancer3
+        {
+            get { return familyBreastCancer3; }
+            set { familyBreastCancer3 = value; OnPropertyChanged("FamilyBreastCancer3"); }
+        }
+
+        private bool familyUterineCancer1;
+        public bool FamilyUterineCancer1
+        {
+            get { return familyUterineCancer1; }
+            set { familyUterineCancer1 = value; OnPropertyChanged("FamilyUterineCancer1"); }
+        }
+
+        private bool familyUterineCancer2;
+        public bool FamilyUterineCancer2
+        {
+            get { return familyUterineCancer2; }
+            set { familyUterineCancer2 = value; OnPropertyChanged("FamilyUterineCancer2"); }
+        }
+
+        private bool familyUterineCancer3;
+        public bool FamilyUterineCancer3
+        {
+            get { return familyUterineCancer3; }
+            set { familyUterineCancer3 = value; OnPropertyChanged("FamilyUterineCancer3"); }
+        }
+
+
+        private bool familyCervicalCancer1;
+        public bool FamilyCervicalCancer1
+        {
+            get { return familyCervicalCancer1; }
+            set { familyCervicalCancer1 = value; OnPropertyChanged("FamilyCervicalCancer1"); }
+        }
+
+        private bool familyCervicalCancer2;
+        public bool FamilyCervicalCancer2
+        {
+            get { return familyCervicalCancer2; }
+            set { familyCervicalCancer2 = value; OnPropertyChanged("FamilyCervicalCancer2"); }
+        }
+
+        private bool familyCervicalCancer3;
+        public bool FamilyCervicalCancer3
+        {
+            get { return familyCervicalCancer3; }
+            set { familyCervicalCancer3 = value; OnPropertyChanged("FamilyCervicalCancer3"); }
+        }
+
+        private bool familyOvarianCancer1;
+        public bool FamilyOvarianCancer1
+        {
+            get { return familyOvarianCancer1; }
+            set { familyOvarianCancer1 = value; OnPropertyChanged("FamilyOvarianCancer1"); }
+        }
+
+        private bool familyOvarianCancer2;
+        public bool FamilyOvarianCancer2
+        {
+            get { return familyOvarianCancer2; }
+            set { familyOvarianCancer2 = value; OnPropertyChanged("FamilyOvarianCancer2"); }
+        }
+
+        private bool familyOvarianCancer3;
+        public bool FamilyOvarianCancer3
+        {
+            get { return familyOvarianCancer3; }
+            set { familyOvarianCancer3 = value; OnPropertyChanged("FamilyOvarianCancer3"); }
+        }
+
+        #endregion
+
+
+        #region Complaints
+
+        private bool palpableLumps;
+        public bool PalpableLumps
+        {
+            get { return palpableLumps; }
+            set { palpableLumps = value; OnPropertyChanged("PalpableLumps"); }
+        }
+
+        private int leftPosition=0;
+        public int LeftPosition
+        {
+            get { return leftPosition; }
+            set { leftPosition = value; OnPropertyChanged("LeftPosition"); }
+        }
+
+        private int rightPosition=0;
+        public int RightPosition
+        {
+            get { return rightPosition; }
+            set { rightPosition = value; OnPropertyChanged("RightPosition"); }
+        }
+
+        private int degree = 0;
+        public int Degree
+        {
+            get { return degree; }
+            set { degree = value; OnPropertyChanged("Degree"); }
+        }
+
+
+        private bool pain;
+        public bool Pain
+        {
+            get { return pain; }
+            set { pain = value; OnPropertyChanged("Pain"); }
+        }
+        private bool colostrum;
+
+        public bool Colostrum
+        {
+            get { return colostrum; }
+            set { colostrum = value; OnPropertyChanged("Colostrum"); }
+        }
+        private bool serousDischarge;
+
+        public bool SerousDischarge
+        {
+            get { return serousDischarge; }
+            set { serousDischarge = value; OnPropertyChanged("SerousDischarge"); }
+        }
+        private bool bloodDischarge;
+
+        public bool BloodDischarge
+        {
+            get { return bloodDischarge; }
+            set { bloodDischarge = value; OnPropertyChanged("BloodDischarge"); }
+        }
+        private bool other;
+
+        public bool Other
+        {
+            get { return other; }
+            set { other = value; OnPropertyChanged("Other"); }
+        }
+
+        private bool pregnancy;
+
+        public bool Pregnancy
+        {
+            get { return pregnancy; }
+            set { pregnancy = value; OnPropertyChanged("Pregnancy"); }
+        }
+        private bool lactation;
+
+        public bool Lactation
+        {
+            get { return lactation; }
+            set { lactation = value; OnPropertyChanged("Lactation"); }
+        }
+        private string lactationTerm;
+
+        public string LactationTerm
+        {
+            get { return lactationTerm; }
+            set { lactationTerm = value; OnPropertyChanged("LactationTerm"); }
+        }
+        
+        private string pregnancyTerm;
+
+        public string PregnancyTerm
+        {
+            get { return pregnancyTerm; }
+            set { pregnancyTerm = value; OnPropertyChanged("PregnancyTerm"); }
+        }
+
+        private string otherDesc;
+
+        public string OtherDesc
+        {
+            get { return otherDesc; }
+            set { otherDesc = value; OnPropertyChanged("OtherDesc"); }
+        }
+
+        private bool breastImplants;
+        public bool BreastImplants
+        {
+            get { return breastImplants; }
+            set { breastImplants = value; OnPropertyChanged("BreastImplants"); }
+        }
+
+        private bool breastImplantsRight;
+        public bool BreastImplantsRight
+        {
+            get { return breastImplantsRight; }
+            set { breastImplantsRight = value; OnPropertyChanged("BreastImplantsRight"); }
+        }
+
+        private bool breastImplantsLeft;
+        public bool BreastImplantsLeft
+        {
+            get { return breastImplantsLeft; }
+            set { breastImplantsLeft = value; OnPropertyChanged("BreastImplantsLeft"); }
+        }
+
+        private string breastImplantsRightYear;
+        public string BreastImplantsRightYear
+        {
+            get { return breastImplantsRightYear; }
+            set { breastImplantsRightYear = value; OnPropertyChanged("BreastImplantsRightYear"); }
+        }
+
+        private string breastImplantsLeftYear;
+        public string BreastImplantsLeftYear
+        {
+            get { return breastImplantsLeftYear; }
+            set { breastImplantsLeftYear = value; OnPropertyChanged("BreastImplantsLeftYear"); }
+        }
+
+        private bool materialsGel;
+        public bool MaterialsGel
+        {
+            get { return materialsGel; }
+            set { materialsGel = value; OnPropertyChanged("MaterialsGel"); }
+        }
+
+        private bool materialsFat;
+        public bool MaterialsFat
+        {
+            get { return materialsFat; }
+            set { materialsFat = value; OnPropertyChanged("MaterialsFat"); }
+        }
+
+        private bool materialsOthers;
+        public bool MaterialsOthers
+        {
+            get { return materialsOthers; }
+            set { materialsOthers = value; OnPropertyChanged("MaterialsOthers"); }
+        }
+
+        #endregion
+
+        #region Examination
+
+        private bool palpation;
+        public bool Palpation
+        {
+            get { return palpation; }
+            set { palpation = value; OnPropertyChanged("Palpation"); }
+        }
+
+        private bool ultrasound;
+        public bool Ultrasound
+        {
+            get { return ultrasound; }
+            set { ultrasound = value; OnPropertyChanged("Ultrasound"); }
+        }
+
+        private bool mammography;
+        public bool Mammography
+        {
+            get { return mammography; }
+            set { mammography = value; OnPropertyChanged("Mammography"); }
+        }
+
+        private bool biopsy;
+        public bool Biopsy
+        {
+            get { return biopsy; }
+            set { biopsy = value; OnPropertyChanged("Biopsy"); }
+        }
+
+
+        private string palationYear;
+        public string PalationYear
+        {
+            get { return palationYear; }
+            set { palationYear = value; OnPropertyChanged("PalationYear"); }
+        }
+
+        private string ultrasoundYear;
+        public string UltrasoundYear
+        {
+            get { return ultrasoundYear; }
+            set { ultrasoundYear = value; OnPropertyChanged("UltrasoundYear"); }
+        }
+
+        private string mammographyYear;
+        public string MammographyYear
+        {
+            get { return mammographyYear; }
+            set { mammographyYear = value; OnPropertyChanged("MammographyYear"); }
+        }
+
+        private string biopsyYear;
+        public string BiopsyYear
+        {
+            get { return biopsyYear; }
+            set { biopsyYear = value; OnPropertyChanged("BiopsyYear"); }
+        }
         #endregion
     }
 }

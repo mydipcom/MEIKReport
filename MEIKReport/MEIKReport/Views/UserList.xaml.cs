@@ -7,6 +7,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,7 +53,10 @@ namespace MEIKReport
             //listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
             
             //加载初始化配置
-            LoadInitConfig();  
+            LoadInitConfig();
+            string month = DateTime.Now.ToShortDateString();
+            //修改原始MEIK程序中的档案改变日期，让原始MEIK程序运行时跨月份打开程序不会出现提示对话框
+            OperateIniFile.WriteIniData("Base", "Archive change date", month, App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini");
             //建立当天文件夹          
             string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
             if (!Directory.Exists(dayFolder))
@@ -104,28 +108,35 @@ namespace MEIKReport
                 btnExaminationReport.Visibility = Visibility.Visible;
                 sendDataButton.Visibility = Visibility.Collapsed;
                 sendReportButton.Visibility = Visibility.Visible;
-
-            }
+                //醫生模式隱藏個人信息編輯功能
+                btnPersonal.IsEnabled = false;
+                btnFamily.IsEnabled = false;
+                btnComplaints.IsEnabled = false;
+                btnMestrual.IsEnabled = false;
+                btnObstetric.IsEnabled = false;
+                btnAnamnesis.IsEnabled = false;
+                btnExaminations.IsEnabled = false;
+            }            
             
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
 
-            //加载序列化的Screening统计数据
-            try
-            {
-                string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
-                if (File.Exists(countFile))
-                {
-                    App.countDictionary = SerializeUtilities.Desrialize<SortedDictionary<string, List<long>>>(countFile);
-                }
-            }
-            catch (Exception) { }
+            ////加载序列化的Screening统计数据
+            //try
+            //{
+            //    string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+            //    if (File.Exists(countFile))
+            //    {
+            //        App.countDictionary = SerializeUtilities.Desrialize<SortedDictionary<string, List<long>>>(countFile);
+            //    }
+            //}
+            //catch (Exception) { }
             
             this.progressBarGrid.DataContext = App.reportSettingModel;
         }        
 
         private void ExaminationReport_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            //this.Visibility = Visibility.Hidden;
             var selectedUser = this.CodeListBox.SelectedItem as Person;
             
             //var name=selectedUser.GetAttribute("Name");
@@ -251,10 +262,17 @@ namespace MEIKReport
                                 person.Uploaded = Visibility.Collapsed.ToString();
                             }
                             //Personal Data
+                            person.ClientNumber = OperateIniFile.ReadIniData("Personal data", "clientnumber", "", NextFile.FullName);
                             person.SurName = OperateIniFile.ReadIniData("Personal data", "surname", "", NextFile.FullName);
                             person.GivenName = OperateIniFile.ReadIniData("Personal data", "given name", "", NextFile.FullName);
                             person.OtherName = OperateIniFile.ReadIniData("Personal data", "other name", "", NextFile.FullName);
                             person.Address = OperateIniFile.ReadIniData("Personal data", "address", "", NextFile.FullName);
+                            person.Height = OperateIniFile.ReadIniData("Personal data", "height", "", NextFile.FullName);
+                            person.Weight = OperateIniFile.ReadIniData("Personal data", "weight", "", NextFile.FullName);
+                            person.Mobile = OperateIniFile.ReadIniData("Personal data", "mobile", "", NextFile.FullName);
+                            person.Email = OperateIniFile.ReadIniData("Personal data", "email", "", NextFile.FullName);
+                            person.ReportLanguage = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Personal data", "is english", "1", NextFile.FullName)));
+                            
                             person.BirthDate = OperateIniFile.ReadIniData("Personal data", "birth date", "", NextFile.FullName);
                             person.BirthMonth = OperateIniFile.ReadIniData("Personal data", "birth month", "", NextFile.FullName);
                             person.BirthYear = OperateIniFile.ReadIniData("Personal data", "birth year", "", NextFile.FullName);
@@ -262,8 +280,9 @@ namespace MEIKReport
                             person.RegMonth = OperateIniFile.ReadIniData("Personal data", "registration month", "", NextFile.FullName);
                             person.RegYear = OperateIniFile.ReadIniData("Personal data", "registration year", "", NextFile.FullName);
                             person.Remark = OperateIniFile.ReadIniData("Personal data", "remark", "", NextFile.FullName);
-                            person.Remark = person.Remark.Replace(";;", "\r\n");                            
+                            person.Remark = person.Remark.Replace(";;", "\r\n");
 
+                            person.ScreenVenue = OperateIniFile.ReadIniData("Report", "Screen Venue", "", NextFile.FullName);
                             person.TechName = OperateIniFile.ReadIniData("Report", "Technician Name", "", NextFile.FullName);
                             person.TechLicense = OperateIniFile.ReadIniData("Report", "Technician License", "", NextFile.FullName);
                             try
@@ -285,9 +304,40 @@ namespace MEIKReport
                             }
                             catch(Exception){ }
 
-                            try { 
+                            try
+                            {
+                                //Family History
+                                person.FamilyBreastCancer1 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyBreastCancer1", "0", NextFile.FullName)));
+                                person.FamilyBreastCancer2 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyBreastCancer2", "0", NextFile.FullName)));
+                                person.FamilyBreastCancer3 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyBreastCancer3", "0", NextFile.FullName)));
+                                person.FamilyUterineCancer1 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyUterineCancer1", "0", NextFile.FullName)));
+                                person.FamilyUterineCancer2 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyUterineCancer2", "0", NextFile.FullName)));
+                                person.FamilyUterineCancer3 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyUterineCancer3", "0", NextFile.FullName)));
+                                person.FamilyCervicalCancer1 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyCervicalCancer1", "0", NextFile.FullName)));
+                                person.FamilyCervicalCancer2 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyCervicalCancer2", "0", NextFile.FullName)));
+                                person.FamilyCervicalCancer3 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyCervicalCancer3", "0", NextFile.FullName)));
+                                person.FamilyOvarianCancer1 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyOvarianCancer1", "0", NextFile.FullName)));
+                                person.FamilyOvarianCancer2 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyOvarianCancer2", "0", NextFile.FullName)));
+                                person.FamilyOvarianCancer3 = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Family History", "FamilyOvarianCancer3", "0", NextFile.FullName)));                                
+
+                            }
+                            catch { }
+
+
+                            try {
                                 //Complaints
+                                person.PalpableLumps = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "palpable lumps", "0", NextFile.FullName)));
+                                if (person.PalpableLumps)
+                                {
+                                    person.LeftPosition = Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "left position", "0", NextFile.FullName));
+                                    person.RightPosition = Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "right position", "0", NextFile.FullName));
+                                }
+                                                                                                
                                 person.Pain = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "pain", "0", NextFile.FullName)));
+                                if(person.Pain){
+                                    person.Degree = Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "degree", "0", NextFile.FullName));
+                                }
+
                                 person.Colostrum = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "colostrum", "0", NextFile.FullName)));
                                 person.SerousDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "serous discharge", "0", NextFile.FullName)));
                                 person.BloodDischarge = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "blood discharge", "0", NextFile.FullName)));
@@ -296,12 +346,24 @@ namespace MEIKReport
                                 person.Lactation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "lactation", "0", NextFile.FullName)));
                                 person.OtherDesc = OperateIniFile.ReadIniData("Complaints", "other description", "", NextFile.FullName);
                                 person.PregnancyTerm = OperateIniFile.ReadIniData("Complaints", "pregnancy term", "", NextFile.FullName);
-                                person.OtherDesc = person.OtherDesc.Replace(";;", "\r\n");
-                                person.PregnancyTerm = person.PregnancyTerm.Replace(";;", "\r\n");
+                                person.OtherDesc = person.OtherDesc.Replace(";;", "\r\n");                                
+                                person.LactationTerm = OperateIniFile.ReadIniData("Complaints", "lactation term", "", NextFile.FullName);
+
+                                person.BreastImplants = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "BreastImplants", "0", NextFile.FullName)));
+                                person.BreastImplantsLeft = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "BreastImplantsLeft", "0", NextFile.FullName)));
+                                person.BreastImplantsRight = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "BreastImplantsRight", "0", NextFile.FullName)));
+                                person.MaterialsGel = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "MaterialsGel", "0", NextFile.FullName)));
+                                person.MaterialsFat = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "MaterialsFat", "0", NextFile.FullName)));
+                                person.MaterialsOthers = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Complaints", "MaterialsOthers", "0", NextFile.FullName)));
+
+                                person.BreastImplantsLeftYear = OperateIniFile.ReadIniData("Complaints", "BreastImplantsLeftYear", "", NextFile.FullName);
+                                person.BreastImplantsRightYear = OperateIniFile.ReadIniData("Complaints", "BreastImplantsRightYear", "", NextFile.FullName);
+                                
                             }
                             catch (Exception) { }
 
-                            try { 
+                            try {
+                                person.DateLastMenstruation = OperateIniFile.ReadIniData("Menses", "DateLastMenstruation", "", NextFile.FullName);                                
                                 person.MenstrualCycleDisorder = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder", "0", NextFile.FullName)));
                                 person.Postmenopause = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "postmenopause", "0", NextFile.FullName)));
                                 person.HormonalContraceptives = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "hormonal contraceptives", "0", NextFile.FullName)));
@@ -405,37 +467,50 @@ namespace MEIKReport
                             }
                             catch (Exception) { }
 
-                            try { 
+                            try {
+
+                                person.Palpation = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "palpation", "0", NextFile.FullName)));
+                                person.PalationYear = OperateIniFile.ReadIniData("Palpation", "palpation year", "", NextFile.FullName);                                
+
                                 person.PalpationDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "diffuse", "0", NextFile.FullName)));
                                 person.PalpationFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "focal", "0", NextFile.FullName)));
                                 person.PalpationDesc = OperateIniFile.ReadIniData("Palpation", "description", "", NextFile.FullName);
                                 person.PalpationDesc = person.PalpationDesc.Replace(";;", "\r\n");
                                 person.PalpationStatus = person.PalpationDiffuse || person.PalpationFocal ? true : false;
+                                //person.PalpationStatus = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Palpation", "palpation status", "0", NextFile.FullName)));
                             }
                             catch (Exception) { }
 
                             try
                             {
+                                person.Ultrasound = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "ultrasound", "0", NextFile.FullName)));
+                                person.UltrasoundYear = OperateIniFile.ReadIniData("Ultrasound", "ultrasound year", "", NextFile.FullName);                                
                                 person.UltrasoundDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "diffuse", "0", NextFile.FullName)));
                                 person.UltrasoundFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "focal", "0", NextFile.FullName)));
                                 person.UltrasoundnDesc = OperateIniFile.ReadIniData("Ultrasound", "description", "", NextFile.FullName);
                                 person.UltrasoundnDesc = person.UltrasoundnDesc.Replace(";;", "\r\n");
                                 person.UltrasoundStatus = person.UltrasoundDiffuse || person.UltrasoundFocal ? true : false;
+                                //person.UltrasoundStatus = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Ultrasound", "ultrasound status", "0", NextFile.FullName)));
                             }
                             catch (Exception) { }
 
                             try
                             {
+                                person.Mammography = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "mammography", "0", NextFile.FullName)));
+                                person.MammographyYear = OperateIniFile.ReadIniData("Mammography", "mammography year", "", NextFile.FullName);  
                                 person.MammographyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "diffuse", "0", NextFile.FullName)));
                                 person.MammographyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "focal", "0", NextFile.FullName)));
                                 person.MammographyDesc = OperateIniFile.ReadIniData("Mammography", "description", "", NextFile.FullName);
                                 person.MammographyDesc = person.MammographyDesc.Replace(";;", "\r\n");
                                 person.MammographyStatus = person.MammographyDiffuse || person.MammographyFocal ? true : false;
+                                //person.MammographyStatus = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Mammography", "mammography status", "0", NextFile.FullName)));
                             }
                             catch (Exception) { }
 
                             try
                             {
+                                person.Biopsy = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "biopsy", "0", NextFile.FullName)));
+                                person.BiopsyYear = OperateIniFile.ReadIniData("Biopsy", "biopsy year", "", NextFile.FullName); 
                                 person.BiopsyDiffuse = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "diffuse", "0", NextFile.FullName)));
                                 person.BiopsyFocal = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "focal", "0", NextFile.FullName)));
                                 person.BiopsyCancer = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "cancer", "0", NextFile.FullName)));
@@ -448,6 +523,7 @@ namespace MEIKReport
                                 person.BiopsyOtherDesc = person.BiopsyOtherDesc.Replace(";;", "\r\n");
                                 person.BiopsyStatus = person.BiopsyDiffuse || person.BiopsyFocal || person.BiopsyCancer || person.BiopsyProliferation
                                     || person.BiopsyDysplasia || person.BiopsyIntraductalPapilloma || person.BiopsyFibroadenoma || person.BiopsyOther ? true : false;
+                                //person.BiopsyStatus = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "biopsy status", "0", NextFile.FullName)));
                             }
                             catch (Exception) { }
 
@@ -538,6 +614,7 @@ namespace MEIKReport
                         {
                             OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.CrdFilePath);
                             OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.CrdFilePath);
+                            OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue, selectedUser.CrdFilePath);
                         }
                         catch (Exception exe)
                         {
@@ -587,37 +664,37 @@ namespace MEIKReport
                         }
                         Dispatcher.Invoke(updatePbDelegate, System.Windows.Threading.DispatcherPriority.Background, new object[] { System.Windows.Controls.ProgressBar.ValueProperty, Convert.ToDouble(groupValue * n + sizeValue * 9) });
 
-                        //如果是检测员模式，则每天要上传一次扫描记录
-                        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
-                        if (App.countDictionary.Count > 0 && !currentDate.Equals(App.reportSettingModel.RecordDate))
-                        {
-                            string excelFile = dataFolder + System.IO.Path.DirectorySeparatorChar + deviceNo + "_Count.xls";
-                            try
-                            {
-                                if (File.Exists(excelFile))
-                                {
-                                    try
-                                    {
-                                        File.Delete(excelFile);
-                                    }
-                                    catch { }
-                                }
-                                exportExcel(excelFile);
-                                if (!FtpHelper.Instance.FolderExist(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords"))
-                                {
-                                    FtpHelper.Instance.MakeDir(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords");
-                                }
-                                FtpHelper.Instance.Upload(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "/ScreeningRecords/", excelFile);
-                                App.reportSettingModel.RecordDate = currentDate;
-                                OperateIniFile.WriteIniData("Data", "Record Date", currentDate, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                                try
-                                {
-                                    File.Delete(excelFile);
-                                }
-                                catch { }
-                            }
-                            catch { }
-                        }
+                        ////如果是检测员模式，则每天要上传一次扫描记录
+                        //string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
+                        //if (App.countDictionary.Count > 0 && !currentDate.Equals(App.reportSettingModel.RecordDate))
+                        //{
+                        //    string excelFile = dataFolder + System.IO.Path.DirectorySeparatorChar + deviceNo + "_Count.xls";
+                        //    try
+                        //    {
+                        //        if (File.Exists(excelFile))
+                        //        {
+                        //            try
+                        //            {
+                        //                File.Delete(excelFile);
+                        //            }
+                        //            catch { }
+                        //        }
+                        //        exportExcel(excelFile);
+                        //        if (!FtpHelper.Instance.FolderExist(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords"))
+                        //        {
+                        //            FtpHelper.Instance.MakeDir(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath, "ScreeningRecords");
+                        //        }
+                        //        FtpHelper.Instance.Upload(App.reportSettingModel.FtpUser, App.reportSettingModel.FtpPwd, App.reportSettingModel.FtpPath + "/ScreeningRecords/", excelFile);
+                        //        App.reportSettingModel.RecordDate = currentDate;
+                        //        OperateIniFile.WriteIniData("Data", "Record Date", currentDate, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                        //        try
+                        //        {
+                        //            File.Delete(excelFile);
+                        //        }
+                        //        catch { }
+                        //    }
+                        //    catch { }
+                        //}
                         n++;
                     }
 
@@ -863,6 +940,7 @@ namespace MEIKReport
                             App.reportSettingModel.TechNames.Add(techUser);
                         }
                     }
+                    App.reportSettingModel.ScreenVenue = OperateIniFile.ReadIniData("Report", "Screen Venue", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
                     App.reportSettingModel.NoShowDoctorSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Hide Doctor Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.NoShowTechSignature = Convert.ToBoolean(OperateIniFile.ReadIniData("Report", "Hide Technician Signature", "false", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini"));
                     App.reportSettingModel.FtpPath = OperateIniFile.ReadIniData("FTP", "FTP Path", "", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
@@ -952,6 +1030,103 @@ namespace MEIKReport
                 var selectItem=e.AddedItems[0] as Person;
                 string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
                 OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
+
+                if (selectItem.PalpableLumps)
+                {
+                    leftClock1.Opacity=(selectItem.LeftPosition & Convert.ToInt32(leftClock1.Tag)) > 0?1:0;
+                    leftClock2.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock2.Tag)) > 0 ? 1 : 0;
+                    leftClock3.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock3.Tag)) > 0 ? 1 : 0;
+                    leftClock4.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock4.Tag)) > 0 ? 1 : 0;
+                    leftClock5.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock5.Tag)) > 0 ? 1 : 0;
+                    leftClock6.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock6.Tag)) > 0 ? 1 : 0;
+                    leftClock7.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock7.Tag)) > 0 ? 1 : 0;
+                    leftClock8.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock8.Tag)) > 0 ? 1 : 0;
+                    leftClock9.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock9.Tag)) > 0 ? 1 : 0;
+                    leftClock10.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock10.Tag)) > 0 ? 1 : 0;
+                    leftClock11.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock11.Tag)) > 0 ? 1 : 0;
+                    leftClock12.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock12.Tag)) > 0 ? 1 : 0;
+
+                    rightClock1.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock1.Tag)) > 0 ? 1 : 0;
+                    rightClock2.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock2.Tag)) > 0 ? 1 : 0;
+                    rightClock3.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock3.Tag)) > 0 ? 1 : 0;
+                    rightClock4.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock4.Tag)) > 0 ? 1 : 0;
+                    rightClock5.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock5.Tag)) > 0 ? 1 : 0;
+                    rightClock6.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock6.Tag)) > 0 ? 1 : 0;
+                    rightClock7.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock7.Tag)) > 0 ? 1 : 0;
+                    rightClock8.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock8.Tag)) > 0 ? 1 : 0;
+                    rightClock9.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock9.Tag)) > 0 ? 1 : 0;
+                    rightClock10.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock10.Tag)) > 0 ? 1 : 0;
+                    rightClock11.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock11.Tag)) > 0 ? 1 : 0;
+                    rightClock12.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock12.Tag)) > 0 ? 1 : 0;
+                    
+                }
+                else
+                {
+                    leftClock1.Opacity = 0;
+                    leftClock2.Opacity = 0;
+                    leftClock3.Opacity = 0;
+                    leftClock4.Opacity = 0;
+                    leftClock5.Opacity = 0;
+                    leftClock6.Opacity = 0;
+                    leftClock7.Opacity = 0;
+                    leftClock8.Opacity = 0;
+                    leftClock9.Opacity = 0;
+                    leftClock9.Opacity = 0;
+                    leftClock10.Opacity = 0;
+                    leftClock11.Opacity = 0;
+                    leftClock12.Opacity = 0;
+
+                    rightClock1.Opacity = 0;
+                    rightClock2.Opacity = 0;
+                    rightClock3.Opacity = 0;
+                    rightClock4.Opacity = 0;
+                    rightClock5.Opacity = 0;
+                    rightClock6.Opacity = 0;
+                    rightClock7.Opacity = 0;
+                    rightClock8.Opacity = 0;
+                    rightClock9.Opacity = 0;
+                    rightClock10.Opacity = 0;
+                    rightClock11.Opacity = 0;
+                    rightClock12.Opacity = 0;
+                }
+
+                if (selectItem.Pain)
+                {
+                    degree1.IsChecked = (selectItem.Degree == Convert.ToInt32(degree1.Tag)) ? true : false;
+                    degree2.IsChecked = (selectItem.Degree == Convert.ToInt32(degree2.Tag)) ? true : false;
+                    degree3.IsChecked = (selectItem.Degree == Convert.ToInt32(degree3.Tag)) ? true : false;
+                    degree4.IsChecked = (selectItem.Degree == Convert.ToInt32(degree4.Tag)) ? true : false;
+                    degree5.IsChecked = (selectItem.Degree == Convert.ToInt32(degree5.Tag)) ? true : false;
+                    degree6.IsChecked = (selectItem.Degree == Convert.ToInt32(degree6.Tag)) ? true : false;
+                    degree7.IsChecked = (selectItem.Degree == Convert.ToInt32(degree7.Tag)) ? true : false;
+                    degree8.IsChecked = (selectItem.Degree == Convert.ToInt32(degree8.Tag)) ? true : false;
+                    degree9.IsChecked = (selectItem.Degree == Convert.ToInt32(degree9.Tag)) ? true : false;
+                    degree10.IsChecked = (selectItem.Degree == Convert.ToInt32(degree10.Tag)) ? true : false;
+                    degree1.IsEnabled = true;
+                    degree2.IsEnabled = true;
+                    degree3.IsEnabled = true;
+                    degree4.IsEnabled = true;
+                    degree5.IsEnabled = true;
+                    degree6.IsEnabled = true;
+                    degree7.IsEnabled = true;
+                    degree8.IsEnabled = true;
+                    degree9.IsEnabled = true;
+                    degree10.IsEnabled = true;
+                }
+                else
+                {
+                    degree1.IsChecked = false;
+                    degree2.IsChecked = false;
+                    degree3.IsChecked = false;
+                    degree4.IsChecked = false;
+                    degree5.IsChecked = false;
+                    degree6.IsChecked = false;
+                    degree7.IsChecked = false;
+                    degree8.IsChecked = false;
+                    degree9.IsChecked = false;
+                    degree10.IsChecked = false;
+                }
+
             }
             if (e.RemovedItems.Count > 0)
             {
@@ -963,75 +1138,75 @@ namespace MEIKReport
             }
         }
 
-        private void exportExcel(string excelFile)
-        {
-            var selectedUser = this.CodeListBox.SelectedItem as Person;            
-            var excelApp = new Microsoft.Office.Interop.Excel.Application();
-            var books = (Microsoft.Office.Interop.Excel.Workbooks)excelApp.Workbooks;
-            var book = (Microsoft.Office.Interop.Excel._Workbook)(books.Add(System.Type.Missing));
-            var sheets = (Microsoft.Office.Interop.Excel.Sheets)book.Worksheets;
-            var sheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(1));
-            sheet.Name = "TDB Records";
-            Microsoft.Office.Interop.Excel._Worksheet screensheet;
-            if (sheets.Count > 1)
-            {
-                screensheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(2));
-            }
-            else
-            {
-                screensheet = sheets.Add(System.Type.Missing, sheet, System.Type.Missing, System.Type.Missing);                
-            }
-            screensheet.Name = "Screening Records";
-            patientList.Clear();
-            ListFiles(new DirectoryInfo(App.reportSettingModel.DataBaseFolder));
+        //private void exportExcel(string excelFile)
+        //{
+        //    var selectedUser = this.CodeListBox.SelectedItem as Person;            
+        //    var excelApp = new Microsoft.Office.Interop.Excel.Application();
+        //    var books = (Microsoft.Office.Interop.Excel.Workbooks)excelApp.Workbooks;
+        //    var book = (Microsoft.Office.Interop.Excel._Workbook)(books.Add(System.Type.Missing));
+        //    var sheets = (Microsoft.Office.Interop.Excel.Sheets)book.Worksheets;
+        //    var sheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(1));
+        //    sheet.Name = "TDB Records";
+        //    Microsoft.Office.Interop.Excel._Worksheet screensheet;
+        //    if (sheets.Count > 1)
+        //    {
+        //        screensheet = (Microsoft.Office.Interop.Excel._Worksheet)(sheets.get_Item(2));
+        //    }
+        //    else
+        //    {
+        //        screensheet = sheets.Add(System.Type.Missing, sheet, System.Type.Missing, System.Type.Missing);                
+        //    }
+        //    screensheet.Name = "Screening Records";
+        //    patientList.Clear();
+        //    ListFiles(new DirectoryInfo(App.reportSettingModel.DataBaseFolder));
             
-            //tdb文件統計數據
-            Microsoft.Office.Interop.Excel.Range range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("A1", "A100");
-            range.ColumnWidth = 15;
-            range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("B1", "B100");
-            range.ColumnWidth = 30;
-            range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("C1", "C100");
-            range.ColumnWidth = 20;
-            range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("D1", "D100");
-            range.ColumnWidth = 100;
-            sheet.Cells[1, 1] = App.Current.FindResource("Excel1").ToString();
-            sheet.Cells[1, 2] = App.Current.FindResource("Excel2").ToString();
-            sheet.Cells[1, 3] = App.Current.FindResource("Excel4").ToString();
-            sheet.Cells[1, 4] = App.Current.FindResource("Excel3").ToString();
-            for (int i = 0; i < patientList.Count; i++)
-            {
-                Patient item = patientList[i];
-                sheet.Cells[i + 2, 1] = item.Code;
-                sheet.Cells[i + 2, 2] = item.Name;
-                sheet.Cells[i + 2, 3] = item.ScreenDate;
-                sheet.Cells[i + 2, 4] = item.Desc;
-            }
+        //    //tdb文件統計數據
+        //    Microsoft.Office.Interop.Excel.Range range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("A1", "A100");
+        //    range.ColumnWidth = 15;
+        //    range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("B1", "B100");
+        //    range.ColumnWidth = 30;
+        //    range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("C1", "C100");
+        //    range.ColumnWidth = 20;
+        //    range = (Microsoft.Office.Interop.Excel.Range)sheet.get_Range("D1", "D100");
+        //    range.ColumnWidth = 100;
+        //    sheet.Cells[1, 1] = App.Current.FindResource("Excel1").ToString();
+        //    sheet.Cells[1, 2] = App.Current.FindResource("Excel2").ToString();
+        //    sheet.Cells[1, 3] = App.Current.FindResource("Excel4").ToString();
+        //    sheet.Cells[1, 4] = App.Current.FindResource("Excel3").ToString();
+        //    for (int i = 0; i < patientList.Count; i++)
+        //    {
+        //        Patient item = patientList[i];
+        //        sheet.Cells[i + 2, 1] = item.Code;
+        //        sheet.Cells[i + 2, 2] = item.Name;
+        //        sheet.Cells[i + 2, 3] = item.ScreenDate;
+        //        sheet.Cells[i + 2, 4] = item.Desc;
+        //    }
 
-            //启动MEIK设备次数
-            Microsoft.Office.Interop.Excel.Range range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("A1", "A100");
-            range1.ColumnWidth = 100;
-            range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("B1", "B100");
-            range1.ColumnWidth = 30;
+        //    //启动MEIK设备次数
+        //    Microsoft.Office.Interop.Excel.Range range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("A1", "A100");
+        //    range1.ColumnWidth = 100;
+        //    range1 = (Microsoft.Office.Interop.Excel.Range)screensheet.get_Range("B1", "B100");
+        //    range1.ColumnWidth = 30;
             
-            screensheet.Cells[1, 1] = App.Current.FindResource("Excel5").ToString();
-            screensheet.Cells[1, 2] = App.Current.FindResource("Excel6").ToString();
-            int row = 1;
-            foreach (KeyValuePair<string, List<long>> item in App.countDictionary)                            
-            {
-                screensheet.Cells[row + 1, 1] = item.Key;                
-                foreach (var tick in item.Value)
-                {
-                    DateTime screeningTime = new DateTime(tick);
-                    screensheet.Cells[row + 1, 2] = screeningTime.ToString("yyyy-MM-dd HH:mm:ss");                    
-                    row++; 
-                }                            
-            }
+        //    screensheet.Cells[1, 1] = App.Current.FindResource("Excel5").ToString();
+        //    screensheet.Cells[1, 2] = App.Current.FindResource("Excel6").ToString();
+        //    int row = 1;
+        //    foreach (KeyValuePair<string, List<long>> item in App.countDictionary)                            
+        //    {
+        //        screensheet.Cells[row + 1, 1] = item.Key;                
+        //        foreach (var tick in item.Value)
+        //        {
+        //            DateTime screeningTime = new DateTime(tick);
+        //            screensheet.Cells[row + 1, 2] = screeningTime.ToString("yyyy-MM-dd HH:mm:ss");                    
+        //            row++; 
+        //        }                            
+        //    }
 
-            book.SaveAs(excelFile, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            book.Close();
-            excelApp.Quit();
+        //    book.SaveAs(excelFile, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+        //    book.Close();
+        //    excelApp.Quit();
             
-        }
+        //}
 
         private void ListFiles(FileSystemInfo info)
         {
@@ -1096,14 +1271,15 @@ namespace MEIKReport
         private void btnScreening_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
+                this.Visibility = Visibility.Hidden;
                 IntPtr screeningBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strScreening);
                 Win32Api.SendMessage(screeningBtnHwnd, Win32Api.WM_CLICK, 0, 0);                
-                StartMouseHook();
-                this.Visibility = Visibility.Hidden;
+                StartMouseHook();                
             }
             catch (Exception ex)
             {
+                this.Visibility = Visibility.Visible;
                 MessageBox.Show(this, "System Exception: " + ex.Message);
             }
         }
@@ -1111,15 +1287,16 @@ namespace MEIKReport
         private void btnDiagnostics_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
+                this.Visibility = Visibility.Hidden;
                 IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
                 Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
-                StartMouseHook();
-                this.Visibility = Visibility.Hidden;
+                StartMouseHook();                
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "System Exception: " + ex.Message);
+                this.Visibility = Visibility.Visible;
+                MessageBox.Show(this, "System Exception: " + ex.Message);                
             }
         }
 
@@ -1413,23 +1590,23 @@ namespace MEIKReport
                         txtFolderPath.Text = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile); 
                         loadArchiveFolder(txtFolderPath.Text);
                     }
-                    else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
-                    {
-                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                        var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
-                        if(App.countDictionary.ContainsKey(screenFolderPath)){
-                            List<long> ticks=App.countDictionary[screenFolderPath];
-                            ticks.Add(DateTime.Now.Ticks);
-                        }
-                        else{
-                            List<long> ticks=new List<long>();
-                            ticks.Add(DateTime.Now.Ticks);
-                            App.countDictionary.Add(screenFolderPath,ticks);
-                        }                        
-                        //序列化统计字典到文件
-                        string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
-                        SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
-                    }
+                    //else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                    //{
+                    //    string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                    //    var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                    //    if(App.countDictionary.ContainsKey(screenFolderPath)){
+                    //        List<long> ticks=App.countDictionary[screenFolderPath];
+                    //        ticks.Add(DateTime.Now.Ticks);
+                    //    }
+                    //    else{
+                    //        List<long> ticks=new List<long>();
+                    //        ticks.Add(DateTime.Now.Ticks);
+                    //        App.countDictionary.Add(screenFolderPath,ticks);
+                    //    }                        
+                    //    //序列化统计字典到文件
+                    //    string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                    //    SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
+                    //}
                 }
             }
         }
@@ -1547,6 +1724,8 @@ namespace MEIKReport
                     return;
                 }
                 //Personal Data
+                person.ClientNumber = this.txtClientNum.Text;
+                OperateIniFile.WriteIniData("Personal data", "clientnumber", this.txtClientNum.Text, person.CrdFilePath);
                 person.SurName = this.txtName.Text;
                 OperateIniFile.WriteIniData("Personal data", "surname", this.txtName.Text, person.CrdFilePath);
                 person.GivenName = this.txtGivenName.Text;
@@ -1555,6 +1734,18 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Personal data", "other name", this.txtOtherName.Text, person.CrdFilePath);
                 person.Address = this.txtAddress.Text;
                 OperateIniFile.WriteIniData("Personal data", "address", this.txtAddress.Text, person.CrdFilePath);
+                person.Height = this.txtHeight.Text;
+                OperateIniFile.WriteIniData("Personal data", "height", this.txtHeight.Text, person.CrdFilePath);
+                person.Weight = this.txtWeight.Text;
+                OperateIniFile.WriteIniData("Personal data", "weight", this.txtWeight.Text, person.CrdFilePath);
+                person.Mobile = this.txtMobileNumber.Text;
+                OperateIniFile.WriteIniData("Personal data", "mobile", this.txtMobileNumber.Text, person.CrdFilePath);
+                person.Email = this.txtEmail.Text;
+                OperateIniFile.WriteIniData("Personal data", "email", this.txtEmail.Text, person.CrdFilePath);
+               person.ReportLanguage = this.radEnglish.IsChecked.Value;
+                OperateIniFile.WriteIniData("Personal data", "is english", this.radEnglish.IsChecked.Value?"1":"0", person.CrdFilePath);
+
+
                 person.BirthDate = this.txtBirthDate.Text;
                 OperateIniFile.WriteIniData("Personal data", "birth date", this.txtBirthDate.Text, person.CrdFilePath);
                 person.BirthMonth = this.txtBirthMonth.Text;
@@ -1587,9 +1778,108 @@ namespace MEIKReport
                     }
 
                 }
-                catch (Exception) { }                
+                catch (Exception) { }
+
+                //Family History
+                person.FamilyBreastCancer1 = this.checkBreastCancer1.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyBreastCancer1", this.checkBreastCancer1.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyBreastCancer2 = this.checkBreastCancer2.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyBreastCancer2", this.checkBreastCancer2.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyBreastCancer3 = this.checkBreastCancer3.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyBreastCancer3", this.checkBreastCancer3.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyUterineCancer1 = this.checkUterineCancer1.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyUterineCancer1", this.checkUterineCancer1.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyUterineCancer2 = this.checkUterineCancer2.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyUterineCancer2", this.checkUterineCancer2.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyUterineCancer3 = this.checkUterineCancer3.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyUterineCancer3", this.checkUterineCancer3.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyCervicalCancer1 = this.checkCervicalCancer1.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyCervicalCancer1", this.checkCervicalCancer1.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyCervicalCancer2 = this.checkCervicalCancer2.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyCervicalCancer2", this.checkCervicalCancer2.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyCervicalCancer3 = this.checkCervicalCancer3.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyCervicalCancer3", this.checkCervicalCancer3.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyOvarianCancer1 = this.checkOvarianCancer1.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyOvarianCancer1", this.checkOvarianCancer1.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyOvarianCancer2 = this.checkOvarianCancer2.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyOvarianCancer2", this.checkOvarianCancer2.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.FamilyOvarianCancer3 = this.checkOvarianCancer3.IsChecked.Value;
+                OperateIniFile.WriteIniData("Family History", "FamilyOvarianCancer3", this.checkOvarianCancer3.IsChecked.Value ? "1" : "0", person.CrdFilePath);
 
                 //Complaints
+                person.PalpableLumps = this.checkPalpableLumps.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "palpable lumps", this.checkPalpableLumps.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                if(this.checkPalpableLumps.IsChecked.Value){
+                    person.LeftPosition  += leftClock1.Opacity>0?Convert.ToInt32(leftClock1.Tag):0;
+                    person.LeftPosition  += leftClock2.Opacity>0?Convert.ToInt32(leftClock2.Tag):0;
+                    person.LeftPosition  += leftClock3.Opacity>0?Convert.ToInt32(leftClock3.Tag):0;
+                    person.LeftPosition  += leftClock4.Opacity>0?Convert.ToInt32(leftClock4.Tag):0;
+                    person.LeftPosition  += leftClock5.Opacity>0?Convert.ToInt32(leftClock5.Tag):0;
+                    person.LeftPosition  += leftClock6.Opacity>0?Convert.ToInt32(leftClock6.Tag):0;
+                    person.LeftPosition  += leftClock7.Opacity>0?Convert.ToInt32(leftClock7.Tag):0;
+                    person.LeftPosition  += leftClock8.Opacity>0?Convert.ToInt32(leftClock8.Tag):0;
+                    person.LeftPosition  += leftClock9.Opacity>0?Convert.ToInt32(leftClock9.Tag):0;
+                    person.LeftPosition  += leftClock10.Opacity>0?Convert.ToInt32(leftClock10.Tag):0;
+                    person.LeftPosition  += leftClock11.Opacity>0?Convert.ToInt32(leftClock11.Tag):0;
+                    person.LeftPosition  += leftClock12.Opacity>0?Convert.ToInt32(leftClock12.Tag):0;
+                    OperateIniFile.WriteIniData("Complaints", "left position", person.LeftPosition.ToString(), person.CrdFilePath);
+                    person.RightPosition += rightClock1.Opacity > 0 ? Convert.ToInt32(rightClock1.Tag) : 0;
+                    person.RightPosition += rightClock2.Opacity > 0 ? Convert.ToInt32(rightClock2.Tag) : 0;
+                    person.RightPosition += rightClock3.Opacity > 0 ? Convert.ToInt32(rightClock3.Tag) : 0;
+                    person.RightPosition += rightClock4.Opacity > 0 ? Convert.ToInt32(rightClock4.Tag) : 0;
+                    person.RightPosition += rightClock5.Opacity > 0 ? Convert.ToInt32(rightClock5.Tag) : 0;
+                    person.RightPosition += rightClock6.Opacity > 0 ? Convert.ToInt32(rightClock6.Tag) : 0;
+                    person.RightPosition += rightClock7.Opacity > 0 ? Convert.ToInt32(rightClock7.Tag) : 0;
+                    person.RightPosition += rightClock8.Opacity > 0 ? Convert.ToInt32(rightClock8.Tag) : 0;
+                    person.RightPosition += rightClock9.Opacity > 0 ? Convert.ToInt32(rightClock9.Tag) : 0;
+                    person.RightPosition += rightClock10.Opacity > 0 ? Convert.ToInt32(rightClock10.Tag) : 0;
+                    person.RightPosition += rightClock11.Opacity > 0 ? Convert.ToInt32(rightClock11.Tag) : 0;
+                    person.RightPosition += rightClock12.Opacity > 0 ? Convert.ToInt32(rightClock12.Tag) : 0; 
+                    OperateIniFile.WriteIniData("Complaints", "right position", person.RightPosition.ToString(), person.CrdFilePath);
+                }
+
+                if (degree1.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree1.Tag);
+                }
+                if (degree2.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree2.Tag);
+                }
+                if (degree3.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree3.Tag);
+                }
+                if (degree4.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree4.Tag);
+                }
+                if (degree5.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree5.Tag);
+                }
+                if (degree6.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree6.Tag);
+                }
+                if (degree7.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree7.Tag);
+                }
+                if (degree8.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree8.Tag);
+                }
+                if (degree9.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree9.Tag);
+                }
+                if (degree10.IsChecked.Value)
+                {
+                    person.Degree = Convert.ToInt32(degree10.Tag);
+                }
+                OperateIniFile.WriteIniData("Complaints", "degree", person.Degree.ToString(), person.CrdFilePath);
+
                 person.Pain = this.checkPain.IsChecked.Value;
                 OperateIniFile.WriteIniData("Complaints", "pain", this.checkPain.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.Colostrum = this.checkColostrum.IsChecked.Value;
@@ -1604,14 +1894,35 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Complaints", "pregnancy", this.checkPregnancy.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.Lactation = this.checkLactation.IsChecked.Value;
                 OperateIniFile.WriteIniData("Complaints", "lactation", this.checkLactation.IsChecked.Value ? "1" : "0", person.CrdFilePath);
-
+                person.LactationTerm = this.txtLactationTerm.Text;
+                OperateIniFile.WriteIniData("Complaints", "lactation term", this.txtLactationTerm.Text, person.CrdFilePath);
                 person.OtherDesc = this.txtOtherDesc.Text;
                 var otherDesc = this.txtOtherDesc.Text.Replace("\r\n", ";;");
                 OperateIniFile.WriteIniData("Complaints", "other description", otherDesc, person.CrdFilePath);
                 person.PregnancyTerm = this.txtPregnancyTerm.Text;
                 OperateIniFile.WriteIniData("Complaints", "pregnancy term", this.txtPregnancyTerm.Text, person.CrdFilePath);
 
+                person.BreastImplants = this.checkBreastImplants.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "BreastImplants", this.checkBreastImplants.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BreastImplantsLeft = this.checkBreastImplantsLeft.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "BreastImplantsLeft", this.checkBreastImplantsLeft.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BreastImplantsRight = this.checkBreastImplantsRight.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "BreastImplantsRight", this.checkBreastImplantsRight.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MaterialsGel = this.checkMaterialsGel.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "MaterialsGel", this.checkMaterialsGel.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MaterialsFat = this.checkMaterialsFat.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "MaterialsFat", this.checkMaterialsFat.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MaterialsOthers = this.checkMaterialsOthers.IsChecked.Value;
+                OperateIniFile.WriteIniData("Complaints", "MaterialsOthers", this.checkMaterialsOthers.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+
+                person.BreastImplantsLeftYear = this.txtBreastImplantsLeftYear.Text;
+                OperateIniFile.WriteIniData("Complaints", "BreastImplantsLeftYear", this.txtBreastImplantsLeftYear.Text, person.CrdFilePath);
+                person.BreastImplantsRightYear = this.txtBreastImplantsRightYear.Text;
+                OperateIniFile.WriteIniData("Complaints", "BreastImplantsRightYear", this.txtBreastImplantsRightYear.Text, person.CrdFilePath);
+
                 //Anamnesis
+                person.DateLastMenstruation = this.dateLastMenstruation.Text;
+                OperateIniFile.WriteIniData("Menses", "DateLastMenstruation", this.dateLastMenstruation.Text, person.CrdFilePath);
                 person.MenstrualCycleDisorder = this.checkMenstrualCycleDisorder.IsChecked.Value;
                 OperateIniFile.WriteIniData("Menses", "menstrual cycle disorder", this.checkMenstrualCycleDisorder.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.Postmenopause = this.checkPostmenopause.IsChecked.Value;
@@ -1745,15 +2056,22 @@ namespace MEIKReport
                 var diseasesOtherDesc = this.txtDiseasesOtherDesc.Text.Replace("\r\n", ";;");
                 OperateIniFile.WriteIniData("Diseases", "other description", diseasesOtherDesc, person.CrdFilePath);
 
-
+                person.Palpation = this.chkPalpation.IsChecked.Value;
+                OperateIniFile.WriteIniData("Palpation", "palpation", this.chkPalpation.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.PalationYear = this.txtPalationYear.Text;
+                OperateIniFile.WriteIniData("Palpation", "palpation year", this.txtPalationYear.Text, person.CrdFilePath);
                 person.PalpationDiffuse = this.checkPalpationDiffuse.IsChecked.Value;
                 OperateIniFile.WriteIniData("Palpation", "diffuse", this.checkPalpationDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.PalpationFocal = this.checkPalpationFocal.IsChecked.Value;
                 OperateIniFile.WriteIniData("Palpation", "focal", this.checkPalpationFocal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.PalpationDesc = this.txtPalpationDesc.Text;
                 var palpationDesc = this.txtPalpationDesc.Text.Replace("\r\n", ";;");
-                OperateIniFile.WriteIniData("Palpation", "description", palpationDesc, person.CrdFilePath);
+                OperateIniFile.WriteIniData("Palpation", "palpation status", this.radPalpationStatusAbnormal.IsChecked.Value ? "1" : "0", person.CrdFilePath);                
 
+                person.Ultrasound = this.chkUltrasound.IsChecked.Value;
+                OperateIniFile.WriteIniData("Ultrasound", "ultrasound", this.chkUltrasound.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.UltrasoundYear = this.txtUltrasoundYear.Text;
+                OperateIniFile.WriteIniData("Ultrasound", "ultrasound year", this.txtUltrasoundYear.Text, person.CrdFilePath);
                 person.UltrasoundDiffuse = this.checkUltrasoundDiffuse.IsChecked.Value;
                 OperateIniFile.WriteIniData("Ultrasound", "diffuse", this.checkUltrasoundDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.UltrasoundFocal = this.checkUltrasoundFocal.IsChecked.Value;
@@ -1761,7 +2079,13 @@ namespace MEIKReport
                 person.UltrasoundnDesc = this.txtUltrasoundnDesc.Text;
                 var ultrasoundnDesc = this.txtUltrasoundnDesc.Text.Replace("\r\n", ";;");
                 OperateIniFile.WriteIniData("Ultrasound", "description", ultrasoundnDesc, person.CrdFilePath);
+                OperateIniFile.WriteIniData("Ultrasound", "ultrasound status", this.radUltrasoundStatusAbnormal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                
 
+                person.Mammography = this.chkMammography.IsChecked.Value;
+                OperateIniFile.WriteIniData("Mammography", "mammography", this.chkMammography.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.MammographyYear = this.txtMammographyYear.Text;
+                OperateIniFile.WriteIniData("Obstetric", "mammography year", this.txtMammographyYear.Text, person.CrdFilePath);
                 person.MammographyDiffuse = this.checkMammographyDiffuse.IsChecked.Value;
                 OperateIniFile.WriteIniData("Mammography", "diffuse", this.checkMammographyDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.MammographyFocal = this.checkMammographyFocal.IsChecked.Value;
@@ -1769,7 +2093,12 @@ namespace MEIKReport
                 person.MammographyDesc = this.txtMammographyDesc.Text;
                 var mammographyDesc = this.txtMammographyDesc.Text.Replace("\r\n", ";;");
                 OperateIniFile.WriteIniData("Mammography", "description", mammographyDesc, person.CrdFilePath);
+                OperateIniFile.WriteIniData("Mammography", "mammography status", this.radMammographyStatusAbnormal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
 
+                person.Biopsy = this.chkBiopsy.IsChecked.Value;
+                OperateIniFile.WriteIniData("Biopsy", "biopsy", this.chkBiopsy.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.BiopsyYear = this.txtBiopsyYear.Text;
+                OperateIniFile.WriteIniData("Biopsy", "biopsy year", this.txtBiopsyYear.Text, person.CrdFilePath);
                 person.BiopsyDiffuse = this.checkBiopsyDiffuse.IsChecked.Value;
                 OperateIniFile.WriteIniData("Biopsy", "diffuse", this.checkBiopsyDiffuse.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.BiopsyFocal = this.checkBiopsyFocal.IsChecked.Value;
@@ -1789,6 +2118,7 @@ namespace MEIKReport
                 person.BiopsyOtherDesc = this.txtBiopsyOtherDesc.Text;
                 var biopsyOtherDesc = this.txtBiopsyOtherDesc.Text.Replace("\r\n", ";;");
                 OperateIniFile.WriteIniData("Biopsy", "other description", biopsyOtherDesc, person.CrdFilePath);
+                OperateIniFile.WriteIniData("Biopsy", "biopsy status", this.radBiopsyStatusAbnormal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
 
                 MessageBox.Show(this, App.Current.FindResource("Message_30").ToString());
             }
@@ -1970,7 +2300,147 @@ namespace MEIKReport
                 CodeListBox.SelectionMode = SelectionMode.Single;
                 this.imgChoice.Source = new BitmapImage(new Uri("/Images/single_choice.png", UriKind.Relative));
             }                        
-        }        
+        }
+
+        private bool isHighLight = false;
+        private void Clock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (checkPalpableLumps.IsChecked.Value)
+            {
+                var clock = (Polygon)sender;
+                //var name = clock.Name;
+                //var brush = new SolidColorBrush(Color.FromArgb(0xFF, 0x87, 0x36, 0x32));
+                //var defaultBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x32, 0x87, 0x87));
+                if (!isHighLight)
+                {
+                    clock.Opacity = 1;
+                    isHighLight = true;
+                }
+                else
+                {
+                    clock.Opacity = 0;
+                    isHighLight = false;
+                }
+            }
+        }
         
+        private void Clock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (checkPalpableLumps.IsChecked.Value)
+            {
+                var clock = (Polygon)sender;
+                isHighLight = Convert.ToBoolean(clock.Opacity);
+                clock.Opacity = 1;                
+            }
+            
+        }
+
+        private void Clock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (checkPalpableLumps.IsChecked.Value)
+            {
+                var clock = (Polygon)sender;
+                if (!isHighLight)
+                {
+                    clock.Opacity = 0;
+                }                
+            }
+        }       
+
+        private void checkPalpableLumps_Click(object sender, RoutedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            if (!checkBox.IsChecked.Value)
+            {
+                leftClock1.Opacity = 0;
+                leftClock2.Opacity = 0;
+                leftClock3.Opacity = 0;
+                leftClock4.Opacity = 0;
+                leftClock5.Opacity = 0;
+                leftClock6.Opacity = 0;
+                leftClock7.Opacity = 0;
+                leftClock8.Opacity = 0;
+                leftClock9.Opacity = 0;
+                leftClock9.Opacity = 0;
+                leftClock10.Opacity = 0;
+                leftClock11.Opacity = 0;
+                leftClock12.Opacity = 0;
+
+                rightClock1.Opacity = 0;
+                rightClock2.Opacity = 0;
+                rightClock3.Opacity = 0;
+                rightClock4.Opacity = 0;
+                rightClock5.Opacity = 0;
+                rightClock6.Opacity = 0;
+                rightClock7.Opacity = 0;
+                rightClock8.Opacity = 0;
+                rightClock9.Opacity = 0;
+                rightClock10.Opacity = 0;
+                rightClock11.Opacity = 0;
+                rightClock12.Opacity = 0;
+            }
+            
+        }
+
+        private void checkPain_Click(object sender, RoutedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            if (!checkBox.IsChecked.Value)
+            {
+                degree1.IsChecked = false;
+                degree2.IsChecked = false;
+                degree3.IsChecked = false;
+                degree4.IsChecked = false;
+                degree5.IsChecked = false;
+                degree6.IsChecked = false;
+                degree7.IsChecked = false;
+                degree8.IsChecked = false;
+                degree9.IsChecked = false;
+                degree10.IsChecked = false;
+                degree1.IsEnabled = false;
+                degree2.IsEnabled = false;
+                degree3.IsEnabled = false;
+                degree4.IsEnabled = false;
+                degree5.IsEnabled = false;
+                degree6.IsEnabled = false;
+                degree7.IsEnabled = false;
+                degree8.IsEnabled = false;
+                degree9.IsEnabled = false;
+                degree10.IsEnabled = false;
+            }
+            else
+            {
+                degree1.IsEnabled = true;
+                degree2.IsEnabled = true;
+                degree3.IsEnabled = true;
+                degree4.IsEnabled = true;
+                degree5.IsEnabled = true;
+                degree6.IsEnabled = true;
+                degree7.IsEnabled = true;
+                degree8.IsEnabled = true;
+                degree9.IsEnabled = true;
+                degree10.IsEnabled = true;
+            }
+        }
+
+        private void txtClientNum_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox=(TextBox)sender;
+            if (textBox.Text.Length > 10)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+           
+        }
+
+        private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[^0-9.-]+");
+            e.Handled = re.IsMatch(e.Text);
+        }
     }
 }
