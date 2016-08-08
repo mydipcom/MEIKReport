@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -160,25 +161,25 @@ namespace MEIKReport.Views
                             shortFormReportModel.DataTechLicense = this.person.TechLicense;
                         }
                     }
-                    this.dataMeikTech.ItemsSource = App.reportSettingModel.TechNames;
-                    if (!string.IsNullOrEmpty(techUser.Name))
-                    {
-                        for (int i = 0; i < App.reportSettingModel.TechNames.Count; i++)
-                        {
-                            var item = App.reportSettingModel.TechNames[i];
-                            if (techUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(techUser.License) == string.IsNullOrEmpty(item.License) || techUser.License == item.License))
-                            {
-                                this.dataMeikTech.SelectedIndex = i;
-                                break;
-                            }
-                        }
-                        //如果没有找到匹配的用户
-                        if (this.dataMeikTech.SelectedIndex == -1)
-                        {
-                            App.reportSettingModel.TechNames.Add(techUser);
-                            this.dataMeikTech.SelectedIndex = App.reportSettingModel.TechNames.Count - 1;
-                        }
-                    }
+                    //this.dataMeikTech.ItemsSource = App.reportSettingModel.TechNames;
+                    //if (!string.IsNullOrEmpty(techUser.Name))
+                    //{
+                    //    for (int i = 0; i < App.reportSettingModel.TechNames.Count; i++)
+                    //    {
+                    //        var item = App.reportSettingModel.TechNames[i];
+                    //        if (techUser.Name.Equals(item.Name) && (string.IsNullOrEmpty(techUser.License) == string.IsNullOrEmpty(item.License) || techUser.License == item.License))
+                    //        {
+                    //            this.dataMeikTech.SelectedIndex = i;
+                    //            break;
+                    //        }
+                    //    }
+                    //    //如果没有找到匹配的用户
+                    //    if (this.dataMeikTech.SelectedIndex == -1)
+                    //    {
+                    //        App.reportSettingModel.TechNames.Add(techUser);
+                    //        this.dataMeikTech.SelectedIndex = App.reportSettingModel.TechNames.Count - 1;
+                    //    }
+                    //}
                 }
             }
             catch (Exception ex)
@@ -377,50 +378,74 @@ namespace MEIKReport.Views
             list.Add(rightBreast2);
             list.Add(rightBreast3);
             list.Sort();
-            string leftFlag = "";            
+            string leftFlag = ""; 
+            int maxLeftPoints=0;
             if (leftBreast1 >= leftBreast2 && leftBreast1 >= leftBreast3)
             {
                 leftFlag = "L1";
+                maxLeftPoints=leftBreast1;
             }
             else if (leftBreast2 >= leftBreast1 && leftBreast2 >= leftBreast3)
             {
                 leftFlag = "L2";
+                maxLeftPoints=leftBreast2;
             }
             else if (leftBreast3 >= leftBreast1 && leftBreast3 >= leftBreast2)
             {
                 leftFlag = "L3";
+                maxLeftPoints=leftBreast3;
             }             
 
             string rightFlag = "";
+            int maxRightPoints=0;
             if (rightBreast1 >= rightBreast2 && rightBreast1 >= rightBreast3)
             {
                 rightFlag = "R1";
+                maxRightPoints=rightBreast1;
             }
             else if (rightBreast2 >= rightBreast1 && rightBreast2 >= rightBreast3)
             {
                 rightFlag = "R2";
+                maxRightPoints=rightBreast2;
             }
             else if (leftBreast3 >= rightBreast1 && rightBreast3 >= rightBreast2)
             {
                 rightFlag = "R3";
+                maxRightPoints=rightBreast3;
             }
              
             shortFormReportModel.DataLeftMaxFlag = leftFlag;
-            shortFormReportModel.DataRightMaxFlag = rightFlag;
+            shortFormReportModel.DataRightMaxFlag = rightFlag;            
             int maxPoints = list[5];
             if (!isEmpty)
-            {
+            {                
                 shortFormReportModel.DataTotalPts = maxPoints > 8 ? "8" : maxPoints == 0 ? "1" : maxPoints.ToString();
                 this.dataTotalPts.SelectedIndex=Convert.ToInt32(shortFormReportModel.DataTotalPts);
                 shortFormReportModel.DataPoint = maxPoints < 2 ? "1" : maxPoints < 4 ? "2" : maxPoints < 5 ? "3" : maxPoints < 8 ? "4" : "5";
                 this.dataPoint.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataPoint);
                 shortFormReportModel.DataBiRadsCategory = maxPoints < 2 ? "2" : maxPoints < 4 ? "3" : maxPoints < 5 ? "4" : maxPoints < 8 ? "5" : "6";
                 this.dataBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataBiRadsCategory);
+
+                shortFormReportModel.DataLeftTotalPts = maxLeftPoints > 8 ? "8" : maxLeftPoints == 0 ? "1" : maxLeftPoints.ToString();
+                shortFormReportModel.DataRightTotalPts = maxRightPoints > 8 ? "8" : maxRightPoints == 0 ? "1" : maxRightPoints.ToString();
+                this.dataLeftTotalPts.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataLeftTotalPts);
+                this.dataRightTotalPts.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataRightTotalPts);
+
+                shortFormReportModel.DataLeftBiRadsCategory = maxLeftPoints < 2 ? "2" : maxLeftPoints < 4 ? "3" : maxLeftPoints < 5 ? "4" : maxLeftPoints < 8 ? "5" : "6";
+                shortFormReportModel.DataRightBiRadsCategory = maxRightPoints < 2 ? "2" : maxRightPoints < 4 ? "3" : maxRightPoints < 5 ? "4" : maxRightPoints < 8 ? "5" : "6";
+                this.dataLeftBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataLeftBiRadsCategory);
+                this.dataRightBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataRightBiRadsCategory);
+
             }
             else
             {
                 shortFormReportModel.DataBiRadsCategory = "1";
                 this.dataBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataBiRadsCategory);
+
+                shortFormReportModel.DataLeftBiRadsCategory = "1";
+                shortFormReportModel.DataRightBiRadsCategory = "1";
+                this.dataLeftBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataLeftBiRadsCategory);
+                this.dataRightBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataRightBiRadsCategory);
             }
         }
 
@@ -517,12 +542,12 @@ namespace MEIKReport.Views
                 shortFormReportModel.DataDoctor = doctor.Name;
                 shortFormReportModel.DataDoctorLicense = doctor.License;                
             }
-            if (this.dataMeikTech.SelectedItem != null)
-            {
-                var technician = this.dataMeikTech.SelectedItem as User;
-                shortFormReportModel.DataMeikTech = technician.Name;
-                shortFormReportModel.DataTechLicense = technician.License;
-            }
+            //if (this.dataMeikTech.SelectedItem != null)
+            //{
+            //    var technician = this.dataMeikTech.SelectedItem as User;
+            //    shortFormReportModel.DataMeikTech = technician.Name;
+            //    shortFormReportModel.DataTechLicense = technician.License;
+            //}
                                     
             //shortFormReportModel.DataName = this.dataName.Text;
             
@@ -542,8 +567,14 @@ namespace MEIKReport.Views
             shortFormReportModel.DataPertinentHistory = this.dataPertinentHistory.SelectedIndex.ToString();
             shortFormReportModel.DataPertinentHistory1 = this.dataPertinentHistory1.Text;
             shortFormReportModel.DataMotherUltra = this.dataMotherUltra.SelectedIndex.ToString();
-            shortFormReportModel.DataLeftBreast = this.dataLeftBreast.Text;
-            shortFormReportModel.DataRightBreast = this.dataRightBreast.Text;
+            
+            shortFormReportModel.DataLeftBreastH = this.dataLeftBreastH.Text;
+            shortFormReportModel.DataRightBreastH = this.dataRightBreastH.Text;
+            shortFormReportModel.DataLeftBreastM = this.dataLeftBreastM.Text;
+            shortFormReportModel.DataRightBreastM = this.dataRightBreastM.Text;
+            shortFormReportModel.DataLeftBreast = this.dataLeftBreastH.Text + ":" + this.dataLeftBreastM.Text;
+            shortFormReportModel.DataRightBreast = this.dataRightBreastH.Text + ":" + this.dataRightBreastM.Text; 
+
             shortFormReportModel.DataLeftPalpableMass = this.dataLeftPalpableMass.SelectedIndex.ToString();
             shortFormReportModel.DataRightPalpableMass = this.dataRightPalpableMass.SelectedIndex.ToString();
             shortFormReportModel.DataLeftChangesOfElectricalConductivity = this.dataLeftChangesOfElectricalConductivity.SelectedIndex.ToString();
@@ -723,6 +754,8 @@ namespace MEIKReport.Views
             reportModel = shortFormReportModel.Clone();
             reportModel.DataGender = this.dataGender.Text;
             reportModel.DataBiRadsCategory = this.dataBiRadsCategory.Text;
+            reportModel.DataLeftBiRadsCategory = this.dataLeftBiRadsCategory.Text;
+            reportModel.DataRightBiRadsCategory = this.dataRightBiRadsCategory.Text;
             reportModel.DataRecommendation = this.dataRecommendation.Text;
             reportModel.DataConclusion = this.dataConclusion.Text;
             reportModel.DataFurtherExam = this.dataFurtherExam.Text;
@@ -795,6 +828,8 @@ namespace MEIKReport.Views
             reportModel.DataRightFindings = this.dataRightFindings.Text;
             reportModel.DataRightMammaryGlandResult = this.dataRightMammaryGlandResult.Text;
             reportModel.DataTotalPts = this.dataTotalPts.Text;
+            reportModel.DataLeftTotalPts = this.dataLeftTotalPts.Text;
+            reportModel.DataRightTotalPts = this.dataRightTotalPts.Text;
             reportModel.DataPoint = this.dataPoint.Text;            
 
             return reportModel;            
@@ -947,6 +982,11 @@ namespace MEIKReport.Views
                 {
                     textBlock1.Text = reportModel.DataAge;
                 }
+                textBlock1 = page.FindName("dataHeight") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataHeight;
+                }
                 textBlock1 = page.FindName("dataWeight") as TextBlock;
                 if (textBlock1 != null)
                 {
@@ -957,15 +997,15 @@ namespace MEIKReport.Views
                 {
                     textBlock1.Text = reportModel.DataScreenLocation;
                 }
-                textBlock1 = page.FindName("dataMenstrualCycle") as TextBlock;
+                textBlock1 = page.FindName("dataMobile") as TextBlock;
                 if (textBlock1 != null)
                 {
-                    textBlock1.Text = reportModel.DataMenstrualCycle;
+                    textBlock1.Text = reportModel.DataMobile;
                 }
-                textBlock1 = page.FindName("dataSkinAffections") as TextBlock;
+                textBlock1 = page.FindName("dataEmail") as TextBlock;
                 if (textBlock1 != null)
                 {
-                    textBlock1.Text = reportModel.DataSkinAffections;
+                    textBlock1.Text = reportModel.DataEmail;
                 }
                 textBlock1 = page.FindName("dataLeftBreast") as TextBlock;
                 if (textBlock1 != null)
@@ -1357,21 +1397,13 @@ namespace MEIKReport.Views
                 {
                     textBlock1.Text = reportModel.DataLeftMammaryGland;
                 }
-                textBlock1 = page.FindName("dataLeftMeanECOfLesion") as TextBlock;
-                if (textBlock1 != null)
-                {
-                    textBlock1.Text = reportModel.DataLeftMeanECOfLesion;
-                }
+                
                 textBlock1 = page.FindName("dataLeftAgeRelated") as TextBlock;
                 if (textBlock1 != null)
                 {
                     textBlock1.Text = reportModel.DataLeftAgeRelated;
                 }
-                textBlock1 = page.FindName("dataLeftFindings") as TextBlock;
-                if (textBlock1 != null)
-                {
-                    textBlock1.Text = reportModel.DataLeftFindings;
-                }
+                
                 textBlock1 = page.FindName("dataLeftMammaryGlandResult") as TextBlock;
                 if (textBlock1 != null)
                 {
@@ -1382,21 +1414,13 @@ namespace MEIKReport.Views
                 {
                     textBlock1.Text = reportModel.DataRightMammaryGland;
                 }
-                textBlock1 = page.FindName("dataRightMeanECOfLesion") as TextBlock;
-                if (textBlock1 != null)
-                {
-                    textBlock1.Text = reportModel.DataRightMeanECOfLesion;
-                }
+                
                 textBlock1 = page.FindName("dataRightAgeRelated") as TextBlock;
                 if (textBlock1 != null)
                 {
                     textBlock1.Text = reportModel.DataRightAgeRelated;
                 }
-                textBlock1 = page.FindName("dataRightFindings") as TextBlock;
-                if (textBlock1 != null)
-                {
-                    textBlock1.Text = reportModel.DataRightFindings;
-                }
+                
                 textBlock1 = page.FindName("dataRightMammaryGlandResult") as TextBlock;
                 if (textBlock1 != null)
                 {
@@ -1407,6 +1431,16 @@ namespace MEIKReport.Views
                 {
                     textBlock1.Text = reportModel.DataTotalPts;
                 }
+                textBlock1 = page.FindName("dataLeftTotalPts") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftTotalPts;
+                }
+                textBlock1 = page.FindName("dataRightTotalPts") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightTotalPts;
+                }
                 textBlock1 = page.FindName("dataPoint") as TextBlock;
                 if (textBlock1 != null)
                 {
@@ -1416,6 +1450,16 @@ namespace MEIKReport.Views
                 if (textBlock1 != null)
                 {
                     textBlock1.Text = reportModel.DataBiRadsCategory;
+                }
+                textBlock1 = page.FindName("dataLeftBiRadsCategory") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataLeftBiRadsCategory;
+                }
+                textBlock1 = page.FindName("dataRightBiRadsCategory") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataRightBiRadsCategory;
                 }
                 textBlock1 = page.FindName("dataRecommendation") as TextBlock;
                 if (textBlock1 != null)
@@ -1843,7 +1887,71 @@ namespace MEIKReport.Views
             {
                 this.Visibility = Visibility.Visible;
             }                            
-        }        
+        }
+        
+
+        private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[^0-9.-]+");
+            e.Handled = re.IsMatch(e.Text);
+        }
+
+        private void Hour_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[0-9.-]+");
+            if (re.IsMatch(e.Text))
+            {
+                var textBox = (TextBox)sender;
+                if (!string.IsNullOrEmpty(textBox.Text))
+                {
+                    if (Convert.ToInt32(textBox.Text + e.Text) < 24 && (textBox.Text.Length+1) <= 2)
+                    {
+                        e.Handled = false;
+                    }
+                    else
+                    {
+                        e.Handled = true;
+                    }
+                }
+                else
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+            }            
+            
+        }
+
+        private void Minute_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[0-9.-]+");
+            if (re.IsMatch(e.Text))
+            {
+                var textBox = (TextBox)sender;
+                if (!string.IsNullOrEmpty(textBox.Text))
+                {
+                    if (Convert.ToInt32(textBox.Text+e.Text) < 60 && (textBox.Text.Length+1) <= 2)
+                    {
+                        e.Handled = false;
+                    }
+                    else
+                    {
+                        e.Handled = true;
+                    }
+                }
+                else
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+            }            
+        }       
                
     }
 }

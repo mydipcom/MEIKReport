@@ -144,7 +144,7 @@ namespace MEIKReport
             ExaminationReportPage examinationReportPage = new ExaminationReportPage(selectedUser);
             //examinationReportPage.closeWindowEvent += new CloseWindowHandler(ShowMainWindow);
             examinationReportPage.Owner = this;
-            examinationReportPage.ShowDialog();     
+            examinationReportPage.Show();     
         }
 
         private void SummaryReport_Click(object sender, RoutedEventArgs e)

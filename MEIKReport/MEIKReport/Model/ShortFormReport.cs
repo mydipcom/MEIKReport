@@ -256,14 +256,7 @@ namespace MEIKReport.Model
             get { return dataRightSizeWidth3; }
             set { dataRightSizeWidth3 = value; }
         }
-
-        private string dataBiRadsCategory;
-
-        public string DataBiRadsCategory
-        {
-            get { return dataBiRadsCategory; }
-            set { dataBiRadsCategory = value; }
-        }
+        
         private string dataRecommendation;
 
         public string DataRecommendation
@@ -449,19 +442,41 @@ namespace MEIKReport.Model
         }
 
         private string dataLeftBreast;
-
         public string DataLeftBreast
         {
             get { return dataLeftBreast; }
             set { dataLeftBreast = value; }
         }
+        private string dataLeftBreastH;
+        public string DataLeftBreastH
+        {
+            get { return dataLeftBreastH; }
+            set { dataLeftBreastH = value; }
+        }
+        private string dataLeftBreastM;
+        public string DataLeftBreastM
+        {
+            get { return dataLeftBreastM; }
+            set { dataLeftBreastM = value; }
+        }
 
         private string dataRightBreast;
-
         public string DataRightBreast
         {
             get { return dataRightBreast; }
             set { dataRightBreast = value; }
+        }
+        private string dataRightBreastH;
+        public string DataRightBreastH
+        {
+            get { return dataRightBreastH; }
+            set { dataRightBreastH = value; }
+        }
+        private string dataRightBreastM;
+        public string DataRightBreastM
+        {
+            get { return dataRightBreastM; }
+            set { dataRightBreastM = value; }
         }
 
         private string dataLeftPalpableMass;
@@ -1259,9 +1274,41 @@ namespace MEIKReport.Model
             get { return dataTotalPts; }
             set { dataTotalPts = value; }
         }
+        private string dataLeftTotalPts;
+        public string DataLeftTotalPts
+        {
+            get { return dataLeftTotalPts; }
+            set { dataLeftTotalPts = value; }
+        }
+        private string dataRightTotalPts;
+        public string DataRightTotalPts
+        {
+            get { return dataRightTotalPts; }
+            set { dataRightTotalPts = value; }
+        }
+
+
+        private string dataBiRadsCategory;
+        public string DataBiRadsCategory
+        {
+            get { return dataBiRadsCategory; }
+            set { dataBiRadsCategory = value; }
+        }
+        private string dataLeftBiRadsCategory;
+        public string DataLeftBiRadsCategory
+        {
+            get { return dataLeftBiRadsCategory; }
+            set { dataLeftBiRadsCategory = value; }
+        }
+        private string dataRightBiRadsCategory;
+        public string DataRightBiRadsCategory
+        {
+            get { return dataRightBiRadsCategory; }
+            set { dataRightBiRadsCategory = value; }
+        }
+
 
         private string dataPoint;
-
         public string DataPoint
         {
             get { return dataPoint; }

@@ -398,11 +398,11 @@
     <sys:String x:Key="ReportContext_119">圍絕經期</sys:String>
     <sys:String x:Key="ReportContext_120">絕經期</sys:String>
     <sys:String x:Key="ReportContext_121" xml:space="preserve">左乳腺: </sys:String>
-    <sys:String x:Key="ReportContext_122">&gt; 0.66  無定型乳腺結構</sys:String>
-    <sys:String x:Key="ReportContext_123">0.57-0.65 混合型，無定型結構優勢</sys:String>
-    <sys:String x:Key="ReportContext_124">0.30-0.56 混合型乳腺結構</sys:String>
-    <sys:String x:Key="ReportContext_125">0.22-0.29 導管成分優先的混合結構</sys:String>
-    <sys:String x:Key="ReportContext_126">0.22 導管型乳腺結構</sys:String>
+    <sys:String x:Key="ReportContext_122">無定型乳腺結構</sys:String>
+    <sys:String x:Key="ReportContext_123">混合型，無定型結構優勢</sys:String>
+    <sys:String x:Key="ReportContext_124">混合型乳腺結構</sys:String>
+    <sys:String x:Key="ReportContext_125">導管成分優先的混合結構</sys:String>
+    <sys:String x:Key="ReportContext_126">導管型乳腺結構</sys:String>
     <sys:String x:Key="ReportContext_127" xml:space="preserve">年齡相關電導率: </sys:String>
     <sys:String x:Key="ReportContext_128">平均電導率病變程序:</sys:String>
     <sys:String x:Key="ReportContext_129">發現:</sys:String>
@@ -505,4 +505,6 @@
     <sys:String x:Key="ReportContext_223">2點鐘</sys:String>
     <sys:String x:Key="ReportContext_224">3點鐘</sys:String>
     <sys:String x:Key="ReportContext_225">毫米</sys:String>
+    <sys:String x:Key="ReportContext_226">結論:</sys:String>
+    <sys:String x:Key="ReportContext_227">說明:</sys:String>
 </ResourceDictionary>

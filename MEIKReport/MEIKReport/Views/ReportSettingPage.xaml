@@ -189,7 +189,7 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-                    <TabItem Name="tabFTP" Header="{StaticResource SettingFTPTabTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">
+                    <TabItem Name="tabFTP" Visibility="Collapsed" Header="{StaticResource SettingFTPTabTitle}" Style="{StaticResource NewTabButtonStyle}" FontSize="14" Width="150" Height="26" HorizontalContentAlignment="Center" Background="#FF768795" Foreground="White">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>

@@ -3490,6 +3490,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME40</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>1940137322</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME41</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-609954839</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME42</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>1009019767</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME43</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>1143211383</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1331368081</td></row>
@@ -3929,7 +3930,7 @@
 		<row><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._4AC7B27DC24D43F58F79A0989C531056.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._921A93303EDF44198AED9424A387D844.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_M_3E76A412C6784E7C82AFE54E5788A5A8.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_M_6671621F606243519520FD1EA27DABAD.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 		<row><td>_Built1_1A91FD199E2448249A648ABBB6E24D16.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>_Built_83A6700512F646F2AE773A4749AF7F83.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>gxpswin32_9.18.exe_6E8A6916FD5240BD93847524EAEABF61.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4444,7 +4445,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MEIKReport.exe</td><td/></row>
-		<row><td>ProductCode</td><td>{2A9D4937-71BB-40E2-9E82-799EE999BFF3}</td><td/></row>
+		<row><td>ProductCode</td><td>{48D479AF-5B0B-4C44-8E1D-021554530F54}</td><td/></row>
 		<row><td>ProductName</td><td>MEIK Application</td><td/></row>
 		<row><td>ProductVersion</td><td>1.1.8</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
@@ -4612,7 +4613,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I4">ISAttributes</col>
 		<row><td>MEIKReport.exe</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>MEIKReport.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe1_EF9039C2F6504AFCAF39444187D4DC79.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>UNINST_Uninstall_MEIK_Application</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME42##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {2A9D4937-71BB-40E2-9E82-799EE999BFF3}</td><td/><td/><td>UNINST_Uninstall_M_3E76A412C6784E7C82AFE54E5788A5A8.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_MEIK_Application</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME43##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {48D479AF-5B0B-4C44-8E1D-021554530F54}</td><td/><td/><td>UNINST_Uninstall_M_6671621F606243519520FD1EA27DABAD.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

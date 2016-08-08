@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="1560"/>
+                    <RowDefinition Height="1520"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -54,7 +54,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="1490"/>
+                        <RowDefinition Height="1450"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Name="reportDataGrid" Grid.Column="1" Grid.Row="1">
@@ -67,8 +67,8 @@
                             <RowDefinition Height="0.3*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="0"/>
-                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
                             <RowDefinition Height="0.2*"/>
                             <RowDefinition Height="0.1*"/>
                             <RowDefinition Height="0"/>                            
@@ -102,7 +102,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.5*"/>
                             <RowDefinition Height="0.6*"/>
                             <RowDefinition Height=".1*"/>
                             <RowDefinition Height="*"/>
@@ -113,8 +113,8 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height=".8*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="0"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -153,7 +153,9 @@
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_10}" Margin="30,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="55" VerticalAlignment="Center"></TextBlock>
-                            
+                            <TextBlock Text="{StaticResource ReportContext_203}" Margin="5,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Name="dataHeight" Text="{Binding DataHeight}" VerticalAlignment="Center" Width="60"></TextBlock>
+
                             <TextBlock Text="{StaticResource ReportContext_11}" Margin="30,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBlock Name="dataWeight" Text="{Binding DataWeight}" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="{StaticResource ReportContext_13}" VerticalAlignment="Center"></TextBlock>
@@ -163,8 +165,23 @@
                             </ComboBox>
                                                         
                         </StackPanel>
-                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
-                            
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="{StaticResource ReportContext_6}" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Name="dataScreenLocation" Text="{Binding DataScreenLocation}" VerticalAlignment="Center" Width="320" Margin="0,0,5,0"></TextBlock>
+                            <!--<TextBlock Text="{StaticResource ReportContext_7}" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBox Name="dataAddress" Text="{Binding DataAddress}" VerticalAlignment="Center" Width="380" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
+                            <TextBlock Text="{StaticResource ReportContext_149}"  FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Name="dataMeikTech" Text="{Binding Path=DataMeikTech}" VerticalAlignment="Center"></TextBlock>
+                            <!--<ComboBox Name="dataMeikTech" Width="225" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock Text="{Binding Path=Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ComboBox>-->
+                            <TextBox Name="dataMeikTechLicense" Text="{Binding ElementName=dataMeikTech,Path=SelectedItem.License}" Visibility="Collapsed"></TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <!--<TextBlock Text="{StaticResource ReportContext_6}" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -172,12 +189,10 @@
                             <!--<TextBlock Text="{StaticResource ReportContext_7}" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBox Name="dataAddress" Text="{Binding DataAddress}" VerticalAlignment="Center" Width="380" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
                             
-                            <!--<TextBlock Text="{StaticResource ReportContext_203}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox Name="dataHeight" Text="{Binding DataHeight}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
-                            <!--<TextBlock Text="{StaticResource ReportContext_204}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox Name="dataMobile" Text="{Binding DataMobile}" Width="120" Margin="0,0,5,0" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
+                            <TextBlock Text="{StaticResource ReportContext_204}" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Name="dataMobile" Text="{Binding DataMobile}" Width="200" Margin="0,0,5,0" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="{StaticResource ReportContext_205}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox Name="dataEmail" Text="{Binding DataEmail}" Width="211" Margin="0,0,5,0" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
+                            <TextBlock Name="dataEmail" Text="{Binding DataEmail}" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">                                                                                    
                             <TextBlock Text="{StaticResource ReportContext_14}" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -232,11 +247,15 @@
                         <StackPanel Grid.Row="11" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_40}" Width="180" FontWeight="Bold" Margin="200,0,0,0" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_41}" VerticalAlignment="Center"/>
-                            <extToolkit:DateTimePicker Name="dataLeftBreast" Text="{Binding DataLeftBreast}" Height="18" Width="80" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="HH:mm" ShowButtonSpinner="False" TimePickerAllowSpin="True" TimePickerShowButtonSpinner="True" TimePickerVisibility="Visible" TextAlignment="Left" FontSize="10"/>
-                            <!--<TextBox Name="dataLeftBreast" Text="{Binding DataLeftBreast}" Width="80" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
+                            <!--<extToolkit:DateTimePicker Name="dataLeftBreast" Text="{Binding DataLeftBreast}" Height="18" Width="80" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="HH:mm" ShowButtonSpinner="False" TimePickerAllowSpin="True" TimePickerShowButtonSpinner="True" TimePickerVisibility="Visible" TextAlignment="Left" FontSize="10"/>-->
+                            <TextBox Name="dataLeftBreastH" Text="{Binding DataLeftBreastH}" Width="40" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" PreviewTextInput="Hour_PreviewTextInput"></TextBox>
+                            <TextBlock VerticalAlignment="Center" Text=":"></TextBlock>
+                            <TextBox Name="dataLeftBreastM" Text="{Binding DataLeftBreastM}" Width="40" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" PreviewTextInput="Minute_PreviewTextInput"></TextBox>
                             <TextBlock Text="{StaticResource ReportContext_42}" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <extToolkit:DateTimePicker Name="dataRightBreast" Text="{Binding DataRightBreast}" Height="18" Width="80" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="HH:mm" ShowButtonSpinner="False" TimePickerAllowSpin="True" TimePickerShowButtonSpinner="True" TimePickerVisibility="Visible" TextAlignment="Left" FontSize="10"/>
-                            <!--<TextBox Name="dataRightBreast" Text="{Binding DataRightBreast}" Width="80" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>-->
+                            <!--<extToolkit:DateTimePicker Name="dataRightBreast" Text="{Binding DataRightBreast}" Height="18" Width="80" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="HH:mm" ShowButtonSpinner="False" TimePickerAllowSpin="True" TimePickerShowButtonSpinner="True" TimePickerVisibility="Visible" TextAlignment="Left" FontSize="10"/>-->
+                            <TextBox Name="dataRightBreastH" Text="{Binding DataRightBreastH}" Width="40" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" PreviewTextInput="Hour_PreviewTextInput"></TextBox>
+                            <TextBlock VerticalAlignment="Center" Text=":"></TextBlock>
+                            <TextBox Name="dataRightBreastM" Text="{Binding DataRightBreastM}" Width="40" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" PreviewTextInput="Minute_PreviewTextInput"></TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_43}" Width="420" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -389,13 +408,13 @@
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <TextBlock Text="{StaticResource ReportContext_220}" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="{StaticResource ReportContext_66}" Width="369" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeLong" Text="{Binding DataLeftSizeLong}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeLong" Text="{Binding DataLeftSizeLong}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeWidth" Text="{Binding DataLeftSizeWidth}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeWidth" Text="{Binding DataLeftSizeWidth}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeLong" Text="{Binding DataRightSizeLong}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeLong" Text="{Binding DataRightSizeLong}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeWidth" Text="{Binding DataRightSizeWidth}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeWidth" Text="{Binding DataRightSizeWidth}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -520,13 +539,13 @@
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <TextBlock Text="{StaticResource ReportContext_221}" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="{StaticResource ReportContext_66}" Width="369" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeLong2" Text="{Binding DataLeftSizeLong2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeLong2" Text="{Binding DataLeftSizeLong2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeWidth2" Text="{Binding DataLeftSizeWidth2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeWidth2" Text="{Binding DataLeftSizeWidth2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeLong2" Text="{Binding DataRightSizeLong2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeLong2" Text="{Binding DataRightSizeLong2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeWidth2" Text="{Binding DataRightSizeWidth2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeWidth2" Text="{Binding DataRightSizeWidth2}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -651,13 +670,13 @@
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <TextBlock Text="{StaticResource ReportContext_222}" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="{StaticResource ReportContext_66}" Width="369" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeLong3" Text="{Binding DataLeftSizeLong3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeLong3" Text="{Binding DataLeftSizeLong3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataLeftSizeWidth3" Text="{Binding DataLeftSizeWidth3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataLeftSizeWidth3" Text="{Binding DataLeftSizeWidth3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right"  Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeLong3" Text="{Binding DataRightSizeLong3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeLong3" Text="{Binding DataRightSizeLong3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" Margin="5,0,0,0" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="x" Width="10" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBox Name="dataRightSizeWidth3" Text="{Binding DataRightSizeWidth3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10"></TextBox>
+                                <TextBox Name="dataRightSizeWidth3" Text="{Binding DataRightSizeWidth3}" Width="50" Height="18" BorderBrush="Gray" HorizontalContentAlignment="Right" Background="{x:Null}" FontSize="10" PreviewTextInput="Number_PreviewTextInput"></TextBox>
                                 <TextBlock Text="{StaticResource ReportContext_225}" Width="40" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -803,11 +822,11 @@
                         <StackPanel Grid.Row="28" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_100}" Width="220" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_101}" Width="160"  VerticalAlignment="Center"/>
-                            <TextBox Name="dataLeftMeanElectricalConductivity1" Text="{Binding DataLeftMeanElectricalConductivity1}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataLeftMeanElectricalConductivity1" Text="{Binding DataLeftMeanElectricalConductivity1}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity1N1" Text="{Binding DataLeftMeanElectricalConductivity1N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity1N2" Text="{Binding DataLeftMeanElectricalConductivity1N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
-                            <TextBox Name="dataRightMeanElectricalConductivity1" Text="{Binding DataRightMeanElectricalConductivity1}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataRightMeanElectricalConductivity1" Text="{Binding DataRightMeanElectricalConductivity1}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity1N1" Text="{Binding DataRightMeanElectricalConductivity1N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity1N2" Text="{Binding DataRightMeanElectricalConductivity1N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
@@ -815,28 +834,28 @@
                         <StackPanel Grid.Row="29" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="220"/>
                             <TextBlock Text="{StaticResource ReportContext_102}" Width="160"  VerticalAlignment="Center"/>
-                            <TextBox Name="dataLeftMeanElectricalConductivity2" Text="{Binding DataLeftMeanElectricalConductivity2}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataLeftMeanElectricalConductivity2" Text="{Binding DataLeftMeanElectricalConductivity2}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity2N1" Text="{Binding DataLeftMeanElectricalConductivity2N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock  Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity2N2" Text="{Binding DataLeftMeanElectricalConductivity2N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
-                            <TextBox Name="dataRightMeanElectricalConductivity2" Text="{Binding DataRightMeanElectricalConductivity2}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataRightMeanElectricalConductivity2" Text="{Binding DataRightMeanElectricalConductivity2}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity2N1" Text="{Binding DataRightMeanElectricalConductivity2N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity2N2" Text="{Binding DataRightMeanElectricalConductivity2N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="30" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataMeanElectricalConductivity3" SelectedIndex="{Binding DataMeanElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataMeanElectricalConductivity3" SelectedIndex="{Binding DataMeanElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_105}"></ComboBoxItem>                                
                             </ComboBox>
-                            <TextBox Name="dataLeftMeanElectricalConductivity3" Text="{Binding DataLeftMeanElectricalConductivity3}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataLeftMeanElectricalConductivity3" Text="{Binding DataLeftMeanElectricalConductivity3}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity3N1" Text="{Binding DataLeftMeanElectricalConductivity3N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataLeftMeanElectricalConductivity3N2" Text="{Binding DataLeftMeanElectricalConductivity3N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
-                            <TextBox Name="dataRightMeanElectricalConductivity3" Text="{Binding DataRightMeanElectricalConductivity3}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
+                            <TextBox Name="dataRightMeanElectricalConductivity3" Text="{Binding DataRightMeanElectricalConductivity3}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False"></TextBox>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity3N1" Text="{Binding DataRightMeanElectricalConductivity3N1}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
                             <TextBlock Visibility="Collapsed" Text="/" VerticalAlignment="Center"/>
                             <TextBox Visibility="Collapsed" Name="dataRightMeanElectricalConductivity3N2" Text="{Binding DataRightMeanElectricalConductivity3N2}" Width="27" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10"></TextBox>
@@ -846,7 +865,7 @@
                             <TextBlock Text="{StaticResource ReportContext_101}" Width="80"  VerticalAlignment="Center"/>
                             <TextBlock Text="(-0.07-0.07)" Width="80"  VerticalAlignment="Center"/>
                             <!--<TextBox Name="dataComparativeElectricalConductivityReference1" Text="{Binding DataComparativeElectricalConductivityReference1}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
-                            <TextBox Name="dataLeftComparativeElectricalConductivity1" Text="{Binding DataLeftComparativeElectricalConductivity1}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                            <TextBox Name="dataLeftComparativeElectricalConductivity1" Text="{Binding DataLeftComparativeElectricalConductivity1}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"></TextBox>
                             <!--<TextBox Name="dataRightComparativeElectricalConductivity1" Text="{Binding DataRightComparativeElectricalConductivity1}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>-->                            
                         </StackPanel>
                         <StackPanel Grid.Row="32" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -854,18 +873,18 @@
                             <TextBlock Text="{StaticResource ReportContext_102}" Width="80"  VerticalAlignment="Center"/>
                             <TextBlock Text="(-0.10-0.10)" Width="80"  VerticalAlignment="Center"/>
                             <!--<TextBox Name="dataComparativeElectricalConductivityReference2" Text="{Binding DataComparativeElectricalConductivityReference2}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
-                            <TextBox Name="dataLeftComparativeElectricalConductivity2" Text="{Binding DataLeftComparativeElectricalConductivity2}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Center"></TextBox>
+                            <TextBox Name="dataLeftComparativeElectricalConductivity2" Text="{Binding DataLeftComparativeElectricalConductivity2}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Center" IsEnabled="False"></TextBox>
                             <!--<TextBox Name="dataRightComparativeElectricalConductivity2" Text="{Binding DataRightComparativeElectricalConductivity2}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>-->
                         </StackPanel>
                         <StackPanel Grid.Row="33" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataComparativeElectricalConductivity3" SelectedIndex="{Binding DataComparativeElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataComparativeElectricalConductivity3" SelectedIndex="{Binding DataComparativeElectricalConductivity3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_105}"></ComboBoxItem>
                             </ComboBox>
-                            <TextBox Name="dataLeftComparativeElectricalConductivity3" Text="{Binding DataLeftComparativeElectricalConductivity3}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Center"></TextBox>
+                            <TextBox Name="dataLeftComparativeElectricalConductivity3" Text="{Binding DataLeftComparativeElectricalConductivity3}" Margin="80,0,0,0" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Center" IsEnabled="False"></TextBox>
                             <!--<TextBox Name="dataRightComparativeElectricalConductivity3" Text="{Binding DataRightComparativeElectricalConductivity3}" Width="150" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>-->
                         </StackPanel>
                         <StackPanel Grid.Row="34" Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -873,7 +892,7 @@
                             <TextBlock Text="{StaticResource ReportContext_101}" Width="80"  VerticalAlignment="Center"/>
                             <TextBlock Text="(below 40%)" Width="80"  VerticalAlignment="Center"/>
                             <!--<TextBox Name="dataDivergenceBetweenHistogramsReference1" Text="{Binding DataDivergenceBetweenHistogramsReference1}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
-                            <TextBox Name="dataLeftDivergenceBetweenHistograms1" Text="{Binding DataLeftDivergenceBetweenHistograms1}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Name="dataLeftDivergenceBetweenHistograms1" Text="{Binding DataLeftDivergenceBetweenHistograms1}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right" IsEnabled="False"></TextBox>
                             <TextBlock Text="%" Width="50" VerticalAlignment="Center"/>
                             <!--<TextBox Name="dataRightDivergenceBetweenHistograms1" Text="{Binding DataRightDivergenceBetweenHistograms1}" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
                             <TextBlock Text="%" Width="50"/>-->
@@ -883,20 +902,20 @@
                             <TextBlock Text="{StaticResource ReportContext_102}" Width="80" VerticalAlignment="Center" />
                             <TextBlock Text="(below 40%)" Width="80" VerticalAlignment="Center" />
                             <!--<TextBox Name="dataDivergenceBetweenHistogramsReference2" Text="{Binding DataDivergenceBetweenHistogramsReference2}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>-->
-                            <TextBox Name="dataLeftDivergenceBetweenHistograms2" Text="{Binding DataLeftDivergenceBetweenHistograms2}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Name="dataLeftDivergenceBetweenHistograms2" Text="{Binding DataLeftDivergenceBetweenHistograms2}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right" IsEnabled="False"></TextBox>
                             <TextBlock Text="%" Width="50" VerticalAlignment="Bottom" Margin="0,0,0,3"/>
                             <!--<TextBox Name="dataRightDivergenceBetweenHistograms2" Text="{Binding DataRightDivergenceBetweenHistograms2}" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
                             <TextBlock Text="%" Width="50" VerticalAlignment="Center"/>-->
                         </StackPanel>
                         <StackPanel Grid.Row="36" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="" Width="210"/>
-                            <ComboBox Name="dataDivergenceBetweenHistograms3" SelectedIndex="{Binding DataDivergenceBetweenHistograms3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0">
+                            <ComboBox Name="dataDivergenceBetweenHistograms3" SelectedIndex="{Binding DataDivergenceBetweenHistograms3}" Width="90" BorderBrush="Gray" Background="{x:Null}" FontSize="10" Margin="5,0,75,0" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_103}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_104}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_105}"></ComboBoxItem>
                             </ComboBox>
-                            <TextBox Name="dataLeftDivergenceBetweenHistograms3" Text="{Binding DataLeftDivergenceBetweenHistograms3}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Name="dataLeftDivergenceBetweenHistograms3" Text="{Binding DataLeftDivergenceBetweenHistograms3}" Margin="80,0,0,0" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" FontSize="10" HorizontalContentAlignment="Right" IsEnabled="False"></TextBox>
                             <TextBlock Text="%" Width="50" VerticalAlignment="Center"/>
                             <!--<TextBox Name="dataRightDivergenceBetweenHistograms3" Text="{Binding DataRightDivergenceBetweenHistograms3}" Width="100" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10"></TextBox>
                             <TextBlock Text="%" Width="50" VerticalAlignment="Center"/>-->
@@ -918,21 +937,21 @@
                         <StackPanel Grid.Row="39" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_110}" Width="300" VerticalAlignment="Center"/>
                             <!--<TextBlock Text="(0.26/0.22)" Width="80" />-->
-                            <TextBox Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
-                            <ComboBox Name="dataLeftAgeElectricalConductivity" SelectedIndex="{Binding DataLeftAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <TextBox Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Width="75" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10" IsEnabled="False"></TextBox>
+                            <ComboBox Name="dataLeftAgeElectricalConductivity" SelectedIndex="{Binding DataLeftAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_113}"></ComboBoxItem>
                             </ComboBox>
-                            <ComboBox Name="dataRightAgeElectricalConductivity" SelectedIndex="{Binding DataRightAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightAgeElectricalConductivity" SelectedIndex="{Binding DataRightAgeElectricalConductivity}" Width="150" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_113}"></ComboBoxItem>
                             </ComboBox>                            
                         </StackPanel>
-                        <StackPanel Grid.Row="40" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <StackPanel Grid.Row="40" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
                             <TextBlock Text="{StaticResource ReportContext_114}" Width="210" VerticalAlignment="Center"/>
                             <ComboBox Name="dataAgeValueOfEC" SelectedIndex="{Binding DataAgeValueOfEC}" Width="250" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -950,7 +969,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="43" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_115}" Width="150" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataExamConclusion" SelectedIndex="{Binding DataExamConclusion}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataExamConclusion" SelectedIndex="{Binding DataExamConclusion}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_116}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_117}"></ComboBoxItem>
@@ -961,7 +980,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="44" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_121}" Width="130" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftMammaryGland" SelectedIndex="{Binding DataLeftMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataLeftMammaryGland" SelectedIndex="{Binding DataLeftMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_122}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_123}"></ComboBoxItem>
@@ -970,7 +989,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_126}"></ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_127}" Width="190" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftAgeRelated" SelectedIndex="{Binding DataLeftAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataLeftAgeRelated" SelectedIndex="{Binding DataLeftAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
@@ -978,17 +997,41 @@
                             </ComboBox>                            
                         </StackPanel>
                         <StackPanel Grid.Row="45" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="{StaticResource ReportContext_128}" Width="150" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                            <TextBox Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
-                            <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataLeftFindings" SelectedIndex="{Binding DataLeftFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <TextBlock Visibility="Collapsed" Text="{StaticResource ReportContext_128}" Width="150" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox Visibility="Collapsed" Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
+                            <TextBlock Visibility="Collapsed" Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <ComboBox Visibility="Collapsed" Name="dataLeftFindings" SelectedIndex="{Binding DataLeftFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_130}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_131}"></ComboBoxItem>                                
+                            </ComboBox>
+
+                            <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <ComboBox Name="dataLeftTotalPts" SelectedIndex="{Binding DataLeftTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False">
+                                <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                                <ComboBoxItem>6</ComboBoxItem>
+                                <ComboBoxItem>7</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
                             </ComboBox>                            
+                            <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <ComboBox Name="dataLeftBiRadsCategory" SelectedIndex="{Binding DataLeftBiRadsCategory}" Width="420" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_151}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_152}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_153}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_154}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_155}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_156}"></ComboBoxItem>
+                            </ComboBox>
                         </StackPanel>
                         <StackPanel Grid.Row="46" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="{StaticResource ReportContext_132}" Width="55" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource ReportContext_132}" Width="55" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
                             <!--<TextBlock Text="{StaticResource ReportContext_133}" Width="120"  FontWeight="Bold"/>-->
                             <ComboBox Name="dataLeftMammaryGlandResult" SelectedIndex="{Binding DataLeftMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -1001,7 +1044,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="47" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_139}" Width="130" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightMammaryGland" SelectedIndex="{Binding DataRightMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <ComboBox Name="dataRightMammaryGland" SelectedIndex="{Binding DataRightMammaryGland}" Width="300" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_122}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_123}"></ComboBoxItem>
@@ -1010,7 +1053,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_126}"></ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_127}" Width="190" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightAgeRelated" SelectedIndex="{Binding DataRightAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataRightAgeRelated" SelectedIndex="{Binding DataRightAgeRelated}" Width="120" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_111}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_112}"></ComboBoxItem>
@@ -1018,17 +1061,41 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Grid.Row="48" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="{StaticResource ReportContext_128}" Width="150" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                            <TextBox Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
-                            <TextBlock Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataRightFindings" SelectedIndex="{Binding DataRightFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
+                            <TextBlock Visibility="Collapsed" Text="{StaticResource ReportContext_128}" Width="150" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox Visibility="Collapsed" Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" Width="50" Height="18" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,5,0" FontSize="10"></TextBox>
+                            <TextBlock Visibility="Collapsed" Text="{StaticResource ReportContext_129}" Width="60" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <ComboBox Visibility="Collapsed" Name="dataRightFindings" SelectedIndex="{Binding DataRightFindings}" Width="450" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_130}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_131}"></ComboBoxItem>
                             </ComboBox>
+                            <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <ComboBox Name="dataRightTotalPts" SelectedIndex="{Binding DataRightTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False">
+                                <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                                <ComboBoxItem>6</ComboBoxItem>
+                                <ComboBoxItem>7</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
+                            </ComboBox>
+                            
+                            <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <ComboBox Name="dataRightBiRadsCategory" SelectedIndex="{Binding DataRightBiRadsCategory}" Width="420" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_151}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_152}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_153}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_154}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_155}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_156}"></ComboBoxItem>
+                            </ComboBox>
                         </StackPanel>
                         <StackPanel Grid.Row="49" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="{StaticResource ReportContext_132}" Width="50" Margin="10,0,0,0"  VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource ReportContext_132}" Width="50" FontWeight="Bold" Margin="10,0,0,0"  VerticalAlignment="Center"/>
                             <!--<TextBlock Text="{StaticResource ReportContext_140}" Width="150" FontWeight="Bold"/>-->
                             <ComboBox Name="dataRightMammaryGlandResult" SelectedIndex="{Binding DataRightMammaryGlandResult}" Width="550" BorderBrush="Gray" Background="{x:Null}" Margin="5,0,1,0" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -1042,10 +1109,10 @@
                         <StackPanel Grid.Row="50" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <Rectangle Width="760" Fill="Black" Height="1"></Rectangle>
                         </StackPanel>
-                        <StackPanel Grid.Row="51" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <StackPanel Grid.Row="51" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
                             <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" VerticalAlignment="Center"/>
                             <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataTotalPts" SelectedIndex="{Binding DataTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
+                            <ComboBox Name="dataTotalPts" SelectedIndex="{Binding DataTotalPts}" Width="50" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
                                 <ComboBoxItem>1</ComboBoxItem>
                                 <ComboBoxItem>2</ComboBoxItem>
@@ -1057,28 +1124,29 @@
                                 <ComboBoxItem>8</ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="{StaticResource ReportContext_143}" Width="110" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataPoint" SelectedIndex="{Binding DataPoint}" Width="120" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10">
+                            <ComboBox Name="dataPoint" SelectedIndex="{Binding DataPoint}" Width="120" BorderBrush="Gray" Background="{x:Null}" Margin="0,0,1,0" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_144}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_145}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_146}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_147}"></ComboBoxItem>
-                                <ComboBoxItem Content="{StaticResource ReportContext_148}"></ComboBoxItem>                                
-                            </ComboBox>                            
+                                <ComboBoxItem Content="{StaticResource ReportContext_148}"></ComboBoxItem>
+                            </ComboBox>
+                            
                         </StackPanel>
-                        <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <StackPanel Grid.Row="52" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
                             <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <ComboBox Name="dataBiRadsCategory" SelectedIndex="{Binding DataBiRadsCategory}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
+                            <ComboBox Name="dataBiRadsCategory" SelectedIndex="{Binding DataBiRadsCategory}" Width="420" BorderBrush="Gray" Background="{x:Null}" FontSize="10" IsEnabled="False">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_151}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_152}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_153}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_154}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_155}"></ComboBoxItem>
-                                <ComboBoxItem Content="{StaticResource ReportContext_156}"></ComboBoxItem>                                
+                                <ComboBoxItem Content="{StaticResource ReportContext_156}"></ComboBoxItem>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_157}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
                             <ComboBox Name="dataRecommendation" SelectedIndex="{Binding DataRecommendation}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -1087,7 +1155,7 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_160}"></ComboBoxItem>
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_189}" Width="120" FontWeight="Bold" VerticalAlignment="Bottom" Margin="0,0,0,3"/>
                             <ComboBox Name="dataFurtherExam" SelectedIndex="{Binding DataFurtherExam}" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -1096,8 +1164,8 @@
                                 <ComboBoxItem Content="{StaticResource ReportContext_164}"></ComboBoxItem>                                
                             </ComboBox>
                         </StackPanel>
-                        <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
-                            <TextBlock Text="{StaticResource ReportContext_165}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="53" Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock Text="{StaticResource ReportContext_226}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
                             <ComboBox Name="dataConclusion" SelectedIndex="{Binding DataConclusion}" Width="620" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_166}"></ComboBoxItem>
@@ -1115,7 +1183,7 @@
                             </ComboBox>
                         </StackPanel>-->
                         <StackPanel Grid.Row="56" Orientation="Horizontal" HorizontalAlignment="Left" Grid.RowSpan="2">
-                            <TextBlock Text="{StaticResource ReportContext_169}" Width="120" FontWeight="Bold"/>
+                            <TextBlock Text="{StaticResource ReportContext_227}" Width="120" FontWeight="Bold"/>
                             <TextBox Name="dataComments" Text="{Binding DataComments}" VerticalAlignment="Top" Width="620" Height="40" BorderBrush="Gray" Background="{x:Null}" FontSize="10" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
                             <!--<ComboBox Name="dataComments" Text="{Binding DataComments}" Width="600" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
@@ -1133,17 +1201,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                                <TextBlock Text="{StaticResource ReportContext_149}"  FontWeight="Bold" VerticalAlignment="Center"/>
-                                <ComboBox Name="dataMeikTech" Width="245" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" >
-                                                <TextBlock Text="{Binding Path=Name}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ComboBox>
-                                <TextBox Name="dataMeikTechLicense" Text="{Binding ElementName=dataMeikTech,Path=SelectedItem.License}" Visibility="Collapsed"></TextBox>
+                                
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <TextBlock Text="{StaticResource ReportContext_173}" Width="105" FontWeight="Bold" VerticalAlignment="Center"/>

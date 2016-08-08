@@ -28,26 +28,26 @@
     <sys:String x:Key="CommonPwdLab">Password</sys:String>
     <sys:String x:Key="CommonOKBtn">OK</sys:String>
 
-    <sys:String x:Key="RecordsWin1" xml:space="preserve">Patient Count: </sys:String>
+    <sys:String x:Key="RecordsWin1" xml:space="preserve">Client Count: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">Total # of Screening Sessions: </sys:String>
     <sys:String x:Key="RecordsWin3">Export to Excel</sys:String>
     <sys:String x:Key="RecordsWin4">Search</sys:String>
     <sys:String x:Key="RecordsWin5">From Date:</sys:String>
     <sys:String x:Key="RecordsWin6">To Date:</sys:String>
     <sys:String x:Key="Excel1">MRN#(Code)</sys:String>
-    <sys:String x:Key="Excel2">Patient Name</sys:String>
+    <sys:String x:Key="Excel2">Client Name</sys:String>
     <sys:String x:Key="Excel3">Description</sys:String>
     <sys:String x:Key="Excel4">Time Stamp</sys:String>
-    <sys:String x:Key="Excel5">Patient Archive Folder</sys:String>
+    <sys:String x:Key="Excel5">Client Archive Folder</sys:String>
     <sys:String x:Key="Excel6">Screening Date Time</sys:String>
     
     <sys:String x:Key="MailSubject">Screening Records</sys:String>
     
-    <sys:String x:Key="Dialog1">Please input patient's name</sys:String>
+    <sys:String x:Key="Dialog1">Please input client's name</sys:String>
     <sys:String x:Key="Dialog2">Last Name:</sys:String>
     <sys:String x:Key="Dialog3">First Name:</sys:String>
-    <sys:String x:Key="Dialog4">Middle Initial:</sys:String>
-    <sys:String x:Key="Dialog5">Patient Code:</sys:String>
+    <sys:String x:Key="Dialog4">Middle Name:</sys:String>
+    <sys:String x:Key="Dialog5">Screen Code:</sys:String>
     <sys:String x:Key="Dialog6">Create</sys:String>
     <sys:String x:Key="Dialog7">Cancel</sys:String>
 
@@ -111,7 +111,7 @@
     <sys:String x:Key="UserListWinExaminationReportBtn">Examination Report</sys:String>
     <sys:String x:Key="UserListWinSummaryReportBtn">Summary Report</sys:String>
     <sys:String x:Key="UserListWinEmailReportBtn">Send Report</sys:String>
-    <sys:String x:Key="UserListWinPatientCardTitle">Patient's Card</sys:String>
+    <sys:String x:Key="UserListWinPatientCardTitle">Client Information</sys:String>
     <sys:String x:Key="UserListWinNewBtn">New</sys:String>
     <sys:String x:Key="UserListWinEmailDataBtn">Send Data</sys:String>
 
@@ -410,11 +410,11 @@
     <sys:String x:Key="ReportContext_119">Perimenopausal period</sys:String>
     <sys:String x:Key="ReportContext_120">Postmenopausal period</sys:String>
     <sys:String x:Key="ReportContext_121">Left mammary gland:</sys:String>
-    <sys:String x:Key="ReportContext_122">&gt; 0.66 Amorphous type of mammary gland structure</sys:String>
-    <sys:String x:Key="ReportContext_123">0.57-0.65 Mixed type with amorphous component predominance</sys:String>
-    <sys:String x:Key="ReportContext_124">0.30-0.56 Mixed type of mammary gland structure</sys:String>
-    <sys:String x:Key="ReportContext_125">0.22-0.29 Mixed type with ductal component predominance</sys:String>
-    <sys:String x:Key="ReportContext_126">0.22 Ductal type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_122">Amorphous type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_123">Mixed type with amorphous component predominance</sys:String>
+    <sys:String x:Key="ReportContext_124">Mixed type of mammary gland structure</sys:String>
+    <sys:String x:Key="ReportContext_125">Mixed type with ductal component predominance</sys:String>
+    <sys:String x:Key="ReportContext_126">Ductal type of mammary gland structure</sys:String>
     <sys:String x:Key="ReportContext_127" xml:space="preserve">Age-related electrical conductivity: </sys:String>
     <sys:String x:Key="ReportContext_128">Mean EC of  lesion:</sys:String>
     <sys:String x:Key="ReportContext_129">Findings:</sys:String>
@@ -516,5 +516,7 @@
     <sys:String x:Key="ReportContext_223">2 o'clock</sys:String>
     <sys:String x:Key="ReportContext_224">3 o'clock</sys:String>
     <sys:String x:Key="ReportContext_225">mm</sys:String>
+    <sys:String x:Key="ReportContext_226">Analysis:</sys:String>
+    <sys:String x:Key="ReportContext_227">Comments:</sys:String>
     
 </ResourceDictionary>

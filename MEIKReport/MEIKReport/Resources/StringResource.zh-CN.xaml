@@ -502,4 +502,9 @@
     <sys:String x:Key="ReportContext_220">1-</sys:String>
     <sys:String x:Key="ReportContext_221">2-</sys:String>
     <sys:String x:Key="ReportContext_222">3-</sys:String>
+    <sys:String x:Key="ReportContext_223">2點鐘</sys:String>
+    <sys:String x:Key="ReportContext_224">3點鐘</sys:String>
+    <sys:String x:Key="ReportContext_225">毫米</sys:String>
+    <sys:String x:Key="ReportContext_226">結論:</sys:String>
+    <sys:String x:Key="ReportContext_227">說明:</sys:String>
 </ResourceDictionary>

@@ -58,28 +58,38 @@
                 <TableCell ColumnSpan="3">
                     <Paragraph>
                         <TextBlock Text="{StaticResource ReportContext_1}" FontWeight="Bold"/>
-                        <TextBlock Name="dataName" Text="{Binding DataName}" VerticalAlignment="Center" Width="265"></TextBlock>
+                        <TextBlock Name="dataName" Text="{Binding DataName}" VerticalAlignment="Center" Width="250"></TextBlock>
                         <TextBlock Text="{StaticResource ReportContext_10}" Margin="30,0,0,0" FontWeight="Bold"/>
                         <TextBlock Name="dataAge" Text="{Binding DataAge}" Width="55"></TextBlock>
-                        <TextBlock Text="{StaticResource ReportContext_11}" Margin="30,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Text="{StaticResource ReportContext_203}" Margin="5,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBlock Name="dataHeight" Text="{Binding DataHeight}" VerticalAlignment="Center" Width="60"></TextBlock>
+                        <TextBlock Text="{StaticResource ReportContext_11}" Margin="10,0,0,0" FontWeight="Bold"/>                        
                         <TextBlock Name="dataWeight" Text="{Binding DataWeight}"></TextBlock>
                         <TextBlock Text="{StaticResource ReportContext_13}"></TextBlock>
                     </Paragraph>
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell ColumnSpan="2">
+                <TableCell ColumnSpan="3">
                     <Paragraph>
                         <TextBlock Text="{StaticResource ReportContext_6}" FontWeight="Bold"/>
-                        <TextBlock Name="dataScreenLocation" Text="{Binding DataScreenLocation}" VerticalAlignment="Center" Width="450" Height="18" Margin="0,0,5,0"></TextBlock>
+                        <TextBlock Name="dataScreenLocation" Text="{Binding DataScreenLocation}" Width="300"></TextBlock>
+                        <TextBlock Text="{StaticResource ReportContext_149}"  FontWeight="Bold"/>
+                        <TextBlock Name="dataMeikTech" Text="{Binding Path=DataMeikTech}" ></TextBlock>
+                        <!--<TextBlock Text="{StaticResource ReportContext_14}" FontWeight="Bold"/>
+                        <TextBlock Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}"/>-->
                     </Paragraph>
-                </TableCell>
-                <TableCell>
+                </TableCell>                
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="3">
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_14}" FontWeight="Bold"/>
-                        <TextBlock Name="dataMenstrualCycle" Text="{Binding DataMenstrualCycle}"/>
+                        <TextBlock Text="{StaticResource ReportContext_204}" FontWeight="Bold"/>
+                        <TextBlock Name="dataMobile" Text="{Binding DataMobile}" Width="220"></TextBlock>
+                        <TextBlock Text="{StaticResource ReportContext_205}" FontWeight="Bold"/>
+                        <TextBlock Name="dataEmail" Text="{Binding DataEmail}"></TextBlock>
                     </Paragraph>
-                </TableCell>
+                </TableCell>                
             </TableRow>
             <!--<TableRow>
                 <TableCell ColumnSpan="3">
@@ -91,7 +101,7 @@
             </TableRow>-->
             <TableRow>
                 <TableCell ColumnSpan="3" LineStackingStrategy="BlockLineHeight">
-                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="3"/>
+                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="5"/>
                 </TableCell>
             </TableRow>            
         </TableRowGroup>
@@ -891,7 +901,7 @@
                 </TableCell>
                 <TableCell>
                     <Paragraph>
-                        <TextBlock Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" Margin="0,0,0,20"/>
+                        <TextBlock Name="dataAgeElectricalConductivityReference" Text="{Binding DataAgeElectricalConductivityReference}" TextAlignment="Right" Margin="0,0,0,20"/>
                     </Paragraph>
                 </TableCell>
                 <TableCell BorderBrush="Black" BorderThickness="0,0,1,0" TextAlignment="Center">
@@ -908,7 +918,7 @@
 
             <TableRow>
                 <TableCell ColumnSpan="4" LineStackingStrategy="BlockLineHeight">
-                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="10"/>
+                    <Paragraph  LineHeight="15"/>
                 </TableCell>
             </TableRow>
         </TableRowGroup>
@@ -931,25 +941,32 @@
                 <TableCell>
                     <Paragraph>
                         <TextBlock Text="{StaticResource ReportContext_121}" FontWeight="Bold" />
-                        <TextBlock Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}"/>
+                        <TextBlock Name="dataLeftMammaryGland" Text="{Binding DataLeftMammaryGland}"/>                        
                     </Paragraph>
                 </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell>
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_128}" Margin="10,0,0,0" />
-                        <TextBlock Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}"/>
-                        <TextBlock Text="{StaticResource ReportContext_127}" Margin="50,0,0,0"/>
-                        <TextBlock Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}"/>
+                        <TextBlock Text="{StaticResource ReportContext_127}" FontWeight="Bold" Margin="10,0,0,0"/>
+                        <TextBlock Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}"/>                  
                     </Paragraph>
                 </TableCell>                
             </TableRow>
             <TableRow>                
                 <TableCell>
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_129}" Margin="10,0,0,0"/>
-                        <TextBlock Name="dataLeftFindings" Text="{Binding DataLeftFindings}"/>
+                        <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" Margin="10,0,0,0"/>
+                        <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold"/>
+                        <TextBlock Name="dataLeftTotalPts" Text="{Binding DataLeftTotalPts}"/>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" Margin="10,0,0,0"/>
+                        <TextBlock Name="dataLeftBiRadsCategory" Text="{Binding DataLeftBiRadsCategory}"/>
                     </Paragraph>
                 </TableCell>
             </TableRow>
@@ -973,9 +990,7 @@
             <TableRow>
                 <TableCell>
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_128}" Margin="10,0,0,0" />
-                        <TextBlock Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}"/>
-                        <TextBlock Text="{StaticResource ReportContext_127}" Margin="50,0,0,0"/>
+                        <TextBlock Text="{StaticResource ReportContext_127}" FontWeight="Bold" Margin="10,0,0,0"/>
                         <TextBlock Name="dataRightAgeRelated" Text="{Binding DataRightAgeRelated}"/>
                     </Paragraph>
                 </TableCell>                
@@ -983,8 +998,17 @@
             <TableRow>
                 <TableCell >
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_129}" Margin="10,0,0,0"/>
-                        <TextBlock Name="dataRightFindings" Text="{Binding DataRightFindings}"/>
+                        <TextBlock Text="{StaticResource ReportContext_141}" Width="50" FontWeight="Bold" Margin="10,0,0,0"/>
+                        <TextBlock Text="{StaticResource ReportContext_142}" Width="70" FontWeight="Bold"/>
+                        <TextBlock Name="dataRightTotalPts" Text="{Binding DataRightTotalPts}"/>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell >
+                    <Paragraph>
+                        <TextBlock Text="{StaticResource ReportContext_150}" Width="120" FontWeight="Bold" Margin="10,0,0,0"/>
+                        <TextBlock Name="dataRightBiRadsCategory" Text="{Binding DataRightBiRadsCategory}"/>
                     </Paragraph>
                 </TableCell>
             </TableRow>
@@ -1028,6 +1052,14 @@
             <TableRow>
                 <TableCell>
                     <Paragraph>
+                        <TextBlock Text="{StaticResource ReportContext_226}" Width="150" FontWeight="Bold"/>
+                        <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}"/>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
                         <TextBlock Text="{StaticResource ReportContext_157}" Width="150" FontWeight="Bold"/>
                         <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}"/>
                     </Paragraph>
@@ -1041,14 +1073,7 @@
                     </Paragraph>
                 </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell>
-                    <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_165}" Width="150" FontWeight="Bold"/>
-                        <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}"/>
-                    </Paragraph>
-                </TableCell>
-            </TableRow>
+            
             <TableRow>
                 <TableCell>
                     <Table CellSpacing="0">
@@ -1060,7 +1085,7 @@
                             <TableRow>
                                 <TableCell>
                                     <Paragraph>
-                                        <TextBlock Text="{StaticResource ReportContext_169}" FontWeight="Bold"/>                                        
+                                        <TextBlock Text="{StaticResource ReportContext_227}" FontWeight="Bold"/>                                        
                                     </Paragraph>
                                 </TableCell>
                                 <TableCell>
@@ -1087,8 +1112,7 @@
             <TableRow>
                 <TableCell>
                     <Paragraph>
-                        <TextBlock Text="{StaticResource ReportContext_149}" Width="120" FontWeight="Bold"/>
-                        <TextBlock Name="dataMeikTech" Text="{Binding DataMeikTech}"/>
+                       
                     </Paragraph>
                 </TableCell>
                 <TableCell></TableCell>
