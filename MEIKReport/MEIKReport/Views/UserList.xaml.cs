@@ -33,7 +33,8 @@ namespace MEIKReport
         //private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");        
         protected MouseHook mouseHook = new MouseHook();
         private string dataFolder = AppDomain.CurrentDomain.BaseDirectory + "Data";
-        
+
+        private ExaminationReportPage examinationReportPage = null;
         private IList<Patient> patientList = new List<Patient>();
         public UserList()
         {
@@ -141,7 +142,7 @@ namespace MEIKReport
             
             //var name=selectedUser.GetAttribute("Name");
             // View Examination Report
-            ExaminationReportPage examinationReportPage = new ExaminationReportPage(selectedUser);
+            examinationReportPage = new ExaminationReportPage(selectedUser);
             //examinationReportPage.closeWindowEvent += new CloseWindowHandler(ShowMainWindow);
             examinationReportPage.Owner = this;
             examinationReportPage.Show();     
@@ -2441,6 +2442,15 @@ namespace MEIKReport
         {
             Regex re = new Regex("[^0-9.-]+");
             e.Handled = re.IsMatch(e.Text);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (examinationReportPage != null&&examinationReportPage.IsActive)
+            {                
+                examinationReportPage.Close();
+                
+            }
         }
     }
 }

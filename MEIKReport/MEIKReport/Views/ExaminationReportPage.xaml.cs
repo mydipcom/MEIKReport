@@ -209,7 +209,7 @@ namespace MEIKReport.Views
             }
             finally
             {
-                this.Owner.Show();
+                //this.Owner.Show();
             }
         }
 

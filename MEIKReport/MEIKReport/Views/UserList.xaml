@@ -5,7 +5,7 @@
         xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         Title="MEIK Application" Height="700" Width="1084"
         Icon="/MEIKReport;component/Images/App_Icon.png"
-        ShowInTaskbar="True" ResizeMode="CanResize"  Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized">    
+        ShowInTaskbar="True" ResizeMode="CanResize"  Closed="Window_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="Window_Closing">    
     <!--<Window.TaskbarItemInfo>
         <TaskbarItemInfo Description="MEIK Homepage" Overlay="/MEIKReport;component/Images/logo.jpg" ProgressState="Normal"  ProgressValue="10" />
     </Window.TaskbarItemInfo>-->
