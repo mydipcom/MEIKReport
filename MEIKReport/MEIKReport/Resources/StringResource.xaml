@@ -27,6 +27,9 @@
     <sys:String x:Key="CommonArchiveBtn">Open</sys:String>
     <sys:String x:Key="CommonPwdLab">Password</sys:String>
     <sys:String x:Key="CommonOKBtn">OK</sys:String>
+    <sys:String x:Key="CommonExportSelectBtn">Select PDF Template</sys:String>
+    <sys:String x:Key="CommonExportNuvoMedBtn">NuvoTEK PDF</sys:String>
+    <sys:String x:Key="CommonExportGoodUnionBtn">GoodUnino PDF</sys:String>
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">Client Count: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">Total # of Screening Sessions: </sys:String>
@@ -103,6 +106,10 @@
     <sys:String x:Key="Message_50">Are you sure to delete the selected folder?</sys:String>
     <sys:String x:Key="Message_51">Failed to start up the setup package, Error Message:</sys:String>
     <sys:String x:Key="Message_52">Failed to upload the data, Error Message:</sys:String>
+    <sys:String x:Key="Message_53">Please enter numeric digits only.</sys:String>
+    <sys:String x:Key="Message_54">Please enter a number from 0 to 23.</sys:String>
+    <sys:String x:Key="Message_55">Please enter a number from 0 to 59.</sys:String>
+    <sys:String x:Key="Message_56">Please enter a number from 0 to 99.</sys:String>
 
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
@@ -164,7 +171,7 @@
     <sys:String x:Key="UserDataPersonalTab">Personal Data</sys:String>
     <sys:String x:Key="UserDataPersonal1">Last name:</sys:String>
     <sys:String x:Key="UserDataPersonal2">First name:</sys:String>
-    <sys:String x:Key="UserDataPersonal3">Middle names:</sys:String>
+    <sys:String x:Key="UserDataPersonal3">Middle name:</sys:String>
     <sys:String x:Key="UserDataPersonal4">Date of birth:</sys:String>
     <sys:String x:Key="UserDataPersonal5">Date of screening:</sys:String>
     <sys:String x:Key="UserDataPersonal6">Address:</sys:String>
@@ -188,9 +195,9 @@
     <sys:String x:Key="UserDataFamily2">Uterine Cancer:</sys:String>
     <sys:String x:Key="UserDataFamily3">Cervical Cancer:</sys:String>
     <sys:String x:Key="UserDataFamily4">Ovarian Cancer:</sys:String>
-    <sys:String x:Key="UserDataFamily5">Mother,sister</sys:String>
-    <sys:String x:Key="UserDataFamily6">Aunt,cousin</sys:String>
-    <sys:String x:Key="UserDataFamily7">Grand mother,grand aunt</sys:String>
+    <sys:String x:Key="UserDataFamily5">Mother, sister</sys:String>
+    <sys:String x:Key="UserDataFamily6">Aunt, cousin</sys:String>
+    <sys:String x:Key="UserDataFamily7">Grand mother, grand aunt</sys:String>
     
     
     <sys:String x:Key="UserDataComplaintsTab">Complaints</sys:String>
@@ -213,12 +220,12 @@
     <sys:String x:Key="UserDataComplaints17">Others</sys:String>
     <sys:String x:Key="UserDataComplaints18">Duration (weeks)</sys:String>
     <sys:String x:Key="UserDataComplaints19">Palpable lumps</sys:String>
-    <sys:String x:Key="UserDataComplaints20">If any, mark position with red</sys:String>
+    <sys:String x:Key="UserDataComplaints20">If any, mark position in diagram</sys:String>
     <sys:String x:Key="UserDataComplaints21">Degree:</sys:String>
     <sys:String x:Key="UserDataComplaints22">[Mild]</sys:String>
     <sys:String x:Key="UserDataComplaints23">[Severe]</sys:String>
 
-    <sys:String x:Key="UserDataMenstrualTab">Menses Condition</sys:String>
+    <sys:String x:Key="UserDataMenstrualTab">Menstrual Condition</sys:String>
     <sys:String x:Key="UserDataMenstrual1">First day of last menstruation period (d/m):</sys:String>
     <sys:String x:Key="UserDataMenstrual2">(months)</sys:String>
 
@@ -452,15 +459,16 @@
     <sys:String x:Key="ReportContext_161" xml:space="preserve">Further Examination: </sys:String>
     <sys:String x:Key="ReportContext_162">Breast Ultrasound</sys:String>
     <sys:String x:Key="ReportContext_163">Standard Mammogram</sys:String>
-    <sys:String x:Key="ReportContext_164">Breast Ultrasound and Standard Mammogram</sys:String>
-    <!--<sys:String x:Key="ReportContext_164">Biopsy</sys:String>-->
+    <!--<sys:String x:Key="ReportContext_164">Breast Ultrasound and Standard Mammogram</sys:String>-->
+    <sys:String x:Key="ReportContext_164">Biopsy</sys:String>
+    <sys:String x:Key="ReportContext_171">Consult physician for necessary examination</sys:String>
     <sys:String x:Key="ReportContext_165" xml:space="preserve">Comments 01: </sys:String>
     <sys:String x:Key="ReportContext_166">No suspicious lesions detected at the time of exam.</sys:String>
     <sys:String x:Key="ReportContext_167">Benign lesion detected.</sys:String>
     <sys:String x:Key="ReportContext_168">Suspicious lesion detected. Suggest further evaluation and management.</sys:String>
     <sys:String x:Key="ReportContext_169" xml:space="preserve">Comments 02: </sys:String>
     <sys:String x:Key="ReportContext_170">View Image</sys:String>
-    <sys:String x:Key="ReportContext_171">For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</sys:String>
+    <!--<sys:String x:Key="ReportContext_171">For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</sys:String>-->
     <sys:String x:Key="ReportContext_172">Refer to Surgeon – Follow up Biopsy</sys:String>
     <sys:String x:Key="ReportContext_173" xml:space="preserve">Doctor: </sys:String>
     <sys:String x:Key="ReportContext_174" xml:space="preserve">Doctor's Signature: </sys:String>
