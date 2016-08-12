@@ -1,0 +1,1205 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" ColumnWidth="734" 
+              PageHeight="1056" PageWidth="794" PagePadding="0"
+              FontFamily="Arial,Microsoft YaHei" FontSize="13">
+    <FlowDocument.Background>        
+        <ImageBrush ImageSource="/MEIKReport;component/Images/A4-bg.png" Stretch="UniformToFill" ></ImageBrush>
+    </FlowDocument.Background>
+    <!--Page Header-->
+    <Table Padding="50,20,50,0">
+        <Table.Columns>
+            <TableColumn Width="*"></TableColumn>
+            <TableColumn Width="4*"></TableColumn>
+            <TableColumn Width="*"></TableColumn>
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>                
+                <TableCell RowSpan="4">
+                    <TableCell.Background>                        
+                        <ImageBrush ImageSource="/MEIKReport;component/Images/logo_k.png" Stretch="None" AlignmentY="Top"/>
+                    </TableCell.Background>
+                </TableCell>
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="10"/>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableRow.Background>
+                    <ImageBrush ImageSource="/MEIKReport;component/Images/title.png" AlignmentY="Top" Stretch="None"></ImageBrush>
+                </TableRow.Background>
+                
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="36">                        
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+                
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="快速乳房健康檢測報告" Foreground="#FF00657F" FontWeight="Bold" FontSize="28"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+                
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="Rapid Breast Health Screening Report" Foreground="#FF00657F" FontWeight="Bold" FontSize="18"/>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>            
+        </TableRowGroup>
+    </Table>
+    <!--Personal info-->
+    <Table Padding="50,0,50,0">        
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <Grid Width="692">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>                                
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>                            
+                            <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Center" VerticalAlignment="Center" Text="客戶資料 Client Information" Margin="2"></TextBlock>
+                            </Border>                            
+                            <Border Grid.Row="1" Grid.ColumnSpan="4" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
+                                <Grid Width="692" HorizontalAlignment="Left" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="客戶號碼 Client Number: "></TextBlock>
+                                        <TextBlock Name="dataClientNum" Text="{Binding DataClientNum}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="姓名 Name: "></TextBlock>
+                                        <TextBlock Name="dataName" Text="{Binding DataName}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="年齡 Age: "></TextBlock>
+                                        <TextBlock Name="dataAge" Text="{Binding DataAge}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="身高 Height(cm): "></TextBlock>
+                                        <TextBlock Name="dataHeight" Text="{Binding DataHeight}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="體重 Weight(kg): "></TextBlock>
+                                        <TextBlock Name="dataWeight" Text="{Binding DataWeight}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="電話號碼 Mobile number: "></TextBlock>
+                                        <TextBlock Name="dataMobile" Text="{Binding DataMobile}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="電郵 Mobile number: "></TextBlock>
+                                        <TextBlock Name="dataEmail" Text="{Binding DataEmail}"></TextBlock>
+                                    </WrapPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            
+        </TableRowGroup>
+    </Table>
+    <!--Screen info-->
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <Grid Width="692">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Center" VerticalAlignment="Center" Text="檢測記錄 Screen Record" Margin="2"></TextBlock>
+                            </Border>
+                            <Border Grid.Row="1" Grid.ColumnSpan="4" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
+                                <Grid Width="692" HorizontalAlignment="Left" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>                                        
+                                    </Grid.RowDefinitions>
+                                    <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="掃描編號 Screen code: "></TextBlock>
+                                        <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="檢測日期 Screen date: "></TextBlock>
+                                        <TextBlock Name="dataScreenDate" Text="{Binding DataScreenDate}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="檢測地點 Screen venue: "></TextBlock>
+                                        <TextBlock Name="dataScreenLocation" Text="{Binding DataScreenLocation}"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="Technician Name: "></TextBlock>
+                                        <TextBlock Name="dataMeikTech" Text="{Binding Path=DataMeikTech}" ></TextBlock>
+                                    </WrapPanel>                                    
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <!--Screen Image-->
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <Grid Width="692">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="19"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Center" VerticalAlignment="Center" Text="掃描圖 Screen Image" Margin="2"></TextBlock>
+                            </Border>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
+                                <Grid Width="692" HorizontalAlignment="Left" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="10"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>                                        
+                                        <RowDefinition Height="80"></RowDefinition>
+                                        <RowDefinition Height="80"></RowDefinition>
+                                        <RowDefinition Height="230"></RowDefinition>
+                                        <RowDefinition Height="19"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                        <ColumnDefinition Width="592"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="掃描圖中，"></TextBlock>
+                                        <TextBlock Text="綠色標誌" Foreground="Green"></TextBlock>
+                                        <TextBlock Text="表示發現良性組織，"></TextBlock>
+                                        <TextBlock Text="紅色標誌" Foreground="Red"></TextBlock>
+                                        <TextBlock Text="表示可疑病變組織。"></TextBlock>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="Screen image-"></TextBlock>
+                                        <TextBlock Text="Green marks" Foreground="Green"></TextBlock>
+                                        <TextBlock Text=" indicate benign findings and "></TextBlock>
+                                        <TextBlock Text="red marks" Foreground="Red"></TextBlock>
+                                        <TextBlock Text=" indicate suspicious changes."></TextBlock>
+                                    </WrapPanel>
+                                    
+                                    <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FF00657F" Width="592">
+                                        <Grid Width="592">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Layer(all)" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="Layer 1" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="2" Text="Layer 2" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="3" Text="Layer 3" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="4" Text="Layer 4" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="5" Text="Layer 5" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="6" Text="Layer 6" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                            <TextBlock Grid.Column="7" Text="Layer 7" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                        </Grid>                                        
+                                    </StackPanel>
+                                    <WrapPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <Grid Width="592">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Combined" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="4mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="2" Text="11mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="3" Text="18mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="4" Text="25mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="5" Text="32mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="6" Text="39mm" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Grid.Column="7" Text="46mm" HorizontalAlignment="Center"></TextBlock>
+                                        </Grid>                                        
+                                    </WrapPanel>
+                                    <StackPanel Grid.Row="6" Width="75" Height="80" VerticalAlignment="Center" Margin="0,0,5,0">
+                                        <TextBlock Text=" " Height="20"></TextBlock>
+                                        <TextBlock Text="左乳" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="Left Breast" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>                                        
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="7" Width="75" Height="80" VerticalAlignment="Center" Margin="0,0,5,0">
+                                        <TextBlock Text=" " Height="20"></TextBlock>
+                                        <TextBlock Text="右乳" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="Right Breast" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" Width="592" Height="390">
+                                        <Image Name="dataScreenShotImg" Stretch="Fill"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Width="692">
+                                <TextBlock Text="續下頁 Continued on next page   P.1/3" FontSize="12" HorizontalAlignment="Right" Padding="0,5,0,0"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+           
+        </TableRowGroup>
+    </Table>
+    <!--Page Footer-->
+    <Paragraph Padding="0,1,0,0" LineStackingStrategy="BlockLineHeight">
+        <TextBlock Height="36" Width="794" Foreground="White" Padding="50,10,50,5" VerticalAlignment="Center" Background="#FF00657F" Text="Unit A-C, 7/F, 10 Knutsford Terrace, Tsim Sha Tsui, Kowloon, Hong Kong.    Tel. 3188 3562    Fax. 3188 3270"></TextBlock>
+    </Paragraph>
+
+    <!--Page Header-->
+    <Table Padding="50,20,50,0">
+        <Table.Columns>
+            <TableColumn Width="*"></TableColumn>
+            <TableColumn Width="4*"></TableColumn>
+            <TableColumn Width="*"></TableColumn>
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell RowSpan="4">
+                    <TableCell.Background>
+                        <ImageBrush ImageSource="/MEIKReport;component/Images/logo_k.png" Stretch="None" AlignmentY="Top"/>
+                    </TableCell.Background>
+                </TableCell>
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="10"/>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableRow.Background>
+                    <ImageBrush ImageSource="/MEIKReport;component/Images/title.png" AlignmentY="Top" Stretch="None"></ImageBrush>
+                </TableRow.Background>
+
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="36">
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="快速乳房健康檢測報告" Foreground="#FF00657F" FontWeight="Bold" FontSize="28"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="Rapid Breast Health Screening Report" Foreground="#FF00657F" FontWeight="Bold" FontSize="18"/>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <!--Screen Result-->
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <Grid Width="692">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="882"></RowDefinition>
+                                <RowDefinition Height="19"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Center" VerticalAlignment="Center" Text="檢測結果 Screen Result" Padding="2"></TextBlock>
+                            </Border>
+                            <Border Grid.Row="1" Grid.ColumnSpan="4" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
+                                <Grid Width="692" HorizontalAlignment="Left" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="200"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="458"></RowDefinition>
+                                        <RowDefinition Height="14"></RowDefinition>
+                                        <RowDefinition Height="16"></RowDefinition>
+                                        <RowDefinition Height="16"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="總覽 Overview" Width="260" Foreground="#FF00597F" FontSize="12"></TextBlock>
+                                        <WrapPanel Width="193" HorizontalAlignment="Center">
+                                            <TextBlock Text="左乳 Left Breast: " Foreground="#FF00597F" FontSize="12" HorizontalAlignment="Center"></TextBlock>                                            
+                                        </WrapPanel>
+                                        <WrapPanel Width="193" HorizontalAlignment="Center">
+                                            <TextBlock Text="右乳 Right Breast: " Foreground="#FF00597F" FontSize="12" HorizontalAlignment="Center"></TextBlock>                                            
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                                        <TextBlock Text="平均電導率 Mean Electrical Conductivity^" Width="260" FontSize="10"></TextBlock>
+                                        <TextBlock Text=":" Width="6" HorizontalAlignment="Right" FontSize="10"></TextBlock>
+                                        <WrapPanel Width="193">                                            
+                                            <TextBlock Name="dataLeftMeanECOfLesion" Text="{Binding DataLeftMeanECOfLesion}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataRightMeanECOfLesion" Text="{Binding DataRightMeanECOfLesion}" FontSize="10"/>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                                        <TextBlock Text="年齡相關電導率 Age-Related Electrical Conducivity(%)^" Width="260" FontSize="10"></TextBlock>
+                                        <TextBlock Text=":" Width="6" HorizontalAlignment="Right" FontSize="10"></TextBlock>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataLeftAgeRelated" Text="{Binding DataLeftAgeRelated}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataRightAgeRelated" Text="{Binding DataRightAgeRelated}" FontSize="10"/>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                                        <TextBlock Text="BI-EIM分數 BI-EIM Total points*" Width="260" FontSize="10"></TextBlock>
+                                        <TextBlock Text=":" Width="6" HorizontalAlignment="Right" FontSize="10"></TextBlock>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataLeftTotalPts" Text="{Binding DataLeftTotalPts}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataRightTotalPts" Text="{Binding DataRightTotalPts}" FontSize="10"/>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">
+                                        <TextBlock Text="BI-RADS分類 BI-RADS Category*" Width="260" FontSize="10"></TextBlock>
+                                        <TextBlock Text=":" Width="6" HorizontalAlignment="Right" FontSize="10"></TextBlock>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataLeftBiRadsCategory" FontSize="10" Text="{Binding DataLeftBiRadsCategory}" TextWrapping="Wrap" Padding="0,0,5,0"/>
+                                        </WrapPanel>
+                                        <WrapPanel Width="193">
+                                            <TextBlock Name="dataRightBiRadsCategory" FontSize="10" Text="{Binding DataRightBiRadsCategory}" TextWrapping="Wrap" Padding="0,0,5,0"/>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <Grid Grid.Row="6">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>                                            
+                                            <RowDefinition Height="7*"/>                                            
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="230"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="432"/>
+                                        </Grid.ColumnDefinitions>
+                                        <DockPanel HorizontalAlignment="Center">
+                                            <TextBlock Text="年齡相關電導率對數表" FontSize="10" Height="16"></TextBlock>
+                                        </DockPanel>
+                                        <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+                                            <TextBlock Text="^Age-Related Electrical Conducivity scale" FontSize="10" Height="16"></TextBlock>
+                                        </DockPanel>
+                                        <DockPanel Grid.Column="2" HorizontalAlignment="Center">
+                                            <TextBlock Text="BI-EIM 分數 BI-RADS 分類對數表" FontSize="10" Height="16"></TextBlock>
+                                        </DockPanel>
+                                        <DockPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+                                            <TextBlock Text="*Table of BI-EIM Toal points &amp; BI-RADS Category" FontSize="10" Height="16"></TextBlock>
+                                        </DockPanel>
+                                        <Grid Grid.Row="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.5*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.4*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border  Grid.Row="0" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1" Background="#FF35A2B4">
+                                                <Label FontSize="10" Content="年齡 Age" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,1,1,1" Background="#FF35A2B4">
+                                                <Label FontSize="10" Content="5%" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border Grid.Row="0" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,1,1,1" Background="#FF35A2B4">
+                                                <Label FontSize="10" Content="50%" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border Grid.Row="0" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,1,1,1" Background="#FF35A2B4">
+                                                <Label FontSize="10" Content="95%" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="20-29" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.18" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.28" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.44" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="30-39" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.16" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.40" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.53" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="40-49" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.22" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.51" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label  FontSize="10" Content="0.63" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="50-59" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.32" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.58" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label  FontSize="10" Content="0.72" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="60-69" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.43" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.57" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label  FontSize="10" Content="0.78" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="&gt;70" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.50" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="2" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Content="0.57" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="3" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label  FontSize="10" Content="0.64" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,2,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.5*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="3.2*"/>                                                
+                                            </Grid.ColumnDefinitions>
+                                            <Border  Grid.Row="0" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1" Background="#FF35A2B4">
+                                                <WrapPanel Height="26" VerticalAlignment="Center" Margin="3,4,0,0">
+                                                    <TextBlock FontSize="10" Height="12" Text="BI-EIM 分數" Foreground="White"></TextBlock>
+                                                    <TextBlock FontSize="10" Height="12" Text="BI-EIM Total points" Foreground="White"></TextBlock>
+                                                </WrapPanel>
+                                            </Border>
+                                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,1,1,1" Background="#FF35A2B4">
+                                                <StackPanel Height="26" VerticalAlignment="Center" Margin="5,4,0,0">
+                                                    <TextBlock FontSize="10" Height="12" Text="BI-RADS 分類" Foreground="White"></TextBlock>
+                                                    <TextBlock FontSize="10" Height="12" Text="BI-RADS Category" Foreground="White"></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="無分數 No score" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="1" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="0類 0 Category    照片影像模糊（需重新掃描） Poor image(Re-Screen)" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="0-1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="2" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="1類 1 Category    未發現病理性改變 No findings detected" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="2-3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="3" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="2類 2 Category    良性組織損傷    Benign lesion" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="4" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="3類 3 Category    疑似良性發現    Probably benign findings" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="5-7" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="5" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="4類 4 Category    疑似惡性發現    Suspicious abnormality" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="0" BorderBrush="#FF389AAA" BorderThickness="1,0,1,1">
+                                                <Label FontSize="10" Content="&gt;8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                            </Border>
+                                            <Border  Grid.Row="6" Grid.Column="1" BorderBrush="#FF389AAA" BorderThickness="0,0,1,1">
+                                                <Label FontSize="10" Padding="3,0,0,0" Content="5類 5 Category    高度可能為惡性    Highly suggestive malignancy" VerticalContentAlignment="Center"></Label>
+                                            </Border>
+                                        </Grid>
+                                    </Grid>
+                                    <Border Grid.Row="7" BorderBrush="#FF389AAA" BorderThickness="0,0,0,1"></Border>
+                                    <WrapPanel Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="局部變化特徵 Description of Focal Changes" Foreground="#FF00597F" FontSize="12"></TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Row="9" Margin="10,5,10,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="136"/>
+                                            <ColumnDefinition Width="136"/>
+                                            <ColumnDefinition Width="200"/>                                            
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="左乳 Left Breast" FontSize="10"></TextBlock>
+                                        <TextBlock Text="右乳 Right Breast" FontSize="10" Grid.Column="3"></TextBlock>
+                                        <WrapPanel Grid.Row="1">
+                                            <TextBlock Text="數量 Quantity: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftNumber" FontSize="10" Text="{Binding DataLeftNumber}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="1" Grid.Column="3">
+                                            <TextBlock Text="數量 Quantity: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightNumber" FontSize="10" Text="{Binding DataRightNumber}"/>
+                                        </WrapPanel>
+                                        <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/left.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>                                                
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="56"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="5"/>                                                
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Name="L1_Canvas" Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="L1_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L1_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Grid.Column="2" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/right.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="12"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="R1_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R1_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <WrapPanel Grid.Row="3" Grid.Column="0">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSize" Text="{Binding DataLeftSize}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="3" Grid.Column="3">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSize" Text="{Binding DataRightSize}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="4" Grid.Column="0">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftShape" Text="{Binding DataLeftShape}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="4" Grid.Column="3">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightShape" Text="{Binding DataRightShape}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="5" Grid.Column="0">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftContourAroundFocus" Text="{Binding DataLeftContourAroundFocus}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="5" Grid.Column="3">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightContourAroundFocus" Text="{Binding DataRightContourAroundFocus}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="6" Grid.Column="0">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="6" Grid.Column="3">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>                                            
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="7" Grid.Column="0">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSurroundingTissues" Text="{Binding DataLeftSurroundingTissues}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="7" Grid.Column="3">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSurroundingTissues" Text="{Binding DataRightSurroundingTissues}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="8" Grid.Column="0">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="8" Grid.Column="3">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+
+                                        <Grid Grid.Row="11" Grid.Column="1" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/left.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="56"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="5"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="L2_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L2_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <Grid Grid.Row="11" Grid.Column="2" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/right.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="12"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="R2_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R2_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <WrapPanel Grid.Row="12" Grid.Column="0">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSize2" Text="{Binding DataLeftSize2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="12" Grid.Column="3">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSize2" Text="{Binding DataRightSize2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="13" Grid.Column="0">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftShape2" Text="{Binding DataLeftShape2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="13" Grid.Column="3">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightShape2" Text="{Binding DataRightShape2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="14" Grid.Column="0">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftContourAroundFocus2" Text="{Binding DataLeftContourAroundFocus2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="14" Grid.Column="3">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightContourAroundFocus2" Text="{Binding DataRightContourAroundFocus2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="15" Grid.Column="0">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="15" Grid.Column="3">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="16" Grid.Column="0">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSurroundingTissues2" Text="{Binding DataLeftSurroundingTissues2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="16" Grid.Column="3">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSurroundingTissues2" Text="{Binding DataRightSurroundingTissues2}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="17" Grid.Column="0">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="17" Grid.Column="3">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+
+                                        <Grid Grid.Row="20" Grid.Column="1" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/left.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="56"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="5"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="L3_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="L3_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <Grid Grid.Row="20" Grid.Column="2" Grid.RowSpan="8">
+                                            <Grid.Background>
+                                                <ImageBrush ImageSource="/Images/right.png" Stretch="UniformToFill" ></ImageBrush>
+                                            </Grid.Background>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="42"/>
+                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="12"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Canvas Grid.Row="1" Grid.Column="1">
+                                                <TextBlock Name="R3_12" Text="x" Canvas.Top="4" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_1" Text="x" Canvas.Top="8" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_2" Text="x" Canvas.Top="15" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_3" Text="x" Canvas.Top="28" Canvas.Left="59" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_4" Text="x" Canvas.Top="41" Canvas.Left="54" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_5" Text="x" Canvas.Top="48" Canvas.Left="44" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_6" Text="x" Canvas.Top="52" Canvas.Left="32" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_7" Text="x" Canvas.Top="48" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_8" Text="x" Canvas.Top="41" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_9" Text="x" Canvas.Top="28" Canvas.Left="5" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_10" Text="x" Canvas.Top="15" Canvas.Left="10" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                                <TextBlock Name="R3_11" Text="x" Canvas.Top="8" Canvas.Left="20" FontSize="11" Visibility="Collapsed"></TextBlock>
+                                            </Canvas>
+                                        </Grid>
+                                        <WrapPanel Grid.Row="21" Grid.Column="0">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSize3" Text="{Binding DataLeftSize3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="21" Grid.Column="3">
+                                            <TextBlock Text="大小 Size: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSize3" Text="{Binding DataRightSize3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="22" Grid.Column="0">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftShape3" Text="{Binding DataLeftShape3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="22" Grid.Column="3">
+                                            <TextBlock Text="形狀 Shape: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightShape3" Text="{Binding DataRightShape3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="23" Grid.Column="0">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftContourAroundFocus3" Text="{Binding DataLeftContourAroundFocus3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="23" Grid.Column="3">
+                                            <TextBlock Text="周圍形狀: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightContourAroundFocus3" Text="{Binding DataRightContourAroundFocus3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="24" Grid.Column="0">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="24" Grid.Column="3">
+                                            <TextBlock Text="Contour around focus" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="25" Grid.Column="0">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataLeftSurroundingTissues3" Text="{Binding DataLeftSurroundingTissues3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="25" Grid.Column="3">
+                                            <TextBlock Text="周圍組織: " FontSize="10"></TextBlock>
+                                            <TextBlock Name="dataRightSurroundingTissues3" Text="{Binding DataRightSurroundingTissues3}" FontSize="10"/>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="26" Grid.Column="0">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Row="26" Grid.Column="3">
+                                            <TextBlock Text="Surrounding tissues" FontSize="10"></TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                    <TextBlock Grid.Row="11" FontSize="10" Text="圖形只顯示發現特徵的部位，並非其大小，形狀和位置." HorizontalAlignment="Right" Margin="0,0,35,0"></TextBlock>
+                                    <TextBlock Grid.Row="12" FontSize="10" Text="Diagram only indicates location of the focal change, not the exact size, shape, or position." HorizontalAlignment="Right" Margin="0,0,35,0"></TextBlock>
+                                </Grid>
+                            </Border>
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Width="692">
+                                <TextBlock Text="續下頁 Continued on next page   P.2/3" FontSize="12" HorizontalAlignment="Right" Padding="0,5,0,0"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+
+        </TableRowGroup>
+    </Table>
+    <!--Page Footer-->
+    <Paragraph Padding="0" LineStackingStrategy="BlockLineHeight">
+        <TextBlock Height="36" Width="794" Foreground="White" Padding="50,10,50,5" VerticalAlignment="Center" Background="#FF00657F" Text="Unit A-C, 7/F, 10 Knutsford Terrace, Tsim Sha Tsui, Kowloon, Hong Kong.    Tel. 3188 3562    Fax. 3188 3270"></TextBlock>
+    </Paragraph>
+
+    <!--Page Header-->
+    <Table Padding="50,20,50,0">
+        <Table.Columns>
+            <TableColumn Width="*"></TableColumn>
+            <TableColumn Width="4*"></TableColumn>
+            <TableColumn Width="*"></TableColumn>
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell RowSpan="4">
+                    <TableCell.Background>
+                        <ImageBrush ImageSource="/MEIKReport;component/Images/logo_k.png" Stretch="None" AlignmentY="Top"/>
+                    </TableCell.Background>
+                </TableCell>
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="10"/>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableRow.Background>
+                    <ImageBrush ImageSource="/MEIKReport;component/Images/title.png" AlignmentY="Top" Stretch="None"></ImageBrush>
+                </TableRow.Background>
+
+                <TableCell TextAlignment="Center" LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="36">
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="快速乳房健康檢測報告" Foreground="#FF00657F" FontWeight="Bold" FontSize="28"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+            <TableRow>
+
+                <TableCell TextAlignment="Center">
+                    <Paragraph>
+                        <TextBlock Text="Rapid Breast Health Screening Report" Foreground="#FF00657F" FontWeight="Bold" FontSize="18"/>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <!--Result-->
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph>
+                        <Grid Width="692">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="300"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Center" VerticalAlignment="Center" Text="評估 Assessment" Margin="2"></TextBlock>
+                            </Border>
+                            <Border Grid.Row="1" Grid.ColumnSpan="4" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
+                                <Grid Width="692" HorizontalAlignment="Left" Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="100"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        
+                                    </Grid.RowDefinitions>
+                                    <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="分析結果 Analysis: "></TextBlock>
+                                        <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="建議 Suggestion: "></TextBlock>
+                                        <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="深入檢查 Futher examination: "></TextBlock>
+                                        <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,10,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="560"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="說明 Comment: "></TextBlock>
+                                            <TextBlock Grid.Column="1" Name="dataComments" Text="{Binding DataComments}" TextWrapping="Wrap" />
+                                        </Grid>                                        
+                                    </WrapPanel>                                   
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+
+        </TableRowGroup>
+    </Table>
+    <!--Comment-->
+    <Table>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell Padding="70,0,70,0">
+                    <Paragraph TextAlignment="Center">
+                        <TextBlock FontSize="10" Text="上述結果是基於此次MEIK檢測，必須與之前的乳房x光和超聲波檢測結果（如有）、病歷、臨床發現以及其他程序診斷結果相結合。"></TextBlock>
+                        <TextBlock FontSize="10" Text="The above results are based on interpretations at the time of the screening and must be correlated with previous mammogram and ultrasoundresults(if any), medical history, clinical findings, and other auxiliary procedures." TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+  
+    <!--簽名-->
+    <Table Padding="52,50,52,20">
+        <Table.Columns>
+            <TableColumn Width="203"></TableColumn>
+            <TableColumn Width="43"></TableColumn>
+            <TableColumn Width="203"></TableColumn>
+            <TableColumn Width="40"></TableColumn>
+            <TableColumn Width="203"></TableColumn>
+        </Table.Columns>        
+        <TableRowGroup>
+            <TableRow>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <Paragraph>
+                        <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Padding="0,20,0,0"/>
+                    </Paragraph>
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <BlockUIContainer LineHeight="40">
+                        <Image Name="dataSignImg" Width="202" Height="40" Stretch="Fill"/>
+                    </BlockUIContainer>
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <Paragraph LineHeight="40">                        
+                        <TextBlock Name="dataSignDate" Text="{Binding DataSignDate}" Padding="0,20,0,0"/>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
+                </TableCell>
+                <TableCell/>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
+                </TableCell>
+                <TableCell/>
+                <TableCell LineStackingStrategy="BlockLineHeight">
+                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
+                </TableCell>
+
+            </TableRow>
+            <TableRow>
+                <TableCell LineHeight="14">
+                    <Paragraph>
+                        <TextBlock Text="醫生姓名 Doctor's name"/>                        
+                    </Paragraph>
+                </TableCell>
+                <TableCell/>
+                <TableCell>
+                    <Paragraph>
+                        <TextBlock Text="醫生簽署 Doctor's signature" />
+                    </Paragraph>                    
+                </TableCell>
+                <TableCell/>
+                <TableCell>
+                    <Paragraph>
+                        <TextBlock Text="日期 Date" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Table Padding="50,358,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="P.3/3" FontSize="12" HorizontalAlignment="Right" Padding="0,0,5,0"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <!--Page Footer-->
+    <Paragraph Padding="0" LineStackingStrategy="BlockLineHeight">
+        <TextBlock Height="36" Width="794" Foreground="White" Padding="50,10,50,5" VerticalAlignment="Center" Background="#FF00657F" Text="Unit A-C, 7/F, 10 Knutsford Terrace, Tsim Sha Tsui, Kowloon, Hong Kong.    Tel. 3188 3562    Fax. 3188 3270"></TextBlock>
+    </Paragraph>
+</FlowDocument>
