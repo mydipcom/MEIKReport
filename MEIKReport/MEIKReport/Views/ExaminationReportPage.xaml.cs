@@ -972,7 +972,7 @@ namespace MEIKReport.Views
         /// <param name="reportTempl"></param>
         /// <param name="pdfFile"></param>
         /// <param name="reportModel"></param>
-        private void ExportFlowDocumentPDF(string reportTempl, string pdfFile, ShortFormReport reportModel)
+        private void ExportFlowDocumentPDF(string reportTempl, string pdfFile, ShortFormReport reportModel,string pagesize=null)
         {
             string xpsFile = dataFolder + System.IO.Path.DirectorySeparatorChar + person.Code + ".xps";
             if (File.Exists(xpsFile))
@@ -980,7 +980,7 @@ namespace MEIKReport.Views
                 File.Delete(xpsFile);
             }
 
-            FlowDocument page = (FlowDocument)PrintPreviewWindow.LoadFlowDocumentAndRender(reportTempl, reportModel);
+            FlowDocument page = (FlowDocument)PrintPreviewWindow.LoadFlowDocumentAndRender(reportTempl, reportModel,pagesize);
             try
             {
                 LoadDataForFlowDocument(page, reportModel);
@@ -1550,418 +1550,418 @@ namespace MEIKReport.Views
                 }  
                               
 
-                if(string.IsNullOrEmpty(reportModel.DataLeftLocation)||page.FindName("L1_Canvas")==null){
-                    
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("12"))
-                {
-                    textBlock1 = page.FindName("L1_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;                    
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("L1_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("L1_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("L1_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("L1_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("L1_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("L1_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("L1_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("L1_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("L1_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("L1_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("L1_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("L1".Equals(reportModel.DataLeftMaxFlag))
-                {
-                    textBlock1.Text = "●";                    
-                }
+                if(!string.IsNullOrEmpty(reportModel.DataLeftLocation)&&page.FindName("L1_Canvas")!=null){
 
-                if (string.IsNullOrEmpty(reportModel.DataRightLocation) || page.FindName("L1_Canvas") == null)
-                {
+                    if (reportModel.DataLeftLocation.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("L1_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("L1_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("L1_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("L1_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("L1_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("L1_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("L1_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("L1_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("L1_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("L1_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("L1_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("L1_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("L1".Equals(reportModel.DataLeftMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
+                }                
 
-                }
-                else if (reportModel.DataRightLocation.StartsWith("12"))
+                if (!string.IsNullOrEmpty(reportModel.DataRightLocation) && page.FindName("L1_Canvas") != null)
                 {
-                    textBlock1 = page.FindName("R1_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("R1_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("R1_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("R1_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("R1_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("R1_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("R1_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("R1_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("R1_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("R1_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("R1_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("R1_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("R1".Equals(reportModel.DataRightMaxFlag))
-                {
-                    textBlock1.Text = "●";
-                }
+                    if (reportModel.DataRightLocation.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("R1_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("R1_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("R1_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("R1_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("R1_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("R1_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("R1_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("R1_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("R1_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("R1_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("R1_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("R1_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("R1".Equals(reportModel.DataRightMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
 
-                if (string.IsNullOrEmpty(reportModel.DataLeftLocation2) || page.FindName("L1_Canvas") == null)
-                {
+                }                
 
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("12"))
+                if (!string.IsNullOrEmpty(reportModel.DataLeftLocation2) && page.FindName("L1_Canvas") != null)
                 {
-                    textBlock1 = page.FindName("L2_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("L2_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("L2_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("L2_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("L2_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("L2_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("L2_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("L2_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("L2_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("L2_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("L2_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation2.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("L2_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("L2".Equals(reportModel.DataLeftMaxFlag))
-                {
-                    textBlock1.Text = "●";
-                }
+                    if (reportModel.DataLeftLocation2.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("L2_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("L2_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("L2_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("L2_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("L2_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("L2_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("L2_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("L2_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("L2_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("L2_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("L2_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation2.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("L2_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("L2".Equals(reportModel.DataLeftMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
 
-                if (string.IsNullOrEmpty(reportModel.DataRightLocation2) || page.FindName("L1_Canvas") == null)
-                {
+                }                
 
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("12"))
+                if (!string.IsNullOrEmpty(reportModel.DataRightLocation2) && page.FindName("L1_Canvas") != null)
                 {
-                    textBlock1 = page.FindName("R2_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("R2_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("R2_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("R2_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("R2_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("R2_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("R2_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("R2_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("R2_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("R2_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("R2_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation2.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("R2_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("R2".Equals(reportModel.DataRightMaxFlag))
-                {
-                    textBlock1.Text = "●";
-                }
+                    if (reportModel.DataRightLocation2.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("R2_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("R2_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("R2_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("R2_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("R2_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("R2_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("R2_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("R2_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("R2_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("R2_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("R2_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation2.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("R2_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("R2".Equals(reportModel.DataRightMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
 
-                if (string.IsNullOrEmpty(reportModel.DataLeftLocation3) || page.FindName("L1_Canvas") == null)
-                {
+                }                
 
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("12"))
+                if (!string.IsNullOrEmpty(reportModel.DataLeftLocation3) && page.FindName("L1_Canvas") != null)
                 {
-                    textBlock1 = page.FindName("L3_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
+                    if (reportModel.DataLeftLocation3.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("L3_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("L3_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("L3_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("L3_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("L3_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("L3_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("L3_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("L3_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("L3_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("L3_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("L3_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataLeftLocation3.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("L3_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("L3".Equals(reportModel.DataLeftMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
                 }
-                else if (reportModel.DataLeftLocation3.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("L3_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("L3_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("L3_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("L3_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("L3_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("L3_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("L3_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("L3_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("L3_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("L3_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataLeftLocation3.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("L3_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("L3".Equals(reportModel.DataLeftMaxFlag))
-                {
-                    textBlock1.Text = "●";
-                }
+                
 
-                if (string.IsNullOrEmpty(reportModel.DataRightLocation3) || page.FindName("L1_Canvas") == null)
+                if (!string.IsNullOrEmpty(reportModel.DataRightLocation3) &&page.FindName("L1_Canvas") != null)
                 {
+                    if (reportModel.DataRightLocation3.StartsWith("12"))
+                    {
+                        textBlock1 = page.FindName("R3_12") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("11"))
+                    {
+                        textBlock1 = page.FindName("R3_11") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("10"))
+                    {
+                        textBlock1 = page.FindName("R3_10") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("9"))
+                    {
+                        textBlock1 = page.FindName("R3_9") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("8"))
+                    {
+                        textBlock1 = page.FindName("R3_8") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("7"))
+                    {
+                        textBlock1 = page.FindName("R3_7") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("6"))
+                    {
+                        textBlock1 = page.FindName("R3_6") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("5"))
+                    {
+                        textBlock1 = page.FindName("R3_5") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("4"))
+                    {
+                        textBlock1 = page.FindName("R3_4") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("3"))
+                    {
+                        textBlock1 = page.FindName("R3_3") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("2"))
+                    {
+                        textBlock1 = page.FindName("R3_2") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    else if (reportModel.DataRightLocation3.StartsWith("1"))
+                    {
+                        textBlock1 = page.FindName("R3_1") as TextBlock;
+                        textBlock1.Visibility = Visibility.Visible;
+                    }
+                    if ("R3".Equals(reportModel.DataRightMaxFlag))
+                    {
+                        textBlock1.Text = "●";
+                    }
 
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("12"))
-                {
-                    textBlock1 = page.FindName("R3_12") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("11"))
-                {
-                    textBlock1 = page.FindName("R3_11") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("10"))
-                {
-                    textBlock1 = page.FindName("R3_10") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("9"))
-                {
-                    textBlock1 = page.FindName("R3_9") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("8"))
-                {
-                    textBlock1 = page.FindName("R3_8") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("7"))
-                {
-                    textBlock1 = page.FindName("R3_7") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("6"))
-                {
-                    textBlock1 = page.FindName("R3_6") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("5"))
-                {
-                    textBlock1 = page.FindName("R3_5") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("4"))
-                {
-                    textBlock1 = page.FindName("R3_4") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("3"))
-                {
-                    textBlock1 = page.FindName("R3_3") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("2"))
-                {
-                    textBlock1 = page.FindName("R3_2") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                else if (reportModel.DataRightLocation3.StartsWith("1"))
-                {
-                    textBlock1 = page.FindName("R3_1") as TextBlock;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-                if ("R3".Equals(reportModel.DataRightMaxFlag))
-                {
-                    textBlock1.Text = "●";
-                }
+                }                
             }
         }
 
@@ -2363,12 +2363,38 @@ namespace MEIKReport.Views
 
         private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex re = new Regex("[0-9.-]+");
-            if(re.IsMatch(e.Text)){
-                e.Handled =false ;
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) < 100)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_56").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_56").ToString());
+                    e.Handled = true;
+                }
             }
-            else{
-                MessageBox.Show(this, App.Current.FindResource("Message_56").ToString());
+            catch (Exception)
+            {
                 e.Handled = true;
             }
             
@@ -2376,162 +2402,174 @@ namespace MEIKReport.Views
 
         private void Hour_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex re = new Regex("[0-9.-]+");
-            if (re.IsMatch(e.Text))
-            {
-                var textBox = (TextBox)sender;
-                if (!string.IsNullOrEmpty(textBox.Text))
+            try { 
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
                 {
-                    if (Convert.ToInt32(textBox.Text + e.Text) < 24 && (textBox.Text.Length+1) <= 2)
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
                     {
-                        e.Handled = false;
+                        if (Convert.ToInt32(textBox.Text + e.Text) < 24 && (textBox.Text.Length+1) <= 2)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_54").ToString());
+                            e.Handled = true;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show(this, App.Current.FindResource("Message_54").ToString());
-                        e.Handled = true;
+                        e.Handled = false;
                     }
                 }
                 else
                 {
-                    e.Handled = false;
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
                 e.Handled = true;
-            }            
-            
+            }
         }
 
         private void Minute_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex re = new Regex("[0-9.-]+");
-            if (re.IsMatch(e.Text))
+            try
             {
-                var textBox = (TextBox)sender;
-                if (!string.IsNullOrEmpty(textBox.Text))
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
                 {
-                    if (Convert.ToInt32(textBox.Text+e.Text) < 60 && (textBox.Text.Length+1) <= 2)
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
                     {
-                        e.Handled = false;
+                        if (Convert.ToInt32(textBox.Text + e.Text) < 60 && (textBox.Text.Length + 1) <= 2)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_55").ToString());
+                            e.Handled = true;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show(this, App.Current.FindResource("Message_55").ToString());
-                        e.Handled = true;
+                        e.Handled = false;
                     }
                 }
                 else
                 {
-                    e.Handled = false;
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
                 }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
                 e.Handled = true;
-            }            
+            }
         }
 
 
-        /// <summary>
-        /// 選擇生成PDF報表
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void savePdfComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
-            if (comboBox.SelectedIndex == 2)
-            {
-                try
-                {
-                    if (!Directory.Exists(dataFolder))
-                    {
-                        Directory.CreateDirectory(dataFolder);
-                    }
+        ///// <summary>
+        ///// 選擇生成PDF報表
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void savePdfComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var comboBox = sender as ComboBox;
+        //    if (comboBox.SelectedIndex == 2)
+        //    {
+        //        try
+        //        {
+        //            if (!Directory.Exists(dataFolder))
+        //            {
+        //                Directory.CreateDirectory(dataFolder);
+        //            }
 
-                    LoadDataModel();
-                    //Clone生成全文本的报表数据对象模型
-                    var reportModel = CloneReportModel();
-                    //打开文件夹对话框，选择要保存的目录
-                    System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-                    folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
-                    System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
-                    if (res == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string folderName = folderBrowserDialog.SelectedPath;
-                        string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
-                        //生成Examination报告的PDF文件
-                        string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
-                        string lfReportTempl = "Views/ExaminationReportFlow.xaml";
-                        ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
+        //            LoadDataModel();
+        //            //Clone生成全文本的报表数据对象模型
+        //            var reportModel = CloneReportModel();
+        //            //打开文件夹对话框，选择要保存的目录
+        //            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+        //            folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
+        //            System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
+        //            if (res == System.Windows.Forms.DialogResult.OK)
+        //            {
+        //                string folderName = folderBrowserDialog.SelectedPath;
+        //                string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
+        //                //生成Examination报告的PDF文件
+        //                string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
+        //                string lfReportTempl = "Views/ExaminationReportFlow.xaml";
+        //                ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
 
-                        //生成Summary报告的PDF文件
-                        string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
-                        string sfReportTempl = "Views/SummaryReportFlow.xaml";
+        //                //生成Summary报告的PDF文件
+        //                string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
+        //                string sfReportTempl = "Views/SummaryReportFlow.xaml";
 
-                        ExportFlowDocumentPDF(sfReportTempl, sfPdfFile, reportModel);
+        //                ExportFlowDocumentPDF(sfReportTempl, sfPdfFile, reportModel, "A4");
 
-                        MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
-                    FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                    MessageBox.Show(this, ex.Message);
-                }
-            }
-            else if (comboBox.SelectedIndex == 1)
-            {
-                try
-                {
-                    if (!Directory.Exists(dataFolder))
-                    {
-                        Directory.CreateDirectory(dataFolder);
-                    }
+        //                MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+        //            FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+        //            MessageBox.Show(this, ex.Message);
+        //        }
+        //    }
+        //    else if (comboBox.SelectedIndex == 1)
+        //    {
+        //        try
+        //        {
+        //            if (!Directory.Exists(dataFolder))
+        //            {
+        //                Directory.CreateDirectory(dataFolder);
+        //            }
 
-                    LoadDataModel();
-                    //Clone生成全文本的报表数据对象模型
-                    var reportModel = CloneReportModel();
-                    //打开文件夹对话框，选择要保存的目录
-                    System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-                    folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
-                    System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
-                    if (res == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string folderName = folderBrowserDialog.SelectedPath;
-                        string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
-                        //生成Examination报告的PDF文件
-                        string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
-                        string lfReportTempl = "Views/ExaminationReportFlow.xaml";
-                        ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
+        //            LoadDataModel();
+        //            //Clone生成全文本的报表数据对象模型
+        //            var reportModel = CloneReportModel();
+        //            //打开文件夹对话框，选择要保存的目录
+        //            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+        //            folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
+        //            System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
+        //            if (res == System.Windows.Forms.DialogResult.OK)
+        //            {
+        //                string folderName = folderBrowserDialog.SelectedPath;
+        //                string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
+        //                //生成Examination报告的PDF文件
+        //                string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
+        //                string lfReportTempl = "Views/ExaminationReportFlow.xaml";
+        //                ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
 
-                        //生成Summary报告的PDF文件
-                        string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
-                        string sfReportTempl = "Views/SummaryReportDocument.xaml";
-                        if (shortFormReportModel.DataScreenShotImg != null)
-                        {
-                            sfReportTempl = "Views/SummaryReportNuvoTekDocument.xaml";
-                        }
+        //                //生成Summary报告的PDF文件
+        //                string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
+        //                string sfReportTempl = "Views/SummaryReportDocument.xaml";
+        //                if (shortFormReportModel.DataScreenShotImg != null)
+        //                {
+        //                    sfReportTempl = "Views/SummaryReportNuvoTekDocument.xaml";
+        //                }
 
-                        ExportPDF(sfReportTempl, sfPdfFile, reportModel);
+        //                ExportPDF(sfReportTempl, sfPdfFile, reportModel);
 
-                        MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
-                    FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-                    MessageBox.Show(this, ex.Message);
-                }
-            }
+        //                MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+        //            FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+        //            MessageBox.Show(this, ex.Message);
+        //        }
+        //    }
 
-        } 
+        //} 
                
     }
 }

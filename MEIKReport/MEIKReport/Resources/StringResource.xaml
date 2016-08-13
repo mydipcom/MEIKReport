@@ -110,6 +110,11 @@
     <sys:String x:Key="Message_54">Please enter a number from 0 to 23.</sys:String>
     <sys:String x:Key="Message_55">Please enter a number from 0 to 59.</sys:String>
     <sys:String x:Key="Message_56">Please enter a number from 0 to 99.</sys:String>
+    <sys:String x:Key="Message_57">Please enter a number from 1 to 12.</sys:String>
+    <sys:String x:Key="Message_58">Please enter a number from 1 to 31.</sys:String>
+    <sys:String x:Key="Message_59">Please enter a valid year</sys:String>
+    <sys:String x:Key="Message_60">Please enter a number less than 500</sys:String>
+    <sys:String x:Key="Message_61">Please enter a valid mobile number</sys:String>
 
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
@@ -178,7 +183,7 @@
     <sys:String x:Key="UserDataPersonal7">day</sys:String>
     <sys:String x:Key="UserDataPersonal8">month</sys:String>
     <sys:String x:Key="UserDataPersonal9">year</sys:String>
-    <sys:String x:Key="UserDataPersona20">Remark:</sys:String>
+    <sys:String x:Key="UserDataPersona20">Others:</sys:String>
     <sys:String x:Key="UserDataPersona21">NO</sys:String>
     <sys:String x:Key="UserDataPersona22">YES</sys:String>
     <sys:String x:Key="UserDataPersona23">Height(cm):</sys:String>
@@ -293,7 +298,15 @@
     <sys:String x:Key="UserDataExaminations19">Result:</sys:String>
     <sys:String x:Key="UserDataExaminations20">Diagnosis:</sys:String>
 
-
+    <sys:String x:Key="UserDataVisualTab">Visual</sys:String>
+    <sys:String x:Key="UserDataVisual1">Red and swollen:</sys:String>
+    <sys:String x:Key="UserDataVisual2">Palpable:</sys:String>
+    <sys:String x:Key="UserDataVisual3">Serous discharge:</sys:String>
+    <sys:String x:Key="UserDataVisual4">Wounds:</sys:String>
+    <sys:String x:Key="UserDataVisual5">Scars:</sys:String>
+    
+    
+    
     <sys:String x:Key="ReportContext_1" xml:space="preserve">Full name: </sys:String>
     <sys:String x:Key="ReportContext_2" xml:space="preserve">Screen Date: </sys:String>
     <sys:String x:Key="ReportContext_3" xml:space="preserve">Gender: </sys:String>

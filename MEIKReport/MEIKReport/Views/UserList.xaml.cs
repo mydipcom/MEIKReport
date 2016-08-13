@@ -150,13 +150,13 @@ namespace MEIKReport
 
         private void SummaryReport_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            //this.Visibility = Visibility.Hidden;
             var selectedUser = this.CodeListBox.SelectedItem as Person;
             //var name = selectedUser.GetAttribute("Name");
             SummaryReportPage summaryReportPage = new SummaryReportPage(selectedUser);
             ////summaryReportPage.closeWindowEvent += new CloseWindowHandler(ShowMainWindow);
             summaryReportPage.Owner = this;
-            summaryReportPage.ShowDialog();
+            summaryReportPage.Show();
         }
 
         private void ShowMainWindow(object sender, EventArgs e)
@@ -368,6 +368,7 @@ namespace MEIKReport
                                 person.MenstrualCycleDisorder = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder", "0", NextFile.FullName)));
                                 person.Postmenopause = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "postmenopause", "0", NextFile.FullName)));
                                 person.HormonalContraceptives = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Menses", "hormonal contraceptives", "0", NextFile.FullName)));
+                                person.PostmenopauseYear = OperateIniFile.ReadIniData("Menses", "postmenopause year", "", NextFile.FullName);
                                 person.MenstrualCycleDisorderDesc = OperateIniFile.ReadIniData("Menses", "menstrual cycle disorder description", "", NextFile.FullName);
                                 person.MenstrualCycleDisorderDesc = person.MenstrualCycleDisorderDesc.Replace(";;", "\r\n");
                                 person.PostmenopauseDesc = OperateIniFile.ReadIniData("Menses", "postmenopause description", "", NextFile.FullName);
@@ -527,6 +528,30 @@ namespace MEIKReport
                                 //person.BiopsyStatus = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Biopsy", "biopsy status", "0", NextFile.FullName)));
                             }
                             catch (Exception) { }
+
+                            try
+                            {
+                                person.RedSwollen = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "red swollen", "0", NextFile.FullName)));
+                                person.Palpable = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "palpable", "0", NextFile.FullName)));
+                                person.Serous = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "serous discharge", "0", NextFile.FullName)));
+                                person.Wounds = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "wounds", "0", NextFile.FullName)));
+                                person.Scars = Convert.ToBoolean(Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "scars", "0", NextFile.FullName)));
+                                person.RedSwollenLeft = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "red swollen left segment", "0", NextFile.FullName));
+                                person.RedSwollenRight = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "red swollen right segment", "0", NextFile.FullName));
+
+                                person.PalpableLeft = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "palpable left segment", "0", NextFile.FullName));
+                                person.PalpableRight = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "palpable right segment", "0", NextFile.FullName));
+
+                                person.SerousLeft = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "serous left segment", "0", NextFile.FullName));
+                                person.SerousRight = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "serous right segment", "0", NextFile.FullName));
+
+                                person.WoundsLeft = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "wounds left segment", "0", NextFile.FullName));
+                                person.WoundsRight = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "wounds right segment", "0", NextFile.FullName));
+
+                                person.ScarsLeft = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "scars left segment", "0", NextFile.FullName));
+                                person.ScarsRight = Convert.ToInt32(OperateIniFile.ReadIniData("Visual", "scars right segment", "0", NextFile.FullName));
+                            }
+                            catch { }
 
                             set.Add(person);
                         }
@@ -1021,122 +1046,190 @@ namespace MEIKReport
         /// <param name="e"></param>
         private void CodeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            try
             {
-                var selectItems = e.AddedItems;
-                foreach (Person item in selectItems)
+                if (e.AddedItems.Count > 0)
                 {
-                    item.Icon = "/Images/id_card_ok.png";
-                }
-                var selectItem=e.AddedItems[0] as Person;
-                string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
+                    var selectItems = e.AddedItems;
+                    foreach (Person item in selectItems)
+                    {
+                        item.Icon = "/Images/id_card_ok.png";
+                    }
+                    var selectItem = e.AddedItems[0] as Person;
+                    string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                    OperateIniFile.WriteIniData("Base", "Patients base", selectItem.ArchiveFolder, meikiniFile);
 
-                if (selectItem.PalpableLumps)
+                    if (selectItem.ReportLanguage)
+                    {
+                        radChinese.IsChecked = false;
+                        radEnglish.IsChecked = true;
+                    }
+                    else
+                    {
+                        radChinese.IsChecked = true;
+                        radEnglish.IsChecked = false;
+                    }
+                    if (selectItem.PalpableLumps)
+                    {
+                        leftClock1.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock1.Tag)) > 0 ? 1 : 0;
+                        leftClock2.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock2.Tag)) > 0 ? 1 : 0;
+                        leftClock3.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock3.Tag)) > 0 ? 1 : 0;
+                        leftClock4.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock4.Tag)) > 0 ? 1 : 0;
+                        leftClock5.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock5.Tag)) > 0 ? 1 : 0;
+                        leftClock6.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock6.Tag)) > 0 ? 1 : 0;
+                        leftClock7.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock7.Tag)) > 0 ? 1 : 0;
+                        leftClock8.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock8.Tag)) > 0 ? 1 : 0;
+                        leftClock9.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock9.Tag)) > 0 ? 1 : 0;
+                        leftClock10.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock10.Tag)) > 0 ? 1 : 0;
+                        leftClock11.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock11.Tag)) > 0 ? 1 : 0;
+                        leftClock12.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock12.Tag)) > 0 ? 1 : 0;
+
+                        rightClock1.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock1.Tag)) > 0 ? 1 : 0;
+                        rightClock2.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock2.Tag)) > 0 ? 1 : 0;
+                        rightClock3.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock3.Tag)) > 0 ? 1 : 0;
+                        rightClock4.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock4.Tag)) > 0 ? 1 : 0;
+                        rightClock5.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock5.Tag)) > 0 ? 1 : 0;
+                        rightClock6.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock6.Tag)) > 0 ? 1 : 0;
+                        rightClock7.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock7.Tag)) > 0 ? 1 : 0;
+                        rightClock8.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock8.Tag)) > 0 ? 1 : 0;
+                        rightClock9.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock9.Tag)) > 0 ? 1 : 0;
+                        rightClock10.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock10.Tag)) > 0 ? 1 : 0;
+                        rightClock11.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock11.Tag)) > 0 ? 1 : 0;
+                        rightClock12.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock12.Tag)) > 0 ? 1 : 0;
+
+                    }
+                    else
+                    {
+                        leftClock1.Opacity = 0;
+                        leftClock2.Opacity = 0;
+                        leftClock3.Opacity = 0;
+                        leftClock4.Opacity = 0;
+                        leftClock5.Opacity = 0;
+                        leftClock6.Opacity = 0;
+                        leftClock7.Opacity = 0;
+                        leftClock8.Opacity = 0;
+                        leftClock9.Opacity = 0;
+                        leftClock9.Opacity = 0;
+                        leftClock10.Opacity = 0;
+                        leftClock11.Opacity = 0;
+                        leftClock12.Opacity = 0;
+
+                        rightClock1.Opacity = 0;
+                        rightClock2.Opacity = 0;
+                        rightClock3.Opacity = 0;
+                        rightClock4.Opacity = 0;
+                        rightClock5.Opacity = 0;
+                        rightClock6.Opacity = 0;
+                        rightClock7.Opacity = 0;
+                        rightClock8.Opacity = 0;
+                        rightClock9.Opacity = 0;
+                        rightClock10.Opacity = 0;
+                        rightClock11.Opacity = 0;
+                        rightClock12.Opacity = 0;
+                    }
+
+                    if (selectItem.Pain)
+                    {
+                        degree1.IsChecked = (selectItem.Degree == Convert.ToInt32(degree1.Tag)) ? true : false;
+                        degree2.IsChecked = (selectItem.Degree == Convert.ToInt32(degree2.Tag)) ? true : false;
+                        degree3.IsChecked = (selectItem.Degree == Convert.ToInt32(degree3.Tag)) ? true : false;
+                        degree4.IsChecked = (selectItem.Degree == Convert.ToInt32(degree4.Tag)) ? true : false;
+                        degree5.IsChecked = (selectItem.Degree == Convert.ToInt32(degree5.Tag)) ? true : false;
+                        degree6.IsChecked = (selectItem.Degree == Convert.ToInt32(degree6.Tag)) ? true : false;
+                        degree7.IsChecked = (selectItem.Degree == Convert.ToInt32(degree7.Tag)) ? true : false;
+                        degree8.IsChecked = (selectItem.Degree == Convert.ToInt32(degree8.Tag)) ? true : false;
+                        degree9.IsChecked = (selectItem.Degree == Convert.ToInt32(degree9.Tag)) ? true : false;
+                        degree10.IsChecked = (selectItem.Degree == Convert.ToInt32(degree10.Tag)) ? true : false;
+                        degree1.IsEnabled = true;
+                        degree2.IsEnabled = true;
+                        degree3.IsEnabled = true;
+                        degree4.IsEnabled = true;
+                        degree5.IsEnabled = true;
+                        degree6.IsEnabled = true;
+                        degree7.IsEnabled = true;
+                        degree8.IsEnabled = true;
+                        degree9.IsEnabled = true;
+                        degree10.IsEnabled = true;
+                    }
+                    else
+                    {
+                        degree1.IsChecked = false;
+                        degree2.IsChecked = false;
+                        degree3.IsChecked = false;
+                        degree4.IsChecked = false;
+                        degree5.IsChecked = false;
+                        degree6.IsChecked = false;
+                        degree7.IsChecked = false;
+                        degree8.IsChecked = false;
+                        degree9.IsChecked = false;
+                        degree10.IsChecked = false;
+                    }
+
+                    if (selectItem.RedSwollen)
+                    {
+                        redSwollenLeft.IsEnabled=true;
+                        redSwollenRight.IsEnabled = true;
+                    }
+                    else
+                    {
+                        redSwollenLeft.IsEnabled = false;
+                        redSwollenRight.IsEnabled = false;
+                    }
+
+                    if (selectItem.Palpable)
+                    {
+                        palpableLeft.IsEnabled = true;
+                        palpableRight.IsEnabled = true;
+                    }
+                    else
+                    {
+                        palpableLeft.IsEnabled = false;
+                        palpableRight.IsEnabled = false;
+                    }
+
+                    if (selectItem.Serous)
+                    {
+                        serousLeft.IsEnabled = true;
+                        serousRight.IsEnabled = true;
+                    }
+                    else
+                    {
+                        serousLeft.IsEnabled = false;
+                        serousRight.IsEnabled = false;
+                    }
+
+                    if (selectItem.Wounds)
+                    {
+                        woundsLeft.IsEnabled = true;
+                        woundsRight.IsEnabled = true;
+                    }
+                    else
+                    {
+                        woundsLeft.IsEnabled = false;
+                        woundsRight.IsEnabled = false;
+                    }
+
+                    if (selectItem.Scars)
+                    {
+                        scarsLeft.IsEnabled = true;
+                        scarsRight.IsEnabled = true;
+                    }
+                    else
+                    {
+                        scarsLeft.IsEnabled = false;
+                        scarsRight.IsEnabled = false;
+                    }
+                }
+                if (e.RemovedItems.Count > 0)
                 {
-                    leftClock1.Opacity=(selectItem.LeftPosition & Convert.ToInt32(leftClock1.Tag)) > 0?1:0;
-                    leftClock2.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock2.Tag)) > 0 ? 1 : 0;
-                    leftClock3.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock3.Tag)) > 0 ? 1 : 0;
-                    leftClock4.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock4.Tag)) > 0 ? 1 : 0;
-                    leftClock5.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock5.Tag)) > 0 ? 1 : 0;
-                    leftClock6.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock6.Tag)) > 0 ? 1 : 0;
-                    leftClock7.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock7.Tag)) > 0 ? 1 : 0;
-                    leftClock8.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock8.Tag)) > 0 ? 1 : 0;
-                    leftClock9.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock9.Tag)) > 0 ? 1 : 0;
-                    leftClock10.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock10.Tag)) > 0 ? 1 : 0;
-                    leftClock11.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock11.Tag)) > 0 ? 1 : 0;
-                    leftClock12.Opacity = (selectItem.LeftPosition & Convert.ToInt32(leftClock12.Tag)) > 0 ? 1 : 0;
-
-                    rightClock1.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock1.Tag)) > 0 ? 1 : 0;
-                    rightClock2.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock2.Tag)) > 0 ? 1 : 0;
-                    rightClock3.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock3.Tag)) > 0 ? 1 : 0;
-                    rightClock4.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock4.Tag)) > 0 ? 1 : 0;
-                    rightClock5.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock5.Tag)) > 0 ? 1 : 0;
-                    rightClock6.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock6.Tag)) > 0 ? 1 : 0;
-                    rightClock7.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock7.Tag)) > 0 ? 1 : 0;
-                    rightClock8.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock8.Tag)) > 0 ? 1 : 0;
-                    rightClock9.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock9.Tag)) > 0 ? 1 : 0;
-                    rightClock10.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock10.Tag)) > 0 ? 1 : 0;
-                    rightClock11.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock11.Tag)) > 0 ? 1 : 0;
-                    rightClock12.Opacity = (selectItem.RightPosition & Convert.ToInt32(rightClock12.Tag)) > 0 ? 1 : 0;
-                    
+                    var lostItem = e.RemovedItems;
+                    foreach (Person item in lostItem)
+                    {
+                        item.Icon = "/Images/id_card.png";
+                    }
                 }
-                else
-                {
-                    leftClock1.Opacity = 0;
-                    leftClock2.Opacity = 0;
-                    leftClock3.Opacity = 0;
-                    leftClock4.Opacity = 0;
-                    leftClock5.Opacity = 0;
-                    leftClock6.Opacity = 0;
-                    leftClock7.Opacity = 0;
-                    leftClock8.Opacity = 0;
-                    leftClock9.Opacity = 0;
-                    leftClock9.Opacity = 0;
-                    leftClock10.Opacity = 0;
-                    leftClock11.Opacity = 0;
-                    leftClock12.Opacity = 0;
-
-                    rightClock1.Opacity = 0;
-                    rightClock2.Opacity = 0;
-                    rightClock3.Opacity = 0;
-                    rightClock4.Opacity = 0;
-                    rightClock5.Opacity = 0;
-                    rightClock6.Opacity = 0;
-                    rightClock7.Opacity = 0;
-                    rightClock8.Opacity = 0;
-                    rightClock9.Opacity = 0;
-                    rightClock10.Opacity = 0;
-                    rightClock11.Opacity = 0;
-                    rightClock12.Opacity = 0;
-                }
-
-                if (selectItem.Pain)
-                {
-                    degree1.IsChecked = (selectItem.Degree == Convert.ToInt32(degree1.Tag)) ? true : false;
-                    degree2.IsChecked = (selectItem.Degree == Convert.ToInt32(degree2.Tag)) ? true : false;
-                    degree3.IsChecked = (selectItem.Degree == Convert.ToInt32(degree3.Tag)) ? true : false;
-                    degree4.IsChecked = (selectItem.Degree == Convert.ToInt32(degree4.Tag)) ? true : false;
-                    degree5.IsChecked = (selectItem.Degree == Convert.ToInt32(degree5.Tag)) ? true : false;
-                    degree6.IsChecked = (selectItem.Degree == Convert.ToInt32(degree6.Tag)) ? true : false;
-                    degree7.IsChecked = (selectItem.Degree == Convert.ToInt32(degree7.Tag)) ? true : false;
-                    degree8.IsChecked = (selectItem.Degree == Convert.ToInt32(degree8.Tag)) ? true : false;
-                    degree9.IsChecked = (selectItem.Degree == Convert.ToInt32(degree9.Tag)) ? true : false;
-                    degree10.IsChecked = (selectItem.Degree == Convert.ToInt32(degree10.Tag)) ? true : false;
-                    degree1.IsEnabled = true;
-                    degree2.IsEnabled = true;
-                    degree3.IsEnabled = true;
-                    degree4.IsEnabled = true;
-                    degree5.IsEnabled = true;
-                    degree6.IsEnabled = true;
-                    degree7.IsEnabled = true;
-                    degree8.IsEnabled = true;
-                    degree9.IsEnabled = true;
-                    degree10.IsEnabled = true;
-                }
-                else
-                {
-                    degree1.IsChecked = false;
-                    degree2.IsChecked = false;
-                    degree3.IsChecked = false;
-                    degree4.IsChecked = false;
-                    degree5.IsChecked = false;
-                    degree6.IsChecked = false;
-                    degree7.IsChecked = false;
-                    degree8.IsChecked = false;
-                    degree9.IsChecked = false;
-                    degree10.IsChecked = false;
-                }
-
             }
-            if (e.RemovedItems.Count > 0)
-            {
-                var lostItem = e.RemovedItems;
-                foreach (Person item in lostItem)
-                {
-                    item.Icon = "/Images/id_card.png";
-                }                
-            }
+            catch { }
         }
 
         //private void exportExcel(string excelFile)
@@ -1211,62 +1304,66 @@ namespace MEIKReport
 
         private void ListFiles(FileSystemInfo info)
         {
-            if (!info.Exists) return;
-            IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
-            DirectoryInfo dir = info as DirectoryInfo;
-            //不是目录 
-            if (dir == null) return;
-            if (!dir.Name.Equals("NORM"))
+            try
             {
-                FileSystemInfo[] files = dir.GetFileSystemInfos();
-                for (int i = 0; i < files.Length; i++)
+                if (!info.Exists) return;
+                IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
+                DirectoryInfo dir = info as DirectoryInfo;
+                //不是目录 
+                if (dir == null) return;
+                if (!dir.Name.Equals("NORM"))
                 {
-                    FileInfo file = files[i] as FileInfo;
-                    //是文件 
-                    if (file != null)
+                    FileSystemInfo[] files = dir.GetFileSystemInfos();
+                    for (int i = 0; i < files.Length; i++)
                     {
-                        DateTime beginDate = DateTime.Now;
-                        if (".tdb".Equals(file.Extension, StringComparison.OrdinalIgnoreCase))
+                        FileInfo file = files[i] as FileInfo;
+                        //是文件 
+                        if (file != null)
                         {
-                            DateTime fileTime=file.LastWriteTime;
-                            beginDate = beginDate.AddMonths(-1);                            
-                            if (beginDate < fileTime)
+                            DateTime beginDate = DateTime.Now;
+                            if (".tdb".Equals(file.Extension, StringComparison.OrdinalIgnoreCase))
                             {
+                                DateTime fileTime = file.LastWriteTime;
+                                beginDate = beginDate.AddMonths(-1);
+                                if (beginDate < fileTime)
+                                {
 
-                                FileStream fsRead = new FileStream(file.FullName, FileMode.Open);
-                                byte[] nameBytes = new byte[105];
-                                byte[] codeBytes = new byte[11];
-                                byte[] descBytes = new byte[200];
-                                fsRead.Seek(12, SeekOrigin.Begin);
-                                fsRead.Read(nameBytes, 0, nameBytes.Count());
-                                fsRead.Seek(117, SeekOrigin.Begin);
-                                fsRead.Read(codeBytes, 0, codeBytes.Count());
-                                fsRead.Seek(129, SeekOrigin.Begin);
-                                fsRead.Read(descBytes, 0, descBytes.Count());
-                                fsRead.Close();
-                                string name = System.Text.Encoding.ASCII.GetString(nameBytes);
-                                name = name.Split("\0".ToCharArray())[0];
-                                string code = System.Text.Encoding.ASCII.GetString(codeBytes);
-                                string desc = System.Text.Encoding.ASCII.GetString(descBytes);
-                                desc = desc.Split("\0".ToCharArray())[0];
-                                var patient = new Patient();
-                                patient.Code = code;
-                                patient.Name = name;
-                                patient.Desc = desc;
-                                patient.ScreenDate = fileTime.ToString("yyyy-MM-dd HH:mm:ss");
+                                    FileStream fsRead = new FileStream(file.FullName, FileMode.Open);
+                                    byte[] nameBytes = new byte[105];
+                                    byte[] codeBytes = new byte[11];
+                                    byte[] descBytes = new byte[200];
+                                    fsRead.Seek(12, SeekOrigin.Begin);
+                                    fsRead.Read(nameBytes, 0, nameBytes.Count());
+                                    fsRead.Seek(117, SeekOrigin.Begin);
+                                    fsRead.Read(codeBytes, 0, codeBytes.Count());
+                                    fsRead.Seek(129, SeekOrigin.Begin);
+                                    fsRead.Read(descBytes, 0, descBytes.Count());
+                                    fsRead.Close();
+                                    string name = System.Text.Encoding.ASCII.GetString(nameBytes);
+                                    name = name.Split("\0".ToCharArray())[0];
+                                    string code = System.Text.Encoding.ASCII.GetString(codeBytes);
+                                    string desc = System.Text.Encoding.ASCII.GetString(descBytes);
+                                    desc = desc.Split("\0".ToCharArray())[0];
+                                    var patient = new Patient();
+                                    patient.Code = code;
+                                    patient.Name = name;
+                                    patient.Desc = desc;
+                                    patient.ScreenDate = fileTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                patientList.Add(patient);
+                                    patientList.Add(patient);
+                                }
+
                             }
-                            
                         }
-                    }
-                    //对于子目录，进行递归调用 
-                    else
-                    {
-                        ListFiles(files[i]);
+                        //对于子目录，进行递归调用 
+                        else
+                        {
+                            ListFiles(files[i]);
+                        }
                     }
                 }
             }
+            catch { }
         }
 
         private void btnScreening_Click(object sender, RoutedEventArgs e)
@@ -1565,51 +1662,55 @@ namespace MEIKReport
         /// <param name="e"></param>
         void mouseHook_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            try
             {
-                IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);                
-                IntPtr winHandle = Win32Api.GetParent(buttonHandle);
-                var owner = this.Owner as MainWindow;
-                if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
-                    StringBuilder winText = new StringBuilder(512);
-                    Win32Api.GetWindowText(buttonHandle, winText, winText.Capacity);
-                    if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                    IntPtr buttonHandle = Win32Api.WindowFromPoint(e.X, e.Y);
+                    IntPtr winHandle = Win32Api.GetParent(buttonHandle);
+                    var owner = this.Owner as MainWindow;
+                    if (Win32Api.GetParent(winHandle) == owner.AppProc.MainWindowHandle)
                     {
-                        this.StopMouseHook();
-                        if (App.opendWin != null)
+                        StringBuilder winText = new StringBuilder(512);
+                        Win32Api.GetWindowText(buttonHandle, winText, winText.Capacity);
+                        if (App.strExit.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
                         {
-                            App.opendWin.Visibility = Visibility.Visible;
-                            App.opendWin.WindowState = WindowState.Maximized;                            
+                            this.StopMouseHook();
+                            if (App.opendWin != null)
+                            {
+                                App.opendWin.Visibility = Visibility.Visible;
+                                App.opendWin.WindowState = WindowState.Maximized;
+                            }
+                            else
+                            {
+                                this.Visibility = Visibility.Visible;
+                            }
+
+                            string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                            txtFolderPath.Text = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                            loadArchiveFolder(txtFolderPath.Text);
                         }
-                        else
-                        {
-                            this.Visibility = Visibility.Visible;
-                        }
-                        
-                        string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";                        
-                        txtFolderPath.Text = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile); 
-                        loadArchiveFolder(txtFolderPath.Text);
+                        //else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
+                        //{
+                        //    string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
+                        //    var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
+                        //    if(App.countDictionary.ContainsKey(screenFolderPath)){
+                        //        List<long> ticks=App.countDictionary[screenFolderPath];
+                        //        ticks.Add(DateTime.Now.Ticks);
+                        //    }
+                        //    else{
+                        //        List<long> ticks=new List<long>();
+                        //        ticks.Add(DateTime.Now.Ticks);
+                        //        App.countDictionary.Add(screenFolderPath,ticks);
+                        //    }                        
+                        //    //序列化统计字典到文件
+                        //    string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
+                        //    SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
+                        //}
                     }
-                    //else if (App.strStart.Equals(winText.ToString(), StringComparison.OrdinalIgnoreCase))
-                    //{
-                    //    string meikiniFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini";
-                    //    var screenFolderPath = OperateIniFile.ReadIniData("Base", "Patients base", "", meikiniFile);
-                    //    if(App.countDictionary.ContainsKey(screenFolderPath)){
-                    //        List<long> ticks=App.countDictionary[screenFolderPath];
-                    //        ticks.Add(DateTime.Now.Ticks);
-                    //    }
-                    //    else{
-                    //        List<long> ticks=new List<long>();
-                    //        ticks.Add(DateTime.Now.Ticks);
-                    //        App.countDictionary.Add(screenFolderPath,ticks);
-                    //    }                        
-                    //    //序列化统计字典到文件
-                    //    string countFile = App.meikFolder + System.IO.Path.DirectorySeparatorChar + "sc.data";
-                    //    SerializeUtilities.Serialize<SortedDictionary<string, List<long>>>(App.countDictionary, countFile);
-                    //}
                 }
             }
+            catch { }
         }
         
         /// <summary>
@@ -1673,12 +1774,12 @@ namespace MEIKReport
                 this.languageHK.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
                 this.languageUS.Foreground = Brushes.White;
             }
-            else if ("languageCN".Equals(button.Name))
-            {
-                local = "zh-CN";
-                this.languageHK.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
-                this.languageUS.Foreground = Brushes.White;
-            }
+            //else if ("languageCN".Equals(button.Name))
+            //{
+            //    local = "zh-CN";
+            //    this.languageHK.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
+            //    this.languageUS.Foreground = Brushes.White;
+            //}
             else
             {
                 this.languageUS.Foreground = new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4));
@@ -1692,13 +1793,13 @@ namespace MEIKReport
                 App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
 
             }
-            else if ("zh-CN".Equals(local))
-            {
-                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
-                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
-                App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
+            //else if ("zh-CN".Equals(local))
+            //{
+            //    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-CN.xaml", UriKind.RelativeOrAbsolute) });
+            //    App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
+            //    App.Current.Resources.MergedDictionaries.Remove(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.zh-HK.xaml", UriKind.RelativeOrAbsolute) });
 
-            }
+            //}
             else
             {
                 App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(@"/Resources/StringResource.xaml", UriKind.RelativeOrAbsolute) });
@@ -1928,6 +2029,9 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Menses", "menstrual cycle disorder", this.checkMenstrualCycleDisorder.IsChecked.Value ? "1" : "0", person.CrdFilePath);
                 person.Postmenopause = this.checkPostmenopause.IsChecked.Value;
                 OperateIniFile.WriteIniData("Menses", "postmenopause", this.checkPostmenopause.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.PostmenopauseYear = this.txtPostmenopauseYear.Text;
+                OperateIniFile.WriteIniData("Menses", "postmenopause year", this.txtPostmenopauseYear.Text, person.CrdFilePath);
+
                 person.HormonalContraceptives = this.checkHormonalContraceptives.IsChecked.Value;
                 OperateIniFile.WriteIniData("Menses", "hormonal contraceptives", this.checkHormonalContraceptives.IsChecked.Value ? "1" : "0", person.CrdFilePath);
 
@@ -2121,6 +2225,41 @@ namespace MEIKReport
                 OperateIniFile.WriteIniData("Biopsy", "other description", biopsyOtherDesc, person.CrdFilePath);
                 OperateIniFile.WriteIniData("Biopsy", "biopsy status", this.radBiopsyStatusAbnormal.IsChecked.Value ? "1" : "0", person.CrdFilePath);
 
+                person.RedSwollen = this.chkRedSwollen.IsChecked.Value;
+                OperateIniFile.WriteIniData("Visual", "red swollen", this.chkRedSwollen.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Palpable = this.chkPalpable.IsChecked.Value;
+                OperateIniFile.WriteIniData("Visual", "palpable", this.chkPalpable.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Serous = this.chkSerous.IsChecked.Value;
+                OperateIniFile.WriteIniData("Visual", "serous discharge", this.chkSerous.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Wounds = this.chkWounds.IsChecked.Value;
+                OperateIniFile.WriteIniData("Visual", "wounds", this.chkWounds.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.Scars = this.chkScars.IsChecked.Value;
+                OperateIniFile.WriteIniData("Visual", "scars", this.chkScars.IsChecked.Value ? "1" : "0", person.CrdFilePath);
+                person.RedSwollenLeft = this.redSwollenLeft.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "red swollen left segment", this.redSwollenLeft.SelectedIndex.ToString(), person.CrdFilePath);
+                person.RedSwollenRight = this.redSwollenRight.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "red swollen right segment", this.redSwollenRight.SelectedIndex.ToString(), person.CrdFilePath);
+
+                person.PalpableLeft = this.palpableLeft.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "palpable left segment", this.palpableLeft.SelectedIndex.ToString(), person.CrdFilePath);
+                person.PalpableRight = this.palpableRight.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "palpable right segment", this.palpableRight.SelectedIndex.ToString(), person.CrdFilePath);
+
+                person.SerousLeft = this.serousLeft.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "serous left segment", this.serousLeft.SelectedIndex.ToString(), person.CrdFilePath);
+                person.SerousRight = this.serousRight.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "serous right segment", this.serousRight.SelectedIndex.ToString(), person.CrdFilePath);
+
+                person.WoundsLeft = this.woundsLeft.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "wounds left segment", this.woundsLeft.SelectedIndex.ToString(), person.CrdFilePath);
+                person.WoundsRight = this.woundsRight.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "wounds right segment", this.woundsRight.SelectedIndex.ToString(), person.CrdFilePath);
+
+                person.ScarsLeft = this.scarsLeft.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "scars left segment", this.scarsLeft.SelectedIndex.ToString(), person.CrdFilePath);
+                person.ScarsRight = this.scarsRight.SelectedIndex;
+                OperateIniFile.WriteIniData("Visual", "scars right segment", this.scarsRight.SelectedIndex.ToString(), person.CrdFilePath);
+
                 MessageBox.Show(this, App.Current.FindResource("Message_30").ToString());
             }
             catch (Exception ex)
@@ -2131,297 +2270,360 @@ namespace MEIKReport
 
         private void checkMenses_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if(person!=null){
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+            try
+            {
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.MensesStatus = true;
-                }
-                else
-                {
-                    person.MensesStatus = this.checkMenstrualCycleDisorder.IsChecked.Value || this.checkPostmenopause.IsChecked.Value || this.checkHormonalContraceptives.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.MensesStatus = true;
+                    }
+                    else
+                    {
+                        person.MensesStatus = this.checkMenstrualCycleDisorder.IsChecked.Value || this.checkPostmenopause.IsChecked.Value || this.checkHormonalContraceptives.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkSomatic_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.SomaticStatus = true;
-                }
-                else
-                {
-                    person.SomaticStatus = this.checkAdiposity.IsChecked.Value || this.checkEssentialHypertension.IsChecked.Value || this.checkDiabetes.IsChecked.Value || this.checkThyroidGlandDiseases.IsChecked.Value || this.checkSomaticOther.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.SomaticStatus = true;
+                    }
+                    else
+                    {
+                        person.SomaticStatus = this.checkAdiposity.IsChecked.Value || this.checkEssentialHypertension.IsChecked.Value || this.checkDiabetes.IsChecked.Value || this.checkThyroidGlandDiseases.IsChecked.Value || this.checkSomaticOther.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkGynecologic_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.GynecologicStatus = true;
-                }
-                else
-                {
-                    person.GynecologicStatus = this.checkInfertility.IsChecked.Value || this.checkOvaryDiseases.IsChecked.Value || this.checkOvaryCyst.IsChecked.Value
-                        || this.checkOvaryCancer.IsChecked.Value || this.checkOvaryEndometriosis.IsChecked.Value
-                        || this.checkOvaryOther.IsChecked.Value || this.checkUterusDiseases.IsChecked.Value
-                        || this.checkUterusMyoma.IsChecked.Value || this.checkUterusCancer.IsChecked.Value
-                        || this.checkUterusEndometriosis.IsChecked.Value || this.checkUterusOther.IsChecked.Value
-                        || this.checkGynecologicOther.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.GynecologicStatus = true;
+                    }
+                    else
+                    {
+                        person.GynecologicStatus = this.checkInfertility.IsChecked.Value || this.checkOvaryDiseases.IsChecked.Value || this.checkOvaryCyst.IsChecked.Value
+                            || this.checkOvaryCancer.IsChecked.Value || this.checkOvaryEndometriosis.IsChecked.Value
+                            || this.checkOvaryOther.IsChecked.Value || this.checkUterusDiseases.IsChecked.Value
+                            || this.checkUterusMyoma.IsChecked.Value || this.checkUterusCancer.IsChecked.Value
+                            || this.checkUterusEndometriosis.IsChecked.Value || this.checkUterusOther.IsChecked.Value
+                            || this.checkGynecologicOther.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         } 
 
         private void checkObstetric_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if(person!=null){
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+            try
+            {
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.ObstetricStatus = true;
-                }
-                else
-                {
-                    person.ObstetricStatus = this.checkAbortions.IsChecked.Value || this.checkBirths.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.ObstetricStatus = true;
+                    }
+                    else
+                    {
+                        person.ObstetricStatus = this.checkAbortions.IsChecked.Value || this.checkBirths.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkDiseases_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if(person!=null){
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+            try
+            {
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.DiseasesStatus = true;
-                }
-                else
-                {
-                    person.DiseasesStatus = this.checkTrauma.IsChecked.Value || this.checkMastitis.IsChecked.Value
-                        || this.checkFibrousCysticMastopathy.IsChecked.Value || this.checkCysts.IsChecked.Value
-                        || this.checkCancer.IsChecked.Value || this.checkDiseasesOther.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.DiseasesStatus = true;
+                    }
+                    else
+                    {
+                        person.DiseasesStatus = this.checkTrauma.IsChecked.Value || this.checkMastitis.IsChecked.Value
+                            || this.checkFibrousCysticMastopathy.IsChecked.Value || this.checkCysts.IsChecked.Value
+                            || this.checkCancer.IsChecked.Value || this.checkDiseasesOther.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkPalpation_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.PalpationStatus = true;
-                }
-                else
-                {
-                    person.PalpationStatus = this.checkPalpationDiffuse.IsChecked.Value || this.checkPalpationFocal.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.PalpationStatus = true;
+                    }
+                    else
+                    {
+                        person.PalpationStatus = this.checkPalpationDiffuse.IsChecked.Value || this.checkPalpationFocal.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkUltrasound_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.UltrasoundStatus = true;
-                }
-                else
-                {
-                    person.UltrasoundStatus = this.checkUltrasoundDiffuse.IsChecked.Value || this.checkUltrasoundFocal.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.UltrasoundStatus = true;
+                    }
+                    else
+                    {
+                        person.UltrasoundStatus = this.checkUltrasoundDiffuse.IsChecked.Value || this.checkUltrasoundFocal.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkMammography_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.MammographyStatus = true;
-                }
-                else
-                {
-                    person.MammographyStatus = this.checkMammographyDiffuse.IsChecked.Value || this.checkMammographyFocal.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.MammographyStatus = true;
+                    }
+                    else
+                    {
+                        person.MammographyStatus = this.checkMammographyDiffuse.IsChecked.Value || this.checkMammographyFocal.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void checkBiopsy_Click(object sender, RoutedEventArgs e)
         {
-            var person = this.CodeListBox.SelectedItem as Person;
-            if (person != null)
+            try
             {
-                CheckBox chk = (CheckBox)sender;
-                if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                var person = this.CodeListBox.SelectedItem as Person;
+                if (person != null)
                 {
-                    person.BiopsyStatus = true;
-                }
-                else
-                {
-                    person.BiopsyStatus = this.checkBiopsyDiffuse.IsChecked.Value || this.checkBiopsyFocal.IsChecked.Value
-                        || this.checkBiopsyCancer.IsChecked.Value || this.checkBiopsyProliferation.IsChecked.Value
-                        || this.checkBiopsyDysplasia.IsChecked.Value || this.checkBiopsyIntraductalPapilloma.IsChecked.Value
-                        || this.checkBiopsyFibroadenoma.IsChecked.Value || this.checkBiopsyOther.IsChecked.Value ? true : false;
+                    CheckBox chk = (CheckBox)sender;
+                    if (chk.IsChecked.HasValue && chk.IsChecked.Value)
+                    {
+                        person.BiopsyStatus = true;
+                    }
+                    else
+                    {
+                        person.BiopsyStatus = this.checkBiopsyDiffuse.IsChecked.Value || this.checkBiopsyFocal.IsChecked.Value
+                            || this.checkBiopsyCancer.IsChecked.Value || this.checkBiopsyProliferation.IsChecked.Value
+                            || this.checkBiopsyDysplasia.IsChecked.Value || this.checkBiopsyIntraductalPapilloma.IsChecked.Value
+                            || this.checkBiopsyFibroadenoma.IsChecked.Value || this.checkBiopsyOther.IsChecked.Value ? true : false;
+                    }
                 }
             }
+            catch { }
         }
 
         private void imgChoice_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (CodeListBox.SelectionMode.Equals(SelectionMode.Single))
+            try
             {
-                CodeListBox.SelectionMode = SelectionMode.Extended;
-                this.imgChoice.Source = new BitmapImage(new Uri("/Images/multiple_choice.png",UriKind.Relative)); 
+                if (CodeListBox.SelectionMode.Equals(SelectionMode.Single))
+                {
+                    CodeListBox.SelectionMode = SelectionMode.Extended;
+                    this.imgChoice.Source = new BitmapImage(new Uri("/Images/multiple_choice.png", UriKind.Relative));
+                }
+                else if (CodeListBox.SelectionMode.Equals(SelectionMode.Extended))
+                {
+                    CodeListBox.SelectionMode = SelectionMode.Single;
+                    this.imgChoice.Source = new BitmapImage(new Uri("/Images/single_choice.png", UriKind.Relative));
+                }
             }
-            else if (CodeListBox.SelectionMode.Equals(SelectionMode.Extended))
-            {
-                CodeListBox.SelectionMode = SelectionMode.Single;
-                this.imgChoice.Source = new BitmapImage(new Uri("/Images/single_choice.png", UriKind.Relative));
-            }                        
+            catch { }   
         }
 
         private bool isHighLight = false;
         private void Clock_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (checkPalpableLumps.IsChecked.Value)
+            try
             {
-                var clock = (Polygon)sender;
-                //var name = clock.Name;
-                //var brush = new SolidColorBrush(Color.FromArgb(0xFF, 0x87, 0x36, 0x32));
-                //var defaultBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x32, 0x87, 0x87));
-                if (!isHighLight)
+                if (checkPalpableLumps.IsChecked.Value)
                 {
-                    clock.Opacity = 1;
-                    isHighLight = true;
-                }
-                else
-                {
-                    clock.Opacity = 0;
-                    isHighLight = false;
+                    var clock = (Polygon)sender;
+                    //var name = clock.Name;
+                    //var brush = new SolidColorBrush(Color.FromArgb(0xFF, 0x87, 0x36, 0x32));
+                    //var defaultBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x32, 0x87, 0x87));
+                    if (!isHighLight)
+                    {
+                        clock.Opacity = 1;
+                        isHighLight = true;
+                    }
+                    else
+                    {
+                        clock.Opacity = 0;
+                        isHighLight = false;
+                    }
                 }
             }
+            catch { }
         }
         
         private void Clock_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (checkPalpableLumps.IsChecked.Value)
+            try
             {
-                var clock = (Polygon)sender;
-                isHighLight = Convert.ToBoolean(clock.Opacity);
-                clock.Opacity = 1;                
+                if (checkPalpableLumps.IsChecked.Value)
+                {
+                    var clock = (Polygon)sender;
+                    isHighLight = Convert.ToBoolean(clock.Opacity);
+                    clock.Opacity = 1;
+                }
             }
+            catch { }
             
         }
 
         private void Clock_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (checkPalpableLumps.IsChecked.Value)
+            try
             {
-                var clock = (Polygon)sender;
-                if (!isHighLight)
+                if (checkPalpableLumps.IsChecked.Value)
                 {
-                    clock.Opacity = 0;
-                }                
+                    var clock = (Polygon)sender;
+                    if (!isHighLight)
+                    {
+                        clock.Opacity = 0;
+                    }
+                }
             }
+            catch { }
         }       
 
         private void checkPalpableLumps_Click(object sender, RoutedEventArgs e)
         {
-            var checkBox = (CheckBox)sender;
-            if (!checkBox.IsChecked.Value)
+            try
             {
-                leftClock1.Opacity = 0;
-                leftClock2.Opacity = 0;
-                leftClock3.Opacity = 0;
-                leftClock4.Opacity = 0;
-                leftClock5.Opacity = 0;
-                leftClock6.Opacity = 0;
-                leftClock7.Opacity = 0;
-                leftClock8.Opacity = 0;
-                leftClock9.Opacity = 0;
-                leftClock9.Opacity = 0;
-                leftClock10.Opacity = 0;
-                leftClock11.Opacity = 0;
-                leftClock12.Opacity = 0;
+                var checkBox = (CheckBox)sender;
+                if (!checkBox.IsChecked.Value)
+                {
+                    leftClock1.Opacity = 0;
+                    leftClock2.Opacity = 0;
+                    leftClock3.Opacity = 0;
+                    leftClock4.Opacity = 0;
+                    leftClock5.Opacity = 0;
+                    leftClock6.Opacity = 0;
+                    leftClock7.Opacity = 0;
+                    leftClock8.Opacity = 0;
+                    leftClock9.Opacity = 0;
+                    leftClock9.Opacity = 0;
+                    leftClock10.Opacity = 0;
+                    leftClock11.Opacity = 0;
+                    leftClock12.Opacity = 0;
 
-                rightClock1.Opacity = 0;
-                rightClock2.Opacity = 0;
-                rightClock3.Opacity = 0;
-                rightClock4.Opacity = 0;
-                rightClock5.Opacity = 0;
-                rightClock6.Opacity = 0;
-                rightClock7.Opacity = 0;
-                rightClock8.Opacity = 0;
-                rightClock9.Opacity = 0;
-                rightClock10.Opacity = 0;
-                rightClock11.Opacity = 0;
-                rightClock12.Opacity = 0;
+                    rightClock1.Opacity = 0;
+                    rightClock2.Opacity = 0;
+                    rightClock3.Opacity = 0;
+                    rightClock4.Opacity = 0;
+                    rightClock5.Opacity = 0;
+                    rightClock6.Opacity = 0;
+                    rightClock7.Opacity = 0;
+                    rightClock8.Opacity = 0;
+                    rightClock9.Opacity = 0;
+                    rightClock10.Opacity = 0;
+                    rightClock11.Opacity = 0;
+                    rightClock12.Opacity = 0;
+                }
             }
+            catch { }
             
         }
 
         private void checkPain_Click(object sender, RoutedEventArgs e)
         {
-            var checkBox = (CheckBox)sender;
-            if (!checkBox.IsChecked.Value)
+            try
             {
-                degree1.IsChecked = false;
-                degree2.IsChecked = false;
-                degree3.IsChecked = false;
-                degree4.IsChecked = false;
-                degree5.IsChecked = false;
-                degree6.IsChecked = false;
-                degree7.IsChecked = false;
-                degree8.IsChecked = false;
-                degree9.IsChecked = false;
-                degree10.IsChecked = false;
-                degree1.IsEnabled = false;
-                degree2.IsEnabled = false;
-                degree3.IsEnabled = false;
-                degree4.IsEnabled = false;
-                degree5.IsEnabled = false;
-                degree6.IsEnabled = false;
-                degree7.IsEnabled = false;
-                degree8.IsEnabled = false;
-                degree9.IsEnabled = false;
-                degree10.IsEnabled = false;
+                var checkBox = (CheckBox)sender;
+                if (!checkBox.IsChecked.Value)
+                {
+                    degree1.IsChecked = false;
+                    degree2.IsChecked = false;
+                    degree3.IsChecked = false;
+                    degree4.IsChecked = false;
+                    degree5.IsChecked = false;
+                    degree6.IsChecked = false;
+                    degree7.IsChecked = false;
+                    degree8.IsChecked = false;
+                    degree9.IsChecked = false;
+                    degree10.IsChecked = false;
+                    degree1.IsEnabled = false;
+                    degree2.IsEnabled = false;
+                    degree3.IsEnabled = false;
+                    degree4.IsEnabled = false;
+                    degree5.IsEnabled = false;
+                    degree6.IsEnabled = false;
+                    degree7.IsEnabled = false;
+                    degree8.IsEnabled = false;
+                    degree9.IsEnabled = false;
+                    degree10.IsEnabled = false;
+                }
+                else
+                {
+                    degree1.IsEnabled = true;
+                    degree2.IsEnabled = true;
+                    degree3.IsEnabled = true;
+                    degree4.IsEnabled = true;
+                    degree5.IsEnabled = true;
+                    degree6.IsEnabled = true;
+                    degree7.IsEnabled = true;
+                    degree8.IsEnabled = true;
+                    degree9.IsEnabled = true;
+                    degree10.IsEnabled = true;
+                }
             }
-            else
-            {
-                degree1.IsEnabled = true;
-                degree2.IsEnabled = true;
-                degree3.IsEnabled = true;
-                degree4.IsEnabled = true;
-                degree5.IsEnabled = true;
-                degree6.IsEnabled = true;
-                degree7.IsEnabled = true;
-                degree8.IsEnabled = true;
-                degree9.IsEnabled = true;
-                degree10.IsEnabled = true;
-            }
+            catch { }
         }
 
         private void txtClientNum_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -2440,8 +2642,219 @@ namespace MEIKReport
 
         private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex re = new Regex("[^0-9.-]+");
-            e.Handled = re.IsMatch(e.Text);
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) < 100)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_56").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_56").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void Year_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) <= DateTime.Now.Year)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_59").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void Month_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) <= DateTime.Now.Year)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_57").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void Day_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) <= DateTime.Now.Year)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_58").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void Weight_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex re = new Regex("[0-9]+");
+                if (re.IsMatch(e.Text))
+                {
+                    var textBox = (TextBox)sender;
+                    if (!string.IsNullOrEmpty(textBox.Text))
+                    {
+                        if (Convert.ToInt32(textBox.Text + e.Text) <500)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, App.Current.FindResource("Message_60").ToString());
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_53").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void Mobile_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex re = new Regex("[0-9+-]+");
+                if (re.IsMatch(e.Text))
+                {                    
+                    e.Handled = false;                    
+                }
+                else
+                {
+                    MessageBox.Show(this, App.Current.FindResource("Message_61").ToString());
+                    e.Handled = true;
+                }
+            }
+            catch (Exception)
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -2450,6 +2863,111 @@ namespace MEIKReport
             {                
                 examinationReportPage.Close();
                 
+            }
+        }
+
+        private void chkRedSwollen_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (!chk.IsChecked.HasValue || !chk.IsChecked.Value)
+                {                
+                    redSwollenLeft.SelectedIndex = 0;
+                    redSwollenRight.SelectedIndex = 0;
+                    redSwollenLeft.IsEnabled = false;
+                    redSwollenRight.IsEnabled = false;
+                }
+                else
+                {
+                    redSwollenLeft.IsEnabled = true;
+                    redSwollenRight.IsEnabled = true;
+                }
+            }
+        }
+
+        private void chkPalpable_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (!chk.IsChecked.HasValue || !chk.IsChecked.Value)                
+                {
+                    palpableLeft.SelectedIndex = 0;
+                    palpableRight.SelectedIndex = 0;
+                    palpableLeft.IsEnabled = false;
+                    palpableRight.IsEnabled = false;
+                }
+                else
+                {
+                    palpableLeft.IsEnabled = true;
+                    palpableRight.IsEnabled = true;
+                }
+            }
+        }
+
+        private void chkSerous_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (!chk.IsChecked.HasValue || !chk.IsChecked.Value)
+                {
+                    serousLeft.SelectedIndex = 0;
+                    serousRight.SelectedIndex = 0;
+                    serousLeft.IsEnabled = false;
+                    serousRight.IsEnabled = false;
+                }
+                else
+                {
+                    serousLeft.IsEnabled = true;
+                    serousRight.IsEnabled = true;
+                }
+            }
+        }
+
+        private void chkWounds_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (!chk.IsChecked.HasValue || !chk.IsChecked.Value)
+                {
+                    woundsLeft.SelectedIndex = 0;
+                    woundsRight.SelectedIndex = 0;
+                    woundsLeft.IsEnabled = false;
+                    woundsRight.IsEnabled = false;
+                }
+                else
+                {
+                    woundsLeft.IsEnabled = true;
+                    woundsRight.IsEnabled = true;
+                }
+            }
+        }
+
+        private void chkScars_Click(object sender, RoutedEventArgs e)
+        {
+            var person = this.CodeListBox.SelectedItem as Person;
+            if (person != null)
+            {
+                CheckBox chk = (CheckBox)sender;
+                if (!chk.IsChecked.HasValue || !chk.IsChecked.Value)
+                {
+                    scarsLeft.SelectedIndex = 0;
+                    scarsRight.SelectedIndex = 0;
+                    scarsLeft.IsEnabled = false;
+                    scarsRight.IsEnabled = false;
+                }
+                else
+                {
+                    scarsLeft.IsEnabled = true;
+                    scarsRight.IsEnabled = true;
+                }
             }
         }
     }

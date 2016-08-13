@@ -261,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SummaryReportFlow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SummaryReportNuvoTekDocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -387,6 +391,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ICSharpCode.SharpZipLib.dll" />
+    <Resource Include="Images\title.png" />
+    <Resource Include="Images\right.png" />
+    <Resource Include="Images\logo_k.png" />
+    <Resource Include="Images\left.png" />
+    <Resource Include="Images\A4-bg.png" />
     <Resource Include="Images\breast.png" />
     <Resource Include="foot.png" />
     <Content Include="gxpswin32.exe">

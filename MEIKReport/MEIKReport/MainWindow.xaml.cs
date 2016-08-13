@@ -195,18 +195,18 @@ namespace MEIKReport
                 }
                 finally
                 {
-                    try
-                    {
-                        if (File.Exists(newMeikPath))
-                        {
-                            File.Delete(newMeikPath);
-                        }
-                        FileInfo fi = new FileInfo(meikPath);
-                        fi.MoveTo(newMeikPath);
-                    }
-                    catch (Exception)
-                    {                        
-                    }
+                    //try
+                    //{
+                    //    if (File.Exists(newMeikPath))
+                    //    {
+                    //        File.Delete(newMeikPath);
+                    //    }
+                    //    FileInfo fi = new FileInfo(meikPath);
+                    //    fi.MoveTo(newMeikPath);
+                    //}
+                    //catch (Exception)
+                    //{                        
+                    //}
                 }
             }
             else

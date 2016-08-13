@@ -917,7 +917,7 @@
             </TableRow>
             <TableRow>
                 <TableCell ColumnSpan="4" LineStackingStrategy="BlockLineHeight">
-                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="35">                        
+                    <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="25">                        
                     </Paragraph>
                 </TableCell>
             </TableRow>

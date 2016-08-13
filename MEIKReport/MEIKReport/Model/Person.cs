@@ -288,6 +288,14 @@ namespace MEIKReport.Model
             get { return postmenopause; }
             set { postmenopause = value; OnPropertyChanged("Postmenopause"); }
         }
+
+        private string postmenopauseYear;
+        public string PostmenopauseYear
+        {
+            get { return postmenopauseYear; }
+            set { postmenopauseYear = value; OnPropertyChanged("PostmenopauseYear"); }
+        }
+
         private bool hormonalContraceptives;
 
         public bool HormonalContraceptives
@@ -1183,6 +1191,112 @@ namespace MEIKReport.Model
         {
             get { return biopsyYear; }
             set { biopsyYear = value; OnPropertyChanged("BiopsyYear"); }
+        }
+
+
+        private bool redSwollen;
+        public bool RedSwollen
+        {
+            get { return redSwollen; }
+            set { redSwollen = value; OnPropertyChanged("RedSwollen"); }
+        }
+
+        private bool palpable;
+        public bool Palpable
+        {
+            get { return palpable; }
+            set { palpable = value; OnPropertyChanged("Palpable"); }
+        }
+
+        private bool serous;
+        public bool Serous
+        {
+            get { return serous; }
+            set { serous = value; OnPropertyChanged("Serous"); }
+        }
+
+        private bool wounds;
+        public bool Wounds
+        {
+            get { return wounds; }
+            set { wounds = value; OnPropertyChanged("Wounds"); }
+        }
+
+        private bool scars;
+        public bool Scars
+        {
+            get { return scars; }
+            set { scars = value; OnPropertyChanged("Scars"); }
+        }
+
+        private int redSwollenLeft;
+        public int RedSwollenLeft
+        {
+            get { return redSwollenLeft; }
+            set { redSwollenLeft = value; OnPropertyChanged("RedSwollenLeft"); }
+        }
+
+        private int redSwollenRight;
+        public int RedSwollenRight
+        {
+            get { return redSwollenRight; }
+            set { redSwollenRight = value; OnPropertyChanged("RedSwollenRight"); }
+        }
+
+        private int palpableLeft;
+        public int PalpableLeft
+        {
+            get { return palpableLeft; }
+            set { palpableLeft = value; OnPropertyChanged("PalpableLeft"); }
+        }
+
+        private int palpableRight;
+        public int PalpableRight
+        {
+            get { return palpableRight; }
+            set { palpableRight = value; OnPropertyChanged("PalpableRight"); }
+        }
+
+        private int serousLeft;
+        public int SerousLeft
+        {
+            get { return serousLeft; }
+            set { serousLeft = value; OnPropertyChanged("SerousLeft"); }
+        }
+
+        private int serousRight;
+        public int SerousRight
+        {
+            get { return serousRight; }
+            set { serousRight = value; OnPropertyChanged("SerousRight"); }
+        }        
+
+        private int woundsLeft;
+        public int WoundsLeft
+        {
+            get { return woundsLeft; }
+            set { woundsLeft = value; OnPropertyChanged("WoundsLeft"); }
+        }
+
+        private int woundsRight;
+        public int WoundsRight
+        {
+            get { return woundsRight; }
+            set { woundsRight = value; OnPropertyChanged("WoundsRight"); }
+        }
+
+        private int scarsLeft;
+        public int ScarsLeft
+        {
+            get { return scarsLeft; }
+            set { scarsLeft = value; OnPropertyChanged("ScarsLeft"); }
+        }
+
+        private int scarsRight;
+        public int ScarsRight
+        {
+            get { return scarsRight; }
+            set { scarsRight = value; OnPropertyChanged("ScarsRight"); }
         }
         #endregion
     }

@@ -108,7 +108,12 @@
     <sys:String x:Key="Message_53">請輸入數字</sys:String>
     <sys:String x:Key="Message_54">請輸入0到23之間的數字</sys:String>
     <sys:String x:Key="Message_55">請輸入0到59之間的數字</sys:String>
-    <sys:String x:Key="Message_56">請輸入0到59之間的數字</sys:String>
+    <sys:String x:Key="Message_56">請輸入0到99之間的數字</sys:String>
+    <sys:String x:Key="Message_57">請輸入1到12之間的數字</sys:String>
+    <sys:String x:Key="Message_58">請輸入1到31之間的數字</sys:String>
+    <sys:String x:Key="Message_59">請輸入一個有效的年份數</sys:String>
+    <sys:String x:Key="Message_60">請輸入小於500的數字</sys:String>
+    <sys:String x:Key="Message_61">請輸入一個有效的電話號碼</sys:String>
 
     <sys:String x:Key="UserListWinBrowerLab">選擇客戶檔案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">瀏覽...</sys:String>
@@ -169,7 +174,7 @@
     <sys:String x:Key="UserDataPersonal7">日</sys:String>
     <sys:String x:Key="UserDataPersonal8">月</sys:String>
     <sys:String x:Key="UserDataPersonal9">年</sys:String>
-    <sys:String x:Key="UserDataPersona20">備註:</sys:String>
+    <sys:String x:Key="UserDataPersona20">其他狀況:</sys:String>
     <sys:String x:Key="UserDataPersona21">無</sys:String>
     <sys:String x:Key="UserDataPersona22">有</sys:String>
     <sys:String x:Key="UserDataPersona23">身高(公分):</sys:String>
@@ -281,6 +286,13 @@
     <sys:String x:Key="UserDataExaminations17">正常</sys:String>
     <sys:String x:Key="UserDataExaminations18">異常:</sys:String>
     <sys:String x:Key="UserDataExaminations19">結果:</sys:String>
+
+    <sys:String x:Key="UserDataVisualTab">目測</sys:String>
+    <sys:String x:Key="UserDataVisual1">紅腫</sys:String>
+    <sys:String x:Key="UserDataVisual2">塊狀</sys:String>
+    <sys:String x:Key="UserDataVisual3">漿液性分泌物</sys:String>
+    <sys:String x:Key="UserDataVisual4">傷口</sys:String>
+    <sys:String x:Key="UserDataVisual5">疤痕</sys:String>
 
     <sys:String x:Key="ReportContext_1" xml:space="preserve">姓名: </sys:String>
     <sys:String x:Key="ReportContext_2" xml:space="preserve">檢測日期: </sys:String>

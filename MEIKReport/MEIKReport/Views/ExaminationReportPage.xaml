@@ -4,7 +4,7 @@
       xmlns:s ="clr-namespace:System;assembly=mscorlib"
       xmlns:extToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
       Icon="/MEIKReport;component/Images/App_Icon.png"
-      Height="1600" Width="900" Title="Examination Report" WindowStartupLocation="CenterScreen" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Normal"  Closing="Window_Closing" StateChanged="Window_StateChanged" Topmost="True">    
+      Height="600" Width="900" Title="Examination Report" WindowStartupLocation="CenterScreen" ResizeMode="CanResize" ShowInTaskbar="False" Closed="Window_Closed" WindowState="Normal"  Closing="Window_Closing" StateChanged="Window_StateChanged" Topmost="True">    
     <Grid Background="#FFB8B8B8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>            
@@ -26,14 +26,14 @@
                 <Button Name="btnViewImg" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="btnViewImg_Click" Content="{StaticResource ReportContext_170}"></Button>
                 <!--<Button Name="btnRemoveImg" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="btnRemoveImg_Click" Content="{StaticResource ReportContext_176}"></Button>-->
                 <!--<Button Name="printBtn" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="0,0,10,0" Click="printBtn_Click" Content="{StaticResource CommonPrintBtn}"></Button>-->
-                <!--<Button Name="savePdfBtn" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="savePdfBtn_Click" Content="{StaticResource CommonExportBtn}"></Button>-->
+                <Button Name="savePdfBtn" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="savePdfBtn_Click" Content="{StaticResource CommonExportBtn}"></Button>
                 <Button Name="previewBtn" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="previewBtn_Click" Content="{StaticResource CommonPreviewBtn}"></Button>
                 <Button Name="save" Width="100" Height="28" Style="{StaticResource NewButtonStyle}" Margin="10,0,0,0" Click="save_Click" Content="{StaticResource CommonSaveBtn}"></Button>
-                <ComboBox Name="savePdfComb" Width="130" Height="26" Margin="5,0,5,0" VerticalContentAlignment="Center" SelectionChanged="savePdfComb_SelectionChanged">
+                <!--<ComboBox Name="savePdfComb" Width="130" Height="26" Margin="5,0,5,0" VerticalContentAlignment="Center" SelectionChanged="savePdfComb_SelectionChanged">
                     <ComboBoxItem Content="{StaticResource CommonExportSelectBtn}" IsSelected="True"></ComboBoxItem>
                     <ComboBoxItem Content="{StaticResource CommonExportNuvoMedBtn}"></ComboBoxItem>
                     <ComboBoxItem Content="{StaticResource CommonExportGoodUnionBtn}"></ComboBoxItem>
-                </ComboBox>
+                </ComboBox>-->
                 <!--<Button Name="saveAsBtn" Width="100" Height="28" Margin="0,0,10,0" Click="saveAsBtn_Click" Content="{StaticResource CommonSaveAsBtn}"></Button>-->
             </WrapPanel>
             

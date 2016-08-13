@@ -395,11 +395,11 @@
                             <TextBox Name="txtAddress" Width="500" HorizontalAlignment="Left" Text="{Binding Path=Address}" Height="26"></TextBox>
                         </WrapPanel>                                                
                         <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBox Name="txtBirthDate" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthDate}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtBirthDate" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthDate}" PreviewTextInput="Day_PreviewTextInput"></TextBox>
                             <TextBlock Width="15" VerticalAlignment="Center" TextAlignment="Center">/</TextBlock>
-                            <TextBox Name="txtBirthMonth" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthMonth}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtBirthMonth" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthMonth}" PreviewTextInput="Month_PreviewTextInput"></TextBox>
                             <TextBlock Width="15" VerticalAlignment="Center" TextAlignment="Center">/</TextBlock>
-                            <TextBox Name="txtBirthYear" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthYear}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtBirthYear" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=BirthYear}" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <WrapPanel Grid.Row="3" Grid.Column="1" Visibility="Collapsed">
                             <TextBox Name="txtRegDate" Width="52" HorizontalContentAlignment="Center" Text="{Binding Path=RegDate}"></TextBox>
@@ -410,26 +410,23 @@
                         </WrapPanel>
                         <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right" Width="Auto" Text="{DynamicResource UserDataPersona23}" Margin="0,0,3,0"></TextBlock>
                         <WrapPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBox Name="txtHeight" Width="100" Text="{Binding Path=Height}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtHeight" Width="100" Text="{Binding Path=Height}" PreviewTextInput="Weight_PreviewTextInput"></TextBox>
                             <TextBlock Text="{DynamicResource UserDataPersona24}" Margin="10,0,3,0" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
-                            <TextBox Name="txtWeight" Width="100" Text="{Binding Path=Weight}" PreviewTextInput="Number_PreviewTextInput"></TextBox>                                             
+                            <TextBox Name="txtWeight" Width="100" Text="{Binding Path=Weight}" PreviewTextInput="Weight_PreviewTextInput"></TextBox>                                             
                         </WrapPanel>
                         <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Width="Auto" Text="{DynamicResource UserDataPersona25}" TextAlignment="Right" Margin="0,0,3,0"></TextBlock>
                         <WrapPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBox Name="txtMobileNumber" Width="200"  Text="{Binding Path=Mobile}"></TextBox>
+                            <TextBox Name="txtMobileNumber" Width="200"  Text="{Binding Path=Mobile}" PreviewTextInput="Mobile_PreviewTextInput"></TextBox>
                             <TextBlock Text="{DynamicResource UserDataPersona26}" VerticalAlignment="Center" TextAlignment="Right" Margin="10,0,3,0"></TextBlock>
                             <TextBox Name="txtEmail" Width="200" Text="{Binding Path=Email}"></TextBox>
                         </WrapPanel>
                         <TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Width="Auto" TextAlignment="Right"  Text="{DynamicResource UserDataPersona27}" Margin="0,0,3,0"></TextBlock>
                         <WrapPanel Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
-                            <RadioButton GroupName="radLanguage" Name="radChinese" Width="100"  IsChecked="{Binding Path=IsEnglish,Converter={StaticResource reverseConverter}}" Tag="false" Content="{DynamicResource UserDataPersona28}"></RadioButton>
-                            <RadioButton GroupName="radLanguage" Name="radEnglish" Width="100"  IsChecked="{Binding Path=IsEnglish}" Tag="true" Content="{DynamicResource UserDataPersona29}"></RadioButton>                            
-                        </WrapPanel>
-
-                        <TextBlock Grid.Row="8" Grid.Column="0" Width="Auto" TextAlignment="Right" Text="{DynamicResource UserDataPersona20}" Margin="0,0,3,0"></TextBlock>
-                        <DockPanel Grid.Row="8" Grid.Column="1" Margin="0,0,20,20">
-                            <TextBox Grid.Row="8" Grid.Column="1" Name="txtRemark" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=Remark}"></TextBox>
-                        </DockPanel>
+                            <RadioButton GroupName="radLanguage" Name="radChinese" Width="100"  Tag="false" Content="{DynamicResource UserDataPersona28}">                                
+                            </RadioButton>
+                            <RadioButton GroupName="radLanguage" Name="radEnglish" Width="100"  Tag="true" Content="{DynamicResource UserDataPersona29}">                                
+                            </RadioButton>                            
+                        </WrapPanel>                        
 
                         <Button Name="btnPersonal"  Grid.Row="9" Grid.Column="1" Width="100" Height="26" Margin="0,10,10,4" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>                        
                     </Grid>
@@ -629,10 +626,10 @@
                                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                                     <CheckBox Name="checkBreastImplantsLeft" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=BreastImplantsLeft}" Content="{DynamicResource UserDataComplaints11}"></CheckBox>
                                     <Label Content="{DynamicResource UserDataComplaints12}"></Label>
-                                    <TextBox Name="txtBreastImplantsLeftYear" Width="80" VerticalAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Path=BreastImplantsLeftYear}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                                    <TextBox Name="txtBreastImplantsLeftYear" Width="80" VerticalAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Path=BreastImplantsLeftYear}" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                                     <CheckBox Name="checkBreastImplantsRight" Width="Auto" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=BreastImplantsRight}" Content="{DynamicResource UserDataComplaints13}"></CheckBox>
                                     <Label Content="{DynamicResource UserDataComplaints12}"></Label>
-                                    <TextBox Name="txtBreastImplantsRightYear" Width="80" VerticalAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Path=BreastImplantsRightYear}" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                                    <TextBox Name="txtBreastImplantsRightYear" Width="80" VerticalAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Path=BreastImplantsRightYear}" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                                 </WrapPanel>
                                 <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="{DynamicResource UserDataComplaints14}"></Label>
                                 <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
@@ -666,7 +663,9 @@
                             <TextBox Name="txtMenstrualCycleDisorderDesc"  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"  Text="{Binding Path=MenstrualCycleDisorderDesc}"></TextBox>
                         </DockPanel>
                         <WrapPanel Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0">
-                            <CheckBox Name="checkPostmenopause" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Postmenopause}" Content="{DynamicResource UserDataAnamnesis3}"></CheckBox>                            
+                            <CheckBox Name="checkPostmenopause" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Postmenopause}" Content="{DynamicResource UserDataAnamnesis3}"></CheckBox>
+                            <Label Width="40" Content="{DynamicResource UserDataExaminations16}" Margin="78,0,0,0"></Label>
+                            <TextBox Name="txtPostmenopauseYear" Width="70" Text="{Binding Path=PalationYear}" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <DockPanel Grid.Row="3" Visibility="Collapsed">
                             <TextBox Name="txtPostmenopauseDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=PostmenopauseDesc}"></TextBox>
@@ -814,7 +813,7 @@
                         </WrapPanel>
                         <WrapPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">                            
                             <Label Width="40" Content="{DynamicResource UserDataExaminations16}"></Label>
-                            <TextBox Name="txtPalationYear" Width="70" Text="{Binding Path=PalationYear}" Height="24" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtPalationYear" Width="70" Text="{Binding Path=PalationYear}" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <WrapPanel  Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Label Content="{DynamicResource UserDataExaminations19}"></Label>                            
@@ -853,7 +852,7 @@
                         </WrapPanel>
                         <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                             <Label Width="40" Content="{DynamicResource UserDataExaminations16}"></Label>
-                            <TextBox Name="txtUltrasoundYear" Text="{Binding Path=UltrasoundYear}" Width="70" Height="24" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtUltrasoundYear" Text="{Binding Path=UltrasoundYear}" Width="70" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <WrapPanel  Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Label Content="{DynamicResource UserDataExaminations19}"></Label>
@@ -891,7 +890,7 @@
                         </WrapPanel>
                         <WrapPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
                             <Label Width="40" Content="{DynamicResource UserDataExaminations16}"></Label>
-                            <TextBox Name="txtMammographyYear" Text="{Binding Path=MammographyYear}" Width="70" Height="24" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtMammographyYear" Text="{Binding Path=MammographyYear}" Width="70" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <WrapPanel  Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Label Content="{DynamicResource UserDataExaminations19}"></Label>
@@ -929,7 +928,7 @@
                         </WrapPanel>
                         <WrapPanel Grid.Row="6" Grid.Column="1" VerticalAlignment="Center">
                             <Label Width="40" Content="{DynamicResource UserDataExaminations16}"></Label>
-                            <TextBox Name="txtBiopsyYear" Text="{Binding Path=BiopsyYear}" Width="70" Height="24" PreviewTextInput="Number_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtBiopsyYear" Text="{Binding Path=BiopsyYear}" Width="70" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <WrapPanel  Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Label Content="{DynamicResource UserDataExaminations19}"></Label>
@@ -956,7 +955,7 @@
                                 </RadioButton.Template>
                             </RadioButton>
                         </WrapPanel>
-                        <WrapPanel Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Margin="5,0,0,0">
+                        <WrapPanel Visibility="Collapsed" Grid.Row="7" Grid.Column="4" VerticalAlignment="Center" Margin="5,0,0,0">
                             <CheckBox Name="checkBiopsyDiffuse" Width="90"  Content="{DynamicResource UserDataExaminations3}" IsChecked="{Binding Path=BiopsyDiffuse}" Click="checkBiopsy_Click"></CheckBox>
                             <CheckBox Name="checkBiopsyFocal" Width="90" Content="{DynamicResource UserDataExaminations4}" IsChecked="{Binding Path=BiopsyFocal}" Click="checkBiopsy_Click"></CheckBox>
                             <TextBox Name="txtBiopsyOtherDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=BiopsyOtherDesc}" Visibility="Collapsed"></TextBox>
@@ -973,6 +972,201 @@
                             <CheckBox Visibility="Collapsed" Name="checkBiopsyOther" Margin="0,0,20,0" Content="{DynamicResource UserDataExaminations15}" IsChecked="{Binding Path=BiopsyOther}" Click="checkBiopsy_Click"></CheckBox>                            
                         </WrapPanel>
                         <Button Name="btnExaminations"  Grid.Row="10" Grid.Column="4" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="tabVisual" Header="{DynamicResource UserDataVisualTab}" Height="Auto">
+                    <Grid Name="grdVisual" Grid.Row="1" Margin="5,10,5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <WrapPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom">
+                            <Label Content="{DynamicResource UserDataComplaints11}" Width="250" HorizontalContentAlignment="Center"></Label>
+                            <Label Content="{DynamicResource UserDataComplaints13}" Width="250" HorizontalContentAlignment="Center"></Label>
+                        </WrapPanel>
+                        <CheckBox Grid.Row="1" Grid.Column="0" Name="chkRedSwollen" Content="{DynamicResource UserDataVisual1}" IsChecked="{Binding Path=RedSwollen}" VerticalAlignment="Center" Margin="20,0,3,0" Click="chkRedSwollen_Click"></CheckBox>
+                        <CheckBox Grid.Row="2" Grid.Column="0" Name="chkPalpable" Content="{DynamicResource UserDataVisual2}" IsChecked="{Binding Path=Palpable}" VerticalAlignment="Center" Margin="20,0,3,0" Click="chkPalpable_Click"></CheckBox>
+                        <CheckBox Grid.Row="3" Grid.Column="0" Name="chkSerous" Content="{DynamicResource UserDataVisual3}" IsChecked="{Binding Path=Serous}" VerticalAlignment="Center" Margin="20,0,3,0" Click="chkSerous_Click"></CheckBox>
+                        <CheckBox Grid.Row="4" Grid.Column="0" Name="chkWounds" Content="{DynamicResource UserDataVisual4}" IsChecked="{Binding Path=Wounds}" VerticalAlignment="Center" Margin="20,0,3,0" Click="chkWounds_Click"></CheckBox>
+                        <CheckBox Grid.Row="5" Grid.Column="0" Name="chkScars" Content="{DynamicResource UserDataVisual5}" IsChecked="{Binding Path=Scars}" VerticalAlignment="Center" Margin="20,0,3,0" Click="chkScars_Click"></CheckBox>
+                        
+                        <WrapPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <ComboBox Name="redSwollenLeft" SelectedIndex="{Binding RedSwollenLeft}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False" >
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Name="redSwollenRight" SelectedIndex="{Binding RedSwollenRight}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"   Margin="20,0,0,0">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <ComboBox Name="palpableLeft" SelectedIndex="{Binding PalpableLeft}" Width="230" BorderBrush="Gray" Background="{x:Null}"  IsEnabled="False" >
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Name="palpableRight" SelectedIndex="{Binding PalpableRight}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"   Margin="20,0,0,0">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <ComboBox Name="serousLeft" SelectedIndex="{Binding SerousLeft}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"  >
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Name="serousRight" SelectedIndex="{Binding SerousRight}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"   Margin="20,0,0,0">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <ComboBox Name="woundsLeft" SelectedIndex="{Binding WoundsLeft}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"  >
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Name="woundsRight" SelectedIndex="{Binding WoundsRight}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"   Margin="20,0,0,0">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <ComboBox Name="scarsLeft" SelectedIndex="{Binding ScarsLeft}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"  >
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox Name="scarsRight" SelectedIndex="{Binding ScarsRight}" Width="230" BorderBrush="Gray" Background="{x:Null}" IsEnabled="False"   Margin="20,0,0,0">
+                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_219}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_223}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_224}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_210}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_211}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_212}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_213}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_214}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_215}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_216}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_217}"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_218}"></ComboBoxItem>
+                            </ComboBox>
+                            
+                        </WrapPanel>
+                        <TextBlock Grid.Row="7" Grid.Column="0" Width="Auto" TextAlignment="Right" Text="{DynamicResource UserDataPersona20}" Margin="0,0,3,0"></TextBlock>
+                        <DockPanel Grid.Row="7" Grid.Column="1" Margin="0,0,20,20">
+                            <TextBox Name="txtRemark" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=Remark}"></TextBox>
+                        </DockPanel>
+                        <Button Name="btnVisual"  Grid.Row="8" Grid.Column="1" Width="100" Height="26" Margin="0,0,10,0" Content="{DynamicResource CommonSaveBtn}" HorizontalAlignment="Right" Click="Button_Click"></Button>
                     </Grid>
                 </TabItem>
             </TabControl>
