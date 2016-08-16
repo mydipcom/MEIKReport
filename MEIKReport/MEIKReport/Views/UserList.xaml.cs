@@ -117,6 +117,7 @@ namespace MEIKReport
                 btnObstetric.IsEnabled = false;
                 btnAnamnesis.IsEnabled = false;
                 btnExaminations.IsEnabled = false;
+                btnVisual.IsEnabled = false;
             }            
             
             mouseHook.MouseUp += new System.Windows.Forms.MouseEventHandler(mouseHook_MouseUp);
@@ -290,16 +291,19 @@ namespace MEIKReport
                             {
                                 if (!string.IsNullOrEmpty(person.BirthYear))
                                 {
-                                    person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
-                                    person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
-                                    person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
-                                    //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
-                                    if (!string.IsNullOrEmpty(person.Birthday))
-                                    {
-                                        int m_Y1 = DateTime.Parse(person.Birthday).Year;
-                                        int m_Y2 = DateTime.Now.Year;
-                                        person.Age = m_Y2 - m_Y1;
-                                    }
+                                    //person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
+                                    //person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
+                                    //person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
+                                    ////person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
+                                    //if (!string.IsNullOrEmpty(person.Birthday))
+                                    //{
+                                    //    int m_Y1 = DateTime.ParseExact(person.Birthday, "M/d/yyyy", System.Globalization.CultureInfo.CurrentCulture).Year;
+                                    //    int m_Y2 = DateTime.Now.Year;
+                                    //    person.Age = m_Y2 - m_Y1;
+                                    //}
+                                    int m_Y1 = Convert.ToInt32(person.BirthYear);
+                                    int m_Y2 = DateTime.Now.Year;
+                                    person.Age = m_Y2 - m_Y1;
                                 }
                                 
                             }
@@ -1867,16 +1871,20 @@ namespace MEIKReport
                 {
                     if (!string.IsNullOrEmpty(person.BirthYear))
                     {
-                        person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
-                        person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
-                        person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
-                        //person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
-                        if (!string.IsNullOrEmpty(person.Birthday))
-                        {
-                            int m_Y1 = DateTime.Parse(person.Birthday).Year;
-                            int m_Y2 = DateTime.Now.Year;
-                            person.Age = m_Y2 - m_Y1;
-                        }
+                        //person.BirthMonth = string.IsNullOrEmpty(person.BirthMonth) ? "1" : person.BirthMonth;
+                        //person.BirthDate = string.IsNullOrEmpty(person.BirthDate) ? "1" : person.BirthDate;
+                        //person.Birthday = person.BirthMonth + "/" + person.BirthDate + "/" + person.BirthYear;
+                        ////person.Regdate = registrationmonth + "/" + registrationdate + "/" + registrationyear;                                
+                        //if (!string.IsNullOrEmpty(person.Birthday))
+                        //{
+                        //    int m_Y1 = DateTime.Parse(person.Birthday).Year;
+                        //    int m_Y2 = DateTime.Now.Year;
+                        //    person.Age = m_Y2 - m_Y1;
+                        //}
+
+                        int m_Y1 = Convert.ToInt32(person.BirthYear);
+                        int m_Y2 = DateTime.Now.Year;
+                        person.Age = m_Y2 - m_Y1;
                     }
 
                 }

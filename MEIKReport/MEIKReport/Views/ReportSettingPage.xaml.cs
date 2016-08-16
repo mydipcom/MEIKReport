@@ -420,6 +420,7 @@ namespace MEIKReport
                         userList.btnObstetric.IsEnabled = true;
                         userList.btnAnamnesis.IsEnabled = true;
                         userList.btnExaminations.IsEnabled = true;
+                        userList.btnVisual.IsEnabled = true;
                         this.tabFTP.Visibility = Visibility.Collapsed;
                     }
                     else if (App.reportSettingModel.DeviceType == 2)
@@ -441,6 +442,7 @@ namespace MEIKReport
                         userList.btnObstetric.IsEnabled = false;
                         userList.btnAnamnesis.IsEnabled = false;
                         userList.btnExaminations.IsEnabled = false;
+                        userList.btnVisual.IsEnabled = false;
                         this.tabFTP.Visibility = Visibility.Collapsed;
                     }
                     else
@@ -461,6 +463,7 @@ namespace MEIKReport
                         userList.btnObstetric.IsEnabled = true;
                         userList.btnAnamnesis.IsEnabled = true;
                         userList.btnExaminations.IsEnabled = true;
+                        userList.btnVisual.IsEnabled = true;
                         this.tabFTP.Visibility = Visibility.Visible;
                     }
                 }

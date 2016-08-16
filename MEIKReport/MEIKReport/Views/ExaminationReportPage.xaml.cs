@@ -224,8 +224,8 @@ namespace MEIKReport.Views
                 LoadDataModel();
                 var reportModel=CloneReportModel();
 
-                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportFlow.xaml", false, reportModel);
-                //PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/SummaryReportFlow.xaml", false, reportModel);                
+                //PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/ExaminationReportFlow.xaml", false, reportModel);
+                PrintPreviewWindow previewWnd = new PrintPreviewWindow("Views/SummaryReportFlow.xaml", false, reportModel);                
                 previewWnd.Owner = this;
                 previewWnd.ShowInTaskbar = false;
                 previewWnd.ShowDialog();
@@ -2037,7 +2037,8 @@ namespace MEIKReport.Views
         private void btnScreenShot_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
+                this.Owner.Visibility = Visibility.Hidden;
                 this.WindowState = WindowState.Minimized;
                 App.opendWin = this;
                 ScreenCapture screenCaptureWin = new ScreenCapture(this.person);
@@ -2474,102 +2475,102 @@ namespace MEIKReport.Views
         }
 
 
-        ///// <summary>
-        ///// 選擇生成PDF報表
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void savePdfComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    var comboBox = sender as ComboBox;
-        //    if (comboBox.SelectedIndex == 2)
-        //    {
-        //        try
-        //        {
-        //            if (!Directory.Exists(dataFolder))
-        //            {
-        //                Directory.CreateDirectory(dataFolder);
-        //            }
+        /// <summary>
+        /// 選擇生成PDF報表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void savePdfComb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            if (comboBox.SelectedIndex == 2)
+            {
+                try
+                {
+                    if (!Directory.Exists(dataFolder))
+                    {
+                        Directory.CreateDirectory(dataFolder);
+                    }
 
-        //            LoadDataModel();
-        //            //Clone生成全文本的报表数据对象模型
-        //            var reportModel = CloneReportModel();
-        //            //打开文件夹对话框，选择要保存的目录
-        //            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-        //            folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
-        //            System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
-        //            if (res == System.Windows.Forms.DialogResult.OK)
-        //            {
-        //                string folderName = folderBrowserDialog.SelectedPath;
-        //                string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
-        //                //生成Examination报告的PDF文件
-        //                string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
-        //                string lfReportTempl = "Views/ExaminationReportFlow.xaml";
-        //                ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
+                    LoadDataModel();
+                    //Clone生成全文本的报表数据对象模型
+                    var reportModel = CloneReportModel();
+                    //打开文件夹对话框，选择要保存的目录
+                    System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+                    folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
+                    System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
+                    if (res == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string folderName = folderBrowserDialog.SelectedPath;
+                        string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
+                        //生成Examination报告的PDF文件
+                        string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
+                        string lfReportTempl = "Views/ExaminationReportFlow.xaml";
+                        ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
 
-        //                //生成Summary报告的PDF文件
-        //                string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
-        //                string sfReportTempl = "Views/SummaryReportFlow.xaml";
+                        //生成Summary报告的PDF文件
+                        string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
+                        string sfReportTempl = "Views/SummaryReportFlow.xaml";
 
-        //                ExportFlowDocumentPDF(sfReportTempl, sfPdfFile, reportModel, "A4");
+                        ExportFlowDocumentPDF(sfReportTempl, sfPdfFile, reportModel, "A4");
 
-        //                MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
-        //            FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-        //            MessageBox.Show(this, ex.Message);
-        //        }
-        //    }
-        //    else if (comboBox.SelectedIndex == 1)
-        //    {
-        //        try
-        //        {
-        //            if (!Directory.Exists(dataFolder))
-        //            {
-        //                Directory.CreateDirectory(dataFolder);
-        //            }
+                        MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+                    MessageBox.Show(this, ex.Message);
+                }
+            }
+            else if (comboBox.SelectedIndex == 1)
+            {
+                try
+                {
+                    if (!Directory.Exists(dataFolder))
+                    {
+                        Directory.CreateDirectory(dataFolder);
+                    }
 
-        //            LoadDataModel();
-        //            //Clone生成全文本的报表数据对象模型
-        //            var reportModel = CloneReportModel();
-        //            //打开文件夹对话框，选择要保存的目录
-        //            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-        //            folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
-        //            System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
-        //            if (res == System.Windows.Forms.DialogResult.OK)
-        //            {
-        //                string folderName = folderBrowserDialog.SelectedPath;
-        //                string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
-        //                //生成Examination报告的PDF文件
-        //                string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
-        //                string lfReportTempl = "Views/ExaminationReportFlow.xaml";
-        //                ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
+                    LoadDataModel();
+                    //Clone生成全文本的报表数据对象模型
+                    var reportModel = CloneReportModel();
+                    //打开文件夹对话框，选择要保存的目录
+                    System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+                    folderBrowserDialog.SelectedPath = this.person.ArchiveFolder;
+                    System.Windows.Forms.DialogResult res = folderBrowserDialog.ShowDialog();
+                    if (res == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string folderName = folderBrowserDialog.SelectedPath;
+                        string strName = person.SurName + (string.IsNullOrEmpty(person.GivenName) ? "" : "," + person.GivenName) + (string.IsNullOrEmpty(person.OtherName) ? "" : " " + person.OtherName) + ".pdf";
+                        //生成Examination报告的PDF文件
+                        string lfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + " LF - " + strName;
+                        string lfReportTempl = "Views/ExaminationReportFlow.xaml";
+                        ExportFlowDocumentPDF(lfReportTempl, lfPdfFile, reportModel);
 
-        //                //生成Summary报告的PDF文件
-        //                string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
-        //                string sfReportTempl = "Views/SummaryReportDocument.xaml";
-        //                if (shortFormReportModel.DataScreenShotImg != null)
-        //                {
-        //                    sfReportTempl = "Views/SummaryReportNuvoTekDocument.xaml";
-        //                }
+                        //生成Summary报告的PDF文件
+                        string sfPdfFile = folderName + System.IO.Path.DirectorySeparatorChar + person.Code + "SF - " + strName;
+                        string sfReportTempl = "Views/SummaryReportDocument.xaml";
+                        if (shortFormReportModel.DataScreenShotImg != null)
+                        {
+                            sfReportTempl = "Views/SummaryReportNuvoTekDocument.xaml";
+                        }
 
-        //                ExportPDF(sfReportTempl, sfPdfFile, reportModel);
+                        ExportPDF(sfReportTempl, sfPdfFile, reportModel);
 
-        //                MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
-        //            FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
-        //            MessageBox.Show(this, ex.Message);
-        //        }
-        //    }
+                        MessageBox.Show(this, App.Current.FindResource("Message_5").ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    FileHelper.SetFolderPower(dataFolder, "Everyone", "FullControl");
+                    FileHelper.SetFolderPower(dataFolder, "Users", "FullControl");
+                    MessageBox.Show(this, ex.Message);
+                }
+            }
 
-        //} 
+        } 
                
     }
 }

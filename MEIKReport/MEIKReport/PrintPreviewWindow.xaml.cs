@@ -147,23 +147,43 @@ namespace MEIKReport
         /// <param name="strTmplName"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static FlowDocument LoadFlowDocumentAndRender(string strTmplName, Object data)
+        public static FlowDocument LoadFlowDocumentAndRender(string strTmplName, Object data,string pagesize=null)
         {
             FlowDocument doc = (FlowDocument)Application.LoadComponent(new Uri(strTmplName, UriKind.RelativeOrAbsolute));
-            if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(pagesize))
             {
-                //doc.PagePadding = new Thickness(20);
-                doc.PageWidth = 96 * 8.5;
-                doc.PageHeight = 96 * 11;
-                doc.ColumnWidth = 734;
+                if ("Letter".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    //doc.PagePadding = new Thickness(20);
+                    doc.PageWidth = 96 * 8.5;
+                    doc.PageHeight = 96 * 11;
+                    doc.ColumnWidth = 734;
+                }
+                else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    //doc.PagePadding = new Thickness(20);
+                    doc.PageWidth = 96 * 8.27;
+                    doc.PageHeight = 96 * 11.69;
+                    doc.ColumnWidth = 734;
+                }
             }
-            else if ("A4".Equals(App.reportSettingModel.PrintPaper.ToString(), StringComparison.OrdinalIgnoreCase))
+            else
             {
-                //doc.PagePadding = new Thickness(20);
-                doc.PageWidth = 96 * 8.27;
-                doc.PageHeight = 96 * 11.69;
-                doc.ColumnWidth = 734;
-            }            
+                if ("Letter".Equals(pagesize, StringComparison.OrdinalIgnoreCase))
+                {
+                    //doc.PagePadding = new Thickness(20);
+                    doc.PageWidth = 96 * 8.5;
+                    doc.PageHeight = 96 * 11;
+                    doc.ColumnWidth = 734;
+                }
+                else if ("A4".Equals(pagesize, StringComparison.OrdinalIgnoreCase))
+                {
+                    //doc.PagePadding = new Thickness(20);
+                    doc.PageWidth = 96 * 8.27;
+                    doc.PageHeight = 96 * 11.69;
+                    doc.ColumnWidth = 734;
+                }
+            }
             doc.DataContext = data;            
 
             var shortFormReport = data as ShortFormReport;

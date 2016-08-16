@@ -114,6 +114,7 @@ namespace MEIKReport.Views
                 FileHelper.SetFolderPower(screenshotFolder, "Users", "FullControl");
                 System.Windows.MessageBox.Show(this, App.Current.FindResource("Message_10").ToString());
             }
+            App.opendWin.Owner.Visibility = Visibility.Visible;
             App.opendWin.WindowState = WindowState.Maximized;
             this.Close();
 
