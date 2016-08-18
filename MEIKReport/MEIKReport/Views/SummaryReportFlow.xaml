@@ -1153,7 +1153,7 @@
                 </TableCell>
                 <TableCell></TableCell>
                 <TableCell LineStackingStrategy="BlockLineHeight">
-                    <Paragraph LineHeight="40">                        
+                    <Paragraph>                        
                         <TextBlock Name="dataSignDate" Text="{Binding DataSignDate}" Padding="0,20,0,0"/>
                     </Paragraph>
                 </TableCell>

@@ -1547,8 +1547,12 @@ namespace MEIKReport.Views
                 if (textBlock1 != null)
                 {
                     textBlock1.Text = reportModel.DataDoctor;
-                }  
-                              
+                }
+                textBlock1 = page.FindName("dataSignDate") as TextBlock;
+                if (textBlock1 != null)
+                {
+                    textBlock1.Text = reportModel.DataSignDate;
+                }            
 
                 if(!string.IsNullOrEmpty(reportModel.DataLeftLocation)&&page.FindName("L1_Canvas")!=null){
 
