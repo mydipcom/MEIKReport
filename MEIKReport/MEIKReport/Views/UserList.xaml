@@ -490,7 +490,7 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>                            
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="270"/>
                             <ColumnDefinition Width="*"/>                            
                         </Grid.ColumnDefinitions>
                         <WrapPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="7" VerticalAlignment="Center" Name="breastCanvas">

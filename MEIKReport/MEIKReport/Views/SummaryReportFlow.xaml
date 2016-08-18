@@ -391,10 +391,10 @@
                                     <WrapPanel Grid.Row="1" Height="22">
                                         <TextBlock Text="" Width="270"></TextBlock>
                                         <WrapPanel Width="201" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                            <Label Content="左乳 Left Breast: "  Width="201" Height="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"></Label>
+                                            <Label Content="左乳 Left Breast: "  Width="201" Height="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center"></Label>
                                         </WrapPanel>
                                         <WrapPanel Width="201" HorizontalAlignment="Center">
-                                            <Label Content="右乳 Right Breast: "  Width="201" Height="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"></Label>
+                                            <Label Content="右乳 Right Breast: "  Width="201" Height="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center"></Label>
                                         </WrapPanel>
                                     </WrapPanel>
                                     <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
@@ -661,14 +661,14 @@
                                             <RowDefinition Height="16"/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="195"/>
+                                            <ColumnDefinition Width="170"/>
                                             <ColumnDefinition Width="136"/>
                                             <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="136"/>
-                                            <ColumnDefinition Width="195"/>                                            
+                                            <ColumnDefinition Width="220"/>                                            
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="左乳 Left Breast"></TextBlock>
-                                        <TextBlock Text="右乳 Right Breast" Grid.Column="3"></TextBlock>
+                                        <TextBlock Text="右乳 Right Breast" Grid.Row="0" Grid.Column="4"></TextBlock>
                                         <WrapPanel Grid.Row="1">
                                             <TextBlock Text="數量 Quantity: "></TextBlock>
                                             <TextBlock Name="dataLeftNumber" Text="{Binding DataLeftNumber}"/>
@@ -1096,11 +1096,11 @@
                                         <TextBlock Text="深入檢查 Futher examination: "></TextBlock>
                                         <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}"/>
                                     </WrapPanel>
-                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,10,0">
+                                    <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,20,0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="100"/>
-                                                <ColumnDefinition Width="560"/>
+                                                <ColumnDefinition Width="76"/>
+                                                <ColumnDefinition Width="570"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="說明 Comment: "></TextBlock>
                                             <TextBlock Grid.Column="1" Name="dataComments" Text="{Binding DataComments}" TextWrapping="Wrap" />
