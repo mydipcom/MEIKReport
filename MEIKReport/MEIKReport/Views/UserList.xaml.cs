@@ -265,9 +265,20 @@ namespace MEIKReport
                             }
 
                             bool isZH_CN = false;
-                            if (string.IsNullOrEmpty(OperateIniFile.ReadIniData("Personal data", "birth year", "", NextFile.FullName)))
+                            string local = OperateIniFile.ReadIniData("Report", "language", "", NextFile.FullName);
+                            if (!string.IsNullOrEmpty(local))
                             {
-                                isZH_CN = true;
+                                if ("zh-CN".Equals(local))
+                                {
+                                    isZH_CN = true;
+                                }
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(OperateIniFile.ReadIniData("Personal data", "birth year", "", person.CrdFilePath)))
+                                {
+                                    isZH_CN = true;
+                                }
                             }
 
                             string personalData = isZH_CN ? "个人信息" : "Personal data";
@@ -666,6 +677,8 @@ namespace MEIKReport
                             OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.CrdFilePath);
                             OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.CrdFilePath);
                             OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue, selectedUser.CrdFilePath);
+                            //保存讀取crd數據的語言類型
+                            OperateIniFile.WriteIniData("Report", "language", App.local, selectedUser.CrdFilePath);
                         }
                         catch (Exception exe)
                         {
@@ -1850,19 +1863,37 @@ namespace MEIKReport
                     MessageBox.Show(this, App.Current.FindResource("Message_35").ToString());
                     return;
                 }
-                string personalData = App.local.Equals("zh-CN") ? "个人信息" : "Personal data";
-                string complaints = App.local.Equals("zh-CN") ? "病情描述" : "Complaints";
-                string menses = App.local.Equals("zh-CN") ? "月经" : "Menses";
-                string somatic = App.local.Equals("zh-CN") ? "慢性病" : "Somatic";
-                string gynecologic = App.local.Equals("zh-CN") ? "妇科疾病" : "Gynecologic";
-                string obstetric = App.local.Equals("zh-CN") ? "产科" : "Obstetric";
-                string lactation = App.local.Equals("zh-CN") ? "哺乳期" : "Lactation";
-                string diseases = App.local.Equals("zh-CN") ? "乳腺疾病" : "Diseases";
-                string palpation = App.local.Equals("zh-CN") ? "触诊" : "Palpation";
-                string ultrasound = App.local.Equals("zh-CN") ? "超声" : "Ultrasound";
-                string mammography = App.local.Equals("zh-CN") ? "钼靶" : "Mammography";
-                string biopsy = App.local.Equals("zh-CN") ? "活检" : "Biopsy";
-                string histology = App.local.Equals("zh-CN") ? "组织学" : "Histology"; 
+
+                bool isZH_CN = false;
+                string local = OperateIniFile.ReadIniData("Report", "language", "", person.CrdFilePath);
+                if (!string.IsNullOrEmpty(local))
+                {
+                    if ("zh-CN".Equals(local))
+                    {
+                        isZH_CN = true;
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(OperateIniFile.ReadIniData("Personal data", "birth year", "", person.CrdFilePath)))
+                    {
+                        isZH_CN = true;
+                    }
+                }
+
+                string personalData = isZH_CN ? "个人信息" : "Personal data";
+                string complaints = isZH_CN ? "病情描述" : "Complaints";
+                string menses = isZH_CN ? "月经" : "Menses";
+                string somatic = isZH_CN ? "慢性病" : "Somatic";
+                string gynecologic = isZH_CN ? "妇科疾病" : "Gynecologic";
+                string obstetric = isZH_CN ? "产科" : "Obstetric";
+                string lactation = isZH_CN ? "哺乳期" : "Lactation";
+                string diseases = isZH_CN ? "乳腺疾病" : "Diseases";
+                string palpation = isZH_CN ? "触诊" : "Palpation";
+                string ultrasound = isZH_CN ? "超声" : "Ultrasound";
+                string mammography = isZH_CN ? "钼靶" : "Mammography";
+                string biopsy = isZH_CN ? "活检" : "Biopsy";
+                string histology = isZH_CN ? "组织学" : "Histology";                
 
                 //Personal Data
                 person.ClientNumber = this.txtClientNum.Text;

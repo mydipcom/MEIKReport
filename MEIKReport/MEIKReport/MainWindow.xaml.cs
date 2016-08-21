@@ -36,7 +36,7 @@ namespace MEIKReport
         protected MouseHook mouseHook = new MouseHook();
         protected KeyboardHook keyboardHook = new KeyboardHook();  
         //private WindowListen windowListen = new WindowListen();               
-        //private string meikFolder = OperateIniFile.ReadIniData("Base", "MEIK base", "C:\\Program Files (x86)\\MEIK 5.6", System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+        
         
         public MainWindow()
         {
