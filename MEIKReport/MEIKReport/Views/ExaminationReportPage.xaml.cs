@@ -290,7 +290,7 @@ namespace MEIKReport.Views
                 IntPtr mainWinHwnd = Win32Api.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "TfmMain", null);
                 //如果主窗体不存在
                 if (mainWinHwnd == IntPtr.Zero)
-                {
+                {                    
                     IntPtr diagnosticsBtnHwnd = Win32Api.FindWindowEx(App.splashWinHwnd, IntPtr.Zero, null, App.strDiagnostics);
                     Win32Api.SendMessage(diagnosticsBtnHwnd, Win32Api.WM_CLICK, 0, 0);
                 }                
@@ -344,46 +344,101 @@ namespace MEIKReport.Views
             if (dataLeftLocation.SelectedIndex > 0)
             {
                 leftBreast1 += dataLeftShape.SelectedIndex > 2 ? 2 : 1;
-                leftBreast1 += dataLeftInternalElectricalStructure.SelectedIndex > 1 ? dataLeftInternalElectricalStructure.SelectedIndex - 1 : 0;
+                leftBreast1 += dataLeftContourAroundFocus.SelectedIndex > 1 ? 2 : dataLeftContourAroundFocus.SelectedIndex;
                 leftBreast1 += dataLeftSurroundingTissues.SelectedIndex > 1 ? (dataLeftSurroundingTissues.SelectedIndex > 3 ? 2 : 1) : 0;
+                leftBreast1 += dataLeftInternalElectricalStructure.SelectedIndex > 1 ? dataLeftInternalElectricalStructure.SelectedIndex - 1 : 0;                
                 leftBreast1 += divergenceBetweenHistograms;
+                //if (leftBreast1 < 5 && dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast1 = 5;
+                //}
+                //else if (leftBreast1 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast1 = 4;
+                //}                
+                
             }
             if (dataRightLocation.SelectedIndex > 0)
             {
-                rightBreast1 += dataRightShape.SelectedIndex > 2 ? 2 : 1;
+                rightBreast1 += dataRightShape.SelectedIndex >= 2 ? 2 : 1;
+                rightBreast1 += dataRightContourAroundFocus.SelectedIndex > 1 ? 2 : dataRightContourAroundFocus.SelectedIndex;
                 rightBreast1 += dataRightInternalElectricalStructure.SelectedIndex > 1 ? dataRightInternalElectricalStructure.SelectedIndex - 1 : 0;
                 rightBreast1 += dataRightSurroundingTissues.SelectedIndex > 1 ? (dataRightSurroundingTissues.SelectedIndex > 3 ? 2 : 1) : 0;
                 rightBreast1 += divergenceBetweenHistograms;
+                //if (rightBreast1 < 5 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast1 = 5;
+                //}
+                //else if (rightBreast1 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast1 = 4;
+                //}
             }
 
             if (dataLeftLocation2.SelectedIndex > 0)
             {
-                leftBreast2 += dataLeftShape2.SelectedIndex > 2 ? 2 : 1;
+                leftBreast2 += dataLeftShape2.SelectedIndex >= 2 ? 2 : 1;
+                leftBreast2 += dataLeftContourAroundFocus2.SelectedIndex > 1 ? 2 : dataLeftContourAroundFocus2.SelectedIndex;
                 leftBreast2 += dataLeftInternalElectricalStructure2.SelectedIndex > 1 ? dataLeftInternalElectricalStructure2.SelectedIndex - 1 : 0;
                 leftBreast2 += dataLeftSurroundingTissues2.SelectedIndex > 1 ? (dataLeftSurroundingTissues2.SelectedIndex > 3 ? 2 : 1) : 0;
                 leftBreast2 += divergenceBetweenHistograms;
+                //if (leftBreast2 < 5 && dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast2 = 5;
+                //}
+                //else if (leftBreast2 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast2 = 4;
+                //}
             }
             if (dataRightLocation2.SelectedIndex > 0)
             {
-                rightBreast2 += dataRightShape2.SelectedIndex > 2 ? 2 : 1;
+                rightBreast2 += dataRightShape2.SelectedIndex >= 2 ? 2 : 1;
+                rightBreast2 += dataRightContourAroundFocus2.SelectedIndex > 1 ? 2 : dataRightContourAroundFocus2.SelectedIndex;
                 rightBreast2 += dataRightInternalElectricalStructure2.SelectedIndex > 1 ? dataRightInternalElectricalStructure2.SelectedIndex - 1 : 0;
                 rightBreast2 += dataRightSurroundingTissues2.SelectedIndex > 1 ? (dataRightSurroundingTissues2.SelectedIndex > 3 ? 2 : 1) : 0;
                 rightBreast2 += divergenceBetweenHistograms;
+                //if (rightBreast2 < 5 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast2 = 5;
+                //}
+                //else if (rightBreast2 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast2 = 4;
+                //}
             }
 
             if (dataLeftLocation3.SelectedIndex > 0)
             {
-                leftBreast3 += dataLeftShape3.SelectedIndex > 2 ? 2 : 1;
+                leftBreast3 += dataLeftShape3.SelectedIndex >= 2 ? 2 : 1;
+                leftBreast3 += dataLeftContourAroundFocus3.SelectedIndex > 1 ? 2 : dataLeftContourAroundFocus3.SelectedIndex;
                 leftBreast3 += dataLeftInternalElectricalStructure3.SelectedIndex > 1 ? dataLeftInternalElectricalStructure3.SelectedIndex - 1 : 0;
                 leftBreast3 += dataLeftSurroundingTissues3.SelectedIndex > 1 ? (dataLeftSurroundingTissues3.SelectedIndex > 3 ? 2 : 1) : 0;
                 leftBreast3 += divergenceBetweenHistograms;
+                //if (leftBreast3 < 5 && dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast3 = 5;
+                //}
+                //else if (leftBreast3 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    leftBreast3 = 4;
+                //}
             }
             if (dataRightLocation3.SelectedIndex > 0)
             {
-                rightBreast3 += dataRightShape3.SelectedIndex > 2 ? 2 : 1;
+                rightBreast3 += dataRightShape3.SelectedIndex >= 2 ? 2 : 1;
+                rightBreast3 += dataRightContourAroundFocus3.SelectedIndex > 1 ? 2 : dataRightContourAroundFocus3.SelectedIndex;
                 rightBreast3 += dataRightInternalElectricalStructure3.SelectedIndex > 1 ? dataRightInternalElectricalStructure3.SelectedIndex - 1 : 0;
                 rightBreast3 += dataRightSurroundingTissues3.SelectedIndex > 1 ? (dataRightSurroundingTissues3.SelectedIndex > 3 ? 2 : 1) : 0;
                 rightBreast3 += divergenceBetweenHistograms;
+                //if (rightBreast3 < 5 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast3 = 5;
+                //}
+                //else if (rightBreast2 >= 5 && dataLeftOncomarkerHighlightBenignChanges.SelectedIndex > 1)
+                //{
+                //    rightBreast2 = 4;
+                //}
             }
 
             List<int> list = new List<int>();
@@ -463,6 +518,46 @@ namespace MEIKReport.Views
                 this.dataLeftBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataLeftBiRadsCategory);
                 this.dataRightBiRadsCategory.SelectedIndex = Convert.ToInt32(shortFormReportModel.DataRightBiRadsCategory);
             }
+            if (this.dataConclusion.SelectedIndex == 1)
+            {
+                person.Status = "Z";
+                person.PoorImages = true;
+                OperateIniFile.WriteIniData("Report", "Poor Images", "1", person.IniFilePath);                
+            }
+            else
+            {
+                person.Status = "R";
+                person.PoorImages = false;
+                OperateIniFile.WriteIniData("Report", "Poor Images", "0", person.IniFilePath);
+            }            
+
+            if (maxLeftPoints < 5 && dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_63").ToString());
+            }
+            else if (maxLeftPoints >= 5 && dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex <= 1)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_63").ToString());
+            }
+            else if (maxRightPoints < 5 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_63").ToString());
+            }
+            else if (maxRightPoints >= 5 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex <= 1)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_63").ToString());
+            }
+
+
+            if ((dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex <= 1 && dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex <= 1) && dataConclusion.SelectedIndex == 4 )
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_62").ToString());
+            }
+            else if ((dataLeftOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1 || dataRightOncomarkerHighlightSuspiciousChanges.SelectedIndex > 1) && dataConclusion.SelectedIndex != 4)
+            {
+                MessageBox.Show(this, App.Current.FindResource("Message_62").ToString());
+            }
+
         }
 
         private void btnSignature_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,9 @@ namespace MEIKReport.Model
 
         private string archiveFolder;
         private string crdFilePath;
+        private string iniFilePath;
+        private string status;
+        private bool poorImages;
         private int id;        
         private string code;
         private string surName="";
@@ -45,7 +48,25 @@ namespace MEIKReport.Model
             get { return uploaded; }
             set { uploaded = value; OnPropertyChanged("Uploaded"); }
         }
-                        
+
+        public string IniFilePath
+        {
+            get { return iniFilePath; }
+            set { iniFilePath = value; }
+        }
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; OnPropertyChanged("Status"); }
+        }
+
+        public bool PoorImages
+        {
+            get { return poorImages; }
+            set { poorImages = value;  }
+        }
+
         public string ArchiveFolder
         {
             get { return archiveFolder; }

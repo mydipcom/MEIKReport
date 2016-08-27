@@ -110,7 +110,7 @@
                                         <TextBlock Name="dataMobile" Text="{Binding DataMobile}"></TextBlock>
                                     </WrapPanel>
                                     <WrapPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <TextBlock Text="電郵 Mobile number: "></TextBlock>
+                                        <TextBlock Text="電郵 Email: "></TextBlock>
                                         <TextBlock Name="dataEmail" Text="{Binding DataEmail}"></TextBlock>
                                     </WrapPanel>
                                 </Grid>

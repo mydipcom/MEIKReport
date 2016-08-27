@@ -507,4 +507,5 @@
     <sys:String x:Key="ReportContext_225">毫米</sys:String>
     <sys:String x:Key="ReportContext_226">結論:</sys:String>
     <sys:String x:Key="ReportContext_227">說明:</sys:String>
+    <sys:String x:Key="ReportContext_228">照片影像模糊</sys:String>
 </ResourceDictionary>

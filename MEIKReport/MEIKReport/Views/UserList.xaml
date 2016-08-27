@@ -347,6 +347,7 @@
                             <Image Focusable="False" Width="22" Height="22" Source="{Binding Path=Icon}" />
                             <TextBlock Text="{Binding Path=Code}" Width="90" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             <TextBlock Text="{Binding Path=SurName}" Width="170" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Path=Status}" Width="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"/>
                             <Image Focusable="False"  Width="18" Height="18" Source="/Images/sended.png" VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="{Binding Path=Uploaded}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -656,7 +657,8 @@
                         </Grid.RowDefinitions>                                                
                         <WrapPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0">
                             <Label Width="Auto" Content="{DynamicResource UserDataMenstrual1}"></Label>
-                            <extToolkit:DateTimePicker Name="dateLastMenstruation" Text="{Binding DateLastMenstruation}" Height="20" Width="100" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="d/M" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>                            
+                            <!--<extToolkit:DateTimePicker Name="dateLastMenstruation" Text="{Binding DateLastMenstruation}" Height="20" Width="100" AllowSpin="False" CultureInfo="en-US" Format="Custom" FormatString="d/M" ShowButtonSpinner="False" TimePickerAllowSpin="False" TimePickerShowButtonSpinner="False" TimePickerVisibility="Hidden" TextAlignment="Left"/>-->
+                            <TextBox Name="dateLastMenstruation" Text="{Binding DateLastMenstruation}" Height="20" Width="100"></TextBox>
                         </WrapPanel>
                         <CheckBox Name="checkMenstrualCycleDisorder" Grid.Row="1" Width="Auto" VerticalAlignment="Center" IsChecked="{Binding Path=MenstrualCycleDisorder}" Content="{DynamicResource UserDataAnamnesis2}" Margin="10,0,0,0"></CheckBox>
                         <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,1,0,1" Visibility="Collapsed">

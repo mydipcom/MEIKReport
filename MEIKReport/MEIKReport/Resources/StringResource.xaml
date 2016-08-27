@@ -115,6 +115,8 @@
     <sys:String x:Key="Message_59">Please enter a valid year</sys:String>
     <sys:String x:Key="Message_60">Please enter a number less than 500</sys:String>
     <sys:String x:Key="Message_61">Please enter a valid mobile number</sys:String>
+    <sys:String x:Key="Message_62">Your Analysis is different with Oncomarker Highlight, please recheck and verify the report is correct！</sys:String>
+    <sys:String x:Key="Message_63">BI-RADS Category is different with Oncomarker Highlight, please recheck and verify the report is correct！</sys:String>
 
 
     <sys:String x:Key="UserListWinBrowerLab">Selection of archive</sys:String>
@@ -480,8 +482,7 @@
     <sys:String x:Key="ReportContext_167">Benign lesion detected.</sys:String>
     <sys:String x:Key="ReportContext_168">Suspicious lesion detected. Suggest further evaluation and management.</sys:String>
     <sys:String x:Key="ReportContext_169" xml:space="preserve">Comments 02: </sys:String>
-    <sys:String x:Key="ReportContext_170">View Image</sys:String>
-    <!--<sys:String x:Key="ReportContext_171">For further consultation pls. contact LivLite Center at 0925-503-0581 or Landline 637-9661 to 68 to make an appt.</sys:String>-->
+    <sys:String x:Key="ReportContext_170">View Image</sys:String>    
     <sys:String x:Key="ReportContext_172">Refer to Surgeon – Follow up Biopsy</sys:String>
     <sys:String x:Key="ReportContext_173" xml:space="preserve">Doctor: </sys:String>
     <sys:String x:Key="ReportContext_174" xml:space="preserve">Doctor's Signature: </sys:String>
@@ -539,5 +540,6 @@
     <sys:String x:Key="ReportContext_225">mm</sys:String>
     <sys:String x:Key="ReportContext_226">Analysis:</sys:String>
     <sys:String x:Key="ReportContext_227">Comments:</sys:String>
+    <sys:String x:Key="ReportContext_228">Poor Image</sys:String>
     
 </ResourceDictionary>

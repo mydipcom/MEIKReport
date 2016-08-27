@@ -111,11 +111,11 @@ namespace MEIKReport.Common
             string fileFilter = "";
             if (deviceType == 1)
             {
-                fileFilter = @".+(\.crd)|(\.tdb)";
+                fileFilter = @".+(\.crd)|(\.ini)|(\.tdb)";
             }
             if (deviceType == 2)
             {
-                fileFilter = @".+(\.crd)|(\.dat)|(\.doc)";
+                fileFilter = @".+(\.crd)|(\.ini)|(\.dat)|(\.doc)";
             }
             (new FastZip()).CreateZip(zipFile, SourceFolderPath, true, fileFilter);
             //using (ZipFile zip = ZipFile.Create(zipFile))

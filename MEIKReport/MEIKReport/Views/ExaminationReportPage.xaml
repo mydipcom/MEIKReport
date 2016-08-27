@@ -1158,7 +1158,7 @@
                         <StackPanel Grid.Row="54" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_157}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
                             <ComboBox Name="dataRecommendation" SelectedIndex="{Binding DataRecommendation}" VerticalContentAlignment="Center" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_158}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_159}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_160}"></ComboBoxItem>
@@ -1167,7 +1167,7 @@
                         <StackPanel Grid.Row="55" Orientation="Horizontal" HorizontalAlignment="Left" >
                             <TextBlock Text="{StaticResource ReportContext_189}" Width="120" FontWeight="Bold" VerticalAlignment="Bottom" Margin="0,0,0,3"/>
                             <ComboBox Name="dataFurtherExam" SelectedIndex="{Binding DataFurtherExam}" VerticalContentAlignment="Center" Width="500" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
-                                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem IsSelected="True" Content=""></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_162}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_163}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_164}"></ComboBoxItem>
@@ -1178,6 +1178,7 @@
                             <TextBlock Text="{StaticResource ReportContext_226}" Width="120" FontWeight="Bold" VerticalAlignment="Center"/>
                             <ComboBox Name="dataConclusion" SelectedIndex="{Binding DataConclusion}" Width="620" BorderBrush="Gray" Background="{x:Null}" FontSize="10">
                                 <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="{StaticResource ReportContext_228}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_166}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_167}"></ComboBoxItem>
                                 <ComboBoxItem Content="{StaticResource ReportContext_168}"></ComboBoxItem>

@@ -81,12 +81,22 @@ namespace MEIKReport
                     if (!Directory.Exists(patientFolder))
                     {                        
                         Directory.CreateDirectory(patientFolder);                        
-                        OperateIniFile.WriteIniData("Data", "Last Code", this.txtPatientCode.Text, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");                                                                                              
+                        OperateIniFile.WriteIniData("Data", "Last Code", this.txtPatientCode.Text, System.AppDomain.CurrentDomain.BaseDirectory + "Config.ini");  
+                        //創建用戶信息文件
+                        string patientFile = patientFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + ".ini";
+                        if (!File.Exists(patientFile))
+                        {
+                            File.Create(patientFile);
+                        }                        
+                        OperateIniFile.WriteIniData("Personal data", "surname", this.txtLastName.Text, patientFile);
+                        OperateIniFile.WriteIniData("Personal data", "given name", this.txtFirstName.Text, patientFile);
+                        OperateIniFile.WriteIniData("Personal data", "other name", this.txtMiddleInitial.Text, patientFile);                                                                 
                     }
                     else
                     {
                         MessageBox.Show(this, string.Format(App.Current.FindResource("Message_24").ToString(), patientFolder));                       
                     }
+
                     UserList userlistWin = this.Owner as UserList;
                     userlistWin.loadArchiveFolder(patientFolder);
                     try

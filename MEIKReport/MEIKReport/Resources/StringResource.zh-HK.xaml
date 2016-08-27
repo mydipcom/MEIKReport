@@ -114,6 +114,8 @@
     <sys:String x:Key="Message_59">請輸入一個有效的年份數</sys:String>
     <sys:String x:Key="Message_60">請輸入小於500的數字</sys:String>
     <sys:String x:Key="Message_61">請輸入一個有效的電話號碼</sys:String>
+    <sys:String x:Key="Message_62">您的結論與腫瘤標識特徵狀況不一致，請重新檢查並確認您的報告是否正確！</sys:String>
+    <sys:String x:Key="Message_63">BI-RADS分類結果與腫瘤標識特徵狀況不一致，請重新檢查並確認您的報告是否正確！</sys:String>
 
     <sys:String x:Key="UserListWinBrowerLab">選擇客戶檔案</sys:String>
     <sys:String x:Key="UserListWinBrowerBtn">瀏覽...</sys:String>
@@ -527,4 +529,5 @@
     <sys:String x:Key="ReportContext_225">毫米</sys:String>
     <sys:String x:Key="ReportContext_226">結論:</sys:String>
     <sys:String x:Key="ReportContext_227">說明:</sys:String>
+    <sys:String x:Key="ReportContext_228">照片影像模糊</sys:String>
 </ResourceDictionary>
