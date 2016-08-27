@@ -60,16 +60,17 @@ namespace MEIKReport
             }              
             else
             {
-                string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
-                if (!Directory.Exists(dayFolder))
+                //string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+                string monthFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy");
+                if (!Directory.Exists(monthFolder))
                 {
-                    Directory.CreateDirectory(dayFolder);                    
+                    Directory.CreateDirectory(monthFolder);                    
                 }
                 
                 string patientFolder = null;
                 try
                 {
-                    patientFolder = dayFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + "-" + this.txtLastName.Text;
+                    patientFolder = monthFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + "-" + this.txtLastName.Text;
                     if (!string.IsNullOrEmpty(this.txtFirstName.Text))
                     {
                         patientFolder = patientFolder + "," + this.txtFirstName.Text;

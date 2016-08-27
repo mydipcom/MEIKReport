@@ -58,13 +58,15 @@ namespace MEIKReport
             string month = DateTime.Now.ToShortDateString();
             //修改原始MEIK程序中的档案改变日期，让原始MEIK程序运行时跨月份打开程序不会出现提示对话框
             OperateIniFile.WriteIniData("Base", "Archive change date", month, App.meikFolder + System.IO.Path.DirectorySeparatorChar + "MEIK.ini");
-            //建立当天文件夹          
-            string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
-            if (!Directory.Exists(dayFolder))
+            ////建立当天文件夹          
+            //string dayFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy") + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("dd");
+            //建立当月文件夹          
+            string monthFolder = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + DateTime.Now.ToString("MM_yyyy");
+            if (!Directory.Exists(monthFolder))
             {
-                Directory.CreateDirectory(dayFolder);
+                Directory.CreateDirectory(monthFolder);
             }
-            App.dataFolder = dayFolder;
+            App.dataFolder = monthFolder;
             //加载当前档案目录数据
             if (!string.IsNullOrEmpty(App.dataFolder))
             {
@@ -1501,7 +1503,8 @@ namespace MEIKReport
                         try
                         {
                             string monthfolder = file.Substring(2, 2) + "_20" + file.Substring(0, 2);
-                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            //folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder;
                             if (!Directory.Exists(folderpath))
                             {
                                 Directory.CreateDirectory(folderpath);
@@ -1618,7 +1621,8 @@ namespace MEIKReport
                         try
                         {
                             string monthfolder = file.Substring(2, 2) + "_20" + file.Substring(0, 2);
-                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            //folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder + System.IO.Path.DirectorySeparatorChar + file.Substring(4, 2);
+                            folderpath = App.reportSettingModel.DataBaseFolder + System.IO.Path.DirectorySeparatorChar + monthfolder;
                             if (!Directory.Exists(folderpath))
                             {
                                 Directory.CreateDirectory(folderpath);
