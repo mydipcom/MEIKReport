@@ -87,7 +87,8 @@ namespace MEIKReport
                         string patientFile = patientFolder + System.IO.Path.DirectorySeparatorChar + this.txtPatientCode.Text + ".ini";
                         if (!File.Exists(patientFile))
                         {
-                            File.Create(patientFile);
+                            var fs=File.Create(patientFile);
+                            fs.Close();
                         }                        
                         OperateIniFile.WriteIniData("Personal data", "surname", this.txtLastName.Text, patientFile);
                         OperateIniFile.WriteIniData("Personal data", "given name", this.txtFirstName.Text, patientFile);
