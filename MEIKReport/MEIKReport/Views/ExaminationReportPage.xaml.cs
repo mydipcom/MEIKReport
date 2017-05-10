@@ -101,7 +101,7 @@ namespace MEIKReport.Views
                         shortFormReportModel.DataScreenDate = DateTime.ParseExact("20" + person.Code.Substring(0, 6), "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture).ToString("yyyy年MM月dd日");
                     }
                     shortFormReportModel.DataClientNum = person.ClientNumber;
-                    shortFormReportModel.DataName = person.SurName;
+                    shortFormReportModel.DataName = person.SurName + "," + person.GivenName + " " + person.OtherName;
                     shortFormReportModel.DataAge = person.Age + "";
                     shortFormReportModel.DataAddress = person.Address;
                     shortFormReportModel.DataHeight = person.Height;
@@ -479,7 +479,7 @@ namespace MEIKReport.Views
                 rightFlag = "R2";
                 maxRightPoints=rightBreast2;
             }
-            else if (leftBreast3 >= rightBreast1 && rightBreast3 >= rightBreast2)
+            else if (rightBreast3 >= rightBreast1 && rightBreast3 >= rightBreast2)
             {
                 rightFlag = "R3";
                 maxRightPoints=rightBreast3;
@@ -1100,7 +1100,7 @@ namespace MEIKReport.Views
                 var textBlock1 = page.FindName("dataClientNum") as TextBlock;
                 if (textBlock1 != null)
                 {
-                    textBlock1.Text = reportModel.DataClientNum;
+                    textBlock1.Text = string.IsNullOrEmpty(reportModel.DataClientNum) ? "N/A" : reportModel.DataClientNum;
                 }
                 textBlock1 = page.FindName("dataUserCode") as TextBlock;
                 if (textBlock1 != null)
@@ -1711,10 +1711,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("L1_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("L1".Equals(reportModel.DataLeftMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("L1".Equals(reportModel.DataLeftMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
                 }                
 
                 if (!string.IsNullOrEmpty(reportModel.DataRightLocation) && page.FindName("L1_Canvas") != null)
@@ -1779,10 +1779,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("R1_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("R1".Equals(reportModel.DataRightMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("R1".Equals(reportModel.DataRightMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
 
                 }                
 
@@ -1848,10 +1848,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("L2_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("L2".Equals(reportModel.DataLeftMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("L2".Equals(reportModel.DataLeftMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
 
                 }                
 
@@ -1917,10 +1917,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("R2_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("R2".Equals(reportModel.DataRightMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("R2".Equals(reportModel.DataRightMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
 
                 }                
 
@@ -1986,10 +1986,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("L3_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("L3".Equals(reportModel.DataLeftMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("L3".Equals(reportModel.DataLeftMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
                 }
                 
 
@@ -2055,10 +2055,10 @@ namespace MEIKReport.Views
                         textBlock1 = page.FindName("R3_1") as TextBlock;
                         textBlock1.Visibility = Visibility.Visible;
                     }
-                    if ("R3".Equals(reportModel.DataRightMaxFlag))
-                    {
-                        textBlock1.Text = "●";
-                    }
+                    //if ("R3".Equals(reportModel.DataRightMaxFlag))
+                    //{
+                    //    textBlock1.Text = "●";
+                    //}
 
                 }                
             }
@@ -2669,7 +2669,12 @@ namespace MEIKReport.Views
                 }
             }
 
-        } 
+        }
+
+        //private void analysis_Click(object sender, RoutedEventArgs e)
+        //{
+        //    generatePoints();
+        //} 
                
     }
 }

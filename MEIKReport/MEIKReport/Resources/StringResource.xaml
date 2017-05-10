@@ -30,6 +30,8 @@
     <sys:String x:Key="CommonExportSelectBtn">Select PDF Template</sys:String>
     <sys:String x:Key="CommonExportNuvoMedBtn">NuvoTEK PDF</sys:String>
     <sys:String x:Key="CommonExportGoodUnionBtn">GoodUnino PDF</sys:String>
+    <sys:String x:Key="CommonAnalysisBtn">Analysis</sys:String>
+    
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">Client Count: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">Total # of Screening Sessions: </sys:String>
@@ -478,9 +480,9 @@
     <sys:String x:Key="ReportContext_164">Biopsy</sys:String>
     <sys:String x:Key="ReportContext_171">Consult physician for necessary examination</sys:String>
     <sys:String x:Key="ReportContext_165" xml:space="preserve">Comments 01: </sys:String>
-    <sys:String x:Key="ReportContext_166">No suspicious lesions detected at the time of exam.</sys:String>
-    <sys:String x:Key="ReportContext_167">Benign lesion detected.</sys:String>
-    <sys:String x:Key="ReportContext_168">Suspicious lesion detected. Suggest further evaluation and management.</sys:String>
+    <sys:String x:Key="ReportContext_166">No pathological changes detected</sys:String>
+    <sys:String x:Key="ReportContext_167">Benign lesion</sys:String>
+    <sys:String x:Key="ReportContext_168">Suspicious abnormality</sys:String>
     <sys:String x:Key="ReportContext_169" xml:space="preserve">Comments 02: </sys:String>
     <sys:String x:Key="ReportContext_170">View Image</sys:String>    
     <sys:String x:Key="ReportContext_172">Refer to Surgeon – Follow up Biopsy</sys:String>
@@ -541,5 +543,7 @@
     <sys:String x:Key="ReportContext_226">Analysis:</sys:String>
     <sys:String x:Key="ReportContext_227">Comments:</sys:String>
     <sys:String x:Key="ReportContext_228">Poor Image</sys:String>
+    <sys:String x:Key="ReportContext_229">Probably benign findings</sys:String>
+    <sys:String x:Key="ReportContext_230">Highly suggestive of malignancy</sys:String>
     
 </ResourceDictionary>

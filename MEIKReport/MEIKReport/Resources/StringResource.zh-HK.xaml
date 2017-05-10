@@ -29,6 +29,7 @@
     <sys:String x:Key="CommonExportSelectBtn">請選擇導出的PDF模板</sys:String>
     <sys:String x:Key="CommonExportNuvoMedBtn">NuvoTEK PDF</sys:String>
     <sys:String x:Key="CommonExportGoodUnionBtn">GoodUnino PDF</sys:String>
+    <sys:String x:Key="CommonAnalysisBtn">分析</sys:String>
 
     <sys:String x:Key="RecordsWin1" xml:space="preserve">客戶總人數: </sys:String>
     <sys:String x:Key="RecordsWin2" xml:space="preserve">設備掃描總次數: </sys:String>
@@ -465,9 +466,9 @@
     <sys:String x:Key="ReportContext_171">按照醫生的要求進行進一步檢測</sys:String>
     <!--<sys:String x:Key="ReportContext_164">乳房超聲波檢測和乳房X光照檢測</sys:String>-->
     <sys:String x:Key="ReportContext_165" xml:space="preserve">結論: </sys:String>
-    <sys:String x:Key="ReportContext_166">無發現腫瘤症狀，建議定期檢測.</sys:String>
-    <sys:String x:Key="ReportContext_167">發現良性病灶，建議後續檢查 .</sys:String>
-    <sys:String x:Key="ReportContext_168">疑似惡性發現，建議跟進檢查和處理.</sys:String>
+    <sys:String x:Key="ReportContext_166">未發現病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_167">良性病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_168">疑似異常病理性改變</sys:String>
     <sys:String x:Key="ReportContext_169" xml:space="preserve">說明: </sys:String>
     <sys:String x:Key="ReportContext_170">查看截圖</sys:String>
     <!--<sys:String x:Key="ReportContext_170">For further consultation pls. contact Nuvotek at 0917-984-8105 or Landline 475-8961 to make an appt.</sys:String>
@@ -529,5 +530,7 @@
     <sys:String x:Key="ReportContext_225">毫米</sys:String>
     <sys:String x:Key="ReportContext_226">結論:</sys:String>
     <sys:String x:Key="ReportContext_227">說明:</sys:String>
-    <sys:String x:Key="ReportContext_228">照片影像模糊</sys:String>
+    <sys:String x:Key="ReportContext_228">照片影像不清晰</sys:String>
+    <sys:String x:Key="ReportContext_229">可能良性病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_230">高度提示惡性病理性改變</sys:String>
 </ResourceDictionary>

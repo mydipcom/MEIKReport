@@ -346,7 +346,7 @@
                         <StackPanel Name="MRNListItem" Orientation="Horizontal" Height="25">
                             <Image Focusable="False" Width="22" Height="22" Source="{Binding Path=Icon}" />
                             <TextBlock Text="{Binding Path=Code}" Width="90" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBlock Text="{Binding Path=SurName}" Width="170" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Path=FullName}" Width="170" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding Path=Status}" Width="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"/>
                             <Image Focusable="False"  Width="18" Height="18" Source="/Images/sended.png" VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="{Binding Path=Uploaded}"/>
                         </StackPanel>
@@ -667,7 +667,7 @@
                         <WrapPanel Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0">
                             <CheckBox Name="checkPostmenopause" Width="Auto" VerticalAlignment="Center" HorizontalContentAlignment="Left" IsChecked="{Binding Path=Postmenopause}" Content="{DynamicResource UserDataAnamnesis3}"></CheckBox>
                             <Label Width="40" Content="{DynamicResource UserDataExaminations16}" Margin="78,0,0,0"></Label>
-                            <TextBox Name="txtPostmenopauseYear" Width="70" Text="{Binding Path=PalationYear}" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
+                            <TextBox Name="txtPostmenopauseYear" Width="70" Text="{Binding Path=PostmenopauseYear}" Height="24" PreviewTextInput="Year_PreviewTextInput"></TextBox>
                         </WrapPanel>
                         <DockPanel Grid.Row="3" Visibility="Collapsed">
                             <TextBox Name="txtPostmenopauseDesc" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Path=PostmenopauseDesc}"></TextBox>

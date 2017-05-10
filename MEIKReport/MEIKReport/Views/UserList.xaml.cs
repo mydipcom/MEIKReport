@@ -287,6 +287,15 @@ namespace MEIKReport
                             person.SurName = OperateIniFile.ReadIniData(personalData, "surname", "", NextFile.FullName);
                             person.GivenName = OperateIniFile.ReadIniData(personalData, "given name", "", NextFile.FullName);
                             person.OtherName = OperateIniFile.ReadIniData(personalData, "other name", "", NextFile.FullName);
+                            person.FullName = person.SurName;
+                            if (!string.IsNullOrEmpty(person.GivenName))
+                            {
+                                person.FullName = person.FullName + "," + person.GivenName;
+                            }
+                            if (!string.IsNullOrEmpty(person.OtherName))
+                            {
+                                person.FullName = person.FullName + " " + person.OtherName;
+                            }
                             person.Address = OperateIniFile.ReadIniData(personalData, "address", "", NextFile.FullName);
                             person.Height = OperateIniFile.ReadIniData(personalData, "height", "", NextFile.FullName);
                             person.Weight = OperateIniFile.ReadIniData(personalData, "weight", "", NextFile.FullName);
@@ -681,7 +690,7 @@ namespace MEIKReport
                         {
                             OperateIniFile.WriteIniData("Report", "Technician Name", selectedUser.TechName, selectedUser.IniFilePath);
                             OperateIniFile.WriteIniData("Report", "Technician License", selectedUser.TechLicense, selectedUser.IniFilePath);
-                            OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue, selectedUser.IniFilePath);                            
+                            //OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue, selectedUser.IniFilePath);                            
                         }
                         catch (Exception exe)
                         {
@@ -1904,6 +1913,10 @@ namespace MEIKReport
                person.ReportLanguage = this.radEnglish.IsChecked.Value;
                 OperateIniFile.WriteIniData(personalData, "is english", this.radEnglish.IsChecked.Value?"1":"0", person.IniFilePath);
 
+                if (App.reportSettingModel.DeviceType == 1)
+                {
+                    OperateIniFile.WriteIniData("Report", "Screen Venue", App.reportSettingModel.ScreenVenue, person.IniFilePath);
+                }
 
                 person.BirthDate = this.txtBirthDate.Text;
                 OperateIniFile.WriteIniData(personalData, "birth date", this.txtBirthDate.Text, person.IniFilePath);

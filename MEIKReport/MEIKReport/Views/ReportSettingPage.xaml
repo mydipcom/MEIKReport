@@ -235,12 +235,12 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
                                 <RowDefinition Height="30"/>
+                                <RowDefinition Height="0"/>
+                                <RowDefinition Height="0"/>
+                                <RowDefinition Height="0"/>
                                 <RowDefinition Height="30"/>
                                 <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="90"/>                                
+                                <RowDefinition Height="180"/>                                
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
@@ -248,12 +248,12 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{StaticResource SettingVersionLab}" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" Foreground="#FF3E6E8F"></Label>
                             <Label Content="{Binding Version}" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Foreground="#FF3E6E8F"></Label>
-                            <Label Content="{StaticResource SettingOperModelLab}" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" Foreground="#FF3E6E8F"></Label>
-                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                            <Label Visibility="Collapsed" Content="{StaticResource SettingOperModelLab}" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" Foreground="#FF3E6E8F"></Label>
+                            <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                                 <RadioButton GroupName="radDeviceType" Name="radradDeviceType1" DataContext="1" Content="{StaticResource SettingTechModel}" VerticalAlignment="Center" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1" Margin="5,0,10,0" Checked="RadioButton_Checked"></RadioButton>                                                                
                             </StackPanel>
-                            <RadioButton GroupName="radDeviceType" Name="radradDeviceType2" Grid.Row="3" Grid.Column="1" DataContext="2" Content="{StaticResource SettingDoctorModel}" VerticalAlignment="Center" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1" Margin="5,0,10,0" Checked="RadioButton_Checked"></RadioButton>
-                            <RadioButton GroupName="radDeviceType" Name="radradDeviceType3" Grid.Row="4" Grid.Column="1" DataContext="3" Content="{StaticResource SettingAdminModel}" VerticalAlignment="Center" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1" Margin="5,0,10,0" Checked="RadioButton_Checked"></RadioButton>
+                            <RadioButton Visibility="Collapsed" GroupName="radDeviceType" Name="radradDeviceType2" Grid.Row="3" Grid.Column="1" DataContext="2" Content="{StaticResource SettingDoctorModel}" VerticalAlignment="Center" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1" Margin="5,0,10,0" Checked="RadioButton_Checked"></RadioButton>
+                            <RadioButton Visibility="Collapsed" GroupName="radDeviceType" Name="radradDeviceType3" Grid.Row="4" Grid.Column="1" DataContext="3" Content="{StaticResource SettingAdminModel}" VerticalAlignment="Center" Foreground="#FF3E6E8F" BorderBrush="#FF3E6E8F" BorderThickness="1" Margin="5,0,10,0" Checked="RadioButton_Checked"></RadioButton>
                             <Label Content="{StaticResource SettingVersionCheckLab}" Grid.Row="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold" Foreground="#FF3E6E8F"></Label>
                             <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
                                 <Label Name="labVerCheckInfo" Content="{StaticResource SettingVersionCheckInfo1}" Height="26" VerticalContentAlignment="Center" Foreground="#FF3E6E8F"></Label>                               

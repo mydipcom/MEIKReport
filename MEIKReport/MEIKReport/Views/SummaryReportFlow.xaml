@@ -149,7 +149,7 @@
                                         <RowDefinition Height="20"></RowDefinition>                                        
                                     </Grid.RowDefinitions>
                                     <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <TextBlock Text="掃描編號 Screen code: "></TextBlock>
+                                        <TextBlock Text="檢測編號 Screen code: "></TextBlock>
                                         <TextBlock Name="dataUserCode" Text="{Binding DataUserCode}"/>
                                     </WrapPanel>
                                     <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -189,7 +189,7 @@
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Border BorderThickness="2,2,2,0" BorderBrush="#FF00657F" Background="#FF00657F"  CornerRadius="6,6,0,0" VerticalAlignment="Center">
-                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Left" VerticalAlignment="Center" Text="掃描圖 Screen Image" Margin="5,2,5,2" FontSize="12"></TextBlock>
+                                <TextBlock Foreground="White" Background="#FF00657F" HorizontalAlignment="Left" VerticalAlignment="Center" Text="檢測圖像 Screen Image" Margin="5,2,5,2" FontSize="12"></TextBlock>
                             </Border>
                             <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#FF00657F" Background="White">
                                 <Grid Width="692" HorizontalAlignment="Left" Margin="10,10,30,10">
@@ -210,11 +210,11 @@
                                         <ColumnDefinition Width="572"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="掃描圖中，"></TextBlock>
+                                        <TextBlock Text="檢測圖像中，"></TextBlock>
                                         <TextBlock Text="綠色標誌" Foreground="Green"></TextBlock>
-                                        <TextBlock Text="表示發現良性組織，"></TextBlock>
+                                        <TextBlock Text="表示良性組織變化，"></TextBlock>
                                         <TextBlock Text="紅色標誌" Foreground="Red"></TextBlock>
-                                        <TextBlock Text="表示可疑病變組織。"></TextBlock>
+                                        <TextBlock Text="表示疑似病變組織變化。"></TextBlock>
                                     </WrapPanel>
                                     <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock Text="Screen image-"></TextBlock>
@@ -427,7 +427,7 @@
                                             <TextBlock Name="dataRightTotalPts" Text="{Binding DataRightTotalPts}"/>
                                         </WrapPanel>
                                     </WrapPanel>
-                                    <WrapPanel Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">
+                                    <WrapPanel Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Visibility="Collapsed">
                                         <TextBlock Text="BI-RADS分類 BI-RADS Category*" Width="260"></TextBlock>
                                         <TextBlock Text=":" Width="6" HorizontalAlignment="Right"></TextBlock>
                                         <WrapPanel Width="206">
@@ -443,24 +443,24 @@
                                             <RowDefinition Height="16"/>                                            
                                             <RowDefinition Height="7*"/>                                            
                                         </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
+                                        <!-- <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="230"/>
                                             <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="432"/>
-                                        </Grid.ColumnDefinitions>
+                                        </Grid.ColumnDefinitions>-->                                        
                                         <DockPanel HorizontalAlignment="Center">
                                             <TextBlock Text="年齡相關電導率對數表" Height="16"></TextBlock>
                                         </DockPanel>
                                         <DockPanel Grid.Row="1" HorizontalAlignment="Center">
                                             <TextBlock Text="^Age-Related Electrical Conducivity scale" Height="16"></TextBlock>
                                         </DockPanel>
-                                        <DockPanel Grid.Column="2" HorizontalAlignment="Center">
+                                        <!--<DockPanel Grid.Column="2" HorizontalAlignment="Center">
                                             <TextBlock Text="BI-EIM 分數 BI-RADS 分類對數表" Height="16"></TextBlock>
                                         </DockPanel>
                                         <DockPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
                                             <TextBlock Text="*Table of BI-EIM Toal points &amp; BI-RADS Category" Height="16"></TextBlock>
-                                        </DockPanel>
-                                        <Grid Grid.Row="2">
+                                        </DockPanel>-->
+                                        <Grid Grid.Row="2" Margin="100,0,100,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="1.5*"/>
                                                 <RowDefinition Height="*"/>
@@ -561,7 +561,7 @@
                                                 <Label  Content="0.64" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
                                             </Border>
                                         </Grid>
-                                        <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,2,0">
+                                        <!--<Grid Grid.Row="2" Grid.Column="2" Margin="0,0,2,0" Visibility="Collapsed">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="1.5*"/>
                                                 <RowDefinition Height="*"/>
@@ -623,7 +623,7 @@
                                             <Border  Grid.Row="6" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,1">
                                                 <Label Padding="3,0,0,0" Content="5類 5 Category    高度可能為惡性    Highly suggestive malignancy" VerticalContentAlignment="Center"></Label>
                                             </Border>
-                                        </Grid>
+                                        </Grid>-->
                                     </Grid>
                                     <Border Grid.Row="8" BorderBrush="#FF389AAA" BorderThickness="0,0,0,1"></Border>
                                     <WrapPanel Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -1065,7 +1065,7 @@
                         <Grid Width="692">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="300"></RowDefinition>
+                                <RowDefinition Height="120"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="118"></ColumnDefinition>
@@ -1079,20 +1079,20 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20"></RowDefinition>
                                         <RowDefinition Height="20"></RowDefinition>
-                                        <RowDefinition Height="20"></RowDefinition>
-                                        <RowDefinition Height="100"></RowDefinition>
-                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="0"></RowDefinition>
+                                        <RowDefinition Height="70"></RowDefinition>
+                                        <RowDefinition Height="10"></RowDefinition>
                                         
                                     </Grid.RowDefinitions>
                                     <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                        <TextBlock Text="分析結果 Analysis: "></TextBlock>
+                                        <TextBlock Text="分析 Analysis: "></TextBlock>
                                         <TextBlock Name="dataConclusion" Text="{Binding DataConclusion}"/>
                                     </WrapPanel>
                                     <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                                         <TextBlock Text="建議 Suggestion: "></TextBlock>
                                         <TextBlock Name="dataRecommendation" Text="{Binding DataRecommendation}"/>
                                     </WrapPanel>
-                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed">
                                         <TextBlock Text="深入檢查 Futher examination: "></TextBlock>
                                         <TextBlock Name="dataFurtherExam" Text="{Binding DataFurtherExam}"/>
                                     </WrapPanel>
@@ -1116,13 +1116,259 @@
         </TableRowGroup>
     </Table>
     <!--Comment-->
-    <Table>
+    <Table Padding="50,0,50,0">
         <TableRowGroup>
             <TableRow>
-                <TableCell Padding="70,0,70,0">
-                    <Paragraph TextAlignment="Center">
-                        <TextBlock Text="上述結果是基於此次MEIK檢測，必須與之前的乳房x光和超聲波檢測結果（如有）、病歷、臨床發現以及其他程序診斷結果相結合。"></TextBlock>
-                        <TextBlock Text="The above results are based on interpretations at the time of the screening and must be correlated with previous mammogram and ultrasoundresults(if any), medical history, clinical findings, and other auxiliary procedures." TextWrapping="Wrap"></TextBlock>                        
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="多謝閣下選用《MEIK® 快速乳房健康檢測》服務。此為閣下的檢測報告。"></TextBlock>
+                        <TextBlock Text="請注意，此報告内容供專業醫生參考，不應作為诊断結果。關於閣下乳房健康情況的任何進一步疑問，請向相關醫生查詢。" Foreground="#FF00597F" TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="《MEIK® 快速乳房健康檢測》簡介" Foreground="#FF00597F"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Text="《MEIK® 快速乳房檢測技術》由國外引進（詳細介紹參閱 " TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="www.nuvo-med.com" Foreground="#FF01A6E4" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text=" ），通過射頻技術檢測乳房組織內不同種類細胞的電導性，及早找出有潛在風險的組織變化，定期監測，靈敏度高，以往臨床經驗可檢測出小至3毫米的可疑問題組織。此儀器已獲得歐盟CE，ISO9001、ISO13485及CFDA認可，並在全球26個國家的醫院及檢測中心使用，當中包括國家級政府醫院，安全性及可靠性高。" TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Table Padding="50,0,50,0">
+        <Table.Columns>
+            <TableColumn Width="20"></TableColumn>
+            <TableColumn Width="654"></TableColumn>
+            <TableColumn Width="20"></TableColumn>
+        </Table.Columns>
+        <TableRowGroup>            
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="報告導讀" Foreground="#FF00597F"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">                        
+                        <TextBlock Text="《MEIK® 快速乳房健康檢測報告》主要分為四部份。" TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">                        
+                        <TextBlock Text="第一部份（第一頁）為閣下的個人資料。" TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">                        
+                        <TextBlock Text="第二部份（第一頁下半部）顯示閣下乳房組織的分層電阻圖像，MEIK®自動化分析系統會按閣下乳房組織的電阻值，以不同顏色標示出不同類型的乳房組織變化。" TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">                        
+                        <TextBlock Text="a. " TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Padding="2,0,0,0" Text="乳房組織電阻值正常的客戶，分層電阻圖像不會有任何顏色標示。" TextWrapping="Wrap"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="b. " TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Padding="2,0,0,0" Text="綠色" Foreground="Green" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text="標示乳房內組織有輕微電阻改變，這類組織變化一般不會對身體健康構成影響，但仍建議定期監察其情況，以觀察有否發生更大的轉變。" TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="c. " TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Padding="2,0,0,0" Text="紅色" Foreground="Red" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text="標示乳房內組織有相對大電阻值改變，根據數據庫資料比較，定義為疑似病變組織變化，建議更密切監察其電阻值轉變。" TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="第三部份（第二頁）顯示閣下乳房內組織的平均電阻值，以及與相同年齡女性的平均電阻值的比較，同時列出有轉變的組織的特徵，以及其他數據，並給出一個BI-EIM分數，作為將來給醫生的參考。醫生亦可根據下半部份的圖表，了解乳房組織的變化，其位置及大小(如有)。" TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="第四部份（第三頁）為是次檢測的評估，以及《MEIK®快速乳房組織檢測》的跟進建議。" TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+
+    <!--English Comment-->
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell Padding="0,10,0,10">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="Thank you for choosing 《MEIK® Rapid Breast Tissue Screening》service. Enclosed please find your MEIK® screen report."></TextBlock>
+                        <TextBlock Text="NOTE: Results indicated in the report act as a reference only. It is not a clinical diagnosis report. Clients should consult a specialist for further questions." Foreground="#FF00597F" TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Table Padding="50,0,50,0">
+        <TableRowGroup>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="《MEIK® RAPID BREAST HEALTH SCREENING》" Foreground="#FF00597F"></TextBlock>                        
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Text="《MEIK® Rapid Breast Tissue Screening》is an imported technology (refer to " TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="www.nuvo-med.com"  Foreground="#FF01A6E4" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text=" for details). It uses the Electro Impedance Tomography (EIT) technique to measure electrical conductivity as a biomarker for various types of breast tissue, enabling early detection of abnormal changes of breast tissue. With high sensitivity and being non-invasive, it allows for screening suspicious tissue as small as 3 mm, and is best suited for close monitoring of any abnormalities. The MEIK® device is certified by EU CE, ISO9001, ISO13485 and CFDA, and is widely used in over 26 countries worldwide including national government hospitals." TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Table Padding="50,0,50,0">
+        <Table.Columns>
+            <TableColumn Width="20"></TableColumn>
+            <TableColumn Width="654"></TableColumn>
+            <TableColumn Width="20"></TableColumn>
+        </Table.Columns>
+        <TableRowGroup>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="REPORT GUIDELINE" Foreground="#FF00597F"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="The report is divided into 4 parts." TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="Part 1 ( page 1): Client's personal information." TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="Part 2 (also in page 1): Displays the electrical impedance image of client's breast tissue in different layers. MEIK® distinguishes the impedance changes with three possible results:" TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="a. " TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Padding="2,0,0,0" Text="Images with no colour: Normal impedance value in breast tissue." TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="b. " TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Padding="2,0,0,0" Text="Images with " TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text="GREEN" Foreground="Green" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text=" colour: Slight impedance changes in breast tissue value. These changes are probably due to benign changes and routine monitoring is recommended to keep track of any further changes." TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Paragraph TextAlignment="Right">
+                        <TextBlock Text="c. " TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+                <TableCell>
+                    <Paragraph TextAlignment="Left">
+                        <WrapPanel>
+                            <TextBlock Padding="2,0,0,0" Text="Images with " TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text="RED" Foreground="Red" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Padding="2,0,0,0" Text=" colour: Relatively high impedance changes in breast tissue value which are defined as suspicious abnormality in tissue changes. Close monitoring on the impedance changes is recommended." TextWrapping="Wrap"></TextBlock>
+                        </WrapPanel>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="Part 3 (page 2): Displays the average electrical impedance value of client's breast tissue, and comparison with values of females of same age. Also displayed are the characteristics and other relevant data for the breast tissues with changes detected. A BI-EIM total point is also derived as a reference for future doctor evaluation. Doctors can also refer to the corresponding diagrams to understand more about the nature of changes, location, and size (if any)." TextWrapping="Wrap"></TextBlock>
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell ColumnSpan="2">
+                    <Paragraph TextAlignment="Left">
+                        <TextBlock Text="Part 4 (page 3): Overall assessment of the screening, and any suggestion of re-examination with MEIK® Rapid Breast Tissue Screening." TextWrapping="Wrap"></TextBlock>
                     </Paragraph>
                 </TableCell>
             </TableRow>
@@ -1130,7 +1376,7 @@
     </Table>
 
     <!--簽名-->
-    <Table Padding="52,50,52,20">
+    <Table Padding="52,30,52,20">
         <Table.Columns>
             <TableColumn Width="203"></TableColumn>
             <TableColumn Width="43"></TableColumn>
@@ -1140,7 +1386,7 @@
         </Table.Columns>        
         <TableRowGroup>
             <TableRow>
-                <TableCell LineStackingStrategy="BlockLineHeight">
+                <!--<TableCell LineStackingStrategy="BlockLineHeight">
                     <Paragraph>
                         <TextBlock Name="dataDoctor" Text="{Binding DataDoctor}" Padding="0,20,0,0"/>
                     </Paragraph>
@@ -1151,7 +1397,7 @@
                         <Image Name="dataSignImg" Width="202" Height="40" Stretch="Fill"/>
                     </BlockUIContainer>
                 </TableCell>
-                <TableCell></TableCell>
+                <TableCell></TableCell>-->
                 <TableCell LineStackingStrategy="BlockLineHeight">
                     <Paragraph>                        
                         <TextBlock Name="dataSignDate" Text="{Binding DataSignDate}" Padding="0,20,0,0"/>
@@ -1159,21 +1405,21 @@
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell LineStackingStrategy="BlockLineHeight">
+                <!--<TableCell LineStackingStrategy="BlockLineHeight">
                     <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
                 </TableCell>
                 <TableCell/>
                 <TableCell LineStackingStrategy="BlockLineHeight">
                     <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
                 </TableCell>
-                <TableCell/>
+                <TableCell/>-->
                 <TableCell LineStackingStrategy="BlockLineHeight">
                     <Paragraph BorderBrush="Black" BorderThickness="0,0,0,1" LineHeight="2"/>
                 </TableCell>
 
             </TableRow>
             <TableRow>
-                <TableCell LineHeight="14">
+                <!--<TableCell LineHeight="14">
                     <Paragraph>
                         <TextBlock Text="醫生姓名 Doctor's name"/>                        
                     </Paragraph>
@@ -1184,7 +1430,7 @@
                         <TextBlock Text="醫生簽署 Doctor's signature" />
                     </Paragraph>                    
                 </TableCell>
-                <TableCell/>
+                <TableCell/>-->
                 <TableCell>
                     <Paragraph>
                         <TextBlock Text="日期 Date" />
@@ -1193,7 +1439,7 @@
             </TableRow>
         </TableRowGroup>
     </Table>
-    <Table Padding="50,358,50,0">
+    <Table Padding="50,10,50,0">
         <TableRowGroup>
             <TableRow>
                 <TableCell>
@@ -1205,7 +1451,7 @@
         </TableRowGroup>
     </Table>
     <!--Page Footer-->
-    <Paragraph Padding="0,25,0,0" LineStackingStrategy="BlockLineHeight">
+    <Paragraph Padding="0,10,0,0" LineStackingStrategy="BlockLineHeight">
         <TextBlock Height="36" Width="794" Foreground="White" Padding="50,10,50,5" VerticalAlignment="Center" Background="#FF00657F" Text="Unit A-C, 7/F, 10 Knutsford Terrace, Tsim Sha Tsui, Kowloon, Hong Kong.    Tel. 3188 3562    Fax. 3188 3270"></TextBlock>
     </Paragraph>
 </FlowDocument>

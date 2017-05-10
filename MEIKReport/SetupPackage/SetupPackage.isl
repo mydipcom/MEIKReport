@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>##ID_STRING5##</title>
-		<subject>MEIK Application</subject>
+		<subject>MEIK Report</subject>
 		<author>##ID_STRING3##</author>
 		<keywords></keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -1157,7 +1157,7 @@
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MEIK_REPORT_TOOLS</td><td>USWOP</td><td>MEIKRE~1|MEIKReportTools</td><td/><td>0</td><td/></row>
+		<row><td>MEIK_REPORT_TOOLS</td><td>USWOP</td><td>MEIKRE~1|MEIKReport</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>USWOP_</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME1</td><td>USWOP_TECH</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME2</td><td>USWOP</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1186,7 +1186,7 @@
 		<row><td>USWOP_TECH</td><td>ProgramFilesFolder</td><td>USWOPT~1|uSWOP Tech</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
-		<row><td>meikre_1_meik_report_tools</td><td>ProgramMenuFolder</td><td>MEIKAP~1|MEIK Application</td><td/><td>1</td><td/></row>
+		<row><td>meikre_1_meik_report_tools</td><td>ProgramMenuFolder</td><td>MEIKRE~1|MEIK Report</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -2358,6 +2358,7 @@
 		<col key="yes" def="s72">ISProductConfiguration_</col>
 		<col key="yes" def="s72">Property</col>
 		<col def="L255">Value</col>
+		<row><td>Express</td><td>SetupFileName</td><td>MEIKReportSetup</td></row>
 	</table>
 
 	<table name="ISRelease">
@@ -3468,7 +3469,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME20</td><td>1033</td><td>MEIKCountTool</td><td>0</td><td/><td>1764027524</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME21</td><td>1033</td><td>CountTool</td><td>0</td><td/><td>-1708884109</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME22</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1557880331</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIK Application v1.2.7</td><td>0</td><td/><td>-601577906</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME23</td><td>1033</td><td>MEIKReport</td><td>0</td><td/><td>748958219</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME24</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289440960</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME25</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289449056</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME26</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1289484640</td></row>
@@ -3503,6 +3504,11 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME52</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-1138466421</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME53</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-870041011</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME54</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-601567666</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME55</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-333161856</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME56</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>-198954545</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME57</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>748990955</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME58</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>748987051</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME59</td><td>1033</td><td>Uninstall</td><td>0</td><td/><td>1151615923</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.vshost.exe</td><td>0</td><td/><td>-1331414193</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1331368081</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME8</td><td>1033</td><td>LAUNCH~1.EXE|Launch gxpswin32-9.18.exe</td><td>0</td><td/><td>-1331396560</td></row>
@@ -3929,19 +3935,19 @@
 		<row><td>MEIKReport.exe11_2A130161D7C645A888FFB32DE27F8636.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>MEIKReport.exe11_CD6A4059065347D8A879050BD6C7F0E5.exe</td><td/><td>C:\Project\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_5C39DEEDA93C49DFA505BA24EB2BC7AC.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
+		<row><td>MEIKReport.exe1_60E271ADA2384F1EAEB37CDC4D0C8448.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_93B342EA6010420ABD20F1715038F728.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_A2BBE899F29B47E1A9D297F923F89CF3.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_D83A1BEF79FC4AEF9228C22C03E81A56.exe</td><td/><td>C:\Project\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_D9BC28919B474EB980354E29666485EC.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
-		<row><td>MEIKReport.exe1_EF9039C2F6504AFCAF39444187D4DC79.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe_006540BAEE00476F856FBC0AE8F9C1CC.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>MEIKReport.exe_5D642EB9D6FA4B27BD4D42D02DAB49C3.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>MEIKReport.exe_5F26F852E471426DB20FC6F270F7D609.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>MEIKReport.exe_737015C2F3F4475E8CE34C1D0FE261CD.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
-		<row><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
+		<row><td>MEIKReport.exe_DD32062E731E4A9EAA4FC9637DB83971.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._4AC7B27DC24D43F58F79A0989C531056.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>MEIKReport.vshost._921A93303EDF44198AED9424A387D844.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
-		<row><td>UNINST_Uninstall_M_C5E45288FEDA43DBB6FA112ECA6DE299.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_M_BBFB430A69684C81A2338B9D22DD1BE1.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
 		<row><td>_Built1_1A91FD199E2448249A648ABBB6E24D16.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>_Built_83A6700512F646F2AE773A4749AF7F83.exe</td><td/><td>C:\Users\CampRay\Desktop\MEIK-ICON_256-256.ICO</td><td>0</td></row>
 		<row><td>gxpswin32_9.18.exe_6E8A6916FD5240BD93847524EAEABF61.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4456,9 +4462,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MEIKReport.exe</td><td/></row>
-		<row><td>ProductCode</td><td>{66B6CAB2-06C4-4695-BC60-668CE5E8C9DD}</td><td/></row>
-		<row><td>ProductName</td><td>MEIK Application</td><td/></row>
-		<row><td>ProductVersion</td><td>1.2.7</td><td/></row>
+		<row><td>ProductCode</td><td>{17C5546A-57B4-4C74-B6C6-B678A1DEB029}</td><td/></row>
+		<row><td>ProductName</td><td>MEIK Report</td><td/></row>
+		<row><td>ProductVersion</td><td>1.3.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4474,7 +4480,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{EEF30F78-7AFC-49FD-834C-12B5F42FD0FA}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{8FEEC00E-263C-4A62-AC07-B20BCD7F2A9A}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4536,7 +4542,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
 		<row><td>MEIKReport.exe</td><td>MEIKReport.exe</td><td/><td>meikre_1_meik_report_tools</td><td>2</td></row>
-		<row><td>UNINST_Uninstall_MEIK_Application</td><td>IS_ININSTALL_SHORTCUT</td><td/><td>meikre_1_meik_report_tools</td><td>2</td></row>
+		<row><td>UNINST_Uninstall_MEIK_Report</td><td>IS_ININSTALL_SHORTCUT</td><td/><td>meikre_1_meik_report_tools</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4622,9 +4628,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>MEIKReport.exe</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe_C9439A262DFA4B4E87FA4694F7F00164.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>MEIKReport.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe1_EF9039C2F6504AFCAF39444187D4DC79.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>UNINST_Uninstall_MEIK_Application</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME54##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {66B6CAB2-06C4-4695-BC60-668CE5E8C9DD}</td><td/><td/><td>UNINST_Uninstall_M_C5E45288FEDA43DBB6FA112ECA6DE299.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>MEIKReport.exe</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe_DD32062E731E4A9EAA4FC9637DB83971.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>MEIKReport.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME23##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe1_60E271ADA2384F1EAEB37CDC4D0C8448.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>UNINST_Uninstall_MEIK_Report</td><td>meikre_1_meik_report_tools</td><td>##IDS_SHORTCUT_DISPLAY_NAME59##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {17C5546A-57B4-4C74-B6C6-B678A1DEB029}</td><td/><td/><td>UNINST_Uninstall_M_BBFB430A69684C81A2338B9D22DD1BE1.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

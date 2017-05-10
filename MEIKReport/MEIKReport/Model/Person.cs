@@ -130,6 +130,17 @@ namespace MEIKReport.Model
             }
         }
 
+        private string fullName;
+        public string FullName
+        {
+            get { return this.fullName; }
+            set
+            {
+                this.fullName = value;
+                OnPropertyChanged("FullName");
+            }
+        }
+
         public string Gender
         {
             get { return this.gender; }
