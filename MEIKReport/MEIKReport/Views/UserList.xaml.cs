@@ -1670,7 +1670,7 @@ namespace MEIKReport
                                     //从服务器下载数据文件                                    
                                     NameValueCollection postDict = new NameValueCollection();
                                     postDict.Add("fileid", fileid);
-                                    var resPath = HttpWebTools.DownloadFile(App.reportSettingModel.CloudPath + "/api/downloadData", patientFolder, filename, postDict, App.reportSettingModel.CloudToken, 120000);
+                                    var resPath = HttpWebTools.DownloadFile(App.reportSettingModel.CloudPath + "/api/downloadData", patientFolder, filename, postDict, App.reportSettingModel.CloudToken, 900000);
                                     if (resPath == null)
                                     {
                                         errMsg.Add(downloadPath + " :: " + App.Current.FindResource("Message_40").ToString());
