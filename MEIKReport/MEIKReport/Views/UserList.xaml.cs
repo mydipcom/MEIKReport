@@ -59,7 +59,7 @@ namespace MEIKReport
             }
             InitializeComponent();
             languageUS.Foreground = App.local.Equals("en-US") ? new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4)) : Brushes.White;
-            languageHK.Foreground = App.local.Equals("zh-CN") ? new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4)) : Brushes.White; 
+            //languageHK.Foreground = App.local.Equals("zh-CN") ? new SolidColorBrush(Color.FromRgb(0x40, 0xc4, 0xe4)) : Brushes.White; 
             //listLang.SelectedIndex = App.local.Equals("en-US") ? 0 : App.local.Equals("zh-HK") ? 1 : 1;
             
             //加载初始化配置

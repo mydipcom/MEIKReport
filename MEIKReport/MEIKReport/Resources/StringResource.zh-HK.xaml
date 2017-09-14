@@ -525,8 +525,8 @@
 
     <sys:String x:Key="ReportContext_228">沒有發現病理性改變</sys:String>
     <sys:String x:Key="ReportContext_166">沒有發現病理性改變，（平均電導率）屬於高風險類型</sys:String>
-    <sys:String x:Key="ReportContext_167">發現良性病理性改變</sys:String>
-    <sys:String x:Key="ReportContext_229">發現良性病理性改變，（平均電導率）屬於高風險類型</sys:String>
+    <sys:String x:Key="ReportContext_167">發現疑似良性病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_229">發現疑似良性病理性改變，（平均電導率）屬於高風險類型</sys:String>
     <sys:String x:Key="ReportContext_168">發現可疑病理性改變</sys:String>
     <sys:String x:Key="ReportContext_230">發現高度可疑病理性改變</sys:String>
     
@@ -597,8 +597,8 @@
     <sys:String x:Key="ReportContext_234">備註</sys:String>
     <sys:String x:Key="ReportContext_235" xml:space="preserve">醫生簽名</sys:String>
     <sys:String x:Key="ReportContext_236">照片影像模糊, 需重新掃描</sys:String>
-    <sys:String x:Key="ReportContext_237">發現疑似良性病理性改變</sys:String>
-    <sys:String x:Key="ReportContext_238">發現疑似良性病理性改變 – (平均電導率) 屬於高風險型</sys:String>
+    <sys:String x:Key="ReportContext_237">發現良性病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_238">發現良性病理性改變 – (平均電導率) 屬於高風險型</sys:String>
     <sys:String x:Key="ReportContext_239">在第2階段月經週期內進行MEIK檢查</sys:String>
     <sys:String x:Key="ReportContext_240">超聲波檢測</sys:String>
     <sys:String x:Key="ReportContext_241">超聲波檢測和乳房X光照檢測</sys:String>
