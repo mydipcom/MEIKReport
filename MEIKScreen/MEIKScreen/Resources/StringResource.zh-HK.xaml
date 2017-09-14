@@ -527,8 +527,8 @@
 
     <sys:String x:Key="ReportContext_228">沒有發現病理性改變</sys:String>
     <sys:String x:Key="ReportContext_166">沒有發現病理性改變，（平均電導率）屬於高風險類型</sys:String>
-    <sys:String x:Key="ReportContext_167">發現良性病理性改變</sys:String>
-    <sys:String x:Key="ReportContext_229">發現良性病理性改變，（平均電導率）屬於高風險類型</sys:String>
+    <sys:String x:Key="ReportContext_167">發現疑似良性病理性改變</sys:String>
+    <sys:String x:Key="ReportContext_229">發現疑似良性病理性改變，（平均電導率）屬於高風險類型</sys:String>
     <sys:String x:Key="ReportContext_168">發現可疑病理性改變</sys:String>
     <sys:String x:Key="ReportContext_230">發現高度可疑病理性改變</sys:String>
     
