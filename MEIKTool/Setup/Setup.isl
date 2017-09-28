@@ -3756,6 +3756,7 @@
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.meikasia.com</td><td>0</td><td/><td>1042605009</td></row>
 		<row><td>ID_STRING10</td><td>1033</td><td>MEIKReport</td><td>0</td><td/><td>547740811</td></row>
 		<row><td>ID_STRING11</td><td>1033</td><td>LAUNCH~1.EXE|Launch MEIKReport.exe</td><td>0</td><td/><td>-1322925568</td></row>
+		<row><td>ID_STRING12</td><td>1033</td><td>MEIKTool.exe</td><td>0</td><td/><td>1957021070</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>meikasia</td><td>0</td><td/><td>1042605009</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>admin@campray.com</td><td>0</td><td/><td>-1515978388</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>http://www.meikasia.com</td><td>0</td><td/><td>1042605009</td></row>
@@ -3881,6 +3882,7 @@
 		<row><td>MEIKReport.exe1_876127B5A8C449D1A98EFCF6E7246578.exe</td><td/><td>D:\NewGit\MEIK_Cloud\MEIKTool\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_89FC67BFFF6B4BB6900481CA6B2A07F5.exe</td><td/><td>D:\NewGit\MEIK_Cloud\MEIKTool\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_C08D6BCC6BF847EE804F43285499CEC7.exe</td><td/><td>D:\NewGit\MEIK_Standalone\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
+		<row><td>MEIKReport.exe1_D3F70D54B6AC4621A541B047D229A8BC.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKTool\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe1_ED740BECC9EB490D8CD739CBA6E31ABA.exe</td><td/><td>C:\Users\CampRay\Downloads\20170101\MEIK_Cloud\MEIKTool\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe_0849CB8D3FD844ADADFBE6F87867B05F.exe</td><td/><td>D:\NewGit\MEIK_Standalone\MEIKReport\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
 		<row><td>MEIKReport.exe_64D0B2C8BBA24A42B01BF08C9511BB34.exe</td><td/><td>D:\NewGit\MEIKReport\MEIKTool\MEIKReport\bin\Release\MEIKReport.exe</td><td>0</td></row>
@@ -4572,6 +4574,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>MEIKReport.exe</td><td>meiktool</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe_64D0B2C8BBA24A42B01BF08C9511BB34.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>MEIKReport.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME19##</td><td>MEIKReport.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>MEIKReport.exe1_D3F70D54B6AC4621A541B047D229A8BC.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>UNINST_Uninstall_MEIKTool</td><td>meiktool</td><td>##IDS_SHORTCUT_DISPLAY_NAME20##</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {0F004749-B205-4B4E-85C5-09E65D56E214}</td><td/><td/><td>UNINST_Uninstall_M_DD2A27CEEDBF4AF386601B5D85158B4A.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
