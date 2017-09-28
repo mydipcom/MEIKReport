@@ -60,6 +60,7 @@ namespace MEIKReport.Common
         {            
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
+            request.Timeout = 600000;
             if (!string.IsNullOrEmpty(token))
             {
                 request.Headers.Add("Authorization", token);
